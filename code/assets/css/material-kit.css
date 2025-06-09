@@ -17907,3 +17907,6 @@ footer .pull-center {
 }
 
 /*# sourceMappingURL=kit-free.css.map */
+/* Custom fix for responsive navbar */
+.navbar-nav{flex-wrap:wrap;}
+
