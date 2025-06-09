@@ -61,7 +61,11 @@
       padding-top: 20px !important;
     }
     .navbar.navbar-transparent {
-      background-color: transparent !important;
+      background-color: rgba(255,255,255,0.95) !important;
+    }
+    .navbar.navbar-transparent .nav-link,
+    .navbar.navbar-transparent .navbar-brand {
+      color: #333 !important;
     }
     .navbar.fixed-top.scrolled {
       background-color: #fff !important;
