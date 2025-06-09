@@ -746,6 +746,7 @@ function getChapters($conn, $class_id, $subject_id) {
     }
     
     .nav-link {
+        white-space: nowrap;
       color: #333 !important;
       display: flex;
       align-items: center;
@@ -786,6 +787,7 @@ function getChapters($conn, $class_id, $subject_id) {
       }
       
       .nav-link {
+        white-space: nowrap;
         color: #333 !important;
         padding: 8px 15px !important;
       }
@@ -942,6 +944,7 @@ function getChapters($conn, $class_id, $subject_id) {
       }
       
       .nav-pills-rose .nav-link {
+        white-space: nowrap;
         padding: 15px 25px !important;
         margin-bottom: 10px;
         border-radius: 8px;
@@ -1137,6 +1140,7 @@ function getChapters($conn, $class_id, $subject_id) {
       }
       
       .nav-pills-rose.flex-column .nav-link {
+        white-space: nowrap;
           text-align: center;
           padding: 10px !important;
           border-radius: 4px;
@@ -1263,6 +1267,7 @@ function getChapters($conn, $class_id, $subject_id) {
     /* Desktop interaction styles */
     @media (min-width: 992px) {
       .nav-pills .nav-link {
+        white-space: nowrap;
         transition: transform 0.2s ease;
       }
       
@@ -1356,7 +1361,7 @@ function getChapters($conn, $class_id, $subject_id) {
         </button>
       </div>
       <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav mx-auto">
           <li class="nav-item">
             <a href="manage_classes_subjects.php" class="nav-link">
               <i class="material-icons">school</i> Manage Classes & Subjects

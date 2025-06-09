@@ -187,6 +187,9 @@
       position: relative;
       display: inline-block;
     }
+    .nav-link {
+      white-space: nowrap;
+    }
   </style>
 </head>
 
@@ -211,7 +214,7 @@
         </button>
       </div>
       <div class="collapse navbar-collapse" >
-        <ul class="navbar-nav ml-auto" >
+        <ul class="navbar-nav mx-auto" >
           <li class="nav-item" >
             <a href="quizhome.php" class="nav-link">
               <i class="material-icons">queue_play_next</i> Attempt Quiz
