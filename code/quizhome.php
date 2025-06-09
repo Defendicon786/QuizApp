@@ -51,6 +51,7 @@ try {
             font-size: 1.3rem;
         }
         .nav-link {
+        white-space: nowrap;
             color: #333 !important;
             font-weight: 500;
         }
@@ -104,7 +105,7 @@ try {
                 </button>
             </div>
             <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav mx-auto">
                     <?php if (isset($_SESSION["instructorloggedin"]) && $_SESSION["instructorloggedin"] === true): ?>
                     <!-- Instructor Navigation -->
                     <li class="nav-item">

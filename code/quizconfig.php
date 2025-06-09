@@ -737,6 +737,7 @@ function saveSelectedQuestions() {
     }
     
     .nav-link {
+        white-space: nowrap;
       color: #333 !important;
       display: flex;
       align-items: center;
@@ -777,6 +778,7 @@ function saveSelectedQuestions() {
       }
       
       .nav-link {
+        white-space: nowrap;
         color: #333 !important;
         padding: 8px 15px !important;
       }
@@ -961,6 +963,7 @@ function saveSelectedQuestions() {
       margin-bottom: 15px;
     }
     .question-tabs .nav-link {
+        white-space: nowrap;
       color: #495057;
       padding: 8px 15px;
     }
@@ -1091,7 +1094,7 @@ function saveSelectedQuestions() {
         </button>
       </div>
       <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav mx-auto">
           <li class="nav-item">
             <a href="manage_classes_subjects.php" class="nav-link">
               <i class="material-icons">school</i> Manage Classes & Subjects

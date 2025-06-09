@@ -417,6 +417,7 @@ $conn->close();
     }
     
     .navbar.scrolled .nav-link {
+        white-space: nowrap;
         color: #555 !important;
     }
     
@@ -455,6 +456,7 @@ $conn->close();
         }
         
         .navbar .nav-link {
+        white-space: nowrap;
             padding: 0.5rem 0;
         }
         
@@ -548,7 +550,7 @@ $conn->close();
         </button>
       </div>
       <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav mx-auto">
           <li class="nav-item">
             <a href="manage_classes_subjects.php" class="nav-link">
               <i class="material-icons">school</i> Manage Classes & Subjects

@@ -171,7 +171,7 @@
         </button>
       </div>
       <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav mx-auto">
           <li class="nav-item">
             <a href="manage_classes_subjects.php" class="nav-link">
               <i class="material-icons">school</i> Manage Classes & Subjects

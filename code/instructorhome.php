@@ -42,6 +42,7 @@
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       }
       .navbar-collapse .nav-link {
+        white-space: nowrap;
         color: #333 !important;
       }
       .page-header .brand h1 {
@@ -72,6 +73,7 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
     .navbar.fixed-top.scrolled .nav-link {
+        white-space: nowrap;
       color: #333 !important;
     }
     .navbar.fixed-top.scrolled .navbar-brand {
@@ -80,6 +82,7 @@
     
     /* Additional UI Improvements */
     .nav-link {
+        white-space: nowrap;
       display: flex;
       align-items: center;
       gap: 5px;
@@ -173,7 +176,7 @@
         </button>
       </div>
       <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav mx-auto">
           <li class="nav-item">
             <a href="manage_classes_subjects.php" class="nav-link">
               <i class="material-icons">school</i> Manage Classes & Subjects
