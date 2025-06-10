@@ -12,16 +12,22 @@ function initDarkMode(){
     if(navList){
       const li=document.createElement('li');
       li.className='nav-item d-flex align-items-center';
-      li.innerHTML='<div class="form-check form-switch mb-0">'+
-                   '<input class="form-check-input position-static" type="checkbox" id="darkModeToggle">'+
+      li.innerHTML='<div class="togglebutton mb-0">'+
+                   '  <label class="m-0">'+
+                   '    <input type="checkbox" id="darkModeToggle">'+
+                   '    <span class="toggle"></span>'+
+                   '  </label>'+
                    '</div>';
       navList.appendChild(li);
     } else if(navContainer){
       const div=document.createElement('div');
       div.className='d-flex align-items-center ml-auto';
       div.style.marginLeft='auto';
-      div.innerHTML='<div class="form-check form-switch mb-0">'+
-                    '<input class="form-check-input position-static" type="checkbox" id="darkModeToggle">'+
+      div.innerHTML='<div class="togglebutton mb-0">'+
+                    '  <label class="m-0">'+
+                    '    <input type="checkbox" id="darkModeToggle">'+
+                    '    <span class="toggle"></span>'+
+                    '  </label>'+
                     '</div>';
       navContainer.appendChild(div);
     }
