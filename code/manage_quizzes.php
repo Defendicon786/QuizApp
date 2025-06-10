@@ -312,6 +312,7 @@ $conn->close();
             margin-top: 60px;
             min-height: calc(100vh - 60px);
             position: relative;
+            padding-top: 80px; /* Ensure content is visible below fixed navbar */
         }
         .card {
             margin-bottom: 30px;
@@ -321,6 +322,12 @@ $conn->close();
             min-height: calc(100vh - 170px);
             padding-bottom: 50px;
             position: relative;
+        }
+
+        @media (min-width: 992px) {
+            .page-header {
+                padding-top: 120px !important;
+            }
         }
     </style>
 </head>
@@ -396,7 +403,7 @@ $conn->close();
 
     <div class="main-container">
         <div class="page-header header-filter" style="background-image: url('./assets/img/bg2.jpg'); background-size: cover; background-position: top center;">
-            <div class="container" style="padding-top: 15vh;">
+            <div class="container" style="padding-top: 30vh;">
                 <div class="row">
                     <div class="col-md-12 ml-auto mr-auto">
                         <div class="card card-login">
