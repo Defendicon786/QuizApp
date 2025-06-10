@@ -243,6 +243,13 @@
             </a>
           </li>
           <li class="nav-item">
+<?php if(isset($upcoming_quiz) && $upcoming_quiz): ?>
+            <a href="quizpage.php" class="nav-link">ATTEMPT QUIZ</a>
+<?php else: ?>
+            <a href="#" class="nav-link" onclick="alert('No quiz is currently available.'); return false;">ATTEMPT QUIZ</a>
+<?php endif; ?>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="studentlogout.php" data-original-title="Get back to Login Page">
               <i class="material-icons">power_settings_new</i></i> Log Out
             </a>
@@ -282,7 +289,7 @@
                 <h4 class="card-title">Take Quiz</h4>
                 <p class="card-text">Start your quiz now</p>
                 <?php if(isset($upcoming_quiz) && $upcoming_quiz): ?>
-                  <a href="quizhome.php" class="btn btn-primary">Start Quiz</a>
+                  <a href="quizpage.php" class="btn btn-primary">Start Quiz</a>
                 <?php else: ?>
                   <a href="#" class="btn btn-primary" onclick="alert('No quiz is currently available.'); return false;">Start Quiz</a>
                 <?php endif; ?>
