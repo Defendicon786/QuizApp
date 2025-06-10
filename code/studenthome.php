@@ -192,6 +192,23 @@
     .nav-link {
       white-space: nowrap;
     }
+
+    .card {
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card-title {
+      color: #333;
+      font-weight: 600;
+    }
+    .card-text {
+      color: #666;
+    }
   </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
@@ -267,9 +284,31 @@
         </div>
         <br>
         <br>
+        <div class="row justify-content-center mt-4" style="width: 100%;">
+          <div class="col-md-6 mb-4">
+            <div class="card">
+              <div class="card-body text-center">
+                <i class="material-icons" style="font-size: 48px; color: #1a73e8;">assignment</i>
+                <h4 class="card-title">Take Quiz</h4>
+                <p class="card-text">Start your quiz now</p>
+                <a href="quizhome.php" class="btn btn-primary">Start Quiz</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4">
+            <div class="card">
+              <div class="card-body text-center">
+                <i class="material-icons" style="font-size: 48px; color: #1a73e8;">assessment</i>
+                <h4 class="card-title">My Results</h4>
+                <p class="card-text">View your quiz results and performance</p>
+                <a href="my_results.php" class="btn btn-primary">View Results</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       </div>
     </div>
-  </div>  
     <footer class="footer footer-default">
         <div class="container">
             <div class="copyright" style="text-align: center; width: 100%;">
