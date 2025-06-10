@@ -856,8 +856,8 @@ function saveSelectedQuestions() {
     .page-header {
       min-height: auto !important;
       height: auto !important;
-      margin: 0 !important;
-      padding: 20px 0 !important;
+      margin: 60px 0 0 0 !important;
+      padding: 90px 0 20px 0 !important;
       background-image: none !important;
       background-color: #f5f5f5 !important;
     }
