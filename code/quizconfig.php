@@ -168,8 +168,7 @@ function getAvailableQuestionsCount($conn, $chapter_ids) {
 
 ?>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
-// Add this JavaScript function before </head>
-echo "<script>
+<script>
 function updateAvailableQuestions() {
     var chapterIds = $('#chapter_ids').val();
     var topicIds = $('#modal_topic_ids').val();
@@ -229,10 +228,9 @@ $('#random_quiz_checkbox').on('change', function() {
         }
     }
 });
-</script>";
+</script>
 
-// Add this JavaScript function for initialization of Select2
-echo "<script>
+<script>
 $(document).ready(function() {
   // Initialize Select2 for all dropdowns
   $('#subject_id, #class_id, #chapter_ids, #section_id, #modal_topic_ids').select2({
@@ -240,10 +238,9 @@ $(document).ready(function() {
     minimumResultsForSearch: 10
   });
 });
-</script>";
+</script>
 
-// Add this JavaScript function before form submission
-echo "<script>
+<script>
 function validateQuestionCounts() {
     var chapterIds = $('#chapter_ids').val();
     if(!chapterIds || chapterIds.length === 0) {
@@ -293,8 +290,7 @@ $(document).ready(function() {
         }
     });
 });
-</script>";
-?>
+</script>
 
 <!-- Add JavaScript for loading questions and handling manual question selection -->
 <script>
