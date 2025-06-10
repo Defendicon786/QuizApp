@@ -291,7 +291,11 @@
                 <i class="material-icons" style="font-size: 48px; color: #1a73e8;">assignment</i>
                 <h4 class="card-title">Take Quiz</h4>
                 <p class="card-text">Start your quiz now</p>
-                <a href="quizhome.php" class="btn btn-primary">Start Quiz</a>
+                <?php if(isset($upcoming_quiz) && $upcoming_quiz): ?>
+                  <a href="quizhome.php" class="btn btn-primary">Start Quiz</a>
+                <?php else: ?>
+                  <a href="#" class="btn btn-primary" onclick="alert('No quiz is currently available.'); return false;">Start Quiz</a>
+                <?php endif; ?>
               </div>
             </div>
           </div>
