@@ -17910,3 +17910,12 @@ footer .pull-center {
 /* Custom fix for responsive navbar */
 .navbar-nav{flex-wrap:wrap;}
 
+/* Background image for all logged in pages */
+body.landing-page.sidebar-collapse,
+body.login-page.sidebar-collapse{
+  background-image:url('../img/bg2.jpg');
+  background-size:cover;
+  background-position:top center;
+  background-attachment:fixed;
+}
+

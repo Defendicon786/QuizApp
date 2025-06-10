@@ -34,3 +34,12 @@ body.dark-mode .btn.btn-primary {
 body.dark-mode .btn {
   color: #fff;
 }
+
+/* Background image for all logged in pages */
+body.landing-page.sidebar-collapse,
+body.login-page.sidebar-collapse {
+  background-image: url('../img/bg2.jpg');
+  background-size: cover;
+  background-position: top center;
+  background-attachment: fixed;
+}

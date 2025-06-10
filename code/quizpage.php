@@ -764,7 +764,7 @@ try {
     </script>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
-<body>
+<body class="landing-page sidebar-collapse">
     <div class="wrapper">
         <div class="content">
             <div class="container-fluid">
