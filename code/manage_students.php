@@ -607,9 +607,12 @@ $conn->close();
                         </a>
                     </li>
           <li class="nav-item d-flex align-items-center">
-            <div class="form-check form-switch mb-0">
-              <input class="form-check-input position-static" type="checkbox" id="darkModeToggle">
-            </div>
+            <div class="togglebutton mb-0">
+                <label class="m-0">
+                  <input type="checkbox" id="darkModeToggle">
+                  <span class="toggle"></span>
+                </label>
+              </div>
           </li>
                 </ul>
             </div>
