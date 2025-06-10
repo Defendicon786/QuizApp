@@ -254,14 +254,6 @@
               <i class="material-icons">power_settings_new</i></i> Log Out
             </a>
           </li>          
-          <li class="nav-item d-flex align-items-center">
-            <div class="togglebutton mb-0">
-                <label class="m-0">
-                  <input type="checkbox" id="darkModeToggle">
-                  <span class="toggle"></span>
-                </label>
-              </div>
-          </li>
         </ul>
       </div>
     </div>
@@ -358,6 +350,11 @@
   <script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
   <script src="./assets/js/plugins/jquery.sharrre.js" type="text/javascript"></script>
   <script src="./assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
+
+  <script>
+    // Disable dark mode toggle insertion on this page
+    window.DISABLE_DARK_MODE_TOGGLE = true;
+  </script>
   
   <script>
     $(document).ready(function() {

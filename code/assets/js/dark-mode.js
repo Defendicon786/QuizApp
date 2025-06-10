@@ -8,7 +8,7 @@ function initDarkMode(){
   }
   const navList=document.querySelector('.navbar .navbar-nav');
   const navContainer=document.querySelector('.navbar .container');
-  if(!document.getElementById('darkModeToggle')){
+  if(!window.DISABLE_DARK_MODE_TOGGLE && !document.getElementById('darkModeToggle')){
     if(navList){
       const li=document.createElement('li');
       li.className='nav-item d-flex align-items-center';
@@ -33,16 +33,23 @@ function initDarkMode(){
     }
   }
   const toggle=document.getElementById('darkModeToggle');
-  if(!toggle) return;
   function apply(d){
-    if(d){document.body.classList.add('dark-mode');toggle.checked=true;}
-    else{document.body.classList.remove('dark-mode');toggle.checked=false;}
+    if(d){
+      document.body.classList.add('dark-mode');
+      if(toggle) toggle.checked=true;
+    }
+    else{
+      document.body.classList.remove('dark-mode');
+      if(toggle) toggle.checked=false;
+    }
   }
-  toggle.addEventListener('change',function(){
-    const en=toggle.checked;
-    localStorage.setItem('darkMode',en?'on':'off');
-    apply(en);
-  });
+  if(toggle){
+    toggle.addEventListener('change',function(){
+      const en=toggle.checked;
+      localStorage.setItem('darkMode',en?'on':'off');
+      apply(en);
+    });
+  }
   const saved=localStorage.getItem('darkMode');
   apply(saved==='on');
 }
