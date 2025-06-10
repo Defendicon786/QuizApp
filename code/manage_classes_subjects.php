@@ -1427,5 +1427,46 @@ $stmt->close();
     <script src="./assets/js/plugins/moment.min.js"></script>
     <script src="./assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
 <script src="./assets/js/dark-mode.js"></script>
+
+    <script>
+    // Dynamic filter dropdowns for Topics management
+    $(document).ready(function(){
+        const classSelect = $('select[name="topic_class"]');
+        const subjectSelect = $('select[name="topic_subject"]');
+        const chapterSelect = $('select[name="topic_chapter"]');
+
+        // When class changes, load relevant subjects and clear chapters
+        classSelect.on('change', function(){
+            const classId = $(this).val();
+            subjectSelect.html('<option value="">Select Subject</option>');
+            chapterSelect.html('<option value="">Select Chapter</option>');
+            if(classId){
+                fetch('get_subjects.php?class_id=' + classId)
+                    .then(res => res.json())
+                    .then(data => {
+                        data.forEach(function(sub){
+                            subjectSelect.append('<option value="'+sub.subject_id+'">'+sub.subject_name+'</option>');
+                        });
+                    });
+            }
+        });
+
+        // When subject changes, load chapters for selected class and subject
+        subjectSelect.on('change', function(){
+            const classId = classSelect.val();
+            const subjectId = $(this).val();
+            chapterSelect.html('<option value="">Select Chapter</option>');
+            if(classId && subjectId){
+                fetch('get_chapters.php?class_id=' + classId + '&subject_id=' + subjectId)
+                    .then(res => res.json())
+                    .then(data => {
+                        data.forEach(function(ch){
+                            chapterSelect.append('<option value="'+ch.chapter_id+'">'+ch.chapter_name+'</option>');
+                        });
+                    });
+            }
+        });
+    });
+    </script>
 </body>
 </html> 
