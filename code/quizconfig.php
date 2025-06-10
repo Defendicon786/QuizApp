@@ -839,7 +839,7 @@ function saveSelectedQuestions() {
     /* Existing Styles */
     body {
       overflow-x: hidden;
-      padding-top: 50px;
+      padding-top: 70px;
       background-color: #f5f5f5;
     }
     .navbar {
