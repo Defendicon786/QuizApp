@@ -213,11 +213,10 @@ $conn->close();
         }
     </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
-<link rel="stylesheet" href="./assets/css/container.css" />
 </head>
 <body class="landing-page sidebar-collapse">
     <nav class="navbar main-navbar fixed-top navbar-expand-lg">
-        <div class="container app-container">
+        <div class="container">
             <div class="navbar-translate">
                 <a class="navbar-brand" href="instructorhome.php">Quiz Portal</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -295,7 +294,7 @@ $conn->close();
 
     <div class="wrapper">
         <div class="main main-raised">
-            <div class="container app-container">
+            <div class="container">
                 <div class="section text-center">
                     <h2 class="title">Manage Instructors</h2>
                 </div>
@@ -341,7 +340,7 @@ $conn->close();
         </div>
 
         <footer class="footer footer-default">
-            <div class="container app-container">
+            <div class="container">
                 <div class="copyright text-center">
                     <div class="department">Biology Department NPS</div>
                     <div class="designer">Designed By Sir Hassan Tariq</div>

@@ -175,10 +175,3 @@ All PHP files were linted using `php -l` and no syntax errors were detected.
 ---
 
     
-## Responsive Container System
-A reusable container style is provided in `code/assets/css/container.css`.
-It defines CSS variables controlling container width, padding and colors.
-All pages now include this stylesheet alongside `dark-mode.css`. The
-`.app-container` class ensures a consistent max-width of 1200px with
-responsive padding adjustments. Color variables adapt automatically when
-dark mode is enabled so content remains legible in both themes.

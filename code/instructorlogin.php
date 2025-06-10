@@ -238,7 +238,6 @@
         }
     </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
-<link rel="stylesheet" href="./assets/css/container.css" />
 </head>
 
 <body class="login-page">
@@ -249,7 +248,7 @@
     </div>
 
     <div class="page-header">
-        <div class="container app-container">
+        <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
                     <div class="card card-login">
@@ -280,7 +279,7 @@
     </div>
 
     <footer class="footer footer-default">
-        <div class="container app-container">
+        <div class="container">
             <div class="copyright text-center">
                 <div class="department">Biology Department NPS</div>
                 <div class="designer">Designed by Sir Hassan Tariq</div>

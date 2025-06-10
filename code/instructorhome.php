@@ -162,12 +162,11 @@
     }
   </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
-<link rel="stylesheet" href="./assets/css/container.css" />
 </head>
 
 <body class="landing-page sidebar-collapse">
   <nav class="navbar main-navbar fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
-    <div class="container app-container">
+    <div class="container">
       <div class="navbar-translate">
         <a class="navbar-brand" href="instructorhome.php">Quiz Portal</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -248,13 +247,13 @@
     </div>
   </nav>
   <div class="page-header header-filter clear-filter" data-parallax="true" style="background-image: url('./assets/img/profile_city.jpg')">
-    <div class="container app-container">
+    <div class="container">
       <div class="row ">
       </div>
     </div>
   </div>  
     <footer class="footer footer-default">
-        <div class="container app-container">
+        <div class="container">
             <div class="copyright text-center">
                 <div class="department">Biology Department NPS</div>
                 <div class="designer">Designed By Sir Hassan Tariq</div>

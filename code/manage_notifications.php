@@ -157,12 +157,11 @@
     }
   </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
-<link rel="stylesheet" href="./assets/css/container.css" />
 </head>
 
 <body class="landing-page sidebar-collapse">
   <nav class="navbar main-navbar fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
-    <div class="container app-container">
+    <div class="container">
       <div class="navbar-translate">
         <a class="navbar-brand" href="instructorhome.php">Quiz Portal</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -244,7 +243,7 @@
   </nav>
   
   <div class="main main-raised" style="margin-top: 100px; min-height: calc(100vh - 300px);">
-    <div class="container app-container">
+    <div class="container">
       <div class="section">
         <div class="row">
           <div class="col-md-12 text-center">
@@ -255,7 +254,7 @@
         
         <?php if(isset($success_message)): ?>
           <div class="alert alert-success">
-            <div class="container app-container">
+            <div class="container">
               <div class="alert-icon">
                 <i class="material-icons">check</i>
               </div>
@@ -269,7 +268,7 @@
         
         <?php if(isset($error_message)): ?>
           <div class="alert alert-danger">
-            <div class="container app-container">
+            <div class="container">
               <div class="alert-icon">
                 <i class="material-icons">error_outline</i>
               </div>
@@ -399,7 +398,7 @@
   </div>
   
   <footer class="footer footer-default">
-    <div class="container app-container">
+    <div class="container">
       <div class="copyright text-center">
         <div class="department">Biology Department NPS</div>
         <div class="designer">Designed By Sir Hassan Tariq</div>
