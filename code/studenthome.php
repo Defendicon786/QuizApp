@@ -305,8 +305,8 @@
     <footer class="footer footer-default">
         <div class="container">
             <div class="copyright" style="text-align: center; width: 100%;">
-                Biology Department NPS<br>
-                Designed By Sir Hassan Tariq<br>
+                A Project of StudyHT.com<br>
+                Designed and  Developed By Sir Hassan Tariq<br>
                 &copy;
                 <script>
                     document.write(new Date().getFullYear())
