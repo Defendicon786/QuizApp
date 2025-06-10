@@ -20,6 +20,8 @@ if (isset($_SESSION['error'])) {
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="./assets/css/material-kit.css?v=2.0.4" rel="stylesheet" />
+    <!-- Animation library for on-scroll animations -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <style>
         .page-header {
             height: 100vh;
@@ -234,10 +236,10 @@ if (isset($_SESSION['error'])) {
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="brand text-center">
+                    <div class="brand text-center" data-aos="zoom-in">
                         <h1 class="title text-white">Online Quiz Portal</h1>
                         <h3 class="description text-white">Welcome to the Quiz Portal. Please select your role to continue.</h3>
-                        <div class="buttons-container">
+                        <div class="buttons-container" data-aos="fade-up" data-aos-delay="300">
                             <a href="instructorlogin.php" class="btn btn-primary btn-lg">
                                 <i class="material-icons">person_outline</i> Instructor Login
                             </a>
@@ -269,5 +271,12 @@ if (isset($_SESSION['error'])) {
     <script src="./assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
     <script src="./assets/js/plugins/moment.min.js"></script>
     <script src="./assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
+    <!-- AOS animation library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true
+        });
+    </script>
 </body>
-</html> 
+</html>

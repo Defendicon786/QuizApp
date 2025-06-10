@@ -656,6 +656,8 @@ try {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Animation library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!-- Bootstrap JS -->
@@ -777,7 +779,7 @@ try {
                 
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card">
+                        <div class="card" data-aos="fade-up">
                             <div class="card-header card-header-primary">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -816,11 +818,11 @@ try {
                                 <form method="post" action="quizpage.php?n=<?php echo $current_n; ?>">
                                     <input type="hidden" name="serialnumber" value="<?php echo $current_n; ?>">
                                     
-                                    <div class="question-text mb-4">
+                                    <div class="question-text mb-4" data-aos="fade-right">
                                         <h4><?php echo htmlspecialchars($question['question_text']); ?></h4>
                                     </div>
                                     
-                                    <div class="answer-section">
+                                    <div class="answer-section" data-aos="fade-left">
                                         <?php switch($question['qtype']): 
                                             case 'a': // MCQ ?>
                                                 <div class="form-group">
@@ -925,5 +927,12 @@ try {
             </div>
         </div>
     </div>
+    <!-- AOS animation library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true
+        });
+    </script>
 </body>
 </html>
