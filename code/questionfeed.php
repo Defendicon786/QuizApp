@@ -1421,7 +1421,7 @@ function getChapters($conn, $class_id, $subject_id) {
     </div>
   </nav>
 
-  <div class="page-header header-filter clear-filter" style="background-image: url('./assets/img/profile_city.jpg'); background-size: cover; background-position: top center; position: relative;">
+  <div class="page-header header-filter clear-filter" style="background-image: url('./assets/img/bg2.jpg'); background-size: cover; background-position: top center; position: relative;">
     <div class="container">
       <div class="row" style="margin-bottom: 50px; position: relative; z-index: 2;">
         <div class="col-lg-10 col-md-10 ml-auto mr-auto">
