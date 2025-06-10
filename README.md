@@ -182,3 +182,6 @@ All pages now include this stylesheet alongside `dark-mode.css`. The
 `.app-container` class ensures a consistent max-width of 1200px with
 responsive padding adjustments. Color variables adapt automatically when
 dark mode is enabled so content remains legible in both themes.
+
+## Post-Login Background Cleanup
+All authenticated pages now use a plain white background with no images. This reduces visual clutter and keeps the focus on quiz content. The rule lives in `code/assets/css/dark-mode.css` and overrides any inline page headers or body backgrounds.
