@@ -209,6 +209,59 @@
     .card-text {
       color: #666;
     }
+
+    /* Footer Styles */
+    .footer {
+      padding: 30px 0;
+      margin-top: 50px;
+      background: #f8f9fa;
+      border-top: 1px solid #eee;
+      position: relative;
+      width: 100%;
+      bottom: 0;
+    }
+
+    .footer .copyright {
+      color: #555;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .footer .copyright strong {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .footer .copyright .department {
+      color: #1a73e8;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .footer .copyright .designer {
+      font-style: italic;
+      margin: 5px 0;
+    }
+
+    .footer .copyright .year {
+      background: #1a73e8;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-top: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .footer {
+        padding: 20px 0;
+        margin-top: 30px;
+      }
+
+      .footer .copyright {
+        font-size: 12px;
+      }
+    }
   </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
@@ -304,13 +357,12 @@
     </div>
     <footer class="footer footer-default">
         <div class="container">
-            <div class="copyright" style="text-align: center; width: 100%;">
-                A Project of StudyHT.com<br>
-                Designed and  Developed By Sir Hassan Tariq<br>
-                &copy;
-                <script>
-                    document.write(new Date().getFullYear())
-                </script>
+            <div class="copyright text-center">
+                <div class="department">A Project of StudyHT.com</div>
+                <div class="designer">Designed and Developed By Sir Hassan Tariq</div>
+                <div class="year">
+                    &copy; <script>document.write(new Date().getFullYear())</script>
+                </div>
             </div>
         </div>
     </footer>
