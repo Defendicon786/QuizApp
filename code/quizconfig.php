@@ -168,7 +168,6 @@ function getAvailableQuestionsCount($conn, $chapter_ids) {
 
 ?>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
-<link rel="stylesheet" href="./assets/css/container.css" />
 // Add this JavaScript function before </head>
 echo "<script>
 function updateAvailableQuestions() {
@@ -1085,12 +1084,11 @@ function saveSelectedQuestions() {
     }
   </script>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
-<link rel="stylesheet" href="./assets/css/container.css" />
 </head>
 
 <body class="landing-page sidebar-collapse">
   <nav class="navbar main-navbar fixed-top navbar-expand-lg">
-    <div class="container app-container">
+    <div class="container">
       <div class="navbar-translate">
         <a class="navbar-brand" href="instructorhome.php">Quiz Portal</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -1167,7 +1165,7 @@ function saveSelectedQuestions() {
   </nav>
 
   <div class="page-header">
-    <div class="container app-container">
+    <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-10 col-md-12">
           <div class="card card-login">
