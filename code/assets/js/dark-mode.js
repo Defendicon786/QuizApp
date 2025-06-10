@@ -29,4 +29,8 @@ function initDarkMode(){
   const saved=localStorage.getItem('darkMode');
   apply(saved==='on');
 }
-document.addEventListener('DOMContentLoaded',initDarkMode);
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',initDarkMode);
+}else{
+  initDarkMode();
+}
