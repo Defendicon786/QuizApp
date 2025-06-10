@@ -155,7 +155,7 @@ $conn->close(); // Close connection here before outputting HTML
     </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
-<body>
+<body class="landing-page sidebar-collapse">
     <div class="container">
         <h3>Mark Calculation Status</h3>
         <div class="message <?php echo (strpos($message, 'Error:') === 0 || strpos($message, 'No responses') === 0 || strpos($message, 'No submission') === 0) ? 'message-error' : 'message-success'; ?>">

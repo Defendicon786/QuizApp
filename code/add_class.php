@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
-<body>
+<body class="landing-page sidebar-collapse">
     <div class="container">
         <div class="header-nav">
             <a href="instructorhome.php">Home</a>
