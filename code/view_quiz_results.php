@@ -373,6 +373,11 @@ $conn->close();
                             <i class="material-icons">power_settings_new</i> Log Out
                         </a>
                     </li>
+          <li class="nav-item d-flex align-items-center">
+            <div class="form-check form-switch mb-0">
+              <input class="form-check-input" type="checkbox" id="darkModeToggle">
+            </div>
+          </li>
                 </ul>
             </div>
         </div>
