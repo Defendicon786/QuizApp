@@ -646,15 +646,8 @@ function getChapters($conn, $class_id, $subject_id) {
     }
     
     /* Decorative element for desktop */
-    .page-header:before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(156, 39, 176, 0.7) 0%, rgba(123, 31, 162, 0.7) 100%);
-      z-index: 0;
+    .page-header::before {
+      display: none; /* Remove purple overlay */
     }
     
     /* Fix for header content visibility */
@@ -1428,7 +1421,7 @@ function getChapters($conn, $class_id, $subject_id) {
     </div>
   </nav>
 
-  <div class="page-header header-filter" style="background-image: url('./assets/img/bg3.jpg'); background-size: cover; background-position: top center; position: relative;">
+  <div class="page-header header-filter clear-filter" style="background-image: url('./assets/img/profile_city.jpg'); background-size: cover; background-position: top center; position: relative;">
     <div class="container">
       <div class="row" style="margin-bottom: 50px; position: relative; z-index: 2;">
         <div class="col-lg-10 col-md-10 ml-auto mr-auto">
