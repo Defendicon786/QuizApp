@@ -95,6 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_class']) && $cl
          .header-nav a { margin: 0 10px; text-decoration: none; color: #007bff; }
          .header-nav a:hover { text-decoration: underline; }
     </style>
+<link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
 <body>
     <div class="container">
@@ -132,5 +133,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_class']) && $cl
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="./assets/js/dark-mode.js"></script>
 </body>
 </html> 

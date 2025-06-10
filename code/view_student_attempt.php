@@ -377,6 +377,7 @@ $conn->close();
             margin-bottom: 20px;
         }
     </style>
+<link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
 <body class="landing-page sidebar-collapse">
     <nav class="navbar fixed-top navbar-expand-lg">
@@ -677,5 +678,6 @@ $conn->close();
     <script src="./assets/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
     <script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
     <script src="./assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
+<script src="./assets/js/dark-mode.js"></script>
 </body>
 </html> 

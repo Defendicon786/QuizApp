@@ -166,6 +166,7 @@ function getAvailableQuestionsCount($conn, $chapter_ids) {
     return $counts;
 }
 
+<link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 // Add this JavaScript function before </head>
 echo "<script>
 function updateAvailableQuestions() {
@@ -1080,6 +1081,7 @@ function saveSelectedQuestions() {
         document.getElementById("total").innerHTML = ta+tb+tc+td+te+tf;
     }
   </script>
+<link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
 
 <body class="landing-page sidebar-collapse">
@@ -2026,5 +2028,6 @@ function saveSelectedQuestions() {
       });
     });
   </script>
+<script src="./assets/js/dark-mode.js"></script>
 </body>
 </html>
