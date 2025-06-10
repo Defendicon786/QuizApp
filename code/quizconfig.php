@@ -839,7 +839,7 @@ function saveSelectedQuestions() {
     /* Existing Styles */
     body {
       overflow-x: hidden;
-      padding-top: 50px;
+      padding-top: 80px;
       background-color: #f5f5f5;
     }
     .navbar {
@@ -857,6 +857,7 @@ function saveSelectedQuestions() {
       min-height: auto !important;
       height: auto !important;
       margin: 0 !important;
+      margin-top: 80px;
       padding: 20px 0 !important;
       background-image: none !important;
       background-color: #f5f5f5 !important;
