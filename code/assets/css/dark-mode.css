@@ -40,11 +40,22 @@ body.dark-mode .btn {
   color: #fff;
 }
 
-/* Background image for all logged in pages */
+/* Background styling for logged-in pages */
 body.landing-page.sidebar-collapse,
 body.login-page.sidebar-collapse {
-  background-image: url('../img/bg2.jpg');
-  background-size: cover;
-  background-position: top center;
-  background-attachment: fixed;
+  background-image: none !important;
+}
+
+body.landing-page.sidebar-collapse:not(.dark-mode),
+body.login-page.sidebar-collapse:not(.dark-mode) {
+  background-color: #FFFFFF;
+}
+
+.page-header.header-filter {
+  background-image: none !important;
+  background-color: #FFFFFF !important;
+}
+
+body.dark-mode .page-header.header-filter {
+  background-color: #1e1e1e !important;
 }
