@@ -11420,7 +11420,7 @@ label {
 
 @media all and (max-width: 375px) {
   .page-header {
-    height: calc(100vh + 270px);
+    height: 100vh;
   }
   .index-page {
     overflow-x: hidden;
@@ -17550,7 +17550,7 @@ footer .pull-center {
     overflow-y: scroll;
   }
   .navbar.navbar-transparent .navbar-toggler .navbar-toggler-icon {
-    background-color: #fff;
+    background-color: #333;
   }
   #bodyClick {
     height: 100%;

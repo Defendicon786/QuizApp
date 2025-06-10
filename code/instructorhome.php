@@ -100,7 +100,7 @@
       padding: 0;
     }
     .navbar-toggler-icon {
-      background-color: #fff;
+      background-color: #333;
       height: 2px;
       margin: 4px 0;
       display: block;
