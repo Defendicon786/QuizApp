@@ -55,7 +55,7 @@ class QuizExporter {
                 <html>
                 <head>
                     <meta charset="UTF-8">
-                    <title>Narowal Public School and College - ' . $title . '</title>
+                    <title>Created by Sir Hassan Tariq - ' . $title . '</title>
                     <style>
                         body { 
                             font-family: Arial, sans-serif; 
@@ -228,7 +228,7 @@ class QuizExporter {
         
         // Exam header section
         $html .= '<div class="exam-header">
-                    <div class="exam-logo">Narowal Public School and College</div>
+                    <div class="exam-logo">Created by Sir Hassan Tariq</div>
                     <div class="exam-title">' . htmlspecialchars($quiz['quizname']) . '</div>
                     <div class="exam-subtitle">Class: ' . htmlspecialchars($quiz['class_name'] ?? 'N/A') . ' | Subject: ' . htmlspecialchars($quiz['subject_name'] ?? 'N/A') . '</div>
                   </div>';
