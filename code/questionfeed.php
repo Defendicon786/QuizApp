@@ -861,9 +861,7 @@ function getChapters($conn, $class_id, $subject_id) {
     
     .card-header {
       border-radius: 6px;
-      margin-left: 15px;
-      margin-right: 15px;
-      margin-top: -30px;
+      margin: 0;
       padding: 15px;
     }
     
@@ -921,6 +919,7 @@ function getChapters($conn, $class_id, $subject_id) {
       
       .card-header {
         padding: 20px;
+        margin: 0;
       }
       
       .card-title {
