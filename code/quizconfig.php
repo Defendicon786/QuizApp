@@ -166,6 +166,7 @@ function getAvailableQuestionsCount($conn, $chapter_ids) {
     return $counts;
 }
 
+?>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 // Add this JavaScript function before </head>
 echo "<script>
