@@ -83,6 +83,7 @@ $results = $stmt->get_result();
         }
     </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
+    <link href="./assets/css/portal.css" rel="stylesheet" />
 </head>
 <body class="landing-page sidebar-collapse">
     <div class="container mt-4">
