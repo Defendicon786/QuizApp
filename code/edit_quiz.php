@@ -604,7 +604,7 @@ $conn->close();
           </li>
           <li class="nav-item d-flex align-items-center">
             <div class="form-check form-switch mb-0">
-              <input class="form-check-input" type="checkbox" id="darkModeToggle">
+              <input class="form-check-input position-static" type="checkbox" id="darkModeToggle">
             </div>
           </li>
         </ul>
@@ -715,7 +715,7 @@ $conn->close();
                     <div class="col-md-3">
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" name="random_quiz" value="1" <?php if($q_is_random) echo 'checked'; ?>>
+                                <input class="form-check-input position-static" type="checkbox" name="random_quiz" value="1" <?php if($q_is_random) echo 'checked'; ?>>
                                 Yes
                                 <span class="form-check-sign"><span class="check"></span></span>
                             </label>

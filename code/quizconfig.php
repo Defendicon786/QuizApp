@@ -1151,7 +1151,7 @@ function saveSelectedQuestions() {
           </li>
           <li class="nav-item d-flex align-items-center">
             <div class="form-check form-switch mb-0">
-              <input class="form-check-input" type="checkbox" id="darkModeToggle">
+              <input class="form-check-input position-static" type="checkbox" id="darkModeToggle">
             </div>
           </li>
         </ul>
@@ -1278,7 +1278,7 @@ function saveSelectedQuestions() {
                       </button>
                       <div class="form-check ml-3">
                         <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" name="random_quiz" value="1" id="random_quiz_checkbox">
+                          <input class="form-check-input position-static" type="checkbox" name="random_quiz" value="1" id="random_quiz_checkbox">
                           Randomly select questions
                           <span class="form-check-sign">
                             <span class="check"></span>
@@ -1513,7 +1513,7 @@ function saveSelectedQuestions() {
                   <div class="col-12">
                     <div class="form-check">
                       <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="random_quiz_hidden" value="1">
+                        <input class="form-check-input position-static" type="checkbox" name="random_quiz_hidden" value="1">
                         Randomly select questions from the question bank
                         <span class="form-check-sign">
                           <span class="check"></span>
