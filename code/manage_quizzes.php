@@ -396,7 +396,7 @@ $conn->close();
 
     <div class="main-container">
         <div class="page-header header-filter" style="background-image: url('./assets/img/bg2.jpg'); background-size: cover; background-position: top center;">
-            <div class="container" style="padding-top: 15vh;">
+            <div class="container" style="padding-top: 20vh;">
                 <div class="row">
                     <div class="col-md-12 ml-auto mr-auto">
                         <div class="card card-login">
