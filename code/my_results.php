@@ -89,7 +89,7 @@ $results = $stmt->get_result();
     <div class="container mt-4">
         <div class="row">
             <div class="col-12">
-                <a href="quizhome.php" class="btn btn-primary back-btn">
+                <a href="studenthome.php" class="btn btn-primary back-btn">
                     <i class="material-icons">arrow_back</i> Back to Quiz Home
                 </a>
             </div>
