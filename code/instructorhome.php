@@ -24,6 +24,7 @@
   <!-- CSS Files -->
   <link href="./assets/css/material-kit.css?v=2.0.4" rel="stylesheet" />
     <link href="./assets/css/navbar.css" rel="stylesheet" />
+    <link href="./assets/css/portal.css" rel="stylesheet" />
   <link href="./assets/demo/demo.css" rel="stylesheet" />
   <style>
     /* Responsive Styles */

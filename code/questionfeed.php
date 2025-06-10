@@ -597,6 +597,7 @@ function getChapters($conn, $class_id, $subject_id) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="./assets/css/material-kit.css?v=2.0.4" rel="stylesheet" />
     <link href="./assets/css/navbar.css" rel="stylesheet" />
+    <link href="./assets/css/portal.css" rel="stylesheet" />
   <style>
     html, body {
         overflow-x: hidden; /* Prevent horizontal scroll at page level */
