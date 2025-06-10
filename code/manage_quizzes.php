@@ -310,6 +310,7 @@ $conn->close();
         }
         .page-header {
             margin-top: 60px;
+            padding-top: 90px; /* Ensure content sits below fixed navbar */
             min-height: calc(100vh - 60px);
             position: relative;
         }
