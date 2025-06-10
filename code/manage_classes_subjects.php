@@ -16,6 +16,10 @@ $class_filter = isset($_GET['class_filter']) ? $_GET['class_filter'] : '';
 $subject_filter = isset($_GET['subject_filter']) ? $_GET['subject_filter'] : '';
 $section_filter = isset($_GET['section_filter']) ? $_GET['section_filter'] : '';
 $chapter_filter = isset($_GET['chapter_filter']) ? $_GET['chapter_filter'] : '';
+// Topic filtering parameters
+$topic_class_filter = isset($_GET['topic_class']) ? $_GET['topic_class'] : '';
+$topic_subject_filter = isset($_GET['topic_subject']) ? $_GET['topic_subject'] : '';
+$topic_chapter_filter = isset($_GET['topic_chapter']) ? $_GET['topic_chapter'] : '';
 
 // Handle Class Operations
 if (isset($_POST['action'])) {
@@ -447,24 +451,88 @@ if ($result_chapters) {
 }
 $stmt->close();
 
-// Fetch all chapters for topic dropdown
+// Fetch all classes and subjects for topic filters
+$topic_classes = [];
+$cls_res = $conn->query("SELECT class_id, class_name FROM classes ORDER BY class_name");
+if ($cls_res) {
+    while ($row = $cls_res->fetch_assoc()) {
+        $topic_classes[] = $row;
+    }
+}
+
+$topic_subjects = [];
+$sub_res = $conn->query("SELECT subject_id, subject_name FROM subjects ORDER BY subject_name");
+if ($sub_res) {
+    while ($row = $sub_res->fetch_assoc()) {
+        $topic_subjects[] = $row;
+    }
+}
+
+// Fetch chapters for topic dropdown when both class and subject are selected
+$topic_chapters = [];
+if (!empty($topic_class_filter) && !empty($topic_subject_filter)) {
+    $chap_query = "SELECT chapter_id, chapter_name FROM chapters
+                   WHERE class_id = ? AND subject_id = ?
+                   ORDER BY chapter_number";
+    $chap_stmt = $conn->prepare($chap_query);
+    $chap_stmt->bind_param("ii", $topic_class_filter, $topic_subject_filter);
+    $chap_stmt->execute();
+    $chap_result = $chap_stmt->get_result();
+    if ($chap_result) {
+        while ($row = $chap_result->fetch_assoc()) {
+            $topic_chapters[] = $row;
+        }
+    }
+    $chap_stmt->close();
+}
+
+// Fetch all chapters for the add topic dropdown (unfiltered)
 $all_chapters = [];
-$chap_result = $conn->query("SELECT chapter_id, chapter_name FROM chapters ORDER BY chapter_number");
-if ($chap_result) {
-    while ($row = $chap_result->fetch_assoc()) {
+$chap_all = $conn->query("SELECT chapter_id, chapter_name FROM chapters ORDER BY chapter_number");
+if ($chap_all) {
+    while ($row = $chap_all->fetch_assoc()) {
         $all_chapters[] = $row;
     }
 }
 
-// Fetch existing topics
+// Fetch existing topics with optional filters
 $topics = [];
-$topic_sql = "SELECT t.topic_id, t.topic_name, c.chapter_name FROM topics t JOIN chapters c ON t.chapter_id = c.chapter_id ORDER BY c.chapter_number, t.topic_name";
-$topic_result = $conn->query($topic_sql);
+$topic_sql = "SELECT t.topic_id, t.topic_name, c.chapter_name
+              FROM topics t
+              JOIN chapters c ON t.chapter_id = c.chapter_id
+              JOIN classes cl ON c.class_id = cl.class_id
+              JOIN subjects s ON c.subject_id = s.subject_id
+              WHERE 1=1";
+$topic_params = [];
+$topic_types = "";
+if (!empty($topic_class_filter)) {
+    $topic_sql .= " AND cl.class_id = ?";
+    $topic_params[] = $topic_class_filter;
+    $topic_types .= "i";
+}
+if (!empty($topic_subject_filter)) {
+    $topic_sql .= " AND s.subject_id = ?";
+    $topic_params[] = $topic_subject_filter;
+    $topic_types .= "i";
+}
+if (!empty($topic_chapter_filter)) {
+    $topic_sql .= " AND c.chapter_id = ?";
+    $topic_params[] = $topic_chapter_filter;
+    $topic_types .= "i";
+}
+$topic_sql .= " ORDER BY c.chapter_number, t.topic_name";
+$topic_stmt = $conn->prepare($topic_sql);
+if (!empty($topic_params)) {
+    $topic_stmt->bind_param($topic_types, ...$topic_params);
+}
+$topic_stmt->execute();
+$topic_result = $topic_stmt->get_result();
 if ($topic_result) {
     while ($row = $topic_result->fetch_assoc()) {
         $topics[] = $row;
     }
 }
+$topic_stmt->close();
 
 // Fetch existing sections with class information and filtering
 $class_sections = [];
@@ -1252,6 +1320,44 @@ $stmt->close();
                             <h4 class="card-title">Manage Topics</h4>
                         </div>
                         <div class="card-body">
+                            <!-- Filter for Topics -->
+                            <form method="get" class="mb-3">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <select class="form-control" name="topic_class">
+                                            <option value="">Select Class</option>
+                                            <?php foreach ($topic_classes as $cls): ?>
+                                            <option value="<?php echo $cls['class_id']; ?>" <?php echo ($cls['class_id']==$topic_class_filter)?'selected':''; ?>><?php echo htmlspecialchars($cls['class_name']); ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-control" name="topic_subject">
+                                            <option value="">Select Subject</option>
+                                            <?php foreach ($topic_subjects as $sub): ?>
+                                            <option value="<?php echo $sub['subject_id']; ?>" <?php echo ($sub['subject_id']==$topic_subject_filter)?'selected':''; ?>><?php echo htmlspecialchars($sub['subject_name']); ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <select class="form-control" name="topic_chapter">
+                                                <option value="">Select Chapter</option>
+                                                <?php foreach ($topic_chapters as $chap): ?>
+                                                <option value="<?php echo $chap['chapter_id']; ?>" <?php echo ($chap['chapter_id']==$topic_chapter_filter)?'selected':''; ?>><?php echo htmlspecialchars($chap['chapter_name']); ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-info">Filter</button>
+                                                <?php if (!empty($topic_class_filter) || !empty($topic_subject_filter) || !empty($topic_chapter_filter)): ?>
+                                                <a href="?<?php echo http_build_query(array_merge($_GET, ['topic_class'=>'', 'topic_subject'=>'', 'topic_chapter'=>''])); ?>" class="btn btn-secondary">Clear</a>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
