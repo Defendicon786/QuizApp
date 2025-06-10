@@ -172,8 +172,7 @@
             margin-top: 50px;
             background: #f8f9fa;
             border-top: 1px solid #eee;
-            position: absolute;
-            bottom: 0;
+            position: relative;
             width: 100%;
         }
         
