@@ -153,6 +153,7 @@ $conn->close(); // Close connection here before outputting HTML
         .message-success { color: #155724; background-color: #d4edda; border-color: #c3e6cb; }
         .message-error { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; }
     </style>
+<link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
 <body>
     <div class="container">
@@ -165,5 +166,6 @@ $conn->close(); // Close connection here before outputting HTML
             <a href="<?php echo htmlspecialchars($_SESSION['instructor_results_page_url']); ?>" class="btn btn-info">Back to Results</a>
         <?php endif; ?>
     </div>
+<script src="./assets/js/dark-mode.js"></script>
 </body>
 </html> 
