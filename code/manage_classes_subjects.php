@@ -468,38 +468,23 @@ if ($sub_res) {
     }
 }
 
-// Fetch chapters for topic dropdown based on selected class and subject
+// Fetch chapters for topic dropdown when both class and subject are selected
 $topic_chapters = [];
-$chap_query = "SELECT chapter_id, chapter_name FROM chapters";
-$chap_conditions = [];
-$chap_params = [];
-$chap_types = "";
-if (!empty($topic_class_filter)) {
-    $chap_conditions[] = "class_id = ?";
-    $chap_params[] = $topic_class_filter;
-    $chap_types .= "i";
-}
-if (!empty($topic_subject_filter)) {
-    $chap_conditions[] = "subject_id = ?";
-    $chap_params[] = $topic_subject_filter;
-    $chap_types .= "i";
-}
-if (!empty($chap_conditions)) {
-    $chap_query .= " WHERE " . implode(" AND ", $chap_conditions);
-}
-$chap_query .= " ORDER BY chapter_number";
-$chap_stmt = $conn->prepare($chap_query);
-if (!empty($chap_params)) {
-    $chap_stmt->bind_param($chap_types, ...$chap_params);
-}
-$chap_stmt->execute();
-$chap_result = $chap_stmt->get_result();
-if ($chap_result) {
-    while ($row = $chap_result->fetch_assoc()) {
-        $topic_chapters[] = $row;
+if (!empty($topic_class_filter) && !empty($topic_subject_filter)) {
+    $chap_query = "SELECT chapter_id, chapter_name FROM chapters
+                   WHERE class_id = ? AND subject_id = ?
+                   ORDER BY chapter_number";
+    $chap_stmt = $conn->prepare($chap_query);
+    $chap_stmt->bind_param("ii", $topic_class_filter, $topic_subject_filter);
+    $chap_stmt->execute();
+    $chap_result = $chap_stmt->get_result();
+    if ($chap_result) {
+        while ($row = $chap_result->fetch_assoc()) {
+            $topic_chapters[] = $row;
+        }
     }
+    $chap_stmt->close();
 }
-$chap_stmt->close();
 
 // Fetch all chapters for the add topic dropdown (unfiltered)
 $all_chapters = [];
