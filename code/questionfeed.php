@@ -1342,10 +1342,11 @@ function getChapters($conn, $class_id, $subject_id) {
     }
   </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
+<link rel="stylesheet" href="./assets/css/container.css" />
 </head>
 <body class="landing-page sidebar-collapse">
   <nav class="navbar main-navbar fixed-top navbar-expand-lg">
-    <div class="container">
+    <div class="container app-container">
       <div class="navbar-translate">
         <a class="navbar-brand" href="instructorhome.php">Quiz Portal</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -1422,7 +1423,7 @@ function getChapters($conn, $class_id, $subject_id) {
   </nav>
 
   <div class="page-header header-filter clear-filter" style="background-image: url('./assets/img/bg2.jpg'); background-size: cover; background-position: top center; position: relative;">
-    <div class="container">
+    <div class="container app-container">
       <div class="row" style="margin-bottom: 50px; position: relative; z-index: 2;">
         <div class="col-lg-10 col-md-10 ml-auto mr-auto">
           <div class="card card-login">
@@ -1938,7 +1939,7 @@ function getChapters($conn, $class_id, $subject_id) {
     </div>
   </div> 
   <footer class="footer footer-default">
-    <div class="container">
+    <div class="container app-container">
       <div class="copyright text-center">
         <div class="department">Biology Department NPS</div>
         <div class="designer">Designed By Sir Hassan Tariq</div>

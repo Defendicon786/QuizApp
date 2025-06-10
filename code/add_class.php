@@ -64,9 +64,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          .header-nav a:hover { text-decoration: underline; }
     </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
+<link rel="stylesheet" href="./assets/css/container.css" />
 </head>
 <body class="landing-page sidebar-collapse">
-    <div class="container">
+    <div class="container app-container">
         <div class="header-nav">
             <a href="instructorhome.php">Home</a>
             <a href="manage_classes_subjects.php">Manage Classes & Subjects</a>

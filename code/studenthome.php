@@ -193,6 +193,7 @@
     }
   </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
+<link rel="stylesheet" href="./assets/css/container.css" />
 </head>
 
 <body class="landing-page sidebar-collapse">
@@ -205,7 +206,7 @@
       </div>
   </header>
   <nav class="navbar main-navbar fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
-    <div class="container">
+    <div class="container app-container">
       <div class="navbar-translate">
         <a class="navbar-brand" href="">
           Genesis </a>
@@ -255,7 +256,7 @@
     </div>
   </nav>
   <div class="page-header header-filter" data-parallax="true" style="background-image: url('./assets/img/profile_city.jpg')">
-    <div class="container">
+    <div class="container app-container">
       <div class="row ">
         <div class="brand text-center" style="width: 100%;">
             <h1>Narowal Public School And College</h1>
@@ -276,7 +277,7 @@
     </div>
   </div>  
     <footer class="footer footer-default">
-        <div class="container">
+        <div class="container app-container">
             <div class="copyright" style="text-align: center; width: 100%;">
                 Biology Department NPS<br>
                 Designed By Sir Hassan Tariq<br>

@@ -37,6 +37,7 @@
   }
   </script>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
+<link rel="stylesheet" href="./assets/css/container.css" />
 </head>
 
 <body class="login-page sidebar-collapse">
@@ -49,7 +50,7 @@
       </div>
   </header>
   <nav class="navbar main-navbar fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
-    <div class="container">
+    <div class="container app-container">
       <div class="navbar-translate">
         <a class="navbar-brand" href="studentlogin.php">
           Genesis Student's Portal </a>        
@@ -57,7 +58,7 @@
     </div>
   </nav>
   <div class="page-header header-filter" style="background-image: url('./assets/img/bg7.jpg'); background-size: cover; background-position: top center;">
-    <div class="container">
+    <div class="container app-container">
       <div class="row" style="margin-top: 100px">
         <div class="col-lg-7 col-md-9 ml-auto mr-auto">
           <div class="card card-login">
@@ -241,7 +242,7 @@
     </div>
   </div>  
     <footer class="footer footer-default">
-        <div class="container">
+        <div class="container app-container">
             <div class="copyright" style="text-align: center; width: 100%;">
                 Biology Department NPS<br>
                 Designed By Sir Hassan Tariq<br>

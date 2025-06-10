@@ -154,9 +154,10 @@ $conn->close(); // Close connection here before outputting HTML
         .message-error { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; }
     </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
+<link rel="stylesheet" href="./assets/css/container.css" />
 </head>
 <body class="landing-page sidebar-collapse">
-    <div class="container">
+    <div class="container app-container">
         <h3>Mark Calculation Status</h3>
         <div class="message <?php echo (strpos($message, 'Error:') === 0 || strpos($message, 'No responses') === 0 || strpos($message, 'No submission') === 0) ? 'message-error' : 'message-success'; ?>">
             <?php echo htmlspecialchars($message); ?>
