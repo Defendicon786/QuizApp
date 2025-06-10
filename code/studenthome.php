@@ -266,7 +266,7 @@
       </div>
     </div>
   </nav>
-  <div class="page-header header-filter clear-filter" data-parallax="true" style="background-image: url('./assets/img/profile_city.jpg')">
+  <div class="page-header header-filter clear-filter" data-parallax="true">
     <div class="container">
       <div class="row ">
         <div class="brand text-center" style="width: 100%;">
