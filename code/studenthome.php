@@ -232,16 +232,6 @@
       </div>
       <div class="collapse navbar-collapse" >
         <ul class="navbar-nav mx-auto" >
-          <li class="nav-item" >
-            <a href="quizhome.php" class="nav-link">
-              <i class="material-icons">queue_play_next</i> Attempt Quiz
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="my_results.php" class="nav-link">
-              <i class="material-icons">assessment</i> My Results
-            </a>
-          </li>
           <li class="nav-item">
             <a href="#" class="nav-link" id="show-notifications">
               <div class="notifications-icon">
