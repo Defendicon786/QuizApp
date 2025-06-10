@@ -435,6 +435,11 @@ $conn->close();
         height: auto;
         padding-top: 90px; /* Add space for fixed navbar */
     }
+
+    .card-login {
+        max-width: 900px;
+        margin: 0 auto;
+    }
     
     /* For better spacing */
     .form-row-mobile {

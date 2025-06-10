@@ -876,7 +876,7 @@ function saveSelectedQuestions() {
     }
     .card-login {
       margin: 0 auto;
-      max-width: 100%;
+      max-width: 900px;
     }
     .card-body {
       padding: 20px !important;
