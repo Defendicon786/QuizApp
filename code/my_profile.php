@@ -91,7 +91,7 @@ $conn->close();
     <style>
         .navbar {
             transition: all 0.3s ease;
-            padding-top: 0 !important;
+            padding-top: 20px !important;
             background-color: #fff !important;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             height: 60px;

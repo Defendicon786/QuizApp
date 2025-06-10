@@ -44,6 +44,7 @@ try {
             background-color: #fff !important;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             height: 60px;
+            padding-top: 20px !important;
         }
         .navbar-brand {
             color: #333 !important;
@@ -87,6 +88,28 @@ try {
         @media (max-width: 768px) {
             .card {
                 margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .navbar .navbar-nav {
+                margin-top: 10px;
+                background: #fff;
+                border-radius: 4px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                padding: 10px;
+                max-height: calc(100vh - 120px);
+                overflow-y: auto;
+            }
+
+            .navbar .nav-item {
+                margin: 5px 0;
+            }
+
+            .nav-link {
+                white-space: nowrap;
+                color: #333 !important;
+                padding: 8px 15px !important;
             }
         }
     </style>
