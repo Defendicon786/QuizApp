@@ -199,17 +199,14 @@
 <body class="landing-page sidebar-collapse">
   <header class="header">
       <div class="header-content">
-          <div class="school-name">
-              Narowal Public School And College
-              <span>Educating The Souls</span>
-          </div>
+          <!-- School name removed as per requirements -->
       </div>
   </header>
   <nav class="navbar main-navbar fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
     <div class="container">
       <div class="navbar-translate">
         <a class="navbar-brand" href="">
-          Genesis </a>
+          Students Portal</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation" >
           <span class="sr-only">Toggle navigation</span>
           <span class="navbar-toggler-icon"></span>
@@ -255,13 +252,10 @@
       </div>
     </div>
   </nav>
-  <div class="page-header header-filter" data-parallax="true" style="background-image: url('./assets/img/profile_city.jpg')">
+  <div class="page-header header-filter clear-filter" data-parallax="true" style="background-image: url('./assets/img/profile_city.jpg')">
     <div class="container">
       <div class="row ">
         <div class="brand text-center" style="width: 100%;">
-            <h1>Narowal Public School And College</h1>
-            <h3 class="title">Educating The Souls</h3>
-            <h4 class="title">Student Portal</h4>
             <?php if(isset($upcoming_quiz) && $upcoming_quiz): ?>
             <div class="alert alert-info" style="margin-top:20px;">
                 <strong>Upcoming Quiz:</strong>
