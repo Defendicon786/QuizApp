@@ -223,6 +223,7 @@ if (isset($_SESSION['error'])) {
         }
     </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
+<link rel="stylesheet" href="./assets/css/container.css" />
 </head>
 
 <body class="landing-page sidebar-collapse">
@@ -234,7 +235,7 @@ if (isset($_SESSION['error'])) {
     }
     ?>
     <div class="page-header header-filter" data-parallax="true">
-        <div class="container">
+        <div class="container app-container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="brand text-center" data-aos="zoom-in">
@@ -255,7 +256,7 @@ if (isset($_SESSION['error'])) {
     </div>
 
     <footer class="footer footer-default">
-        <div class="container">
+        <div class="container app-container">
             <div class="copyright text-center">
                 <div class="department">Biology Department NPS</div>
                 <div class="designer">Designed by Sir Hassan Tariq</div>

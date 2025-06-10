@@ -542,10 +542,11 @@ $conn->close();
     }
   </script>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
+<link rel="stylesheet" href="./assets/css/container.css" />
 </head>
 <body class="login-page sidebar-collapse">
   <nav class="navbar main-navbar fixed-top navbar-expand-lg">
-    <div class="container">
+    <div class="container app-container">
       <div class="navbar-translate">
         <a class="navbar-brand" href="instructorhome.php">Quiz Portal</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -621,7 +622,7 @@ $conn->close();
     </div>
   </nav>
   <div class="page-header">
-    <div class="container">
+    <div class="container app-container">
       <div class="row justify-content-center" style="margin-top: 20px">
         <div class="col-lg-9 col-md-9 ml-auto mr-auto" >
           <div class="card card-login" >
@@ -830,7 +831,7 @@ $conn->close();
       </div>
     </div>
     <footer class="footer">
-      <div class="container">
+      <div class="container app-container">
         <div class="copyright float-right">
           &copy; <script>document.write(new Date().getFullYear())</script> Biology Department NPS, Designed By Sir Hassan Tariq
         </div>
