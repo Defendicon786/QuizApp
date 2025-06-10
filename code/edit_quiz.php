@@ -535,6 +535,7 @@ $conn->close();
         return true;
     }
   </script>
+<link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
 <body class="login-page sidebar-collapse">
   <nav class="navbar fixed-top navbar-expand-lg">
@@ -1035,5 +1036,6 @@ $conn->close();
       }
     });
   </script>
+<script src="./assets/js/dark-mode.js"></script>
 </body>
 </html> 

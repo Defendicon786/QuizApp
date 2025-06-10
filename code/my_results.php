@@ -82,6 +82,7 @@ $results = $stmt->get_result();
             margin: 20px 0;
         }
     </style>
+<link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
 <body>
     <div class="container mt-4">
@@ -163,5 +164,6 @@ $results = $stmt->get_result();
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="./assets/js/dark-mode.js"></script>
 </body>
 </html> 

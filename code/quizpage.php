@@ -762,6 +762,7 @@ try {
         }
     };
     </script>
+<link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
 <body>
     <div class="wrapper">
@@ -934,5 +935,6 @@ try {
             once: true
         });
     </script>
+<script src="./assets/js/dark-mode.js"></script>
 </body>
 </html>

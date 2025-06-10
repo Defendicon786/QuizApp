@@ -685,6 +685,7 @@ $stmt->close();
         .delete-btn { color: #dc3545; cursor: pointer; }
         .delete-btn:hover { color: #c82333; }
     </style>
+<link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
 <body class="landing-page sidebar-collapse">
     <nav class="navbar fixed-top navbar-expand-lg">
@@ -1294,5 +1295,6 @@ $stmt->close();
     <script src="./assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
     <script src="./assets/js/plugins/moment.min.js"></script>
     <script src="./assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
+<script src="./assets/js/dark-mode.js"></script>
 </body>
 </html> 

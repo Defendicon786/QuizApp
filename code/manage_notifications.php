@@ -155,6 +155,7 @@
       display: block;
     }
   </style>
+<link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
 
 <body class="landing-page sidebar-collapse">
@@ -435,5 +436,6 @@
       });
     });
   </script>
+<script src="./assets/js/dark-mode.js"></script>
 </body>
 </html> 
