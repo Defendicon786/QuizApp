@@ -833,7 +833,7 @@ $conn->close();
     <footer class="footer">
       <div class="container">
         <div class="copyright float-right">
-          &copy; <script>document.write(new Date().getFullYear())</script> Biology Department NPS, Designed By Sir Hassan Tariq
+          &copy; <script>document.write(new Date().getFullYear())</script> A Project of StudyHT.com, Designed and Developed by Sir Hassan Tariq
         </div>
       </div>
     </footer>

@@ -256,8 +256,8 @@
     <footer class="footer footer-default">
         <div class="container">
             <div class="copyright text-center">
-                <div class="department">Biology Department NPS</div>
-                <div class="designer">Designed By Sir Hassan Tariq</div>
+                <div class="department">A Project of StudyHT.com</div>
+                <div class="designer">Designed and Developed by Sir Hassan Tariq</div>
                 <div class="year">
                     &copy; <script>document.write(new Date().getFullYear())</script>
                 </div>
