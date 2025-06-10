@@ -17,6 +17,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- CSS Files -->
   <link href="./assets/css/material-kit.css?v=2.0.4" rel="stylesheet" />
+  <style>
+    .card-login {
+      max-width: 650px;
+      margin: 0 auto;
+    }
+  </style>
   <script>
   function validate() {
       var passwordA = document.forms["register"]["password"].value; // Renamed to avoid conflict with global password if any

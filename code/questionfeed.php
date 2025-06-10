@@ -920,7 +920,7 @@ function getChapters($conn, $class_id, $subject_id) {
       }
       
       .card-login {
-        max-width: 1200px;
+        max-width: 900px;
         margin: 0 auto;
         margin-top: -40px;
         margin-bottom: 60px;
