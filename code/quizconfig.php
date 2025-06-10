@@ -720,6 +720,7 @@ function saveSelectedQuestions() {
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="./assets/css/material-kit.css?v=2.0.4" rel="stylesheet" />
+    <link href="./assets/css/navbar.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
   <style>
     /* Fixed Navbar Styles */
@@ -1086,7 +1087,7 @@ function saveSelectedQuestions() {
 </head>
 
 <body class="landing-page sidebar-collapse">
-  <nav class="navbar fixed-top navbar-expand-lg">
+  <nav class="navbar main-navbar fixed-top navbar-expand-lg">
     <div class="container">
       <div class="navbar-translate">
         <a class="navbar-brand" href="instructorhome.php">Quiz Portal</a>
