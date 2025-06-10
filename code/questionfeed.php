@@ -1417,7 +1417,7 @@ function getChapters($conn, $class_id, $subject_id) {
           </li>
           <li class="nav-item d-flex align-items-center">
             <div class="form-check form-switch mb-0">
-              <input class="form-check-input" type="checkbox" id="darkModeToggle">
+              <input class="form-check-input position-static" type="checkbox" id="darkModeToggle">
             </div>
           </li>
         </ul>
@@ -1472,25 +1472,25 @@ function getChapters($conn, $class_id, $subject_id) {
                             Correct Option
                             <div class="form-check form-check-radio form-check-inline" style="margin: 0px;padding: 0px">
                               <label class="form-check-label">
-                                <input class="form-check-input" type="radio" name="answer" value="A" <?php if ($mcq_answer == 'A') echo 'checked'; ?>> A
+                                <input class="form-check-input position-static" type="radio" name="answer" value="A" <?php if ($mcq_answer == 'A') echo 'checked'; ?>> A
                                 <span class="circle"><span class="check"></span></span>
                               </label>
                             </div>
                             <div class="form-check form-check-radio form-check-inline" style="margin: 0px;padding: 0px">
                               <label class="form-check-label">
-                                <input class="form-check-input" type="radio" name="answer" value="B" <?php if ($mcq_answer == 'B') echo 'checked'; ?>> B
+                                <input class="form-check-input position-static" type="radio" name="answer" value="B" <?php if ($mcq_answer == 'B') echo 'checked'; ?>> B
                                 <span class="circle"><span class="check"></span></span>
                               </label>
                             </div>
                             <div class="form-check form-check-radio form-check-inline" style="margin: 0px;padding: 0px">
                               <label class="form-check-label">
-                                <input class="form-check-input" type="radio" name="answer" value="C" <?php if ($mcq_answer == 'C') echo 'checked'; ?>> C
+                                <input class="form-check-input position-static" type="radio" name="answer" value="C" <?php if ($mcq_answer == 'C') echo 'checked'; ?>> C
                                 <span class="circle"><span class="check"></span></span>
                               </label>
                             </div>
                             <div class="form-check form-check-radio form-check-inline" style="margin: 0px;padding: 0px">
                               <label class="form-check-label">
-                                <input class="form-check-input" type="radio" name="answer" value="D" <?php if ($mcq_answer == 'D') echo 'checked'; ?>> D
+                                <input class="form-check-input position-static" type="radio" name="answer" value="D" <?php if ($mcq_answer == 'D') echo 'checked'; ?>> D
                                 <span class="circle"><span class="check"></span></span>
                               </label>
                             </div>
