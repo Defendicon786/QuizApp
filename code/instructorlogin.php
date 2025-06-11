@@ -191,6 +191,7 @@
         .footer .copyright .designer {
             font-style: italic;
             margin: 5px 0;
+            color: white; /* keep designer text visible on this page */
         }
         
         .footer .copyright .year {
