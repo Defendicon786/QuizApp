@@ -171,13 +171,13 @@
             padding: 30px 0;
             margin: 50px auto 0;
             background: #f8f9fa;
-            border-top: 1px solid #eee;
+            border-top: none;
             position: relative;
             width: 95%;
         }
         
         .footer .copyright {
-            color: #555;
+            color: #333;
             font-size: 14px;
             line-height: 1.8;
         }
