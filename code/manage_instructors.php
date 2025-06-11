@@ -15,8 +15,8 @@ $list_instructors_html = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_instructor'])) {
     $name = trim($_POST['name']);
     $email = trim($_POST['email']);
-    $password = $_POST['password']; // Plain text for now, HASHING IS ESSENTIAL for production
-
+    // WARNING: password should be hashed in production
+    $password = $_POST['password']; // Plain text for now
     if (!empty($name) && !empty($email) && !empty($password)) {
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             // Check if email already exists
@@ -119,7 +119,7 @@ if ($instructors_result && $instructors_result->num_rows > 0) {
                 <span>%s ( %s )</span>
                 <span>
                     <button type='button' class='btn btn-info btn-sm' onclick=\"editInstructor('%s','%s')\"><i class='material-icons'>edit</i></button>
-                    <button type='button' class='btn btn-danger btn-sm' onclick="deleteInstructor('%s')"><i class='material-icons'>delete</i></button>
+                    <button type='button' class='btn btn-danger btn-sm' onclick=\"deleteInstructor('%s')\"><i class='material-icons'>delete</i></button>
                 </span>
             </li>",
             htmlspecialchars($instructor_row['name']),
