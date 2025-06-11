@@ -59,12 +59,12 @@
     <link href="./assets/css/material-kit.css?v=2.0.4" rel="stylesheet" />
     <style>
         .page-header {
-            height: 100vh;
-            background: linear-gradient(45deg, rgba(0,0,0,0.7), rgba(72,72,176,0.7)), 
+            min-height: 100vh;
+            background: linear-gradient(45deg, rgba(0,0,0,0.7), rgba(72,72,176,0.7)),
                         url('./assets/img/bg.jpg') center center;
             background-size: cover;
             margin: 0;
-            padding: 0;
+            padding: 0 0 100px;
             border: 0;
             display: flex;
             align-items: center;
@@ -169,11 +169,11 @@
 
         .footer {
             padding: 30px 0;
-            margin-top: 50px;
+            margin: 50px auto 0;
             background: #f8f9fa;
             border-top: 1px solid #eee;
             position: relative;
-            width: 100%;
+            width: 95%;
         }
         
         .footer .copyright {
