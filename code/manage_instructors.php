@@ -49,63 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_instructor'])) {
     }
 }
 
-// Handle Edit Instructor form submission
-elseif ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit_instructor'])) {
-    $original_email = trim($_POST['original_email']);
-    $name = trim($_POST['name']);
-    $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
-
-    if (!empty($name) && !empty($email) && !empty($original_email)) {
-        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            // If email changed, ensure new email doesn't already exist
-            if ($email !== $original_email) {
-                $check_email_sql = sprintf("SELECT email FROM instructorinfo WHERE email = '%s'",
-                    $conn->real_escape_string($email));
-                $check_email_result = $conn->query($check_email_sql);
-                if ($check_email_result && $check_email_result->num_rows > 0) {
-                    $add_message = "<p class='text-danger'>Error: Email address already exists.</p>";
-                    goto fetch_instructors;
-                }
-            }
-
-            $update_sql = sprintf(
-                "UPDATE instructorinfo SET name='%s', email='%s'%s WHERE email='%s'",
-                $conn->real_escape_string($name),
-                $conn->real_escape_string($email),
-                !empty($password) ? ", password='" . $conn->real_escape_string($password) . "'" : "",
-                $conn->real_escape_string($original_email)
-            );
-
-            if ($conn->query($update_sql)) {
-                $add_message = "<p class='text-success'>Instructor updated successfully!</p>";
-            } else {
-                $add_message = "<p class='text-danger'>Error updating instructor: " . $conn->error . "</p>";
-            }
-        } else {
-            $add_message = "<p class='text-danger'>Error: Invalid email format.</p>";
-        }
-    } else {
-        $add_message = "<p class='text-danger'>Error: Name and email are required.</p>";
-    }
-}
-
-// Handle Delete Instructor form submission
-elseif ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_instructor'])) {
-    $email = trim($_POST['email']);
-    if (!empty($email)) {
-        $delete_sql = sprintf("DELETE FROM instructorinfo WHERE email='%s'",
-            $conn->real_escape_string($email));
-
-        if ($conn->query($delete_sql)) {
-            $add_message = "<p class='text-success'>Instructor deleted successfully!</p>";
-        } else {
-            $add_message = "<p class='text-danger'>Error deleting instructor: " . $conn->error . "</p>";
-        }
-    }
-}
-
-fetch_instructors:
+// Editing and deleting instructors have been disabled on this page
 
 // Fetch and display current instructors
 $fetch_instructors_sql = "SELECT name, email FROM instructorinfo ORDER BY name ASC";
@@ -115,18 +59,9 @@ if ($instructors_result && $instructors_result->num_rows > 0) {
     $list_instructors_html .= "<h4 class='mt-5'>Current Instructors:</h4><ul class='list-group'>";
     while ($instructor_row = $instructors_result->fetch_assoc()) {
         $list_instructors_html .= sprintf(
-            "<li class='list-group-item'>
-                <span>%s ( %s )</span>
-                <span>
-                    <button type='button' class='btn btn-info btn-sm' onclick=\"editInstructor('%s','%s')\"><i class='material-icons'>edit</i></button>
-                    <button type='button' class='btn btn-danger btn-sm' onclick=\"deleteInstructor('%s')\"><i class='material-icons'>delete</i></button>
-                </span>
-            </li>",
+            "<li class='list-group-item'>%s ( %s )</li>",
             htmlspecialchars($instructor_row['name']),
-            htmlspecialchars($instructor_row['email']),
-            addslashes($instructor_row['email']),
-            addslashes($instructor_row['name']),
-            addslashes($instructor_row['email'])
+            htmlspecialchars($instructor_row['email'])
         );
     }
     $list_instructors_html .= "</ul>";
@@ -392,7 +327,6 @@ $conn->close();
                                             <label for="password" class="bmd-label-floating">Password</label>
                                             <input type="password" class="form-control" id="password" name="password" required>
                                         </div>
-                                        <input type="hidden" name="original_email" id="original_email">
                                         <button type="submit" name="add_instructor" class="btn btn-primary" id="submitBtn">Add Instructor</button>
                                     </form>
                                 </div>
@@ -404,29 +338,6 @@ $conn->close();
                                 </div>
                                 <div class="card-body">
                                     <?php echo $list_instructors_html; ?>
-                                </div>
-                            </div>
-                            <!-- Delete Confirmation Modal -->
-                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Confirm Delete</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Are you sure you want to delete this instructor?</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <form method="POST" action="manage_instructors.php">
-                                                <input type="hidden" name="email" id="deleteEmail">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                <button type="submit" name="delete_instructor" class="btn btn-danger">Delete</button>
-                                            </form>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -455,32 +366,6 @@ $conn->close();
     <script src="./assets/js/plugins/moment.min.js"></script>
     <script src="./assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
 <script src="./assets/js/dark-mode.js"></script>
-    <script>
-        function editInstructor(email, name) {
-            document.getElementById('name').value = name;
-            document.getElementById('email').value = email;
-            document.getElementById('original_email').value = email;
-            document.getElementById('password').required = false;
-            var btn = document.getElementById('submitBtn');
-            btn.innerHTML = 'Update Instructor';
-            btn.name = 'edit_instructor';
-            document.getElementById('instructorForm').scrollIntoView({behavior:'smooth'});
-        }
-
-
-        // Show confirmation modal for instructor deletion
-        function deleteInstructor(email){
-            document.getElementById('deleteEmail').value = email;
-            $('#deleteModal').modal('show');
-        }
-
-        // Reset form when header clicked
-        document.querySelector('.card-header').addEventListener('click', function(){
-            document.getElementById('instructorForm').reset();
-            document.getElementById('password').required = true;
-            document.getElementById('submitBtn').innerHTML = 'Add Instructor';
-            document.getElementById('submitBtn').name = 'add_instructor';
-        });
-    </script>
+    <!-- No additional inline scripts needed -->
 </body>
 </html>
