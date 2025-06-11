@@ -119,7 +119,7 @@ if ($instructors_result && $instructors_result->num_rows > 0) {
                 <span>%s ( %s )</span>
                 <span>
                     <button type='button' class='btn btn-info btn-sm' onclick=\"editInstructor('%s','%s')\"><i class='material-icons'>edit</i></button>
-                    <button type='button' class='btn btn-danger btn-sm delete-instructor-btn' data-email='%s' data-toggle='modal' data-target='#deleteModal'><i class='material-icons'>delete</i></button>
+                    <button type='button' class='btn btn-danger btn-sm' onclick="deleteInstructor('%s')"><i class='material-icons'>delete</i></button>
                 </span>
             </li>",
             htmlspecialchars($instructor_row['name']),
@@ -468,11 +468,11 @@ $conn->close();
         }
 
 
-        // Set up delete confirmation modal
-        $(document).on('click', '.delete-instructor-btn', function() {
-            var email = $(this).data('email');
+        // Show confirmation modal for instructor deletion
+        function deleteInstructor(email){
             document.getElementById('deleteEmail').value = email;
-        });
+            $('#deleteModal').modal('show');
+        }
 
         // Reset form when header clicked
         document.querySelector('.card-header').addEventListener('click', function(){
