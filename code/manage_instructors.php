@@ -119,7 +119,7 @@ if ($instructors_result && $instructors_result->num_rows > 0) {
                 <span>%s ( %s )</span>
                 <span>
                     <button type='button' class='btn btn-info btn-sm' onclick=\"editInstructor('%s','%s')\"><i class='material-icons'>edit</i></button>
-                    <button type='button' class='btn btn-danger btn-sm' onclick=\"deleteInstructor('%s')\"><i class='material-icons'>delete</i></button>
+                    <button type='button' class='btn btn-danger btn-sm delete-btn' data-email='%s' data-toggle='modal' data-target='#deleteModal'><i class='material-icons'>delete</i></button>
                 </span>
             </li>",
             htmlspecialchars($instructor_row['name']),
@@ -467,10 +467,13 @@ $conn->close();
             document.getElementById('instructorForm').scrollIntoView({behavior:'smooth'});
         }
 
-        function deleteInstructor(email) {
-            document.getElementById('deleteEmail').value = email;
-            $('#deleteModal').modal('show');
-        }
+        // When delete modal is shown, populate the hidden email field from the
+        // button that triggered the modal
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var email = button.data('email');
+            $('#deleteEmail').val(email);
+        });
 
         // Reset form when header clicked
         document.querySelector('.card-header').addEventListener('click', function(){
