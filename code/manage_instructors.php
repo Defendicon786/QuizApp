@@ -119,7 +119,7 @@ if ($instructors_result && $instructors_result->num_rows > 0) {
                 <span>%s ( %s )</span>
                 <span>
                     <button type='button' class='btn btn-info btn-sm' onclick=\"editInstructor('%s','%s')\"><i class='material-icons'>edit</i></button>
-                    <button type='button' class='btn btn-danger btn-sm' onclick="deleteInstructor('%s')"><i class='material-icons'>delete</i></button>
+                    <button type='button' class='btn btn-danger btn-sm' onclick=\"deleteInstructor('%s')\"><i class='material-icons'>delete</i></button>
                 </span>
             </li>",
             htmlspecialchars($instructor_row['name']),
