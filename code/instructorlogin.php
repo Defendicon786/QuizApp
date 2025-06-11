@@ -169,11 +169,11 @@
 
         .footer {
             padding: 30px 0;
-            margin-top: 50px;
+            margin: 50px auto 0;
             background: #f8f9fa;
             border-top: 1px solid #eee;
             position: relative;
-            width: 100%;
+            width: 95%;
         }
         
         .footer .copyright {
