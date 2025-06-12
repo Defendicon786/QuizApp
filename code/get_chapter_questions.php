@@ -54,7 +54,10 @@ try {
             break;
             
         case 'fillblanks':
-            $sql = "SELECT id, sentence, answer, chapter_id
+            // The fillintheblanks table stores the question text in the
+            // `question` column. Older frontend code expects a `sentence`
+            // field, so alias it here to maintain compatibility.
+            $sql = "SELECT id, question AS sentence, options, answer, chapter_id
                     FROM fillintheblanks
                     WHERE chapter_id IN ($chapter_ids_str)$topic_filter
                     ORDER BY id";
