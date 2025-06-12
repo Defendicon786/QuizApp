@@ -1687,7 +1687,7 @@ function saveSelectedQuestions() {
                     ?, ?, ?, ?,
                     ?, ?, ?, ?,
                     ?, ?, ?, ?,
-                    ?, ?, ?, ?
+                    ?, ?, ?
                 )";
 
                   if (!empty($quiznumber)) {
