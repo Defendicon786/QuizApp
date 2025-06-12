@@ -62,6 +62,7 @@
     .navbar {
       transition: all 0.3s ease;
       padding-top: 20px !important;
+      height: 60px;
       z-index: 1050;
     }
     .navbar.navbar-transparent {
@@ -166,9 +167,15 @@
             padding: 20px 0;
             margin-top: 30px;
         }
-        
+
         .footer .copyright {
             font-size: 12px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        body {
+            padding-top: 60px; /* Account for fixed navbar height */
         }
     }
   </style>
