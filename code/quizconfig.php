@@ -317,7 +317,11 @@ $(document).ready(function() {
 <!-- Add JavaScript for loading questions and handling manual question selection -->
 <script>
 // Function to open question selector modal
+// Flag to track if manual question selection modal is active
+var manualSelectionActive = false;
+
 function openQuestionSelector() {
+    manualSelectionActive = true;
     var chapterIds = $('#chapter_ids').val();
     var topicIds = $('#topic_ids').val();
 
@@ -578,11 +582,12 @@ function updateCountDisplay(type, count) {
         case 'essay': tabId = '#typef'; break;
     }
     
-    // Update the count in the input field
-    $(tabId).val(count);
-    
-    // Trigger the marks calculation
-    marks();
+    if(manualSelectionActive) {
+        // Update the count in the input field only during manual selection
+        $(tabId).val(count);
+        // Trigger the marks calculation
+        marks();
+    }
 }
 
 // Function to save selected questions
@@ -697,6 +702,7 @@ function saveSelectedQuestions() {
     
     // Force re-validation of question counts
     validateQuestionCounts();
+    manualSelectionActive = false;
 }
 
 </script>
@@ -1405,10 +1411,10 @@ function saveSelectedQuestions() {
                     <p class="h6 mobile-text-center">MCQ</p>
                   </div>
                   <div class="col-md-3 col-4">
-                    <input type="number" min="0" class="form-control text-center" name="typea" id="typea" value="0" oninput="marks()">
+                    <input type="number" min="0" step="1" class="form-control text-center" name="typea" id="typea" value="0" oninput="marks()">
                   </div>
                   <div class="col-md-3 col-4">
-                    <input type="number" min="0" class="form-control text-center" name="typeamarks" id="typeamarks" value="0" oninput="marks()">
+                    <input type="number" min="0" step="1" class="form-control text-center" name="typeamarks" id="typeamarks" value="0" oninput="marks()">
                   </div>
                   <div class="col-md-3 col-4">
                     <p class="h5 text-center" style="font-style: italic;" id="totala">0</p>
@@ -1422,10 +1428,10 @@ function saveSelectedQuestions() {
                     <p class="h6 mobile-text-center">Numerical type</p>
                   </div>
                   <div class="col-md-3 col-4">
-                    <input type="number" min="0" class="form-control text-center" name="typeb" id="typeb" value="0" oninput="marks()">
+                    <input type="number" min="0" step="1" class="form-control text-center" name="typeb" id="typeb" value="0" oninput="marks()">
                   </div>
                   <div class="col-md-3 col-4">
-                    <input type="number" min="0" class="form-control text-center" name="typebmarks" id="typebmarks" value="0" oninput="marks()">
+                    <input type="number" min="0" step="1" class="form-control text-center" name="typebmarks" id="typebmarks" value="0" oninput="marks()">
                   </div>
                   <div class="col-md-3 col-4">
                     <p class="h5 text-center" style="font-style: italic;" id="totalb">0</p>
@@ -1439,10 +1445,10 @@ function saveSelectedQuestions() {
                     <p class="h6 mobile-text-center">Drop down</p>
                   </div>
                   <div class="col-md-3 col-4">
-                    <input type="number" min="0" class="form-control text-center" name="typec" id="typec" value="0" oninput="marks()">
+                    <input type="number" min="0" step="1" class="form-control text-center" name="typec" id="typec" value="0" oninput="marks()">
                   </div>
                   <div class="col-md-3 col-4">
-                    <input type="number" min="0" class="form-control text-center" name="typecmarks" id="typecmarks" value="0" oninput="marks()">
+                    <input type="number" min="0" step="1" class="form-control text-center" name="typecmarks" id="typecmarks" value="0" oninput="marks()">
                   </div>
                   <div class="col-md-3 col-4">
                     <p class="h5 text-center" style="font-style: italic;" id="totalc">0</p>
@@ -1456,10 +1462,10 @@ function saveSelectedQuestions() {
                     <p class="h6 mobile-text-center">Fill in the blank</p>
                   </div>
                   <div class="col-md-3 col-4">
-                    <input type="number" min="0" class="form-control text-center" name="typed" id="typed" value="0" oninput="marks()">
+                    <input type="number" min="0" step="1" class="form-control text-center" name="typed" id="typed" value="0" oninput="marks()">
                   </div>
                   <div class="col-md-3 col-4">
-                    <input type="number" min="0" class="form-control text-center" name="typedmarks" id="typedmarks" value="0" oninput="marks()">
+                    <input type="number" min="0" step="1" class="form-control text-center" name="typedmarks" id="typedmarks" value="0" oninput="marks()">
                   </div>
                   <div class="col-md-3 col-4">
                     <p class="h5 text-center" style="font-style: italic;" id="totald">0</p>
@@ -1473,10 +1479,10 @@ function saveSelectedQuestions() {
                     <p class="h6 mobile-text-center">Short answer type</p>
                   </div>
                   <div class="col-md-3 col-4">
-                    <input type="number" min="0" class="form-control text-center" name="typee" id="typee" value="0" oninput="marks()">
+                    <input type="number" min="0" step="1" class="form-control text-center" name="typee" id="typee" value="0" oninput="marks()">
                   </div>
                   <div class="col-md-3 col-4">
-                    <input type="number" min="0" class="form-control text-center" name="typeemarks" id="typeemarks" value="0" oninput="marks()">
+                    <input type="number" min="0" step="1" class="form-control text-center" name="typeemarks" id="typeemarks" value="0" oninput="marks()">
                   </div>
                   <div class="col-md-3 col-4">
                     <p class="h5 text-center" style="font-style: italic;" id="totale">0</p>
@@ -1490,10 +1496,10 @@ function saveSelectedQuestions() {
                     <p class="h6 mobile-text-center">Essay type</p>
                   </div>
                   <div class="col-md-3 col-4">
-                    <input type="number" min="0" class="form-control text-center" name="typef" id="typef" value="0" oninput="marks()">
+                    <input type="number" min="0" step="1" class="form-control text-center" name="typef" id="typef" value="0" oninput="marks()">
                   </div>
                   <div class="col-md-3 col-4">
-                    <input type="number" min="0" class="form-control text-center" name="typefmarks" id="typefmarks" value="0" oninput="marks()">
+                    <input type="number" min="0" step="1" class="form-control text-center" name="typefmarks" id="typefmarks" value="0" oninput="marks()">
                   </div>
                   <div class="col-md-3 col-4">
                     <p class="h5 text-center" style="font-style: italic;" id="totalf">0</p>
@@ -2041,6 +2047,11 @@ function saveSelectedQuestions() {
         loadQuestionsByType('short', 'shortQuestions', chapterIds, topicIds);
         loadQuestionsByType('essay', 'essayQuestions', chapterIds, topicIds);
         updateAvailableQuestions();
+      });
+
+      // Reset manual selection flag when modal closes
+      $('#questionSelectorModal').on('hidden.bs.modal', function() {
+        manualSelectionActive = false;
       });
     });
   </script>

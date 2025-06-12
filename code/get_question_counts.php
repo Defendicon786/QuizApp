@@ -64,4 +64,3 @@ if (!empty($chapter_ids)) {
 }
 
 echo json_encode($counts);
-?> 
