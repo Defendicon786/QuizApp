@@ -58,7 +58,28 @@ if ($student_rollnumber) {
     }
 }
 
-// Get questions - simplified version that just gets MCQs
+// Helper to run a query and merge the results
+function fetch_question_set($conn, $sql, $types = '', $params = []) {
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        return [];
+    }
+    if ($types) {
+        $stmt->bind_param($types, ...$params);
+    }
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $rows = [];
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $rows[] = $row;
+        }
+    }
+    $stmt->close();
+    return $rows;
+}
+
+// Prepare questions array
 $questions = [];
 
 // Check if we should get student-specific questions
@@ -143,45 +164,138 @@ if ($student_specific && $student_rollnumber && $student_attempt) {
     }
     $stmt->close();
 }
-else if ($quiz['mcq'] > 0) {
+else {
     // Regular question fetching for general export
-    // Get chapter IDs for this quiz
     $chapter_ids = [];
     if (!empty($quiz['chapter_ids'])) {
-        $chapter_ids = explode(',', $quiz['chapter_ids']);
+        $chapter_ids = array_map('intval', explode(',', $quiz['chapter_ids']));
     }
-    
+
+    // Helper variables for prepared statements
+    $placeholders = '';
+    $types = '';
     if (!empty($chapter_ids)) {
-        // For a quiz with specific chapters
         $placeholders = str_repeat('?,', count($chapter_ids) - 1) . '?';
-        $mcq_sql = "SELECT id, question as questiontext, 
-                    CONCAT('[\"', optiona, '\",\"', optionb, '\",\"', optionc, '\",\"', optiond, '\"]') as options, 
-                    answer, 'mcq' as questiontype, " . $quiz['mcqmarks'] . " as marks
-                    FROM mcqdb 
+        $types = str_repeat('i', count($chapter_ids));
+    }
+
+    // MCQ questions
+    if ($quiz['mcq'] > 0) {
+        if (!empty($chapter_ids)) {
+            $sql = "SELECT id, question as questiontext,
+                        CONCAT('[\"', optiona, '\",\"', optionb, '\",\"', optionc, '\",\"', optiond, '\"]') as options,
+                        answer, 'mcq' as questiontype, " . $quiz['mcqmarks'] . " as marks
+                    FROM mcqdb
                     WHERE chapter_id IN ($placeholders)
                     LIMIT " . $quiz['mcq'];
-        
-        $stmt = $conn->prepare($mcq_sql);
-        $types = str_repeat('i', count($chapter_ids));
-        $stmt->bind_param($types, ...$chapter_ids);
-    } else {
-        // For a quiz without specific chapters
-        $mcq_sql = "SELECT id, question as questiontext, 
-                    CONCAT('[\"', optiona, '\",\"', optionb, '\",\"', optionc, '\",\"', optiond, '\"]') as options, 
-                    answer, 'mcq' as questiontype, " . $quiz['mcqmarks'] . " as marks
-                    FROM mcqdb 
+            $questions = array_merge($questions, fetch_question_set($conn, $sql, $types, $chapter_ids));
+        } else {
+            $sql = "SELECT id, question as questiontext,
+                        CONCAT('[\"', optiona, '\",\"', optionb, '\",\"', optionc, '\",\"', optiond, '\"]') as options,
+                        answer, 'mcq' as questiontype, " . $quiz['mcqmarks'] . " as marks
+                    FROM mcqdb
                     LIMIT " . $quiz['mcq'];
-        
-        $stmt = $conn->prepare($mcq_sql);
+            $questions = array_merge($questions, fetch_question_set($conn, $sql));
+        }
     }
-    
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    while ($row = $result->fetch_assoc()) {
-        $questions[] = $row;
+
+    // Numerical questions
+    if ($quiz['numerical'] > 0) {
+        if (!empty($chapter_ids)) {
+            $sql = "SELECT id, question as questiontext,
+                        answer, 'numerical' as questiontype, " . $quiz['numericalmarks'] . " as marks,
+                        '' as options
+                    FROM numericaldb
+                    WHERE chapter_id IN ($placeholders)
+                    LIMIT " . $quiz['numerical'];
+            $questions = array_merge($questions, fetch_question_set($conn, $sql, $types, $chapter_ids));
+        } else {
+            $sql = "SELECT id, question as questiontext,
+                        answer, 'numerical' as questiontype, " . $quiz['numericalmarks'] . " as marks,
+                        '' as options
+                    FROM numericaldb
+                    LIMIT " . $quiz['numerical'];
+            $questions = array_merge($questions, fetch_question_set($conn, $sql));
+        }
     }
-    $stmt->close();
+
+    // Dropdown questions
+    if ($quiz['dropdown'] > 0) {
+        if (!empty($chapter_ids)) {
+            $sql = "SELECT id, question as questiontext,
+                        options, answer, 'dropdown' as questiontype, " . $quiz['dropdownmarks'] . " as marks
+                    FROM dropdown
+                    WHERE chapter_id IN ($placeholders)
+                    LIMIT " . $quiz['dropdown'];
+            $questions = array_merge($questions, fetch_question_set($conn, $sql, $types, $chapter_ids));
+        } else {
+            $sql = "SELECT id, question as questiontext,
+                        options, answer, 'dropdown' as questiontype, " . $quiz['dropdownmarks'] . " as marks
+                    FROM dropdown
+                    LIMIT " . $quiz['dropdown'];
+            $questions = array_merge($questions, fetch_question_set($conn, $sql));
+        }
+    }
+
+    // Fill in the blanks questions
+    if ($quiz['fill'] > 0) {
+        if (!empty($chapter_ids)) {
+            $sql = "SELECT id, question as questiontext,
+                        answer, 'fill' as questiontype, " . $quiz['fillmarks'] . " as marks,
+                        '' as options
+                    FROM fillintheblanks
+                    WHERE chapter_id IN ($placeholders)
+                    LIMIT " . $quiz['fill'];
+            $questions = array_merge($questions, fetch_question_set($conn, $sql, $types, $chapter_ids));
+        } else {
+            $sql = "SELECT id, question as questiontext,
+                        answer, 'fill' as questiontype, " . $quiz['fillmarks'] . " as marks,
+                        '' as options
+                    FROM fillintheblanks
+                    LIMIT " . $quiz['fill'];
+            $questions = array_merge($questions, fetch_question_set($conn, $sql));
+        }
+    }
+
+    // Short answer questions
+    if ($quiz['short'] > 0) {
+        if (!empty($chapter_ids)) {
+            $sql = "SELECT id, question as questiontext,
+                        answer, 'short' as questiontype, " . $quiz['shortmarks'] . " as marks,
+                        '' as options
+                    FROM shortanswer
+                    WHERE chapter_id IN ($placeholders)
+                    LIMIT " . $quiz['short'];
+            $questions = array_merge($questions, fetch_question_set($conn, $sql, $types, $chapter_ids));
+        } else {
+            $sql = "SELECT id, question as questiontext,
+                        answer, 'short' as questiontype, " . $quiz['shortmarks'] . " as marks,
+                        '' as options
+                    FROM shortanswer
+                    LIMIT " . $quiz['short'];
+            $questions = array_merge($questions, fetch_question_set($conn, $sql));
+        }
+    }
+
+    // Essay questions
+    if ($quiz['essay'] > 0) {
+        if (!empty($chapter_ids)) {
+            $sql = "SELECT id, question as questiontext,
+                        answer, 'essay' as questiontype, " . $quiz['essaymarks'] . " as marks,
+                        '' as options
+                    FROM essay
+                    WHERE chapter_id IN ($placeholders)
+                    LIMIT " . $quiz['essay'];
+            $questions = array_merge($questions, fetch_question_set($conn, $sql, $types, $chapter_ids));
+        } else {
+            $sql = "SELECT id, question as questiontext,
+                        answer, 'essay' as questiontype, " . $quiz['essaymarks'] . " as marks,
+                        '' as options
+                    FROM essay
+                    LIMIT " . $quiz['essay'];
+            $questions = array_merge($questions, fetch_question_set($conn, $sql));
+        }
+    }
 }
 
 // Generate HTML directly without using QuizExporter class
