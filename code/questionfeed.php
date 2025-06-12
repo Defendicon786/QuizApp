@@ -180,7 +180,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['q_type']
             $q_type_active = 'e';
             break;
         case 'essay':
-            $table_name = "essaydb";
+            $table_name = "essay";
             $q_type_active = 'f';
             break;
         default:
@@ -227,7 +227,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit' && isset($_GET['q_type']
             $stmt->bind_result($question_text, $short_answer_keywords, $chapter_id, $topic_id); // Use appropriate variable
             $stmt->fetch();
         } elseif ($q_type_param == 'essay') { // Assuming 'answer' column for essay
-            $sql = "SELECT question, answer, chapter_id, topic_id FROM essaydb WHERE id = ?";
+            $sql = "SELECT question, answer, chapter_id, topic_id FROM essay WHERE id = ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("i", $question_id);
             $stmt->execute();
@@ -397,7 +397,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         
                     case 'f': // Essay
                         $posted_answer = $conn->real_escape_string(trim(fixEscapeSequences($_POST['answer'] ?? '')));
-                        $sql = "UPDATE essaydb SET question = ?, answer = ?, chapter_id = ?, topic_id = ? WHERE id = ?";
+                        $sql = "UPDATE essay SET question = ?, answer = ?, chapter_id = ?, topic_id = ? WHERE id = ?";
                         $stmt = $conn->prepare($sql);
                         if ($stmt) {
                             $stmt->bind_param("ssisi", $posted_question, $posted_answer, $chapter_id, $topic_id, $question_id);
@@ -501,7 +501,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     
                 case 'f': // Essay
                     $posted_answer = $conn->real_escape_string(trim(fixEscapeSequences($_POST['answer'] ?? '')));
-                    $sql = "INSERT INTO essaydb (question, answer, chapter_id, topic_id) VALUES (?, ?, ?, ?)";
+                    $sql = "INSERT INTO essay (question, answer, chapter_id, topic_id) VALUES (?, ?, ?, ?)";
                     $stmt = $conn->prepare($sql);
                     if ($stmt) {
                         $stmt->bind_param("ssii", $posted_question, $posted_answer, $chapter_id, $topic_id);
