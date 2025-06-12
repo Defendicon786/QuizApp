@@ -62,7 +62,8 @@
     .navbar {
       transition: all 0.3s ease;
       padding-top: 20px !important;
-      height: 60px;
+      min-height: 60px;
+      height: auto;
       z-index: 1050;
     }
     .navbar.navbar-transparent {
