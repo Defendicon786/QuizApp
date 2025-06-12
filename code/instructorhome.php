@@ -62,6 +62,8 @@
     .navbar {
       transition: all 0.3s ease;
       padding-top: 20px !important;
+      z-index: 1050;
+      height: 90px;
     }
     .navbar.navbar-transparent {
       background-color: rgba(255,255,255,0.95) !important;
@@ -111,6 +113,15 @@
     .navbar.scrolled .navbar-toggler-icon {
       background-color: #333;
     }
+
+    /* Ensure header content is visible below fixed navbar */
+    .page-header {
+      margin-top: 90px;
+      padding-top: 120px; /* Space for navbar */
+      min-height: calc(100vh - 90px);
+      position: relative;
+    }
+
 
     /* Footer Styles */
     .footer {
