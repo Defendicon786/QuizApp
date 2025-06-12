@@ -159,6 +159,7 @@ CREATE TABLE `essay` (
 CREATE TABLE `fillintheblanks` (
   `id` int(11) NOT NULL,
   `question` text NOT NULL,
+  `options` text DEFAULT NULL,
   `answer` varchar(255) NOT NULL,
   `chapter_id` int(11) DEFAULT NULL,
   `topic_id` int(11) DEFAULT NULL
