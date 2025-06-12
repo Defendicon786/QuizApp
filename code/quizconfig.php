@@ -32,7 +32,7 @@ if ($result_classes && $result_classes->num_rows > 0) {
 // We'll load sections dynamically based on class selection
 $sections = [];
 
-// Add JavaScript for dynamic chapter and section loading
+// Add JavaScript for dynamic chapter, section and topic loading
 ?>
 <script>
 function loadChapters() {
@@ -108,7 +108,28 @@ function loadSections() {
     }
 }
 
-// Topic dropdown for question selection is loaded within the modal
+function loadTopics(chapterIds) {
+    var topicSelect = document.getElementById('topic_ids');
+    if(!topicSelect) return;
+    topicSelect.innerHTML = '<option value="">All Topics</option>';
+    if(chapterIds && chapterIds.length > 0) {
+        fetch('get_topics.php?chapter_ids=' + chapterIds.join(','))
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(function(topic) {
+                    var option = document.createElement('option');
+                    option.value = topic.topic_id;
+                    option.text = topic.topic_name;
+                    topicSelect.appendChild(option);
+                });
+                $(topicSelect).select2();
+            })
+            .catch(error => console.error('Error:', error));
+    } else {
+        $(topicSelect).select2();
+    }
+}
+// Topic dropdown for question selection is loaded on the main page
 </script>
 <?php
 
@@ -171,7 +192,7 @@ function getAvailableQuestionsCount($conn, $chapter_ids) {
 <script>
 function updateAvailableQuestions() {
     var chapterIds = $('#chapter_ids').val();
-    var topicIds = $('#modal_topic_ids').val();
+    var topicIds = $('#topic_ids').val();
     if(chapterIds && chapterIds.length > 0) {
         var url = 'get_question_counts.php?chapter_ids=' + chapterIds.join(',');
         if(topicIds && topicIds.length > 0) {
@@ -211,7 +232,8 @@ $('#chapter_ids').on('change', function() {
     } else {
         $('#selectQuestionsBtn').hide();
     }
-    
+    // Load topics for the selected chapters
+    loadTopics(chapterIds);
     // Update available question counts when chapters are selected
     updateAvailableQuestions();
 });
@@ -233,7 +255,7 @@ $('#random_quiz_checkbox').on('change', function() {
 <script>
 $(document).ready(function() {
   // Initialize Select2 for all dropdowns
-  $('#subject_id, #class_id, #chapter_ids, #section_id, #modal_topic_ids').select2({
+  $('#subject_id, #class_id, #chapter_ids, #section_id, #topic_ids').select2({
     width: '100%',
     minimumResultsForSearch: 10
   });
@@ -294,42 +316,17 @@ $(document).ready(function() {
 
 <!-- Add JavaScript for loading questions and handling manual question selection -->
 <script>
-function loadModalTopics(chapterIds, selectedTopics) {
-    var topicSelect = document.getElementById('modal_topic_ids');
-    if(!topicSelect) return;
-    topicSelect.innerHTML = '<option value="">All Topics</option>';
-    if(chapterIds && chapterIds.length > 0) {
-        fetch('get_topics.php?chapter_ids=' + chapterIds.join(','))
-            .then(response => response.json())
-            .then(data => {
-                data.forEach(function(topic){
-                    var option = document.createElement('option');
-                    option.value = topic.topic_id;
-                    option.text = topic.topic_name;
-                    topicSelect.appendChild(option);
-                });
-                if(selectedTopics && selectedTopics.length > 0) {
-                    $(topicSelect).val(selectedTopics).trigger('change');
-                }
-                $(topicSelect).select2();
-            })
-            .catch(error => console.error('Error:', error));
-    } else {
-        $(topicSelect).select2();
-    }
-}
 // Function to open question selector modal
 function openQuestionSelector() {
     var chapterIds = $('#chapter_ids').val();
-    var topicIds = $('#modal_topic_ids').val();
+    var topicIds = $('#topic_ids').val();
 
     if(!chapterIds || chapterIds.length === 0) {
         alert('Please select chapters first to load questions');
         return;
     }
 
-    // Load topics dropdown inside modal
-    loadModalTopics(chapterIds, topicIds);
+
     
     // Show loading indicator
     $('.questions-list').html('<div class=\"text-center\"><i class=\"fa fa-spinner fa-spin\"></i> Loading questions...</div>');
@@ -673,8 +670,8 @@ function saveSelectedQuestions() {
     // Add a flag to indicate manual selection
     hiddenInputs += '<input type=\"hidden\" name=\"is_manual_selection\" class=\"selected-question-input\" value=\"1\">';
 
-    // Store selected topics from the modal
-    var topicIds = $('#modal_topic_ids').val();
+    // Store selected topics from the dropdown
+    var topicIds = $('#topic_ids').val();
     if(topicIds && topicIds.length > 0) {
         hiddenInputs += '<input type="hidden" name="topic_ids" class="selected-question-input" value="' + topicIds.join(',') + '">';
     }
@@ -1291,6 +1288,18 @@ function saveSelectedQuestions() {
                   </div>
                 </div>
 
+                <!-- Topics Selection -->
+                <div class="row form-row-mobile">
+                  <div class="col-md-3 col-12 mb-2">
+                    <p class="h5 mobile-text-center">Topics</p>
+                  </div>
+                  <div class="col-md-9 col-12">
+                    <select name="topic_ids[]" id="topic_ids" class="form-control mobile-full-width" multiple>
+                      <option value="">All Topics</option>
+                    </select>
+                  </div>
+                </div>
+
                 <!-- Question Selection Modal -->
                 <div class="modal fade" id="questionSelectorModal" tabindex="-1" role="dialog">
                   <div class="modal-dialog modal-lg" role="document">
@@ -1302,13 +1311,6 @@ function saveSelectedQuestions() {
                         </button>
                       </div>
                       <div class="modal-body">
-                        <div class="row mb-3">
-                          <div class="col-12">
-                            <select id="modal_topic_ids" class="form-control" multiple>
-                              <option value="">All Topics</option>
-                            </select>
-                          </div>
-                        </div>
                         <div class="question-tabs">
                           <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
@@ -1987,12 +1989,18 @@ function saveSelectedQuestions() {
   <script src="./assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
   <script>    
-    $(document).ready(function() {
+  $(document).ready(function() {
       // Existing Select2 initialization
-      $('#subject_id, #class_id, #chapter_ids, #section_id, #modal_topic_ids').select2({
+      $('#subject_id, #class_id, #chapter_ids, #section_id, #topic_ids').select2({
         width: '100%',
         minimumResultsForSearch: 10
       });
+
+      // Load topics if chapters are preselected
+      var initialChapters = $('#chapter_ids').val();
+      if(initialChapters && initialChapters.length > 0) {
+        loadTopics(initialChapters);
+      }
       
       // Initialize datetimepicker
       $('.datetimepicker').datetimepicker({
@@ -2018,12 +2026,13 @@ function saveSelectedQuestions() {
         } else {
           $('#selectQuestionsBtn').hide();
         }
+        loadTopics(selectedChapters);
       });
 
-      // Reload questions when topic filter changes inside the modal
-      $(document).on('change', '#modal_topic_ids', function() {
+      // Reload questions when topic filter changes
+      $(document).on('change', '#topic_ids', function() {
         var chapterIds = $('#chapter_ids').val();
-        var topicIds = $('#modal_topic_ids').val();
+        var topicIds = $('#topic_ids').val();
         $('.questions-list').html('<div class="text-center"><i class="fa fa-spinner fa-spin"></i> Loading questions...</div>');
         loadQuestionsByType('mcq', 'mcqQuestions', chapterIds, topicIds);
         loadQuestionsByType('numerical', 'numericalQuestions', chapterIds, topicIds);
