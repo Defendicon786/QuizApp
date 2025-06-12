@@ -265,31 +265,51 @@ if (isset($_POST['action'])) {
             $stmt->close();
         }
     }
-    elseif ($_POST['action'] === 'add_topic' && !empty($_POST['topic_name']) && !empty($_POST['chapter_id'])) {
+    elseif (
+        $_POST['action'] === 'add_topic' &&
+        !empty($_POST['topic_name']) &&
+        !empty($_POST['class_id']) &&
+        !empty($_POST['subject_id']) &&
+        !empty($_POST['chapter_id'])
+    ) {
         $topic_name = $conn->real_escape_string(trim($_POST['topic_name']));
+        $class_id = intval($_POST['class_id']);
+        $subject_id = intval($_POST['subject_id']);
         $chapter_id = intval($_POST['chapter_id']);
 
-        // Check if topic already exists for this chapter
-        $check_sql = "SELECT COUNT(*) FROM topics WHERE chapter_id = ? AND topic_name = ?";
-        $check_stmt = $conn->prepare($check_sql);
-        $check_stmt->bind_param("is", $chapter_id, $topic_name);
-        $check_stmt->execute();
-        $check_stmt->bind_result($count);
-        $check_stmt->fetch();
-        $check_stmt->close();
+        // Verify chapter belongs to selected class and subject
+        $verify_sql = "SELECT 1 FROM chapters WHERE chapter_id = ? AND class_id = ? AND subject_id = ?";
+        $verify_stmt = $conn->prepare($verify_sql);
+        $verify_stmt->bind_param("iii", $chapter_id, $class_id, $subject_id);
+        $verify_stmt->execute();
+        $verify_result = $verify_stmt->get_result();
+        $verify_stmt->close();
 
-        if ($count > 0) {
-            $feedback_message = '<div class="alert alert-warning">Topic already exists for this chapter.</div>';
+        if ($verify_result->num_rows === 0) {
+            $feedback_message = '<div class="alert alert-danger">Invalid chapter selection.</div>';
         } else {
-            $sql = "INSERT INTO topics (chapter_id, topic_name) VALUES (?, ?)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("is", $chapter_id, $topic_name);
-            if ($stmt->execute()) {
-                $feedback_message = '<div class="alert alert-success">Topic added successfully!</div>';
+            // Check if topic already exists for this chapter
+            $check_sql = "SELECT COUNT(*) FROM topics WHERE chapter_id = ? AND topic_name = ?";
+            $check_stmt = $conn->prepare($check_sql);
+            $check_stmt->bind_param("is", $chapter_id, $topic_name);
+            $check_stmt->execute();
+            $check_stmt->bind_result($count);
+            $check_stmt->fetch();
+            $check_stmt->close();
+
+            if ($count > 0) {
+                $feedback_message = '<div class="alert alert-warning">Topic already exists for this chapter.</div>';
             } else {
-                $feedback_message = '<div class="alert alert-danger">Error adding topic: ' . $stmt->error . '</div>';
+                $sql = "INSERT INTO topics (chapter_id, topic_name) VALUES (?, ?)";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("is", $chapter_id, $topic_name);
+                if ($stmt->execute()) {
+                    $feedback_message = '<div class="alert alert-success">Topic added successfully!</div>';
+                } else {
+                    $feedback_message = '<div class="alert alert-danger">Error adding topic: ' . $stmt->error . '</div>';
+                }
+                $stmt->close();
             }
-            $stmt->close();
         }
     }
     elseif ($_POST['action'] === 'delete_topic' && !empty($_POST['topic_id'])) {
@@ -1203,17 +1223,25 @@ $stmt->close();
                                     <form class="add-form" method="post">
                                         <input type="hidden" name="action" value="add_topic">
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <select class="form-control" name="chapter_id" required>
-                                                    <option value="">Select Chapter</option>
-                                                    <?php foreach ($all_chapters as $chap): ?>
-                                                    <option value="<?php echo $chap['chapter_id']; ?>"><?php echo htmlspecialchars($chap['chapter_name']); ?></option>
+                                            <div class="col-md-4">
+                                                <select class="form-control" name="class_id" id="add-topic-class" required>
+                                                    <option value="">Select Class</option>
+                                                    <?php foreach ($classes as $class): ?>
+                                                    <option value="<?php echo $class['class_id']; ?>"><?php echo htmlspecialchars($class['class_name']); ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
+                                                <select class="form-control" name="subject_id" id="add-topic-subject" required>
+                                                    <option value="">Select Subject</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" name="topic_name" placeholder="Enter topic name" required>
+                                                    <select class="form-control" name="chapter_id" id="add-topic-chapter" required>
+                                                        <option value="">Select Chapter</option>
+                                                    </select>
+                                                    <input type="text" class="form-control ml-2" name="topic_name" placeholder="Enter topic name" required>
                                                     <div class="input-group-append">
                                                         <button type="submit" class="btn btn-primary">Add Topic</button>
                                                     </div>
@@ -1435,6 +1463,10 @@ $stmt->close();
         const subjectSelect = $('select[name="topic_subject"]');
         const chapterSelect = $('select[name="topic_chapter"]');
 
+        const addClass = $('#add-topic-class');
+        const addSubject = $('#add-topic-subject');
+        const addChapter = $('#add-topic-chapter');
+
         // When class changes, load relevant subjects and clear chapters
         classSelect.on('change', function(){
             const classId = $(this).val();
@@ -1462,6 +1494,37 @@ $stmt->close();
                     .then(data => {
                         data.forEach(function(ch){
                             chapterSelect.append('<option value="'+ch.chapter_id+'">'+ch.chapter_name+'</option>');
+                        });
+                    });
+            }
+        });
+        // Load subjects for Add Topic form
+        addClass.on('change', function(){
+            const classId = $(this).val();
+            addSubject.html('<option value="">Select Subject</option>');
+            addChapter.html('<option value="">Select Chapter</option>');
+            if(classId){
+                fetch('get_subjects.php?class_id=' + classId)
+                    .then(res => res.json())
+                    .then(data => {
+                        data.forEach(function(sub){
+                            addSubject.append('<option value="'+sub.subject_id+'">'+sub.subject_name+'</option>');
+                        });
+                    });
+            }
+        });
+
+        // Load chapters for Add Topic form
+        addSubject.on('change', function(){
+            const classId = addClass.val();
+            const subjectId = $(this).val();
+            addChapter.html('<option value="">Select Chapter</option>');
+            if(classId && subjectId){
+                fetch('get_chapters.php?class_id=' + classId + '&subject_id=' + subjectId)
+                    .then(res => res.json())
+                    .then(data => {
+                        data.forEach(function(ch){
+                            addChapter.append('<option value="'+ch.chapter_id+'">'+ch.chapter_name+'</option>');
                         });
                     });
             }
