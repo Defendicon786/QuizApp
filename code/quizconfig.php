@@ -724,71 +724,7 @@ function saveSelectedQuestions() {
     <link href="./assets/css/portal.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
   <style>
-    /* Fixed Navbar Styles */
-    .navbar {
-      transition: all 0.3s ease;
-      padding-top: 20px !important;
-      background-color: #fff !important;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      height: 60px;
-    }
-    
-    .navbar-brand {
-      color: #333 !important;
-      font-weight: 600;
-      font-size: 1.3rem;
-      padding: 0 15px;
-    }
-    
-    .nav-link {
-        white-space: nowrap;
-      color: #333 !important;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-weight: 500;
-      padding: 8px 15px !important;
-    }
-    
-    .nav-link i {
-      font-size: 18px;
-      color: #333;
-    }
-    
-    .navbar-toggler {
-      border: none;
-      padding: 0;
-    }
-    
-    .navbar-toggler-icon {
-      background-color: #333;
-      height: 2px;
-      margin: 4px 0;
-      display: block;
-      transition: all 0.3s ease;
-    }
-    
-    @media (max-width: 991px) {
-      .navbar .navbar-nav {
-        margin-top: 10px;
-        background: #fff;
-        border-radius: 4px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        padding: 10px;
-                max-height: calc(100vh - 120px);
-                overflow-y: auto;
-      }
-      
-      .navbar .nav-item {
-        margin: 5px 0;
-      }
-      
-      .nav-link {
-        white-space: nowrap;
-        color: #333 !important;
-        padding: 8px 15px !important;
-      }
-    }
+    /* Fixed Navbar Styles are defined globally in navbar.css */
 
     /* Footer Styles */
     .footer {
