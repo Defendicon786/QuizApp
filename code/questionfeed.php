@@ -1367,9 +1367,9 @@ function getChapters($conn, $class_id, $subject_id) {
     </div>
   </nav>
 
-  <div class="wrapper">
-    <div class="main main-raised">
-      <div class="container">
+  <div class="main-container">
+    <div class="page-header header-filter" style="background-image: url('./assets/img/bg2.jpg'); background-size: cover; background-position: top center;">
+      <div class="container" style="padding-top: 20px;">
       <div class="row" style="margin-bottom: 50px; position: relative; z-index: 2;">
         <div class="col-lg-10 col-md-10 ml-auto mr-auto">
           <div class="card card-login">
