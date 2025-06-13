@@ -722,6 +722,18 @@ function getChapters($conn, $class_id, $subject_id) {
     }
     
     /* Fixed Navbar Styles are defined globally in navbar.css */
+    .navbar.main-navbar .container {
+      width: 100%;
+      max-width: 100%;
+      margin-right: auto;
+      margin-left: auto;
+      padding-left: 20px;
+      padding-right: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+    }
 
     /* Footer Styles */
     .footer {

@@ -725,6 +725,18 @@ function saveSelectedQuestions() {
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
   <style>
     /* Fixed Navbar Styles are defined globally in navbar.css */
+    .navbar.main-navbar .container {
+      width: 100%;
+      max-width: 100%;
+      margin-right: auto;
+      margin-left: auto;
+      padding-left: 20px;
+      padding-right: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+    }
 
     /* Footer Styles */
     .footer {
