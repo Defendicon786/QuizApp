@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 12, 2025 at 09:11 AM
+-- Generation Time: Jun 13, 2025 at 04:02 AM
 -- Server version: 10.6.22-MariaDB-log
 -- PHP Version: 8.3.21
 
@@ -49,31 +49,7 @@ CREATE TABLE `chapters` (
 
 INSERT INTO `chapters` (`chapter_id`, `class_id`, `subject_id`, `chapter_name`, `chapter_number`, `description`, `learning_objectives`, `status`, `difficulty_level`, `estimated_hours`, `prerequisites`, `created_at`, `updated_at`) VALUES
 (6, 4, 1, 'Biodiversity and Classification', 1, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-15 15:05:44', '2025-05-15 15:05:44'),
-(7, 4, 1, 'Bacteria and Viruses', 2, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-15 15:06:03', '2025-05-15 15:06:03'),
-(8, 4, 1, 'Cells and Subcellular Organelles', 3, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-15 15:06:11', '2025-05-15 15:06:11'),
-(9, 4, 1, 'Molecular Biology', 4, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-15 15:06:54', '2025-05-15 15:06:54'),
-(10, 4, 1, 'Enzymes', 5, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-15 15:07:08', '2025-05-15 15:07:08'),
-(11, 4, 1, 'Bioenergetics', 6, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-15 15:07:22', '2025-05-15 15:07:22'),
-(12, 4, 1, 'Structural and Computational Biology', 7, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-15 15:07:38', '2025-05-15 15:07:38'),
-(13, 4, 1, 'Plant Physiology', 8, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-15 15:08:00', '2025-05-15 15:08:00'),
-(14, 4, 1, 'Human Digestive System', 9, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-15 15:08:14', '2025-05-15 15:08:14'),
-(15, 4, 1, 'Human Respiratory System', 10, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-15 15:08:27', '2025-05-15 15:08:27'),
-(16, 4, 1, 'Human Circulatory System', 11, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-15 15:08:40', '2025-05-15 15:08:40'),
-(17, 4, 1, 'Human Skeletal and Muscular Systems', 12, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-15 15:08:55', '2025-05-15 15:08:55'),
-(24, 10, 1, 'Chapter 1-THE SCIENCE OF BIOLOGY', 1, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-18 00:19:29', '2025-05-18 00:19:29'),
-(25, 10, 1, 'Chapter 2- BIODIVERSITY', 2, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-18 00:20:54', '2025-05-18 00:20:54'),
-(26, 10, 1, 'Chapter 3-THE CELL', 3, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-18 00:21:15', '2025-05-18 00:21:15'),
-(27, 10, 1, 'Chapter 4- CELL CYCLE', 4, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-18 00:21:55', '2025-05-18 00:21:55'),
-(28, 10, 1, 'Chapter 5- TISSUES, ORGANS, AND ORGAN SYSTEMS', 5, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-18 00:22:35', '2025-05-18 00:22:35'),
-(29, 10, 1, 'Chapter 6- BIOMOLECULES', 6, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-18 00:22:50', '2025-05-18 00:22:50'),
-(30, 10, 1, 'Chapter 7- ENZYMES', 7, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-18 00:23:12', '2025-05-18 00:23:12'),
-(31, 10, 1, 'Chapter 8- BIOENERGETICS', 8, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-18 00:23:30', '2025-05-18 00:23:30'),
-(32, 10, 1, 'Chapter 9- PLANT PHYSIOLOGY', 9, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-18 00:24:02', '2025-05-18 00:24:02'),
-(33, 10, 1, 'Chapter 10-REPRODUCTION IN PLANTS', 10, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-18 00:25:21', '2025-05-18 00:25:21'),
-(34, 10, 1, 'Chapter 11-BIOSTATISTICS', 11, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-18 00:25:36', '2025-05-18 00:25:36'),
-(36, 12, 1, 'Enzymes', 1, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-19 05:37:12', '2025-05-19 05:37:12'),
-(37, 13, 17, 'chap 1', 1, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-06-12 10:06:57', '2025-06-12 10:06:57'),
-(38, 14, 17, 'intro test', 1, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-06-12 10:07:14', '2025-06-12 10:07:14');
+(7, 4, 1, 'Bacteria and Viruses', 2, NULL, NULL, 'active', 'intermediate', NULL, NULL, '2025-05-15 15:06:03', '2025-05-15 15:06:03');
 
 -- --------------------------------------------------------
 
@@ -94,11 +70,7 @@ CREATE TABLE `classes` (
 --
 
 INSERT INTO `classes` (`class_id`, `class_name`, `instructor_email`, `created_at`, `updated_at`) VALUES
-(4, '1st Year', 'test@test.com', '2025-05-15 15:05:29', '2025-05-15 15:05:29'),
-(10, '9th', 'Hassan.tariq771@gmail.com', '2025-05-18 00:17:55', '2025-05-18 00:17:55'),
-(12, 'C1', 'Hassan.tariq771@gmail.com', '2025-05-19 05:36:12', '2025-05-19 05:36:12'),
-(13, '1st test', 'test@test.com', '2025-06-12 10:05:04', '2025-06-12 10:05:04'),
-(14, '9 test', 'test@test.com', '2025-06-12 10:05:56', '2025-06-12 10:05:56');
+(4, '1st Year', 'test@test.com', '2025-05-15 15:05:29', '2025-05-15 15:05:29');
 
 -- --------------------------------------------------------
 
@@ -120,14 +92,7 @@ CREATE TABLE `class_sections` (
 
 INSERT INTO `class_sections` (`id`, `class_id`, `section_name`, `created_at`, `updated_at`) VALUES
 (7, 4, 'B', '2025-05-17 05:56:20', '2025-05-17 05:56:20'),
-(10, 4, 'G', '2025-05-17 17:12:40', '2025-05-17 17:12:40'),
-(14, 10, 'A+B', '2025-05-18 17:21:15', '2025-05-18 17:21:15'),
-(15, 12, 'boys', '2025-05-19 05:36:45', '2025-05-19 05:36:45'),
-(16, 12, 'girls', '2025-05-19 05:36:55', '2025-05-19 05:36:55'),
-(17, 13, 'A test', '2025-06-12 10:05:37', '2025-06-12 10:05:37'),
-(18, 13, 'B test', '2025-06-12 10:05:44', '2025-06-12 10:05:44'),
-(19, 14, 'A test', '2025-06-12 10:06:36', '2025-06-12 10:06:36'),
-(20, 14, 'b test', '2025-06-12 10:06:43', '2025-06-12 10:06:43');
+(10, 4, 'G', '2025-05-17 17:12:40', '2025-05-17 17:12:40');
 
 -- --------------------------------------------------------
 
@@ -158,14 +123,6 @@ CREATE TABLE `essay` (
   `topic_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dumping data for table `essay`
---
-
-INSERT INTO `essay` (`id`, `question`, `answer`, `chapter_id`, `topic_id`) VALUES
-(1, 'hjvgf', 'hkgk', 17, NULL),
-(2, 'write note on domain archaea', 'along note', 37, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -186,8 +143,22 @@ CREATE TABLE `fillintheblanks` (
 --
 
 INSERT INTO `fillintheblanks` (`id`, `question`, `options`, `answer`, `chapter_id`, `topic_id`) VALUES
-(1, 'bj', 'hv', 'jgj', 6, NULL),
-(2, 'Carl Woese propose ________ kingdoms?', 'two, three, five, four, one', 'three', 37, 1);
+(3, 'Biodiversity and classification are fundamental concepts in biology that provide insight into the vast array of life forms on Earth and their __________ relationships.', NULL, 'evolutionary', 6, 3),
+(4, 'The five-kingdom classification system was proposed by American ecologists __________ in 1969.', NULL, 'Rebert Whittaker', 6, 3),
+(5, 'According to the five-kingdom system, all organisms were divided into five kingdoms: Monera, Protista, Fungi, Plantae, and __________.', NULL, 'Animalia', 6, 3),
+(6, 'The kingdom Monera included __________ in the five-kingdom system.', NULL, 'prokaryotes', 6, 3),
+(7, 'All other four kingdoms (Protista, Fungi, Plantae, and Animalia) included __________ in the five-kingdom system.', NULL, 'eukaryotes', 6, 3),
+(8, 'In 1990, American microbiologist Carl Woese suggested that there are two separate groups of prokaryotes: Archaea and __________.', NULL, 'Bacteria', 6, 3),
+(9, 'Carl Woese classified living organisms into three domains: Domain Archaea, Domain Bacteria, and Domain __________.', NULL, 'Eukarya', 6, 3),
+(10, 'The evolutionary relationship among organisms is called __________.', NULL, 'phylogeny', 6, 3),
+(11, 'A diagram to show phylogeny is called a __________ or evolutionary tree.', NULL, 'phylogenetic', 6, 3),
+(12, 'Domain Archaea and Domain Bacteria both contain __________, but they differ in a number of features.', NULL, 'prokaryotes', 6, 3),
+(13, 'Biodiversity highlights the variety of life at the genetic, species, and __________ levels.', NULL, 'ecosystem', 6, 3),
+(14, 'Biologists now believe that Archaea and Bacteria evolved __________ from some common ancestor.', NULL, 'independently', 6, 3),
+(15, 'According to __________ evidence, archaea are more closely related to eukaryotes than to bacteria.', NULL, 'molecular', 6, 3),
+(16, 'In other words, Eukarya evolved from __________, after archaea split off from the Bacteria.', NULL, 'Archaea', 6, 3),
+(17, 'The principles and methods of biological classification are used by scientists to __________ and categorize organisms.', NULL, 'organize', 6, 3),
+(18, 'The three-domain system proposed by Carl Woese in 1990 effectively divided the former Kingdom Monera into two distinct prokaryotic domains: __________ and __________.', NULL, 'Archaea and Bacteria', 6, 3);
 
 -- --------------------------------------------------------
 
@@ -206,9 +177,7 @@ CREATE TABLE `instructorinfo` (
 --
 
 INSERT INTO `instructorinfo` (`name`, `email`, `password`) VALUES
-('Abdul Manan', 'am@am.com', '12345'),
 ('Hassan Tariq', 'Hassan.tariq771@gmail.com', 'hassan@nps'),
-('t', 't@test.com', '123'),
 ('Test Instructor', 'test@test.com', 'test123');
 
 -- --------------------------------------------------------
@@ -234,40 +203,21 @@ CREATE TABLE `mcqdb` (
 --
 
 INSERT INTO `mcqdb` (`id`, `question`, `optiona`, `optionb`, `optionc`, `optiond`, `answer`, `chapter_id`, `topic_id`) VALUES
-(12, 'Which domain of life is characterized by organisms that often inhabit extreme environments and have cell membranes with ether-linked lipids?', 'Bacteria', 'Archaea', 'Eukarya', 'Protista', 'B', 6, NULL),
-(13, 'What is a key difference between the domains Bacteria and Archaea?', 'Bacteria have membrane-bound organelles, while Archaea do not', 'Bacterial cell walls have peptidoglycan, while Archaeal cell walls do not have it.', 'Archaea are only found in extreme environments, while Bacteria are not.', 'Bacteria are all unicellular, while Archaea include multicellular organisms', 'B', 6, NULL),
-(14, 'Which of the following kingdoms includes organisms that are mostly unicellular, eukaryotic, and can be autotrophic or heterotrophic?', 'Fungi', 'Animalia', 'Plantae', 'Protoctista', 'D', 6, NULL),
-(15, 'In which kingdom are organisms predominantly multicellular, autotrophic, and have cell walls made of cellulose?', 'Animalia', 'Fungi', 'Plantae', 'Protoctista', 'C', 6, NULL),
-(16, 'Which of the following criteria is commonly used to classify viruses?', 'Their ability to cause specific diseases', 'The type of nucleic acid they contain', 'The colour of the virus particles', 'Their mode of transmission', 'B', 6, NULL),
-(17, 'Which virus group includes viruses such as Coronaviruses and influenza viruses?', 'Double-stranded DNA viruses', 'Single-stranded DNA viruses', 'Double-stranded RNA viruses', 'Single-stranded RNA viruses', 'D', 6, NULL),
-(18, 'At which level of biodiversity assessment do we evaluate the variety of different species within a particular habitat or ecosystem?', 'Genetic diversity', 'Ecosystem diversity', 'Species diversity', 'Functional diversity', 'C', 6, NULL),
-(19, 'Which method is best suited for assessing the distribution of species across a gradient of environmental conditions within a single geographical area?', 'Quadrat Sampling', 'Point Counts', 'Transect Sampling', 'Remote Sensing', 'C', 6, NULL),
-(20, 'Which of the following statements is true regarding the concept of a species?', 'A species is always defined by its physical characteristics alone.', 'Different species can interbreed and produce fertile offspring.', 'Members of the same species are reproductively isolated from members of other  species.', 'The concept of a species can be defined solely based on genetic similarity.', 'C', 6, NULL),
-(48, 'What type of speciation occurs when populations are geographically separated by a physical barrier?', 'Sympatric Speciation', 'Parapatric Speciation', 'Allopatric Speciation', 'Peripatric Speciation', 'C', 6, NULL),
-(49, 'Which branch of Biology focuses on the study of the structure and the function of cells?', 'Cytology', 'Microbiology', 'Histology', 'Ecology', 'A', 24, NULL),
-(50, 'The study of the process of heredity and variation in living organisms is known as:', 'Ecology', 'Genetics', 'Anatomy', 'Embryology', 'B', 24, NULL),
-(51, 'insulin made through bacteria is an example of the technique of:', 'Parasitology', 'Biotechnology', 'Biochemistry', 'Histology', 'B', 24, NULL),
-(52, 'Heart pump blood, stomach digest food and kidneys excrete wastes. the statement comes from', 'physiology', 'Anatomy', 'Morphology', 'Histology', 'A', 24, NULL),
-(53, 'Which branch of Biology involves the study of the classification of organisms?', 'Taxonomy', 'Physiology', 'Palaeontology', 'Biogeography', 'A', 24, NULL),
-(54, 'Which step comes between making hypothesis and doing experiments?', 'Making deductions', 'Making observations', 'Summarizing results', 'Analysing data', 'A', 24, NULL),
-(55, 'Which of the following is NOT a characteristic of the scientific method?', 'It relies on evidence', 'It involves formulating hypotheses', 'Hypothesis will always be correct', 'It requires rigorous testing', 'C', 24, NULL),
-(56, 'Choose the correct sequence of steps of scientific method?', 'Observations - hypothesis - deduction - experiments', 'Observations - hypothesis - law- theory', 'Hypothesis - observations - deduction - experiments', 'Law - theory- deduction - observations', 'A', 24, NULL),
-(57, 'People who slept near smoky fire had less chance to suffer from malaria, why?', 'Smoke kills Plasmodiumin their blood', 'Fire increases temperature and Plasmodium are killed in air', 'mosquitoes cannot tolerate smoke and are repelled', 'smoke kills plasmodium present in mosquitoes', 'C', 24, NULL),
-(58, 'Experiments are very important in scientific method because a researcher:', 'Always gets correct results', 'Disprove many hypothesis and gets some hypothesis proved', 'Is sure that he will prove the hypothesis', 'Gets a chance to work in laboratory', 'B', 24, NULL),
-(59, 'Which of the following component is not found in all kinds of bacteria?', 'Ribosomes', 'Cell membrane', 'Nucleoid', 'Capsule', 'C', 7, NULL),
-(60, 'The bacterial chromosome is typically:', 'Circular, single-stranded RNA', 'Linear, double-stranded DNA', 'Circular, double-stranded DNA', 'Linear, single-stranded DNA', 'C', 7, NULL),
-(61, 'In bacterial cells, respiration occurs at:', 'Mitochondria', 'Cell membrane', 'Ribosomes', 'Endoplasmic reticulum', 'B', 7, NULL),
-(62, 'Which group of bacteria is known as a good source of antibiotics?', 'Omnibacteria', 'Spirochaetes', 'Pseudomonads', 'Actinomycetes', 'D', 7, NULL),
-(63, 'What is the primary function of flagella in bacterial cells?', 'DNA replication', 'Motility', 'Protein synthesis', 'Cell division', 'B', 7, NULL),
-(64, 'Which type of motility in bacteria is mediated by pili?', 'Brownian movement', 'Gliding motility', 'Swarming motility', 'Twitching motility', 'D', 7, NULL),
-(65, 'Which of the following bacterial structures is responsible for detecting and responding to chemicals?', 'Capsule', 'Pili', 'Flagella', 'Ribosomes', 'C', 7, NULL),
-(66, 'Which one of the following are not Nitrifying bacteria?', 'Nitrosomonas', 'Nitrobacter', 'Azotobacter', 'Pseudomonas', 'C', 7, NULL),
-(67, 'The enzyme responsible for converting HIV RNA into DNA is:', 'RNA polymerase', 'Reverse transcriptase', 'DNA helicase', 'Integrase', 'B', 7, NULL),
-(68, 'The HIV capsid contains:', 'Single-stranded DNA and reverse transcriptase', 'Single-stranded RNA and reverse transcriptase', 'Double-stranded DNA and integrase', 'Double-stranded RNA and RNA polymerase', 'B', 7, NULL),
-(70, 'hthdhfghfgh', 'Single-stranded DNA and reverse transcriptase', 'Single-stranded RNA and reverse transcriptase', 'Double-stranded DNA and integrase', 'Double-stranded RNA and RNA polymerase', 'C', 36, NULL),
-(71, 'Who proposed the five-kingdom classification system?', 'Carl Woese', 'Robert Whittaker', 'Charles Darwin', 'Antonie van Leeuwenhoek', 'A', 37, 1),
-(72, 'In the five-kingdom classification system, which kingdom included all prokaryotes?', 'Protista', 'Fungi', 'Monera', 'Animalia', 'A', 37, 1),
-(73, 'Which two groups of prokaryotes did Carl Woese suggest were separate?', 'Plantae and Animalia', 'Protista and Fungi', 'Archaea and Bacteria', 'Monera and Protista', 'B', 37, 1);
+(74, 'Which of the following is NOT one of the levels at which biodiversity is highlighted in the text?', 'Genetic level', 'Species level', 'Population level', 'Ecosystem level', 'c', 6, 3),
+(75, 'What is the evolutionary relationship among organisms called?', 'Taxonomy', 'Classification', 'Phylogeny', 'Systematics', 'c', 6, 3),
+(76, 'Who proposed the five-kingdom classification system?', 'Carl Woese', 'Robert Whittaker', 'Charles Darwin', 'Anton van Leeuwenhoek', 'b', 6, 3),
+(77, 'In the five-kingdom system, which kingdom included all prokaryotes?', 'Protista', 'Fungi', 'Monera', 'Plantae', 'c', 6, 3),
+(78, 'How many domains of life did Carl Woese suggest in 1990?', 'Two', 'Three', 'Four', 'Five', 'b', 6, 3),
+(79, 'According to the three-domain system, which of the following domains contains prokaryotic organisms?', 'Eukarya only', 'Archaea only', 'Bacteria only', 'Both Archaea and Bacteria', 'd', 6, 3),
+(80, 'A scientist draws a diagram to show the evolutionary history of a group of organisms. What is this diagram called?', 'Cladogram', 'Phylogenetic tree', 'Taxonomic key', 'Dichotomous chart', 'b', 6, 3),
+(81, 'Which of the following statements about the five-kingdom system is true?', 'It grouped all eukaryotes into the kingdom Monera.', 'It was proposed after the three-domain system.', 'It separated organisms based on whether they were prokaryotic or eukaryotic.', 'It recognized Archaea as a distinct group from Bacteria.', 'c', 6, 3),
+(82, 'Carl Woese\'s modification to the classification system primarily addressed a distinction within which group of organisms?', 'Eukaryotes', 'Fungi', 'Prokaryotes', 'Multicellular organisms', 'c', 6, 3),
+(83, 'What type of evidence suggested that archaea are more closely related to eukaryotes than to bacteria?', 'Morphological evidence', 'Fossil evidence', 'Molecular evidence', 'Behavioral evidence', 'c', 6, 3),
+(84, 'The shift from the five-kingdom system to the three-domain system primarily reflects a deeper understanding of:', 'The anatomical complexity of organisms.', 'The fundamental metabolic pathways shared across all life.', 'The evolutionary divergence within prokaryotes and their relationship to eukaryotes.', 'The ecological roles played by different life forms.', 'c', 6, 3),
+(85, 'If a new organism is discovered that lacks a nucleus and membrane-bound organelles, but its ribosomal RNA sequence is more similar to Homo sapiens than to Escherichia coli, to which domain would it most likely be assigned?', 'Bacteria', 'Archaea', 'Eukarya (as a highly reduced form)', 'A new, sixth kingdom', 'b', 6, 3),
+(86, 'Which of the following phylogenetic relationships is best supported by the information provided in the text?', 'Bacteria and Archaea are sister groups, and Eukarya diverged from Bacteria.', 'Archaea and Eukarya share a more recent common ancestor with each other than either does with Bacteria.', 'All three domains diverged simultaneously from a common ancestor.', 'Monera is a polyphyletic group, encompassing organisms from both Bacteria and Eukarya.', 'b', 6, 3),
+(87, 'The concept of \"Monera\" as a single kingdom became problematic under the three-domain system because:', 'Some Monera were found to be eukaryotic.', 'Monera was discovered to be a polyphyletic group, containing organisms from two distinct domains.', 'Fungi were reclassified from Monera.', 'The definition of \"prokaryote\" changed.', 'b', 6, 3),
+(88, 'If a diagram shows Bacteria branching off first, followed by a split between Archaea and Eukarya, what does this arrangement primarily illustrate about the evolutionary history of life?', 'Eukaryotes are the most ancient life forms.', 'Bacteria are more complex than Archaea.', 'The last universal common ancestor was likely a bacterium.', 'Archaea and Eukarya share a more recent common ancestor than either does with Bacteria.', 'd', 6, 3);
 
 -- --------------------------------------------------------
 
@@ -367,10 +317,11 @@ INSERT INTO `quizconfig` (`quizid`, `quiznumber`, `quizname`, `starttime`, `endt
 (100, 3, '3rd', '2025-05-18 21:02:00', '2025-05-19 21:02:00', 10, 1, 5, 0, 0, 0, 5, 0, 1, 0, 0, 0, 2, 0, 15, 5, 1, 0, 0, 0, 0, 0, 0, 5, 2, 0, 0, 10, 4, '6', '', 1, 'B', NULL, 1),
 (107, 4, '1st year chap 1', '2025-05-19 10:42:00', '2025-05-19 10:59:00', 10, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, '6,7', '', 1, 'B', NULL, 1),
 (108, 5, 'testing', '2025-06-09 15:25:00', '2025-06-10 15:25:00', 10, 1, 5, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 25, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 4, '6', '', 1, 'B', NULL, 1),
-(109, 6, '1st test b', '2025-06-12 15:38:00', '2025-06-13 15:38:00', 10, 1, 3, 0, 0, 1, 1, 1, 1, 0, 0, 1, 2, 5, 11, 3, 1, 0, 0, 0, 0, 1, 1, 1, 2, 1, 5, 6, 13, '37', NULL, 17, 'B TEST', NULL, 1),
-(110, 7, '1st test b', '2025-06-12 15:48:00', '2025-06-13 15:48:00', 10, 1, 5, 0, 0, 0, 3, 0, 1, 0, 0, 0, 2, 0, 11, 5, 1, 0, 0, 0, 0, 0, 0, 3, 2, 0, 0, 8, 4, '6,7,8,9,10,11,12,13,14,15,16,17', NULL, 1, 'B', NULL, 1),
 (111, 7, '1st test b', '2025-06-12 15:48:00', '2025-06-13 15:48:00', 10, 1, 5, 0, 0, 0, 3, 0, 1, 0, 0, 0, 2, 0, 11, 5, 1, 0, 0, 0, 0, 0, 0, 3, 2, 0, 0, 8, 4, '6,7,8,9,10,11,12,13,14,15,16,17', NULL, 1, 'B', NULL, 1),
-(112, 8, 'testttt', '2025-06-12 16:36:00', '2025-06-13 16:36:00', 10, 1, 3, 0, 0, 1, 1, 1, 2, 0, 0, 1, 0, 5, 12, 3, 2, 0, 0, 0, 0, 1, 1, 1, 0, 1, 5, 6, 13, '37', '1', 17, 'A TEST', NULL, 0);
+(113, 9, 'test 2', '2025-06-13 12:03:00', '2025-06-14 12:03:00', 10, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 2, 2, 5, 10, 1, 1, 0, 0, 0, 0, 1, 2, 1, 2, 1, 5, 4, NULL, '37', '1', NULL, 'A TEST', NULL, 1),
+(116, 12, 'test 5', '2025-06-13 12:06:00', '2025-06-14 12:06:00', 10, 1, 5, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 5, 5, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 4, '6', '0', 1, 'B', NULL, 1),
+(118, 13, 'test', '2025-06-13 14:00:00', '2025-06-14 14:00:00', 10, 1, 3, 0, 0, 1, 3, 0, 1, 0, 0, 0, 2, 0, 9, 3, 1, 0, 0, 0, 0, 1, 0, 3, 2, 0, 0, 7, 4, '6', '3', 1, 'B', NULL, 1),
+(119, 14, 'test 2', '2025-06-13 14:00:00', '2025-06-14 14:00:00', 10, 1, 3, 0, 0, 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 1, 0, 3, 0, 0, 0, 7, 4, '6', '3', 1, 'B', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -385,19 +336,6 @@ CREATE TABLE `quizrecord` (
   `starttime` datetime NOT NULL,
   `endtime` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `quizrecord`
---
-
-INSERT INTO `quizrecord` (`quizid`, `rollnumber`, `attempt`, `starttime`, `endtime`) VALUES
-(98, 2, 1, '2025-05-18 21:33:37', '2025-05-18 21:34:59'),
-(99, 2, 1, '2025-05-18 21:35:03', '2025-05-18 21:35:36'),
-(100, 1, 1, '2025-05-18 21:07:32', '2025-05-18 21:08:34'),
-(100, 2, 1, '2025-05-18 21:32:51', '2025-05-18 21:33:33'),
-(107, 1, 1, '2025-05-19 10:47:59', NULL),
-(108, 1, 1, '2025-06-09 15:27:04', '2025-06-09 15:27:14'),
-(112, 7, 1, '2025-06-12 16:38:42', '2025-06-12 16:39:31');
 
 -- --------------------------------------------------------
 
@@ -463,20 +401,6 @@ INSERT INTO `random_quiz_questions` (`quizid`, `qtype`, `qid`, `serialnumber`) V
 (108, 'a', 15, 1),
 (108, 'a', 18, 4),
 (108, 'a', 20, 5),
-(109, 'a', 71, 2),
-(109, 'a', 72, 3),
-(109, 'a', 73, 1),
-(109, 'd', 2, 4),
-(109, 'e', 38, 5),
-(109, 'f', 2, 6),
-(110, 'a', 12, 4),
-(110, 'a', 15, 3),
-(110, 'a', 19, 1),
-(110, 'a', 60, 2),
-(110, 'a', 64, 5),
-(110, 'e', 26, 7),
-(110, 'e', 27, 8),
-(110, 'e', 32, 6),
 (111, 'a', 13, 4),
 (111, 'a', 14, 3),
 (111, 'a', 15, 1),
@@ -484,7 +408,30 @@ INSERT INTO `random_quiz_questions` (`quizid`, `qtype`, `qid`, `serialnumber`) V
 (111, 'a', 66, 5),
 (111, 'e', 4, 6),
 (111, 'e', 8, 7),
-(111, 'e', 30, 8);
+(111, 'e', 30, 8),
+(113, 'a', 72, 1),
+(113, 'd', 2, 2),
+(113, 'e', 38, 3),
+(113, 'f', 2, 4),
+(116, 'a', 12, 2),
+(116, 'a', 14, 3),
+(116, 'a', 18, 5),
+(116, 'a', 19, 1),
+(116, 'a', 48, 4),
+(118, 'a', 74, 1),
+(118, 'a', 80, 3),
+(118, 'a', 88, 2),
+(118, 'd', 10, 4),
+(118, 'e', 47, 7),
+(118, 'e', 59, 6),
+(118, 'e', 60, 5),
+(119, 'a', 77, 2),
+(119, 'a', 81, 3),
+(119, 'a', 87, 1),
+(119, 'd', 16, 4),
+(119, 'e', 45, 6),
+(119, 'e', 48, 5),
+(119, 'e', 50, 7);
 
 -- --------------------------------------------------------
 
@@ -501,63 +448,6 @@ CREATE TABLE `response` (
   `response` text NOT NULL,
   `serialnumber` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `response`
---
-
-INSERT INTO `response` (`quizid`, `rollnumber`, `attempt`, `qtype`, `qid`, `response`, `serialnumber`) VALUES
-(98, 2, 1, 'a', 13, 'B', 3),
-(98, 2, 1, 'a', 16, 'B', 2),
-(98, 2, 1, 'a', 17, 'A', 4),
-(98, 2, 1, 'a', 19, 'C', 1),
-(98, 2, 1, 'a', 20, 'A', 5),
-(98, 2, 1, 'e', 2, 'sdgfdhh gg', 7),
-(98, 2, 1, 'e', 4, '', 10),
-(98, 2, 1, 'e', 5, 'fsgsg', 6),
-(98, 2, 1, 'e', 7, '', 9),
-(98, 2, 1, 'e', 8, '', 8),
-(99, 2, 1, 'a', 13, 'B', 4),
-(99, 2, 1, 'a', 15, 'D', 3),
-(99, 2, 1, 'a', 16, 'B', 2),
-(99, 2, 1, 'a', 18, 'C', 1),
-(99, 2, 1, 'a', 19, 'C', 5),
-(99, 2, 1, 'e', 2, '', 9),
-(99, 2, 1, 'e', 3, '', 10),
-(99, 2, 1, 'e', 4, 'fsdgfs', 6),
-(99, 2, 1, 'e', 6, 'ggg', 8),
-(99, 2, 1, 'e', 8, 'aaaa', 7),
-(100, 1, 1, 'a', 12, 'B', 1),
-(100, 1, 1, 'a', 13, 'B', 4),
-(100, 1, 1, 'a', 17, 'D', 5),
-(100, 1, 1, 'a', 20, 'C', 2),
-(100, 1, 1, 'a', 48, 'C', 3),
-(100, 1, 1, 'e', 3, '', 9),
-(100, 1, 1, 'e', 4, '', 8),
-(100, 1, 1, 'e', 5, '', 7),
-(100, 1, 1, 'e', 7, '', 6),
-(100, 1, 1, 'e', 8, '', 10),
-(100, 2, 1, 'a', 12, 'B', 1),
-(100, 2, 1, 'a', 13, 'B', 4),
-(100, 2, 1, 'a', 17, 'C', 5),
-(100, 2, 1, 'a', 20, 'C', 2),
-(100, 2, 1, 'a', 48, 'B', 3),
-(100, 2, 1, 'e', 3, '', 9),
-(100, 2, 1, 'e', 4, '', 8),
-(100, 2, 1, 'e', 5, '', 7),
-(100, 2, 1, 'e', 7, '', 6),
-(100, 2, 1, 'e', 8, '', 10),
-(108, 1, 1, 'a', 12, '', 2),
-(108, 1, 1, 'a', 14, '', 3),
-(108, 1, 1, 'a', 15, '', 1),
-(108, 1, 1, 'a', 18, '', 4),
-(108, 1, 1, 'a', 20, '', 5),
-(112, 7, 1, 'a', 71, 'B', 2),
-(112, 7, 1, 'a', 72, 'A', 3),
-(112, 7, 1, 'a', 73, 'A', 1),
-(112, 7, 1, 'd', 2, 'Ss', 4),
-(112, 7, 1, 'e', 38, 'Gdgd', 5),
-(112, 7, 1, 'f', 2, 'Gsgd', 6);
 
 -- --------------------------------------------------------
 
@@ -576,18 +466,6 @@ CREATE TABLE `result` (
   `shortmarks` int(11) NOT NULL,
   `essaymarks` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `result`
---
-
-INSERT INTO `result` (`quizid`, `rollnumber`, `attempt`, `mcqmarks`, `numericalmarks`, `dropdownmarks`, `fillmarks`, `shortmarks`, `essaymarks`) VALUES
-(98, 2, 1, 3, 0, 0, 0, 0, 0),
-(99, 2, 1, 4, 0, 0, 0, 0, 0),
-(100, 1, 1, 5, 0, 0, 0, 0, 0),
-(100, 2, 1, 3, 0, 0, 0, 0, 0),
-(108, 1, 1, 0, 0, 0, 0, 0, 0),
-(112, 7, 1, 2, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -608,41 +486,28 @@ CREATE TABLE `shortanswer` (
 --
 
 INSERT INTO `shortanswer` (`id`, `question`, `answer`, `chapter_id`, `topic_id`) VALUES
-(2, 'What are the three domains of life and how do they differ in terms of cellular structure?', 'Three Domains', 6, NULL),
-(3, 'Describe one key feature that differentiates Archaea from Bacteria', 'Archaea from Bacteria', 6, NULL),
-(4, 'Which kingdom is characterized by organisms with chitin in their cell walls and that are mostly decomposers?', 'chitin, decomposers', 6, NULL),
-(5, 'What type of speciation occurs when populations are geographically separated?', 'speciation', 6, NULL),
-(6, 'What is the role of genetic drift in the process of speciation?', 'genetic drift, speciation', 6, NULL),
-(7, 'What is the primary method used to assess species distribution along an environmental gradient?', 'species distribution', 6, NULL),
-(8, 'Which level of biodiversity assessment involves evaluating the variety of ecosystems in a region?', 'biodiversity assessmen', 6, NULL),
-(9, 'Define the Following branches of Biology genetics, Anatomy, Paleontology, Marine Biology, Pathology', 'Branches', 24, NULL),
-(10, 'Which branch of Biology involves the study of the development of organisms from fertilization to birth or hatching?', 'development', 24, NULL),
-(11, 'How is the profession of medicine and surgery different from animal husbandry?', 'difference', 24, NULL),
-(12, 'Differentiate between Morphology and Physiology', 'Differentiate', 24, NULL),
-(13, 'What is Computational Biology?', 'Computational Biology', 24, NULL),
-(14, 'What is the role of observation and experimentation in the scientific method?', 'scientific method', 24, NULL),
-(15, 'Link the study of Biology with that of Physics, Chemistry, Statistics, Geography, Economics and Computer Science.', 'link branches', 24, NULL),
-(16, 'Explain how the study of Biology can lead to different professional studies.', 'Biology can lead to different professional studies.', 24, NULL),
-(17, 'Science is a collaborative field in which scientists work together to share knowledge. Prove this statement by giving examples.', 'collaborative field', 24, NULL),
-(18, 'How is a hypothesis converted to theory, law and principle?', 'hypothesis, theory, law and principle', 24, NULL),
-(19, 'What are the basic steps a scientist adopts in order to solve a scientific problem?', 'scientific problem, steps', 24, NULL),
-(20, 'Describe the work of different scientists in discovering the cause of malaria.', 'cause of malaria. work of different scientists', 24, NULL),
-(21, 'Write a descriptive note on the experiments performed by Ross.', 'Ross experiment', 24, NULL),
-(22, 'Write about the structural components of a bacterial cell wall and their arrangement.', 'bacterial cell wall', 7, NULL),
-(23, 'Write the composition of the peptidoglycan layer in bacterial cell walls.', 'composition of the peptidoglycan layer', 7, NULL),
-(24, 'What are mesosomes? What are their functions?', 'mesosomes', 7, NULL),
-(25, 'How can plasmids be used in genetic engineering?', 'plasmids, genetic engineering', 7, NULL),
-(26, 'Define sporulation.', 'sporulation', 7, NULL),
-(27, 'What is the function of the bacterial capsule?', 'capsule', 7, NULL),
-(28, 'Write the role of pili in bacterial cells. How do they differ from flagella?', 'pili , flagella', 7, NULL),
-(29, 'What are plasmids, and how do they contribute to enabling bacteria to resistance against unfavourable conditions?', 'resistance against unfavourable conditions', 7, NULL),
-(30, 'Write about the role of endospores in bacterial survival.', 'endospores , bacterial survival.', 7, NULL),
-(31, 'What is the significance of lipopolysaccharides and lipoproteins in Gram-negative bacteria?', 'lipopolysaccharides and lipoproteins in Gram-negative bacteria', 7, NULL),
-(32, 'How do spirochetes achieve motility?', 'spirochetes , motility', 7, NULL),
-(33, 'Differentiate between twitching and gliding movements in bacterial motility.', 'twitching and gliding movements in bacteria', 7, NULL),
-(34, 'How do bacteria without flagella achieve motility?', 'without flagella achieve motility', 7, NULL),
-(35, 'What is the difference between swimming motility and swarming motility in bacteria?', 'swimming motility and swarming motility', 7, NULL),
-(38, 'what is binomial nomenclature', 'fsfb gs sg', 37, 1);
+(39, 'Who proposed the five-kingdom classification system?', '[Your Answer Here]', 6, 3),
+(40, 'In what year was the five-kingdom system proposed?', '[Your Answer Here]', 6, 3),
+(41, 'What are the five kingdoms in Whittaker\'s classification system?', '[Your Answer Here]', 6, 3),
+(42, 'Which kingdom in the five-kingdom system included prokaryotes?', '[Your Answer Here]', 6, 3),
+(43, 'Which kingdoms in the five-kingdom system included eukaryotes?', '[Your Answer Here]', 6, 3),
+(44, 'Who suggested there are two separate groups of prokaryotes?', '[Your Answer Here]', 6, 3),
+(45, 'In what year did Carl Woese propose the three-domain system?', '[Your Answer Here]', 6, 3),
+(46, 'What are the three domains of classification?', '[Your Answer Here]', 6, 3),
+(47, 'Which two domains contain prokaryotes?', '[Your Answer Here]', 6, 3),
+(48, 'What is phylogeny?', '[Your Answer Here]', 6, 3),
+(49, 'What is a phylogenetic or evolutionary tree?', '[Your Answer Here]', 6, 3),
+(50, 'How did Carl Woese\'s classification differ from Whittaker\'s regarding prokaryotes?', '[Your Answer Here]', 6, 3),
+(51, 'What is the main distinction between the Monera kingdom and the two prokaryotic domains?', '[Your Answer Here]', 6, 3),
+(52, 'According to molecular evidence, which domain is more closely related to eukaryotes?', '[Your Answer Here]', 6, 3),
+(53, 'From which domain are eukaryotes believed to have evolved?', '[Your Answer Here]', 6, 3),
+(54, 'What is the significance of the \"three-domain system\" in terms of classifying life?', '[Your Answer Here]', 6, 3),
+(55, 'Briefly explain why the three-domain system was introduced after the five-kingdom system.', '[Your Answer Here]', 6, 3),
+(56, 'Discuss the fundamental difference in the underlying principle of classification between Whittaker\'s five-kingdom system and Woese\'s three-domain system, particularly concerning prokaryotic diversity.', '[Your Answer Here]', 6, 3),
+(57, 'Elaborate on the evolutionary implications of the statement: \"Eukarya evolved from Archaea, after archaea split off from the Bacteria.\"', '[Your Answer Here]', 6, 3),
+(58, 'Besides the presence of prokaryotes, what key differences might exist between Archaea and Bacteria that led Woese to classify them as separate domains?', '[Your Answer Here]', 6, 3),
+(59, 'How does the concept of \"phylogeny\" enhance our understanding of biodiversity beyond mere categorization?', '[Your Answer Here]', 6, 3),
+(60, 'If new molecular evidence were to contradict the close relationship between Archaea and Eukarya, how might this impact the current three-domain system of classification?', '[Your Answer Here]', 6, 3);
 
 -- --------------------------------------------------------
 
@@ -661,18 +526,6 @@ CREATE TABLE `studentinfo` (
   `section` varchar(50) DEFAULT NULL COMMENT 'Student section'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dumping data for table `studentinfo`
---
-
-INSERT INTO `studentinfo` (`name`, `rollnumber`, `department`, `program`, `password`, `email`, `section_id`, `section`) VALUES
-('ali', 1, '1st Year', '', '123', 'ali@test.com', 7, 'B'),
-('husnain', 2, '1st Year', '', '123', 'husnain@test.com', 7, 'B'),
-('alia', 3, '1st Year', '', '123', 'ali@test.com', 10, 'G'),
-('fatima', 4, '1st Year', '', '123', 'fatima@test.com', 10, 'G'),
-('7', 7, '1st test', '', '123', '7t@test.com', 17, 'A test'),
-('ali', 322, '1st Year', '', '123', 'ali@gmail.com', 7, 'B');
-
 -- --------------------------------------------------------
 
 --
@@ -689,10 +542,7 @@ CREATE TABLE `subjects` (
 --
 
 INSERT INTO `subjects` (`subject_id`, `subject_name`) VALUES
-(17, 'bio test'),
-(1, 'Biology'),
-(15, 'Computer'),
-(16, 'stats');
+(1, 'Biology');
 
 -- --------------------------------------------------------
 
@@ -713,8 +563,10 @@ CREATE TABLE `topics` (
 --
 
 INSERT INTO `topics` (`topic_id`, `chapter_id`, `topic_name`, `created_at`, `updated_at`) VALUES
-(1, 37, 'intro to 1st test', '2025-06-12 10:16:55', '2025-06-12 10:16:55'),
-(2, 38, 'intro to 9th test', '2025-06-12 10:17:59', '2025-06-12 10:17:59');
+(3, 6, 'introduction to three domain classification', '2025-06-13 07:40:10', '2025-06-13 07:40:10'),
+(4, 6, 'Domain Archaea', '2025-06-13 07:40:36', '2025-06-13 07:40:36'),
+(5, 6, 'Domain Bacteria', '2025-06-13 07:40:51', '2025-06-13 07:40:51'),
+(6, 6, 'Domain Eukarya', '2025-06-13 07:41:06', '2025-06-13 07:41:06');
 
 --
 -- Indexes for dumped tables
@@ -911,13 +763,13 @@ ALTER TABLE `essay`
 -- AUTO_INCREMENT for table `fillintheblanks`
 --
 ALTER TABLE `fillintheblanks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `mcqdb`
 --
 ALTER TABLE `mcqdb`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -935,13 +787,13 @@ ALTER TABLE `numericaldb`
 -- AUTO_INCREMENT for table `quizconfig`
 --
 ALTER TABLE `quizconfig`
-  MODIFY `quizid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+  MODIFY `quizid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 
 --
 -- AUTO_INCREMENT for table `shortanswer`
 --
 ALTER TABLE `shortanswer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `subjects`
@@ -953,7 +805,7 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
