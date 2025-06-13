@@ -672,6 +672,11 @@ try {
             border-radius: 8px;
             margin-top: 20px;
         }
+
+        /* Ensure main content starts below the navbar */
+        .content {
+            margin-top: 80px;
+        }
         .card-header-primary {
             background: linear-gradient(60deg, #ab47bc, #8e24aa);
             box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(156, 39, 176, 0.4);

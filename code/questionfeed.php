@@ -852,7 +852,7 @@ function getChapters($conn, $class_id, $subject_id) {
     /* Desktop Specific Enhancements */
     @media (min-width: 992px) {
       .page-header {
-        padding-top: 120px !important;
+        padding-top: 150px !important; /* Increased spacing below navbar */
         padding-bottom: 60px !important;
         min-height: 100vh !important; /* Ensure full height */
       }
@@ -1159,7 +1159,7 @@ function getChapters($conn, $class_id, $subject_id) {
       .page-header { /* Main content container below navbar */
         height: auto !important; /* Allow it to grow with content */
         min-height: 0 !important; /* Override any vh-based min-height */
-        padding-top: 80px !important; /* Account for fixed navbar (60px) + some space */
+        padding-top: 100px !important; /* Extra space to prevent overlap */
         padding-bottom: 20px !important; /* Space before footer */
         overflow: visible !important; /* Ensure its content can overflow and make page scroll */
         display: block !important; /* Override flex if it's causing issues */
