@@ -1823,6 +1823,14 @@ function saveSelectedQuestions() {
 
                       if ($stmt->execute()) {
                           $quizid = $conn->insert_id;
+                          // Clean up any existing random question entries for this quiz
+                          $cleanup_sql = "DELETE FROM random_quiz_questions WHERE quizid = ?";
+                          $cleanup_stmt = $conn->prepare($cleanup_sql);
+                          if ($cleanup_stmt) {
+                              $cleanup_stmt->bind_param("i", $quizid);
+                              $cleanup_stmt->execute();
+                              $cleanup_stmt->close();
+                          }
                           
                           // Save selected questions in response table if not random
                           if (!$is_random && !empty($selected_question_ids)) {
