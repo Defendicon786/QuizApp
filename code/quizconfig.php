@@ -782,14 +782,7 @@ function saveSelectedQuestions() {
       padding-top: 70px;
       background-color: #f5f5f5;
     }
-    .navbar {
-      height: 50px;
-      background-color: #fff !important;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      padding: 0 !important;
-    }
     .navbar-translate {
-      height: 50px;
       display: flex;
       align-items: center;
     }
