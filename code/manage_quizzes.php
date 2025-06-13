@@ -314,6 +314,8 @@ $conn->close();
             margin-top: 60px;
             padding-top: 120px; /* Ensure content sits below fixed navbar */
             min-height: calc(100vh - 60px);
+            height: auto; /* Allow page to grow with content */
+            display: block; /* Disable flex centering */
             position: relative;
         }
         .card {
