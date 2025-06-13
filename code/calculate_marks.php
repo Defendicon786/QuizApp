@@ -147,6 +147,7 @@ $conn->close(); // Close connection here before outputting HTML
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculate Marks</title>
     <link href="./assets/css/material-kit.css?v=2.0.4" rel="stylesheet" />
+    <link href="./assets/css/modern.css" rel="stylesheet" />
     <style>
         body { padding: 20px; font-family: Roboto, sans-serif; }
         .message { padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; }

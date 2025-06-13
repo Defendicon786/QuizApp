@@ -374,6 +374,7 @@ $conn->close();
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <link href="./assets/css/material-kit.css?v=2.0.4" rel="stylesheet" />
+    <link href="./assets/css/modern.css" rel="stylesheet" />
     <link href="./assets/css/navbar.css" rel="stylesheet" />
     <link href="./assets/css/portal.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
