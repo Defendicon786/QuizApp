@@ -1423,8 +1423,9 @@ function getChapters($conn, $class_id, $subject_id) {
     </div>
   </nav>
 
-  <div class="page-header header-filter clear-filter" style="background-image: url('./assets/img/bg2.jpg'); background-size: cover; background-position: top center; position: relative;">
-    <div class="container">
+  <div class="wrapper">
+    <div class="main main-raised">
+      <div class="container">
       <div class="row" style="margin-bottom: 50px; position: relative; z-index: 2;">
         <div class="col-lg-10 col-md-10 ml-auto mr-auto">
           <div class="card card-login">
@@ -1938,7 +1939,8 @@ function getChapters($conn, $class_id, $subject_id) {
         </div>
       </div>
     </div>
-  </div> 
+  </div>
+</div>
   <footer class="footer footer-default">
     <div class="container">
       <div class="copyright text-center">

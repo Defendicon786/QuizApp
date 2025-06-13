@@ -1165,8 +1165,9 @@ function saveSelectedQuestions() {
     </div>
   </nav>
 
-  <div class="page-header">
-    <div class="container">
+  <div class="wrapper">
+    <div class="main main-raised">
+      <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-10 col-md-12">
           <div class="card card-login">
@@ -2006,7 +2007,8 @@ function saveSelectedQuestions() {
         </div>
       </div>
     </div>
-  </div>  
+  </div>
+</div>
 
   <!-- Core JS Files -->
   <script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>
