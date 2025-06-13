@@ -615,30 +615,26 @@ function getChapters($conn, $class_id, $subject_id) {
     nav.navbar {
       z-index: 1050 !important; /* Higher than anything else */
     }
-    
+
     .page-header {
       z-index: 1 !important; /* Lower than navbar but higher than default */
     }
-    
+
     .page-header .container {
       position: relative !important;
       z-index: 3 !important; /* Higher than overlay */
     }
-    
+
     .card-login {
       z-index: 4 !important; /* Highest in page-header */
     }
-    
+
     /* Important fix for desktop navbar and header */
     @media (min-width: 992px) {
       body {
         padding-top: 60px; /* Account for fixed navbar height */
       }
-      
-      .navbar {
-        background-color: rgba(255, 255, 255, 0.95) !important;
-      }
-      
+
       .page-header {
         min-height: 100vh;
         height: auto !important;
