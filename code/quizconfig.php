@@ -1588,6 +1588,20 @@ function saveSelectedQuestions() {
                   $typee = isset($_POST["typee"]) ? $_POST["typee"] : 0;
                   $typefmarks = isset($_POST["typefmarks"]) ? $_POST["typefmarks"] : 0;
                   $typef = isset($_POST["typef"]) ? $_POST["typef"] : 0;
+
+                  // Determine if random selection was requested
+                  $is_random = isset($_POST["random_quiz"]) ? 1 : 0;
+
+                  // If random selection and counts are zero, default to at least one question where available
+                  if ($is_random) {
+                      $available = getAvailableQuestionsCount($conn, explode(',', $chapter_ids));
+                      if ($typea == 0) $typea = min(1, $available['mcq']);
+                      if ($typeb == 0) $typeb = min(1, $available['numerical']);
+                      if ($typec == 0) $typec = min(1, $available['dropdown']);
+                      if ($typed == 0) $typed = min(1, $available['fillblanks']);
+                      if ($typee == 0) $typee = min(1, $available['short']);
+                      if ($typef == 0) $typef = min(1, $available['essay']);
+                  }
                   $maxmarks = $typeamarks*$typea+$typebmarks*$typeb+$typecmarks*$typec+$typedmarks*$typed+$typeemarks*$typee+$typefmarks*$typef;
                   
                   $duration = isset($_POST["duration"]) ? $_POST["duration"] : 0;
@@ -1700,7 +1714,6 @@ function saveSelectedQuestions() {
 
                   if (!empty($quiznumber)) {
                       $stmt = $conn->prepare($sql);
-                      $is_random = isset($_POST["random_quiz"]) ? 1 : 0;
                       
                       // Get selected questions
                       $selected_questions = array();
