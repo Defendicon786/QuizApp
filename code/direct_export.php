@@ -164,6 +164,85 @@ if ($student_specific && $student_rollnumber && $student_attempt) {
     }
     $stmt->close();
 }
+else if ($quiz['is_random'] == 1) {
+    // For a random quiz, use the preselected questions from random_quiz_questions table
+    $sql_preselected = "
+        SELECT
+            r.qid,
+            r.qtype,
+            '' as response,
+            CASE
+                WHEN r.qtype = 'a' THEN (SELECT question FROM mcqdb WHERE id = r.qid)
+                WHEN r.qtype = 'b' THEN (SELECT question FROM numericaldb WHERE id = r.qid)
+                WHEN r.qtype = 'c' THEN (SELECT question FROM dropdown WHERE id = r.qid)
+                WHEN r.qtype = 'd' THEN (SELECT question FROM fillintheblanks WHERE id = r.qid)
+                WHEN r.qtype = 'e' THEN (SELECT question FROM shortanswer WHERE id = r.qid)
+                WHEN r.qtype = 'f' THEN (SELECT question FROM essay WHERE id = r.qid)
+            END as questiontext,
+            CASE
+                WHEN r.qtype = 'a' THEN CONCAT('[\"', (SELECT optiona FROM mcqdb WHERE id = r.qid), '\",\"',
+                                            (SELECT optionb FROM mcqdb WHERE id = r.qid), '\",\"',
+                                            (SELECT optionc FROM mcqdb WHERE id = r.qid), '\",\"',
+                                            (SELECT optiond FROM mcqdb WHERE id = r.qid), '\"]')
+                WHEN r.qtype = 'c' THEN (SELECT options FROM dropdown WHERE id = r.qid)
+                ELSE ''
+            END as options,
+            CASE
+                WHEN r.qtype = 'a' THEN (SELECT answer FROM mcqdb WHERE id = r.qid)
+                WHEN r.qtype = 'b' THEN (SELECT answer FROM numericaldb WHERE id = r.qid)
+                WHEN r.qtype = 'c' THEN (SELECT answer FROM dropdown WHERE id = r.qid)
+                WHEN r.qtype = 'd' THEN (SELECT answer FROM fillintheblanks WHERE id = r.qid)
+                WHEN r.qtype = 'e' THEN (SELECT answer FROM shortanswer WHERE id = r.qid)
+                WHEN r.qtype = 'f' THEN (SELECT answer FROM essay WHERE id = r.qid)
+            END as answer,
+            CASE
+                WHEN r.qtype = 'a' THEN 'mcq'
+                WHEN r.qtype = 'b' THEN 'numerical'
+                WHEN r.qtype = 'c' THEN 'dropdown'
+                WHEN r.qtype = 'd' THEN 'fill'
+                WHEN r.qtype = 'e' THEN 'short'
+                WHEN r.qtype = 'f' THEN 'essay'
+            END as questiontype,
+            CASE
+                WHEN r.qtype = 'a' THEN ?
+                WHEN r.qtype = 'b' THEN ?
+                WHEN r.qtype = 'c' THEN ?
+                WHEN r.qtype = 'd' THEN ?
+                WHEN r.qtype = 'e' THEN ?
+                WHEN r.qtype = 'f' THEN ?
+            END as marks
+        FROM
+            random_quiz_questions r
+        WHERE
+            r.quizid = ?
+        ORDER BY
+            r.serialnumber ASC";
+
+    $stmt = $conn->prepare($sql_preselected);
+    if (!$stmt) {
+        $_SESSION['export_error'] = "Failed to prepare statement: " . $conn->error;
+        header("Location: manage_quizzes.php");
+        exit;
+    }
+
+    $stmt->bind_param("ddddddi",
+        $quiz['mcqmarks'],
+        $quiz['numericalmarks'],
+        $quiz['dropdownmarks'],
+        $quiz['fillmarks'],
+        $quiz['shortmarks'],
+        $quiz['essaymarks'],
+        $quiz['quizid']
+    );
+
+    $stmt->execute();
+    $preselected_questions_result = $stmt->get_result();
+
+    while ($row = $preselected_questions_result->fetch_assoc()) {
+        $questions[] = $row;
+    }
+    $stmt->close();
+}
 else {
     // Regular question fetching for general export
     $chapter_ids = [];
