@@ -886,6 +886,50 @@ INSERT INTO `topics` (`topic_id`, `chapter_id`, `topic_name`, `created_at`, `upd
 (6, 6, 'Domain Eukarya', '2025-06-13 07:41:06', '2025-06-13 07:41:06'),
 (7, 6, 'Taxonomic Hierarchy', '2025-06-17 13:42:22', '2025-06-17 13:42:22');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admininfo`
+--
+
+CREATE TABLE `admininfo` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `otp_secret` varchar(32) NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `admininfo`
+--
+
+INSERT INTO `admininfo` (`id`, `name`, `email`, `password`, `otp_secret`, `created_at`) VALUES
+(1, 'Administrator', 'admin@example.com', 'adminpass', 'JBSWY3DPEHPK3PXP', '2025-06-19 07:20:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `instructor_requests`
+--
+
+CREATE TABLE `instructor_requests` (
+  `id` int(11) NOT NULL,
+  `instructor_email` varchar(255) NOT NULL,
+  `action` varchar(255) NOT NULL,
+  `details` text NOT NULL,
+  `status` enum('pending','approved','denied') DEFAULT 'pending',
+  `admin_comment` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `decision_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `instructor_requests`
+--
+
+
 --
 -- Indexes for dumped tables
 --
@@ -1044,6 +1088,20 @@ ALTER TABLE `topics`
   ADD KEY `idx_topic_chapter` (`chapter_id`);
 
 --
+-- Indexes for table `admininfo`
+--
+ALTER TABLE `admininfo`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Indexes for table `instructor_requests`
+--
+ALTER TABLE `instructor_requests`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_request_instructor` (`instructor_email`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -1124,6 +1182,18 @@ ALTER TABLE `subjects`
 --
 ALTER TABLE `topics`
   MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `admininfo`
+--
+ALTER TABLE `admininfo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `instructor_requests`
+--
+ALTER TABLE `instructor_requests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Constraints for dumped tables
@@ -1249,6 +1319,12 @@ ALTER TABLE `studentinfo`
 --
 ALTER TABLE `topics`
   ADD CONSTRAINT `fk_topics_chapter` FOREIGN KEY (`chapter_id`) REFERENCES `chapters` (`chapter_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `instructor_requests`
+--
+ALTER TABLE `instructor_requests`
+  ADD CONSTRAINT `fk_request_instructor` FOREIGN KEY (`instructor_email`) REFERENCES `instructorinfo` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
