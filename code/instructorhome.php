@@ -245,6 +245,11 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="request_modification.php" class="nav-link">
+              <i class="material-icons">edit</i> Request Modification
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="my_profile.php" class="nav-link">
               <i class="material-icons">person</i> My Profile
             </a>

@@ -54,6 +54,8 @@ are provided under `sql/`.
 |---|---|
 |studentinfo| Store information about the registered students|
 |instrutorinfo| Store information about the Teacher and TAs|
+|admininfo| Administrative user accounts with OTP secrets|
+|instructor_requests| Tracks instructor modification requests|
 |quizrecord| Store information about latest quiz given by students|
 |response| Stores answers of the questions submitted by students|
 |result| Stores information about marks of students|
@@ -115,7 +117,7 @@ git clone https://github.com/ft-abhishekgupta/php-mysql-onlinequizportal
 
 * Open PHPMyAdmin
     1. Create Database **quiz**
-    1. Import ```quiz.sql``` in the database
+    1. Import ```sql/database_quiz.sql``` in the database
 
 * Modify ```database.php``` file with MySQL Credentials
 * Open Browser :
