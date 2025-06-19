@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 16, 2025 at 11:33 AM
+-- Generation Time: Jun 19, 2025 at 01:59 AM
 -- Server version: 10.6.22-MariaDB-log
 -- PHP Version: 8.3.22
 
@@ -133,7 +133,9 @@ INSERT INTO `essay` (`id`, `question`, `answer`, `chapter_id`, `topic_id`) VALUE
 (5, 'Discuss the diverse roles that bacteria play in both natural ecosystems and their interactions with other organisms', 'role', 6, 5),
 (6, 'Compare and contrast the key characteristics of the Domain Bacteria with those of Eukarya', 'key characteristics', 6, 5),
 (7, 'Analyze the significance of various structural components found in bacteria. Explain how each of these structures contributes to the survival, adaptation, and overall function of bacterial organisms.', 'structural components', 6, 5),
-(8, 'Explain major groups of Bacteria', 'major groups', 6, 5);
+(8, 'Explain major groups of Bacteria', 'major groups', 6, 5),
+(9, 'What is Taxonomic hierarchy? explain classification of Human and Sparrow', 'classification', 6, 7),
+(10, 'Define taxonomic Hierarchy and explain first four taxons', 'taxonomic Hierarchy', 6, 7);
 
 -- --------------------------------------------------------
 
@@ -220,7 +222,36 @@ INSERT INTO `fillintheblanks` (`id`, `question`, `options`, `answer`, `chapter_i
 (99, 'Some bacteria cause diseases in humans, animals, and plants, producing toxins or other ________________________________________ factors.', NULL, 'virulence', 6, 5),
 (100, 'An example of a mutualistic symbiotic relationship mentioned involves bacteria where both organisms ________________________________________.', NULL, 'benefit', 6, 5),
 (101, 'Escherichia coli* is an example of a bacterium belonging to the ________________________________________ group.', NULL, 'Proteobacteria', 6, 5),
-(102, 'Mycobacterium tuberculosis* is classified under the ________________________________________ group of bacteria.', NULL, 'Actinobacteria', 6, 5);
+(102, 'Mycobacterium tuberculosis* is classified under the ________________________________________ group of bacteria.', NULL, 'Actinobacteria', 6, 5),
+(103, 'The domain Eukarya encompasses all organisms with eukaryotic cells, which are fundamentally different from the ___________ cells of Bacteria and Archaea.', NULL, 'prokaryotic', 6, 6),
+(104, 'Eukaryotic cells are characterized by possessing a true nucleus that is enclosed by a ___________.', NULL, 'nuclear membrane', 6, 6),
+(105, 'In addition to a nucleus, eukaryotic cells contain various ___________-bounded organelles such as mitochondria, endoplasmic reticulum, and the Golgi apparatus.', NULL, 'membrane', 6, 6),
+(106, 'Chloroplasts, a type of membrane-bounded organelle, are specifically found in plant cells and ___________.', NULL, 'algae', 6, 6),
+(107, 'The cytoskeleton of eukaryotic cells is a complex network comprised of microtubules, microfilaments, and ___________ filaments, which provides structural support and facilitates intracellular transport.', NULL, 'intermediate', 6, 6),
+(108, 'Eukaryotic DNA is organized into multiple ___________ chromosomes, which are located within the ___________.', NULL, 'linear; nucleus', 6, 6),
+(109, 'Eukaryotic DNA is associated with proteins called ___________, which play a crucial role in the organization and regulation of genetic material.', NULL, 'histone', 6, 6),
+(110, 'Most eukaryotes primarily undergo ___________ reproduction, a process involving meiosis and fertilization that leads to ___________.', NULL, 'sexual; genetic diversity', 6, 6),
+(111, 'While sexual reproduction promotes diversity, some eukaryotes can also reproduce asexually through ___________, resulting in genetically ___________ offspring.', NULL, 'mitosis; identical', 6, 6),
+(112, 'In multicellular eukaryotes, cells differentiate into specialized types, which then form ___________ and organs with specific functions.', NULL, 'tissues', 6, 6),
+(113, 'The widely accepted theory for the origin of eukaryotes, particularly their organelles like mitochondria and chloroplasts, is ___________.', NULL, 'endosymbiosis', 6, 6),
+(114, 'According to the endosymbiotic theory, certain prokaryotic cells were ___________ by a host cell, establishing a ___________ relationship that led to the evolution of eukaryotic organelles.', NULL, 'engulfed; symbiotic', 6, 6),
+(135, 'The classification of living organisms is organized into a _________ system that allows scientists to categorize and understand the relationships between different forms of life.', NULL, 'hierarchical', 6, 7),
+(136, 'The primary levels of the taxonomic hierarchy are kingdom, phylum, class, order, family, genus, and _________.', NULL, 'species', 6, 7),
+(137, 'The highest level of classification, currently divided into Archaea, Bacteria, and Eukarya, is known as the _________.', NULL, 'Domain', 6, 7),
+(138, 'The taxonomic rank just below domain, which groups all forms of life sharing fundamental characteristics, is the _________.', NULL, 'Kingdom', 6, 7),
+(139, 'In the domain Eukarya, kingdoms such as Animalia, Plantae, Fungi, and _________ exist.', NULL, 'Protista', 6, 7),
+(140, 'Organisms within a _________ share a basic body plan and significant structural features.', NULL, 'phylum', 6, 7),
+(141, 'Within the kingdom Animalia, the phylum _________ includes all animals with a notochord.', NULL, 'Chordata', 6, 7),
+(142, 'Class further divides organisms within a phylum based on more specific common traits, exemplified by the class _________ within Chordata, characterized by hair and mammary glands.', NULL, 'Mammalia', 6, 7),
+(143, 'Order categorizes organisms within a class based on additional shared characteristics and evolutionary history, such as the order _________ which includes humans, monkeys, and apes.', NULL, 'Primates', 6, 7),
+(144, 'The family _________ groups organisms within the order Primates that are even more closely related, including great apes and humans.', NULL, 'Hominidae', 6, 7),
+(145, 'The genus _________ is a more specific rank within a family, grouping species that are very closely related and often visually similar, like humans and our closest extinct relatives.', NULL, 'Homo', 6, 7),
+(146, 'The most specific level of classification, representing a single type of organism whose members can interbreed and produce fertile offspring, is the _________.', NULL, 'species', 6, 7),
+(147, 'Modern humans are referred to by the species name Homo _________.', NULL, 'sapiens', 6, 7),
+(148, 'The presence of a notochord at some stage of development is a defining characteristic of the phylum _________.', NULL, 'Chordata', 6, 7),
+(149, 'The three domains of life are Archaea, Bacteria, and _________.', NULL, 'Eukarya', 6, 7),
+(150, 'Which taxonomic level directly precedes \"Order\" and groups organisms based on more specific common traits?', NULL, 'Class', 6, 7),
+(151, 'What is the criterion for determining if members of a species belong to the same group, beyond visual similarity or shared habitat?', NULL, 'Ability to interbreed and produce fertile offspring', 6, 7);
 
 -- --------------------------------------------------------
 
@@ -321,7 +352,42 @@ INSERT INTO `mcqdb` (`id`, `question`, `optiona`, `optionb`, `optionc`, `optiond
 (152, 'The fact that some bacteria cause diseases in humans, animals, and plants producing toxins or other virulence factors primarily describes their:', 'Symbiotic role', 'Extremophilic nature', 'Pathogenicity', 'Nutritional mode', 'C', 6, 5),
 (153, 'Rhizobium, mentioned as an example of Proteobacteria, is often known for its mutualistic relationship with plants. This aligns with which general characteristic of bacteria?', 'Pathogenicity', 'Extremophilism', 'Respiration diversity', 'Symbiosis', 'D', 6, 5),
 (154, 'Which of the following statements incorrectly characterizes bacteria based on the provided text?', 'All bacteria have a single, circular chromosome.', 'Some bacteria can thrive in high temperatures.', 'All bacteria are heterotrophic.', 'Bacteria primarily reproduce asexually.', 'C', 6, 5),
-(155, 'Given the description of bacterial cell structure, which of the following processes would not occur within a membrane-bound organelle in a bacterium?', 'Protein synthesis', 'DNA replication', 'Energy production (e.g., cellular respiration)', 'Photosynthesis (in photosynthetic bacteria)', 'A', 6, 5);
+(155, 'Given the description of bacterial cell structure, which of the following processes would not occur within a membrane-bound organelle in a bacterium?', 'Protein synthesis', 'DNA replication', 'Energy production (e.g., cellular respiration)', 'Photosynthesis (in photosynthetic bacteria)', 'A', 6, 5),
+(156, 'Which of the following is a defining characteristic of eukaryotic cells?', 'Absence of a nucleus', 'Presence of a true nucleus enclosed by a nuclear membrane', 'Lack of membrane-bounded organelles', 'DNA organized in a single circular chromosome', 'B', 6, 6),
+(157, 'According to the text, what is the primary function of the cytoskeleton in eukaryotic cells?', 'Digestion of waste materials', 'Production of energy', 'Structural support, cell movement, and intracellular transport', 'Storage of genetic material', 'C', 6, 6),
+(158, 'How is the DNA organized in eukaryotic cells?', 'As a single circular chromosome in the cytoplasm', 'In multiple linear chromosomes within the nucleus', 'Without any associated proteins', 'As loose genetic material scattered throughout the cell', 'B', 6, 6),
+(159, 'Which type of reproduction is primarily associated with genetic diversity in eukaryotes?', 'Asexual reproduction through mitosis', 'Sexual reproduction involving meiosis and fertilization', 'Binary fission', 'Budding', 'B', 6, 6),
+(160, 'What is the proposed origin of certain organelles like mitochondria and chloroplasts in eukaryotic cells?', 'Spontaneous generation', 'De novo synthesis within the host cell', 'Engulfment of prokaryotic cells through endosymbiosis', 'Direct inheritance from the earliest eukaryotic ancestor', 'C', 6, 6),
+(161, 'The presence of membrane-bounded organelles in eukaryotes is crucial because it allows for:', 'Simpler cellular organization compared to prokaryotes.', 'The efficient compartmentalization of various metabolic processes.', 'Unrestricted movement of genetic material within the cell.', 'Direct interaction of all enzymes with the entire cytoplasm.', 'B', 6, 6),
+(162, 'The association of DNA with histone proteins in eukaryotic chromosomes primarily indicates:', 'A simpler mechanism for gene expression.', 'A less organized and more chaotic genetic structure.', 'A highly organized and regulated system for genetic material.', 'An evolutionary link to organisms with plasmids only.', 'C', 6, 6),
+(163, 'Considering the description of complex cellular organization in multicellular eukaryotes, which of the following is an accurate inference?', 'All cells in a multicellular eukaryote retain the ability to perform all functions of the organism.', 'Cellular differentiation leads to a division of labor among cells, enhancing overall organismal efficiency.', 'Tissues and organs are merely random aggregations of similar cells.', 'Specialized cells lose their nucleus and genetic material over time.', 'B', 6, 6),
+(164, 'If a eukaryotic organism were unable to undergo meiosis, what would be the most significant long-term consequence for its population?', 'All offspring would be genetically identical, leading to increased genetic diversity.', 'There would be a significant reduction in genetic variation, making the population less adaptable.', 'The organism would exclusively reproduce sexually, increasing its reproductive rate.', 'Its cells would lose their true nucleus and become prokaryotic over generations.', 'B', 6, 6),
+(165, 'The theory of endosymbiosis provides a compelling explanation for the presence of which of the following characteristics in eukaryotic cells, that is absent in prokaryotes?', 'A complex cytoskeleton', 'Multiple linear chromosomes', 'Membrane-bounded organelles like mitochondria and chloroplasts', 'The ability to reproduce asexually', 'C', 6, 6),
+(166, 'What is the primary purpose of the hierarchical system in classifying living organisms?', 'To determine the age of organisms.', 'To categorize and understand relationships between life forms.', 'To identify the geographical distribution of species.', 'To measure the size of different organisms.', 'B', 6, 7),
+(167, 'Which of the following is the singular term for \"taxa\" in the biological classification system?', 'Taxonomy', 'Taxon', 'Taxic', 'Taxis', 'B', 6, 7),
+(168, 'Which of the following represents the correct order of the primary levels of taxonomic hierarchy from broadest to most specific?', 'Species, Genus, Family, Order, Class, Phylum, Kingdom, Domain', 'Domain, Kingdom, Phylum, Class, Order, Family, Genus, Species', 'Kingdom, Domain, Phylum, Class, Order, Family, Genus, Species', 'Domain, Phylum, Kingdom, Class, Order, Family, Genus, Species', 'B', 6, 7),
+(169, 'What is currently considered the highest level of classification in the taxonomic hierarchy?', 'Kingdom', 'Phylum', 'Domain', 'Species', 'C', 6, 7),
+(170, 'How many domains are currently recognized in the classification of living organisms?', 'Two', 'Three', 'Four', 'Five', 'B', 6, 7),
+(171, 'Which of the following is NOT one of the three recognized domains of life?', 'Archaea', 'Bacteria', 'Protista', 'Eukarya', 'C', 6, 7),
+(172, 'Which taxonomic rank is just below \"Domain\" and groups together forms of life sharing fundamental characteristics?', 'Phylum', 'Class', 'Kingdom', 'Order', 'C', 6, 7),
+(173, 'In the domain Eukarya, which of the following is explicitly mentioned as a kingdom?', 'Viruses', 'Protista', 'Algae', 'Monera', 'B', 6, 7),
+(174, 'What characteristic defines the organisms grouped within the kingdom Animalia, as given in the example?', 'They produce their own food.', 'They are all single-celled.', 'They are heterotrophic and typically move.', 'They absorb nutrients from the environment.', 'C', 6, 7),
+(175, 'What is the defining characteristic for organisms belonging to the phylum Chordata, according to the text?', 'Having a backbone.', 'Having a notochord.', 'Possessing gills.', 'Living in water.', 'B', 6, 7),
+(176, 'The class Mammalia is characterized by which of the following features?', 'Laying eggs and having scales.', 'Having feathers and wings.', 'Possessing hair and mammary glands.', 'Being cold-blooded.', 'C', 6, 7),
+(177, 'Based on the provided text, which taxonomic rank categorizes organisms within a class based on additional shared characteristics and evolutionary history?', 'Family', 'Order', 'Genus', 'Species', 'B', 6, 7),
+(178, 'What shared characteristics define the order Primates, as exemplified in the text?', 'Aquatic habitat and fins.', 'Large brains and opposable thumbs.', 'Shells and slow movement.', 'Burrowing behavior and small eyes.', 'B', 6, 7),
+(179, 'Within the order Primates, which family includes great apes and humans?', 'Felidae', 'Canidae', 'Hominidae', 'Ursidae', 'C', 6, 7),
+(180, 'What distinguishes a genus from a family in the taxonomic hierarchy?', 'A genus is broader than a family.', 'A genus groups species that are very closely related and often visually similar.', 'A genus is based solely on geographical distribution.', 'A genus includes only extinct organisms.', 'B', 6, 7),
+(181, 'Which genus is explicitly stated to include humans and our closest extinct relatives?', 'Pan', 'Gorilla', 'Pongo', 'Homo', 'D', 6, 7),
+(182, 'What is the most specific level of classification in the taxonomic hierarchy?', 'Genus', 'Family', 'Species', 'Order', 'C', 6, 7),
+(183, 'What is the primary criterion for members of a species to be classified together?', 'They share the same diet.', 'They can interbreed and produce fertile offspring.', 'They live in the same geographical area.', 'They have similar body sizes.', 'B', 6, 7),
+(184, 'The term Homo sapiens refers to which specific group of organisms?', 'All primates', 'Great apes', 'Modern humans', 'Early hominids', 'C', 6, 7),
+(185, 'If two organisms belong to the same Class but different Orders, what can be definitively concluded about their relationship?', 'They cannot interbreed.', 'They share a basic body plan but differ in more specific characteristics.', 'They belong to different Kingdoms.', 'They are in the same family.', 'B', 6, 7),
+(186, 'A scientist discovers a new organism that photosynthesizes and is multicellular with specialized tissues, but lacks the ability to move independently. Into which kingdom would it most likely be classified?', 'Animalia', 'Fungi', 'Plantae', 'Protista', 'C', 6, 7),
+(187, 'The classification system\'s hierarchy implies that organisms in the same \'Order\' are more closely related than organisms in the same \'Class\'. Which of the following statements best supports this inference?', 'Orders are directly below Classes in the hierarchy, indicating a narrower grouping.', 'Organisms in the same class share only a basic body plan.', 'Orders categorize based on \"additional shared characteristics and evolutionary history.\"', 'The definition of \'Order\' emphasizes visual similarity more than \'Class\'.', 'C', 6, 7),
+(188, 'Which of the following statements correctly applies the concept of shared characteristics across different taxonomic levels?', 'All organisms in the same Family share a notochord.', 'All organisms in the same Kingdom share the ability to interbreed.', 'All organisms in the same Phylum share significant structural features.', 'All organisms in the same Genus have mammary glands.', 'C', 6, 7),
+(189, 'Consider an organism classified as Canis familiaris. Based on the hierarchy, which of the following is true?', 'Canis is its species, and familiaris is its genus.', 'It belongs to the order Primates.', 'It is in the same genus as Homo sapiens.', 'It shares common attributes with other members of its family, Canidae.', 'D', 6, 7),
+(190, 'The transition from \"Phylum\" to \"Class\" involves further dividing organisms based on:', 'Fundamental characteristics.', 'Basic body plans.', 'More specific common traits.', 'The ability to produce fertile offspring.', 'C', 6, 7);
 
 -- --------------------------------------------------------
 
@@ -724,7 +790,33 @@ INSERT INTO `shortanswer` (`id`, `question`, `answer`, `chapter_id`, `topic_id`)
 (105, 'Why is peptidoglycan considered a \"unique polymer\" when discussing bacterial cell wall composition, and what does this imply about its presence in other domains?', '', 6, 5),
 (106, 'Based on the nutritional modes described, how might a photosynthetic bacterium differ from a decomposer bacterium in terms of obtaining energy?', '', 6, 5),
 (107, 'If a bacterial infection is being treated, how might understanding the various respiratory modes of bacteria (e.g., obligate aerobe vs. obligate anaerobe) be relevant to treatment strategies?', '', 6, 5),
-(108, 'Some bacteria were included in Kingdom Monera. What does this historical classification suggest about the initial understanding of bacterial life compared to the current three-domain system?', '', 6, 5);
+(108, 'Some bacteria were included in Kingdom Monera. What does this historical classification suggest about the initial understanding of bacterial life compared to the current three-domain system?', '', 6, 5),
+(109, 'In what fundamental ways do eukaryotic cells differ from prokaryotic cells, as implied by their classification into separate domains?', 'Eukaryotic cells are fundamentally different from prokaryotic cells due to the presence of a true nucleus enclosed by a nuclear membrane and various membrane-bounded organelles. Prokaryotic cells lack these internal compartmentalizations, having their genetic material in a nucleoid region and no membrane-bound organelles.', 6, 6),
+(110, 'Describe the key components of a eukaryotic cell\'s internal structure beyond the nucleus, highlighting how these components contribute to cellular function.', 'Beyond the nucleus, eukaryotic cells contain membrane-bounded organelles like mitochondria for energy production, endoplasmic reticulum for protein and lipid synthesis, and the Golgi apparatus for modifying and packaging molecules. Chloroplasts in plants and algae perform photosynthesis. The cytoskeleton provides structural support, facilitates cell movement, and aids intracellular transport.', 6, 6),
+(111, 'Explain the multifaceted role of the cytoskeleton in eukaryotic cells, providing examples of its contributions to cellular activities.', 'The cytoskeleton, composed of microtubules, microfilaments, and intermediate filaments, serves multiple crucial roles. It provides structural support, maintaining cell shape. It also enables various forms of cell movement, such as crawling or muscle contraction, and facilitates intracellular transport of organelles and vesicles throughout the cell.', 6, 6),
+(112, 'How is the genetic material in eukaryotes organized, and what is the significance of its association with histone proteins?', 'In eukaryotes, DNA is organized into multiple linear chromosomes located within the nucleus. This DNA is intimately associated with histone proteins, which help compact the long DNA strands into a more manageable structure and play a vital role in regulating gene expression by controlling access to the DNA.', 6, 6),
+(113, 'Compare and contrast the two main modes of reproduction in eukaryotes, explaining the primary outcome of each in terms of genetic variation.', 'Eukaryotes primarily reproduce sexually through meiosis and fertilization, which shuffles genetic material, leading to increased genetic diversity in offspring. They can also reproduce asexually via mitosis, producing genetically identical offspring. Asexual reproduction allows for rapid population growth, while sexual reproduction enhances adaptability to changing environments.', 6, 6),
+(114, 'To what extent does cellular differentiation contribute to the complexity observed in multicellular eukaryotes, and what is the ultimate result of this process?', 'Cellular differentiation extensively contributes to the complexity of multicellular eukaryotes by allowing cells to specialize for specific functions. This specialization leads to the formation of distinct tissues and organs, resulting in a division of labor that increases the overall efficiency and complexity of the organism as a whole.', 6, 6),
+(115, 'Elaborate on the theory of endosymbiosis, explaining how it accounts for the evolutionary origin of specific eukaryotic organelles mentioned in the text.', 'The theory of endosymbiosis proposes that eukaryotic cells originated when a host cell engulfed certain prokaryotic cells, leading to a symbiotic relationship. Specifically, this theory explains the presence of mitochondria (from engulfed aerobic bacteria) and chloroplasts (from engulfed photosynthetic cyanobacteria) as membrane-bounded organelles within eukaryotic cells.', 6, 6),
+(116, 'Why is the presence of a nuclear membrane considered a defining characteristic that differentiates eukaryotic cells from prokaryotic cells?', 'The nuclear membrane is a defining characteristic because it encloses the genetic material (DNA) within a true nucleus, creating a distinct compartment for transcription and replication. This spatial separation allows for more complex gene regulation and processing of RNA, which is absent in prokaryotes where genetic material is in the cytoplasm.', 6, 6),
+(117, 'Beyond providing structural support, how do the various membrane-bounded organelles collectively enhance the efficiency and specialization of eukaryotic cells?', 'Membrane-bounded organelles enhance efficiency and specialization by compartmentalizing various metabolic processes, preventing interference between incompatible reactions and allowing for optimized conditions within each organelle. This division of labor enables eukaryotic cells to perform a vast array of complex functions simultaneously, leading to cellular specialization within multicellular organisms.', 6, 6),
+(118, 'If eukaryotes primarily reproduced only through mitosis, what would be the long-term implications for their adaptation and survival in changing environments?', 'If eukaryotes only reproduced through mitosis, their populations would experience a severe reduction in genetic diversity. Without the genetic recombination provided by meiosis, populations would have limited variation, making them less adaptable and vulnerable to environmental changes, diseases, and novel selective pressures, potentially leading to extinction.', 6, 6),
+(119, 'How does the organization of DNA into multiple linear chromosomes, as opposed to a single circular one, potentially offer advantages for eukaryotic genetic regulation and cellular processes?', 'The organization of DNA into multiple linear chromosomes allows for more intricate and independent regulation of gene expression across different chromosomal regions. It also facilitates complex processes like mitosis and meiosis, where precise segregation of large amounts of genetic material is critical. The linear structure also provides telomeres, which protect chromosome ends during replication.', 6, 6),
+(120, 'Based on the provided characteristics, how do the features of \"Complex Cellular Organization\" and \"Cell Structure\" collectively justify the classification of Eukarya as a distinct domain?', 'The \"Cell Structure\" of eukaryotes, with its true nucleus and membrane-bounded organelles, sets them apart from prokaryotes by allowing for internal compartmentalization and functional specialization at the cellular level. This foundation enables \"Complex Cellular Organization,\" where cells differentiate into tissues and organs, demonstrating a level of complexity in multicellularity that justifies Eukarya\'s classification as a distinct and evolutionarily advanced domain.', 6, 6),
+(121, 'What specific evidence from the characteristics presented would lead scientists to hypothesize that eukaryotes have a distinct evolutionary pathway compared to Bacteria and Archaea?', 'The text points to \"Evolutionary Relationships\" through endosymbiosis as evidence of a distinct pathway, suggesting that eukaryotes arose from the engulfment of prokaryotic cells. This is supported by the unique presence of complex membrane-bounded organelles like mitochondria and chloroplasts in eukaryotes, features not found in Bacteria or Archaea, indicating a separate evolutionary history involving symbiotic events.', 6, 6),
+(122, 'Explain the fundamental purpose of the hierarchical classification system for living organisms. How does this system aid scientists in their understanding of life?', '', 6, 7),
+(123, 'Identify and briefly describe the three currently recognized domains of life. What is the primary characteristic that differentiates organisms within the Eukarya domain from the other two?', '', 6, 7),
+(124, 'Discuss the role of a \"Kingdom\" in the taxonomic hierarchy. Provide an example to illustrate how different forms of life are grouped at this level.', '', 6, 7),
+(125, 'How does the Phylum level further refine classification below the Kingdom? Using the example of Chordata, explain what defining feature organisms within this phylum share.', '', 6, 7),
+(126, 'Describe the characteristics that distinguish a \"Class\" from a \"Phylum.\" What specific traits characterize the Mammalia class within the phylum Chordata?', '', 6, 7),
+(127, 'In what ways does the \"Order\" categorize organisms beyond the \"Class\" level? Illustrate this with the example of Primates, highlighting their shared features.', '', 6, 7),
+(128, 'Explain the relationship between \"Family\" and \"Order\" in the classification system. What makes organisms within the same family, such as Hominidae, more closely related than those only in the same order?', '', 6, 7),
+(129, 'What is the significance of the \"Genus\" in the taxonomic hierarchy, and how does it relate to the \"Family\"? Provide an example of how species are grouped within a genus.', '', 6, 7),
+(130, 'Define \"Species\" as the most specific level of classification. What is the critical biological criterion that determines whether organisms belong to the same species?', '', 6, 7),
+(131, 'Considering the entire hierarchy, how do the levels progressively become more specific? Explain why the ability to interbreed is reserved for the species level, rather than higher ranks.', '', 6, 7),
+(132, 'Why is it important for the taxonomic hierarchy to be organized from broad to specific levels? How does this structure benefit the study of evolutionary relationships?', '', 6, 7),
+(133, 'If two different organisms belong to the same Class but are in different Orders, what does this imply about their shared characteristics and evolutionary divergence?', '', 6, 7),
+(134, 'Choose any two adjacent levels (e.g., Kingdom and Phylum) and elaborate on how the classification becomes more detailed or specialized from the higher to the lower rank.', '', 6, 7);
 
 -- --------------------------------------------------------
 
@@ -791,7 +883,8 @@ INSERT INTO `topics` (`topic_id`, `chapter_id`, `topic_name`, `created_at`, `upd
 (3, 6, 'introduction to three domain classification', '2025-06-13 07:40:10', '2025-06-13 07:40:10'),
 (4, 6, 'Domain Archaea', '2025-06-13 07:40:36', '2025-06-13 07:40:36'),
 (5, 6, 'Domain Bacteria', '2025-06-13 07:40:51', '2025-06-13 07:40:51'),
-(6, 6, 'Domain Eukarya', '2025-06-13 07:41:06', '2025-06-13 07:41:06');
+(6, 6, 'Domain Eukarya', '2025-06-13 07:41:06', '2025-06-13 07:41:06'),
+(7, 6, 'Taxonomic Hierarchy', '2025-06-17 13:42:22', '2025-06-17 13:42:22');
 
 --
 -- Indexes for dumped tables
@@ -982,19 +1075,19 @@ ALTER TABLE `dropdown`
 -- AUTO_INCREMENT for table `essay`
 --
 ALTER TABLE `essay`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `fillintheblanks`
 --
 ALTER TABLE `fillintheblanks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
 
 --
 -- AUTO_INCREMENT for table `mcqdb`
 --
 ALTER TABLE `mcqdb`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -1018,7 +1111,7 @@ ALTER TABLE `quizconfig`
 -- AUTO_INCREMENT for table `shortanswer`
 --
 ALTER TABLE `shortanswer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
 
 --
 -- AUTO_INCREMENT for table `subjects`
@@ -1030,7 +1123,7 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -1156,37 +1249,6 @@ ALTER TABLE `studentinfo`
 --
 ALTER TABLE `topics`
   ADD CONSTRAINT `fk_topics_chapter` FOREIGN KEY (`chapter_id`) REFERENCES `chapters` (`chapter_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
--- --------------------------------------------------------
--- Table structure for table `admininfo`
--- --------------------------------------------------------
-
-CREATE TABLE `admininfo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(50) NOT NULL,
-  `password_hash` varchar(255) NOT NULL,
-  `otp_secret` varchar(32) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- --------------------------------------------------------
--- Table structure for table `change_requests`
--- --------------------------------------------------------
-
-CREATE TABLE `change_requests` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `instructor_email` varchar(50) NOT NULL,
-  `action` varchar(20) NOT NULL,
-  `target_type` varchar(20) NOT NULL,
-  `target_id` int(11) DEFAULT NULL,
-  `rationale` text NOT NULL,
-  `status` enum('pending','approved','denied') DEFAULT 'pending',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `admin_id` int(11) DEFAULT NULL,
-  `decision_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
