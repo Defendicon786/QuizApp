@@ -1156,6 +1156,37 @@ ALTER TABLE `studentinfo`
 --
 ALTER TABLE `topics`
   ADD CONSTRAINT `fk_topics_chapter` FOREIGN KEY (`chapter_id`) REFERENCES `chapters` (`chapter_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- --------------------------------------------------------
+-- Table structure for table `admininfo`
+-- --------------------------------------------------------
+
+CREATE TABLE `admininfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(50) NOT NULL,
+  `password_hash` varchar(255) NOT NULL,
+  `otp_secret` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+-- Table structure for table `change_requests`
+-- --------------------------------------------------------
+
+CREATE TABLE `change_requests` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `instructor_email` varchar(50) NOT NULL,
+  `action` varchar(20) NOT NULL,
+  `target_type` varchar(20) NOT NULL,
+  `target_id` int(11) DEFAULT NULL,
+  `rationale` text NOT NULL,
+  `status` enum('pending','approved','denied') DEFAULT 'pending',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `admin_id` int(11) DEFAULT NULL,
+  `decision_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

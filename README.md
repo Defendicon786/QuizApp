@@ -175,3 +175,4 @@ All PHP files were linted using `php -l` and no syntax errors were detected.
 ---
 
     
+\n## Admin System\nThis version introduces an admin workflow with multi-factor authentication and an instructor request queue. Admins can approve or deny instructor submitted modification requests. All decisions are logged in `request_logs.log`. See new PHP files in the `code` directory for implementation details.
