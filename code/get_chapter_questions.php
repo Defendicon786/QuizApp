@@ -1,6 +1,12 @@
 <?php
 include 'database.php';
 
+// If the database connection failed, return a JSON error immediately.
+if (isset($conn) && $conn->connect_errno) {
+    echo json_encode(['error' => 'Database connection failed: ' . $conn->connect_error]);
+    exit;
+}
+
 header('Content-Type: application/json');
 
 // Get parameters

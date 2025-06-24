@@ -23,5 +23,4 @@
 
 	// Set session variables for timezone
 	$_SESSION['timezone'] = 'Asia/Karachi';
-	$_SESSION['timezone_offset'] = '+05:00';
-?>
+        $_SESSION['timezone_offset'] = '+05:00';
