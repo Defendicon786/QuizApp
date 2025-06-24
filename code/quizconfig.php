@@ -199,8 +199,15 @@ function updateAvailableQuestions() {
             url += '&topic_ids=' + topicIds.join(',');
         }
         fetch(url)
-            .then(response => response.json())
-            .then(data => {
+            .then(response => response.text())
+            .then(text => {
+                let data;
+                try {
+                    data = text.trim() === '' ? {} : JSON.parse(text);
+                } catch (e) {
+                    console.error('Failed to parse response:', text);
+                    throw new Error('Invalid JSON response');
+                }
                 // Update max values for each question type
                 $('#typea').attr('max', data.mcq);
                 $('#typeb').attr('max', data.numerical);
@@ -372,8 +379,15 @@ function loadQuestionsByType(type, containerId, chapterIds, topicIds) {
     }
 
     fetch(url)
-        .then(response => response.json())
-        .then(data => {
+        .then(response => response.text())
+        .then(text => {
+            let data;
+            try {
+                data = text.trim() === '' ? [] : JSON.parse(text);
+            } catch (e) {
+                console.error('Failed to parse response:', text);
+                throw new Error('Invalid JSON response');
+            }
             var container = $('#' + containerId + ' .questions-list');
             container.empty();
             
