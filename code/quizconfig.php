@@ -233,12 +233,12 @@ document.addEventListener('DOMContentLoaded', function() {
     $('#chapter_ids').on('change', function() {
         var chapterIds = $(this).val();
         if(chapterIds && chapterIds.length > 0) {
-            // Only show Select Questions button if random quiz is NOT checked
+            // Enable Select Questions button if random quiz is NOT checked
             if(!$('#random_quiz_checkbox').is(':checked')) {
-                $('#selectQuestionsBtn').show();
+                $('#selectQuestionsBtn').prop('disabled', false);
             }
         } else {
-            $('#selectQuestionsBtn').hide();
+            $('#selectQuestionsBtn').prop('disabled', true);
         }
         // Load topics for the selected chapters
         loadTopics(chapterIds);
@@ -249,11 +249,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Toggle visibility of Select Questions button based on random quiz checkbox
     $('#random_quiz_checkbox').on('change', function() {
         if($(this).is(':checked')) {
-            $('#selectQuestionsBtn').hide();
+            $('#selectQuestionsBtn').prop('disabled', true);
         } else {
             let chapterIds = $('#chapter_ids').val();
             if(chapterIds && chapterIds.length > 0) {
-                $('#selectQuestionsBtn').show();
+                $('#selectQuestionsBtn').prop('disabled', false);
             }
         }
     });
@@ -1231,7 +1231,7 @@ function saveSelectedQuestions() {
                       <option value="">Select Chapters</option>
                     </select>
                     <div class="mt-2 d-flex align-items-center">
-                      <button type="button" id="selectQuestionsBtn" class="btn btn-info btn-sm" onclick="openQuestionSelector()" style="display:none;">
+                      <button type="button" id="selectQuestionsBtn" class="btn btn-info btn-sm" onclick="openQuestionSelector()" disabled>
                         <i class="material-icons">list</i> Select Questions
                       </button>
                       <div class="form-check ml-3">
@@ -2003,9 +2003,9 @@ function saveSelectedQuestions() {
       $('#chapter_ids').on('change', function() {
         var selectedChapters = $(this).val();
         if(selectedChapters && selectedChapters.length > 0) {
-          $('#selectQuestionsBtn').show();
+          $('#selectQuestionsBtn').prop('disabled', false);
         } else {
-          $('#selectQuestionsBtn').hide();
+          $('#selectQuestionsBtn').prop('disabled', true);
         }
         loadTopics(selectedChapters);
       });
