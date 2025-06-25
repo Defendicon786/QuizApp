@@ -184,6 +184,10 @@ This updates MCQ records containing "Archaea" to use the current ID for "Domain 
 
 All PHP files were linted using `php -l` and no syntax errors were detected.
 
+When installing the optional Node.js tooling for SCSS compilation, use Node 20+
+and run `npm install`. The project now uses `gulp-sass` version 5 with the
+`sass` package, avoiding build errors from the deprecated `node-sass` bindings.
+
 ---
 
     
