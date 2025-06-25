@@ -192,7 +192,10 @@ function getAvailableQuestionsCount($conn, $chapter_ids) {
 <script>
 function updateAvailableQuestions() {
     var chapterIds = $('#chapter_ids').val();
-    var topicIds = $('#topic_ids').val();
+    var topicIds = $('#topic_ids').val() || [];
+    if (topicIds && topicIds.length > 0) {
+        topicIds = topicIds.filter(function(id) { return id; });
+    }
     if(chapterIds && chapterIds.length > 0) {
         var url = 'get_question_counts.php?chapter_ids=' + chapterIds.join(',');
         if(topicIds && topicIds.length > 0) {
@@ -232,8 +235,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add event listener for chapter selection to show/hide Select Questions button
       $("#chapter_ids").on("change", function() {
           var chapterIds = $(this).val();
-          $("#selectQuestionsBtn").prop("disabled", true);
-          $("#random_quiz_checkbox").prop("disabled", true);
+          var hasChapters = chapterIds && chapterIds.length > 0;
+          $("#selectQuestionsBtn").prop("disabled", !hasChapters);
+          $("#random_quiz_checkbox").prop("disabled", !hasChapters);
           loadTopics(chapterIds);
           updateAvailableQuestions();
       });
@@ -244,9 +248,10 @@ document.addEventListener('DOMContentLoaded', function() {
               $("#selectQuestionsBtn").prop("disabled", true);
           } else {
               let chapterIds = $("#chapter_ids").val();
-              let topicIds = $("#topic_ids").val();
-              if(chapterIds && chapterIds.length > 0 && topicIds && topicIds.length > 0) {
+              if(chapterIds && chapterIds.length > 0) {
                   $("#selectQuestionsBtn").prop("disabled", false);
+              } else {
+                  $("#selectQuestionsBtn").prop("disabled", true);
               }
           }
       });
@@ -319,7 +324,10 @@ var manualSelectionActive = false;
 function openQuestionSelector() {
     manualSelectionActive = true;
     var chapterIds = $('#chapter_ids').val();
-    var topicIds = $('#topic_ids').val();
+    var topicIds = $('#topic_ids').val() || [];
+    if(topicIds && topicIds.length > 0) {
+        topicIds = topicIds.filter(function(id){ return id; });
+    }
 
     if(!chapterIds || chapterIds.length === 0) {
         alert('Please select chapters first to load questions');
@@ -679,7 +687,10 @@ function saveSelectedQuestions() {
     hiddenInputs += '<input type=\"hidden\" name=\"is_manual_selection\" class=\"selected-question-input\" value=\"1\">';
 
     // Store selected topics from the dropdown
-    var topicIds = $('#topic_ids').val();
+    var topicIds = $('#topic_ids').val() || [];
+    if(topicIds.length > 0) {
+        topicIds = topicIds.filter(function(id){ return id; });
+    }
     if(topicIds && topicIds.length > 0) {
         hiddenInputs += '<input type="hidden" name="topic_ids" class="selected-question-input" value="' + topicIds.join(',') + '">';
     }
@@ -2017,8 +2028,11 @@ function saveSelectedQuestions() {
       // Reload questions when topic filter changes
         $(document).on('change', '#topic_ids', function() {
           var chapterIds = $("#chapter_ids").val();
-          var topicIds = $("#topic_ids").val();
-          if(chapterIds && chapterIds.length > 0 && topicIds && topicIds.length > 0) {
+          var topicIds = $("#topic_ids").val() || [];
+          if(topicIds.length > 0) {
+            topicIds = topicIds.filter(function(id){ return id; });
+          }
+          if(chapterIds && chapterIds.length > 0) {
             $("#random_quiz_checkbox").prop("disabled", false);
             if(!$("#random_quiz_checkbox").is(":checked")) {
               $("#selectQuestionsBtn").prop("disabled", false);
