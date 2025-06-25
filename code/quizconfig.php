@@ -228,44 +228,48 @@ function updateAvailableQuestions() {
     }
 }
 
-// Add event listener for chapter selection to show/hide Select Questions button
-$('#chapter_ids').on('change', function() {
-    var chapterIds = $(this).val();
-    if(chapterIds && chapterIds.length > 0) {
-        // Only show Select Questions button if random quiz is NOT checked
-        if(!$('#random_quiz_checkbox').is(':checked')) {
-            $('#selectQuestionsBtn').show();
-        }
-    } else {
-        $('#selectQuestionsBtn').hide();
-    }
-    // Load topics for the selected chapters
-    loadTopics(chapterIds);
-    // Update available question counts when chapters are selected
-    updateAvailableQuestions();
-});
-
-
-// Toggle visibility of Select Questions button based on random quiz checkbox
-$('#random_quiz_checkbox').on('change', function() {
-    if($(this).is(':checked')) {
-        $('#selectQuestionsBtn').hide();
-    } else {
-        let chapterIds = $('#chapter_ids').val();
+document.addEventListener('DOMContentLoaded', function() {
+    // Add event listener for chapter selection to show/hide Select Questions button
+    $('#chapter_ids').on('change', function() {
+        var chapterIds = $(this).val();
         if(chapterIds && chapterIds.length > 0) {
-            $('#selectQuestionsBtn').show();
+            // Only show Select Questions button if random quiz is NOT checked
+            if(!$('#random_quiz_checkbox').is(':checked')) {
+                $('#selectQuestionsBtn').show();
+            }
+        } else {
+            $('#selectQuestionsBtn').hide();
         }
-    }
-});
-</script>
+        // Load topics for the selected chapters
+        loadTopics(chapterIds);
+        // Update available question counts when chapters are selected
+        updateAvailableQuestions();
+    });
 
-<script>
-$(document).ready(function() {
-  // Initialize Select2 for all dropdowns
-  $('#subject_id, #class_id, #chapter_ids, #section_id, #topic_ids').select2({
-    width: '100%',
-    minimumResultsForSearch: 10
-  });
+    // Toggle visibility of Select Questions button based on random quiz checkbox
+    $('#random_quiz_checkbox').on('change', function() {
+        if($(this).is(':checked')) {
+            $('#selectQuestionsBtn').hide();
+        } else {
+            let chapterIds = $('#chapter_ids').val();
+            if(chapterIds && chapterIds.length > 0) {
+                $('#selectQuestionsBtn').show();
+            }
+        }
+    });
+
+    // Initialize Select2 for all dropdowns
+    $('#subject_id, #class_id, #chapter_ids, #section_id, #topic_ids').select2({
+        width: '100%',
+        minimumResultsForSearch: 10
+    });
+
+    // Add onsubmit validation to the form
+    $('form').on('submit', function(e) {
+        if(!validateQuestionCounts()) {
+            e.preventDefault();
+        }
+    });
 });
 </script>
 
@@ -310,15 +314,7 @@ function validateQuestionCounts() {
     return true;
 }
 
-// Add onsubmit validation to the form
-
-$(document).ready(function() {
-    $('form').on('submit', function(e) {
-        if(!validateQuestionCounts()) {
-            e.preventDefault();
-        }
-    });
-});
+// Add onsubmit validation to the form - handled in DOMContentLoaded listener above
 </script>
 
 <!-- Add JavaScript for loading questions and handling manual question selection -->
