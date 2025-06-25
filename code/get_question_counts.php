@@ -36,13 +36,6 @@ if (!empty($chapter_ids)) {
     $sql = "SELECT COUNT(*) as count FROM mcqdb WHERE chapter_id IN ($chapter_ids_str)$topic_filter";
     $result = $conn->query($sql);
     $counts['mcq'] = (int)$result->fetch_assoc()['count'];
-
-    // Fallback for Archaea topic if no MCQs found
-    if ($counts['mcq'] === 0 && in_array(4, $topic_ids)) {
-        $sql = "SELECT COUNT(*) as count FROM mcqdb WHERE chapter_id IN ($chapter_ids_str) AND question LIKE '%Archaea%'";
-        $result = $conn->query($sql);
-        $counts['mcq'] = (int)$result->fetch_assoc()['count'];
-    }
     
     // Count Numerical
     $sql = "SELECT COUNT(*) as count FROM numericaldb WHERE chapter_id IN ($chapter_ids_str)$topic_filter";
