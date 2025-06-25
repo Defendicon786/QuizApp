@@ -1897,29 +1897,73 @@ function saveSelectedQuestions() {
                               // Function to get random questions of a specific type
                               function getRandomQuestions($conn, $type, $count, $chapter_ids_str, $topic_ids_str = '') {
                                   $questions = array();
-                                  if ($count > 0) {
-                                      $table = '';
-                                      switch($type) {
-                                          case 'a': $table = 'mcqdb'; break;
-                                          case 'b': $table = 'numericaldb'; break;
-                                          case 'c': $table = 'dropdown'; break;
-                                          case 'd': $table = 'fillintheblanks'; break;
-                                          case 'e': $table = 'shortanswer'; break;
-                                          case 'f': $table = 'essay'; break;
-                                          default: return array();
-                                      }
-                                      
-                                      $sql = "SELECT id FROM $table WHERE chapter_id IN ($chapter_ids_str)";
-                                      if (!empty($topic_ids_str)) {
-                                          $sql .= " AND topic_id IN ($topic_ids_str)";
-                                      }
-                                      $sql .= " ORDER BY RAND() LIMIT $count";
-                                      $result = $conn->query($sql);
-                                      
-                                      if ($result && $result->num_rows > 0) {
-                                          while ($row = $result->fetch_assoc()) {
-                                              $questions[] = array('type' => $type, 'id' => $row['id']);
+                                  if ($count <= 0) {
+                                      return $questions;
+                                  }
+
+                                  $table = '';
+                                  switch($type) {
+                                      case 'a': $table = 'mcqdb'; break;
+                                      case 'b': $table = 'numericaldb'; break;
+                                      case 'c': $table = 'dropdown'; break;
+                                      case 'd': $table = 'fillintheblanks'; break;
+                                      case 'e': $table = 'shortanswer'; break;
+                                      case 'f': $table = 'essay'; break;
+                                      default: return array();
+                                  }
+
+                                  // When topics are provided, try to distribute questions equally
+                                  if (!empty($topic_ids_str)) {
+                                      $topic_ids = array_filter(array_map('intval', explode(',', $topic_ids_str)));
+                                      $num_topics = count($topic_ids);
+
+                                      if ($num_topics > 0) {
+                                          $base = intdiv($count, $num_topics);
+                                          $remainder = $count % $num_topics;
+                                          $selected = array();
+
+                                          foreach ($topic_ids as $idx => $tid) {
+                                              $limit = $base + ($remainder > 0 ? 1 : 0);
+                                              if ($remainder > 0) { $remainder--; }
+                                              if ($limit <= 0) { continue; }
+
+                                              $sql = "SELECT id FROM $table WHERE chapter_id IN ($chapter_ids_str) AND topic_id = $tid ORDER BY RAND() LIMIT $limit";
+                                              $result = $conn->query($sql);
+                                              if ($result && $result->num_rows > 0) {
+                                                  while ($row = $result->fetch_assoc()) {
+                                                      $questions[] = array('type' => $type, 'id' => $row['id']);
+                                                      $selected[] = $row['id'];
+                                                  }
+                                              }
                                           }
+
+                                          // Fill any remaining slots from all topics excluding already selected IDs
+                                          $remaining = $count - count($questions);
+                                          if ($remaining > 0) {
+                                              $exclude = '';
+                                              if (!empty($selected)) {
+                                                  $exclude = ' AND id NOT IN (' . implode(',', $selected) . ')';
+                                              }
+                                              $sql = "SELECT id FROM $table WHERE chapter_id IN ($chapter_ids_str) AND topic_id IN ($topic_ids_str)$exclude ORDER BY RAND() LIMIT $remaining";
+                                              $result = $conn->query($sql);
+                                              if ($result && $result->num_rows > 0) {
+                                                  while ($row = $result->fetch_assoc()) {
+                                                      $questions[] = array('type' => $type, 'id' => $row['id']);
+                                                  }
+                                              }
+                                          }
+
+                                          return $questions;
+                                      }
+                                  }
+
+                                  // Fallback: random selection without topic distribution
+                                  $sql = "SELECT id FROM $table WHERE chapter_id IN ($chapter_ids_str)";
+                                  $sql .= " ORDER BY RAND() LIMIT $count";
+                                  $result = $conn->query($sql);
+                                  if ($result && $result->num_rows > 0) {
+                                      while ($row = $result->fetch_assoc()) {
+                                          $questions[] = array('type' => $type, 'id' => $row['id']);
                                       }
                                   }
                                   return $questions;
