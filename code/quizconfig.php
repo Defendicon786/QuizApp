@@ -321,9 +321,12 @@ function validateQuestionCounts() {
 // Function to open question selector modal
 // Flag to track if manual question selection modal is active
 var manualSelectionActive = false;
+// Store element that triggered the question selector
+var questionSelectorTriggerElement = null;
 
 function openQuestionSelector() {
     manualSelectionActive = true;
+    questionSelectorTriggerElement = document.activeElement;
     var chapterIds = $('#chapter_ids').val();
     var topicIds = $('#topic_ids').val() || [];
     if(topicIds && topicIds.length > 0) {
@@ -2054,10 +2057,17 @@ function saveSelectedQuestions() {
           updateAvailableQuestions();
         });
 
-      // Reset manual selection flag when modal closes
-      $('#questionSelectorModal').on('hidden.bs.modal', function() {
-        manualSelectionActive = false;
-      });
+      // Handle modal focus and state when it closes
+      $('#questionSelectorModal')
+        .on('hide.bs.modal', function() {
+          if (questionSelectorTriggerElement) {
+            $(questionSelectorTriggerElement).focus();
+            questionSelectorTriggerElement = null;
+          }
+        })
+        .on('hidden.bs.modal', function() {
+          manualSelectionActive = false;
+        });
     });
   </script>
 <script src="./assets/js/dark-mode.js"></script>
