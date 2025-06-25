@@ -123,10 +123,12 @@ function loadTopics(chapterIds) {
                     topicSelect.appendChild(option);
                 });
                 $(topicSelect).select2();
+                $(topicSelect).val(null).trigger('change');
             })
             .catch(error => console.error('Error:', error));
     } else {
         $(topicSelect).select2();
+        $(topicSelect).val(null).trigger('change');
     }
 }
 // Topic dropdown for question selection is loaded on the main page
@@ -247,11 +249,7 @@ document.addEventListener('DOMContentLoaded', function() {
               $("#selectQuestionsBtn").prop("disabled", true);
           } else {
               let chapterIds = $("#chapter_ids").val();
-              let topicIds = $("#topic_ids").val() || [];
-              if(topicIds.length > 0) {
-                  topicIds = topicIds.filter(function(id){ return id; });
-              }
-              if(chapterIds && chapterIds.length > 0 && topicIds && topicIds.length > 0) {
+              if(chapterIds && chapterIds.length > 0) {
                   $("#selectQuestionsBtn").prop("disabled", false);
               }
           }
@@ -2036,7 +2034,7 @@ function saveSelectedQuestions() {
           if(topicIds.length > 0) {
             topicIds = topicIds.filter(function(id){ return id; });
           }
-          if(chapterIds && chapterIds.length > 0 && topicIds && topicIds.length > 0) {
+          if(chapterIds && chapterIds.length > 0) {
             $("#random_quiz_checkbox").prop("disabled", false);
             if(!$("#random_quiz_checkbox").is(":checked")) {
               $("#selectQuestionsBtn").prop("disabled", false);
