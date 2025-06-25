@@ -43,16 +43,6 @@ try {
                     FROM mcqdb
                     WHERE chapter_id IN ($chapter_ids_str)$topic_filter
                     ORDER BY id";
-            $result = $conn->query($sql);
-
-            // If no MCQs were found for Archaea using topic ID, try a fallback search by text
-            if ($result && $result->num_rows === 0 && in_array(4, $topic_ids)) {
-                $sql = "SELECT id, question, optiona, optionb, optionc, optiond, answer, chapter_id
-                        FROM mcqdb
-                        WHERE chapter_id IN ($chapter_ids_str) AND question LIKE '%Archaea%'
-                        ORDER BY id";
-                $result = $conn->query($sql);
-            }
             break;
             
         case 'numerical':
@@ -98,9 +88,7 @@ try {
             exit;
     }
 
-    if (!isset($result)) {
-        $result = $conn->query($sql);
-    }
+    $result = $conn->query($sql);
     
     if (!$result) {
         throw new Exception("Query error: " . $conn->error);

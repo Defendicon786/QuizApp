@@ -180,9 +180,6 @@ php "code/Extra files/fix_topic_ids.php"
 ```
 This updates MCQ records containing "Archaea" to use the current ID for "Domain Archaea".
 
-If no MCQs appear after running the script, the backend now falls back to
-searching question text for "Archaea" when Topic ID 4 is selected.
-
 ## Development Notes
 
 All PHP files were linted using `php -l` and no syntax errors were detected.
