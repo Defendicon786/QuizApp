@@ -12,7 +12,10 @@ header('Content-Type: application/json');
 // Get parameters
 $chapter_ids = isset($_GET['chapter_ids']) ? explode(',', $_GET['chapter_ids']) : [];
 $question_type = isset($_GET['type']) ? $_GET['type'] : '';
-$topic_ids = isset($_GET['topic_ids']) ? explode(',', $_GET['topic_ids']) : [];
+$topic_ids = [];
+if (isset($_GET['topic_ids']) && strlen($_GET['topic_ids']) > 0) {
+    $topic_ids = explode(',', $_GET['topic_ids']);
+}
 
 // Sanitize input
 $chapter_ids = array_map('intval', $chapter_ids);
