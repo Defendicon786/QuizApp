@@ -230,33 +230,26 @@ function updateAvailableQuestions() {
 
 document.addEventListener('DOMContentLoaded', function() {
     // Add event listener for chapter selection to show/hide Select Questions button
-    $('#chapter_ids').on('change', function() {
-        var chapterIds = $(this).val();
-        if(chapterIds && chapterIds.length > 0) {
-            // Enable Select Questions button if random quiz is NOT checked
-            if(!$('#random_quiz_checkbox').is(':checked')) {
-                $('#selectQuestionsBtn').prop('disabled', false);
-            }
-        } else {
-            $('#selectQuestionsBtn').prop('disabled', true);
-        }
-        // Load topics for the selected chapters
-        loadTopics(chapterIds);
-        // Update available question counts when chapters are selected
-        updateAvailableQuestions();
-    });
+      $("#chapter_ids").on("change", function() {
+          var chapterIds = $(this).val();
+          $("#selectQuestionsBtn").prop("disabled", true);
+          $("#random_quiz_checkbox").prop("disabled", true);
+          loadTopics(chapterIds);
+          updateAvailableQuestions();
+      });
 
     // Toggle visibility of Select Questions button based on random quiz checkbox
-    $('#random_quiz_checkbox').on('change', function() {
-        if($(this).is(':checked')) {
-            $('#selectQuestionsBtn').prop('disabled', true);
-        } else {
-            let chapterIds = $('#chapter_ids').val();
-            if(chapterIds && chapterIds.length > 0) {
-                $('#selectQuestionsBtn').prop('disabled', false);
-            }
-        }
-    });
+      $("#random_quiz_checkbox").on("change", function() {
+          if($(this).is(":checked")) {
+              $("#selectQuestionsBtn").prop("disabled", true);
+          } else {
+              let chapterIds = $("#chapter_ids").val();
+              let topicIds = $("#topic_ids").val();
+              if(chapterIds && chapterIds.length > 0 && topicIds && topicIds.length > 0) {
+                  $("#selectQuestionsBtn").prop("disabled", false);
+              }
+          }
+      });
 
     // Initialize Select2 for all dropdowns
     $('#subject_id, #class_id, #chapter_ids, #section_id, #topic_ids').select2({
@@ -1230,20 +1223,6 @@ function saveSelectedQuestions() {
                     <select name="chapter_ids[]" id="chapter_ids" class="form-control mobile-full-width" multiple>
                       <option value="">Select Chapters</option>
                     </select>
-                    <div class="mt-2 d-flex align-items-center">
-                      <button type="button" id="selectQuestionsBtn" class="btn btn-info btn-sm" onclick="openQuestionSelector()" disabled>
-                        <i class="material-icons">list</i> Select Questions
-                      </button>
-                      <div class="form-check ml-3">
-                        <label class="form-check-label">
-                          <input class="form-check-input position-static" type="checkbox" name="random_quiz" value="1" id="random_quiz_checkbox">
-                          Randomly select questions
-                          <span class="form-check-sign">
-                            <span class="check"></span>
-                          </span>
-                        </label>
-                      </div>
-                    </div>
                   </div>
                 </div>
 
@@ -1256,6 +1235,26 @@ function saveSelectedQuestions() {
                     <select name="topic_ids[]" id="topic_ids" class="form-control mobile-full-width" multiple>
                       <option value="">All Topics</option>
                     </select>
+                  </div>
+                </div>
+                <!-- Manual or Random Selection -->
+                <div class="row form-row-mobile">
+                  <div class="col-md-3 col-12 mb-2"></div>
+                  <div class="col-md-9 col-12">
+                    <div class="mt-2 d-flex align-items-center">
+                      <button type="button" id="selectQuestionsBtn" class="btn btn-info btn-sm" onclick="openQuestionSelector()" disabled>
+                        <i class="material-icons">list</i> Select Questions
+                      </button>
+                      <div class="form-check ml-3">
+                        <label class="form-check-label">
+                          <input class="form-check-input position-static" type="checkbox" name="random_quiz" value="1" id="random_quiz_checkbox" disabled>
+                          Randomly select questions
+                          <span class="form-check-sign">
+                            <span class="check"></span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -1999,30 +1998,38 @@ function saveSelectedQuestions() {
         }
       });
 
-      // Show select questions button when chapters are selected
-      $('#chapter_ids').on('change', function() {
-        var selectedChapters = $(this).val();
-        if(selectedChapters && selectedChapters.length > 0) {
-          $('#selectQuestionsBtn').prop('disabled', false);
-        } else {
-          $('#selectQuestionsBtn').prop('disabled', true);
-        }
-        loadTopics(selectedChapters);
-      });
+        $("#chapter_ids").on("change", function() {
+          var selectedChapters = $(this).val();
+          $("#selectQuestionsBtn").prop("disabled", true);
+          $("#random_quiz_checkbox").prop("disabled", true);
+          loadTopics(selectedChapters);
+          updateAvailableQuestions();
+        });
 
       // Reload questions when topic filter changes
-      $(document).on('change', '#topic_ids', function() {
-        var chapterIds = $('#chapter_ids').val();
-        var topicIds = $('#topic_ids').val();
-        $('.questions-list').html('<div class="text-center"><i class="fa fa-spinner fa-spin"></i> Loading questions...</div>');
-        loadQuestionsByType('mcq', 'mcqQuestions', chapterIds, topicIds);
-        loadQuestionsByType('numerical', 'numericalQuestions', chapterIds, topicIds);
-        loadQuestionsByType('dropdown', 'dropdownQuestions', chapterIds, topicIds);
-        loadQuestionsByType('fillblanks', 'fillblanksQuestions', chapterIds, topicIds);
-        loadQuestionsByType('short', 'shortQuestions', chapterIds, topicIds);
-        loadQuestionsByType('essay', 'essayQuestions', chapterIds, topicIds);
-        updateAvailableQuestions();
-      });
+        $(document).on('change', '#topic_ids', function() {
+          var chapterIds = $("#chapter_ids").val();
+          var topicIds = $("#topic_ids").val();
+          if(chapterIds && chapterIds.length > 0 && topicIds && topicIds.length > 0) {
+            $("#random_quiz_checkbox").prop("disabled", false);
+            if(!$("#random_quiz_checkbox").is(":checked")) {
+              $("#selectQuestionsBtn").prop("disabled", false);
+            } else {
+              $("#selectQuestionsBtn").prop("disabled", true);
+            }
+          } else {
+            $("#selectQuestionsBtn").prop("disabled", true);
+            $("#random_quiz_checkbox").prop("disabled", true);
+          }
+          $('.questions-list').html('<div class="text-center"><i class="fa fa-spinner fa-spin"></i> Loading questions...</div>');
+          loadQuestionsByType('mcq', 'mcqQuestions', chapterIds, topicIds);
+          loadQuestionsByType('numerical', 'numericalQuestions', chapterIds, topicIds);
+          loadQuestionsByType('dropdown', 'dropdownQuestions', chapterIds, topicIds);
+          loadQuestionsByType('fillblanks', 'fillblanksQuestions', chapterIds, topicIds);
+          loadQuestionsByType('short', 'shortQuestions', chapterIds, topicIds);
+          loadQuestionsByType('essay', 'essayQuestions', chapterIds, topicIds);
+          updateAvailableQuestions();
+        });
 
       // Reset manual selection flag when modal closes
       $('#questionSelectorModal').on('hidden.bs.modal', function() {
