@@ -173,12 +173,13 @@ Multi Server Question Feed also works in this configuration, where instructor ca
 ![](./images/Screenshot14.png)
 ## Fixing mismatched topic IDs
 If MCQ questions for a topic are missing from the selection modal, the topic identifiers in `mcqdb` might not match the IDs in the `topics` table.
-Run the helper script to realign them:
+Run the helper script to realign them. The script now accepts an optional topic name
+and search term so it can be used for any topic:
 
 ```bash
-php "code/Extra files/fix_topic_ids.php"
+php "code/Extra files/fix_topic_ids.php" "Domain Archaea" "Archaea"
 ```
-This updates MCQ records containing "Archaea" to use the current ID for "Domain Archaea".
+This example updates MCQ records containing "Archaea" to use the current ID for "Domain Archaea".
 
 ## Development Notes
 
