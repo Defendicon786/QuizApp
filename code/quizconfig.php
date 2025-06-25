@@ -322,11 +322,18 @@ function validateQuestionCounts() {
 // Function to open question selector modal
 // Flag to track if manual question selection modal is active
 var manualSelectionActive = false;
+// Store chapter/topic selections for lazy loading
+var currentChapterIds = [];
+var currentTopicIds = [];
 
 function openQuestionSelector() {
     manualSelectionActive = true;
     var chapterIds = $('#chapter_ids').val();
     var topicIds = $('#topic_ids').val();
+
+    // Save selections for later tab loads
+    currentChapterIds = chapterIds || [];
+    currentTopicIds = topicIds || [];
 
     if(!chapterIds || chapterIds.length === 0) {
         alert('Please select chapters first to load questions');
@@ -354,16 +361,28 @@ function openQuestionSelector() {
     $('#typea, #typeb, #typec, #typed, #typee, #typef').val(0);
     marks(); // Update total marks display
     
-    // Load questions for each type
+    // Initially load only MCQ questions. Other tabs load lazily
     loadQuestionsByType('mcq', 'mcqQuestions', chapterIds, topicIds);
-    loadQuestionsByType('numerical', 'numericalQuestions', chapterIds, topicIds);
-    loadQuestionsByType('dropdown', 'dropdownQuestions', chapterIds, topicIds);
-    loadQuestionsByType('fillblanks', 'fillblanksQuestions', chapterIds, topicIds);
-    loadQuestionsByType('short', 'shortQuestions', chapterIds, topicIds);
-    loadQuestionsByType('essay', 'essayQuestions', chapterIds, topicIds);
     
     // Show the modal
     $('#questionSelectorModal').modal('show');
+
+    // Lazy load other tabs when selected
+    $('#questionSelectorModal a[data-toggle="tab"]').off('shown.bs.tab.lz').on('shown.bs.tab.lz', function(e) {
+        var targetId = $(e.target).attr('href').replace('#','');
+        var map = {
+            mcqQuestions: 'mcq',
+            numericalQuestions: 'numerical',
+            dropdownQuestions: 'dropdown',
+            fillblanksQuestions: 'fillblanks',
+            shortQuestions: 'short',
+            essayQuestions: 'essay'
+        };
+        var container = $('#' + targetId + ' .questions-list');
+        if(container.children().length === 0) {
+            loadQuestionsByType(map[targetId], targetId, currentChapterIds, currentTopicIds);
+        }
+    });
 }
 
 // Function to load questions by type
@@ -2014,19 +2033,32 @@ function saveSelectedQuestions() {
       $(document).on('change', '#topic_ids', function() {
         var chapterIds = $('#chapter_ids').val();
         var topicIds = $('#topic_ids').val();
-        $('.questions-list').html('<div class="text-center"><i class="fa fa-spinner fa-spin"></i> Loading questions...</div>');
-        loadQuestionsByType('mcq', 'mcqQuestions', chapterIds, topicIds);
-        loadQuestionsByType('numerical', 'numericalQuestions', chapterIds, topicIds);
-        loadQuestionsByType('dropdown', 'dropdownQuestions', chapterIds, topicIds);
-        loadQuestionsByType('fillblanks', 'fillblanksQuestions', chapterIds, topicIds);
-        loadQuestionsByType('short', 'shortQuestions', chapterIds, topicIds);
-        loadQuestionsByType('essay', 'essayQuestions', chapterIds, topicIds);
+        var typeMap = {
+          mcqQuestions: 'mcq',
+          numericalQuestions: 'numerical',
+          dropdownQuestions: 'dropdown',
+          fillblanksQuestions: 'fillblanks',
+          shortQuestions: 'short',
+          essayQuestions: 'essay'
+        };
+
+        $.each(typeMap, function(containerId, type){
+          var container = $('#' + containerId + ' .questions-list');
+          if(container.children().length > 0){
+            container.html('<div class="text-center"><i class="fa fa-spinner fa-spin"></i> Loading questions...</div>');
+            loadQuestionsByType(type, containerId, chapterIds, topicIds);
+          }
+        });
         updateAvailableQuestions();
       });
 
       // Reset manual selection flag when modal closes
       $('#questionSelectorModal').on('hidden.bs.modal', function() {
         manualSelectionActive = false;
+        currentChapterIds = [];
+        currentTopicIds = [];
+        // Remove lazy load handlers to avoid duplicates
+        $('#questionSelectorModal a[data-toggle="tab"]').off('shown.bs.tab.lz');
       });
     });
   </script>
