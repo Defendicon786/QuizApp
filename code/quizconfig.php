@@ -197,6 +197,10 @@ function updateAvailableQuestions() {
     var topicIds = $('#topic_ids').val() || [];
     if (topicIds && topicIds.length > 0) {
         topicIds = topicIds.filter(function(id) { return id; });
+        var totalTopics = $('#topic_ids option[value!=""]').length;
+        if(topicIds.length === totalTopics) {
+            topicIds = [];
+        }
     }
     if(chapterIds && chapterIds.length > 0) {
         var url = 'get_question_counts.php?chapter_ids=' + chapterIds.join(',');
@@ -329,6 +333,10 @@ function openQuestionSelector() {
     var topicIds = $('#topic_ids').val() || [];
     if(topicIds && topicIds.length > 0) {
         topicIds = topicIds.filter(function(id){ return id; });
+        var totalTopics = $('#topic_ids option[value!=""]').length;
+        if(topicIds.length === totalTopics) {
+            topicIds = [];
+        }
     }
 
     if(!chapterIds || chapterIds.length === 0) {
