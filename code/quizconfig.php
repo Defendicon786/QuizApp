@@ -235,8 +235,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add event listener for chapter selection to show/hide Select Questions button
       $("#chapter_ids").on("change", function() {
           var chapterIds = $(this).val();
-          $("#selectQuestionsBtn").prop("disabled", true);
-          $("#random_quiz_checkbox").prop("disabled", true);
+          var hasChapters = chapterIds && chapterIds.length > 0;
+          $("#selectQuestionsBtn").prop("disabled", !hasChapters);
+          $("#random_quiz_checkbox").prop("disabled", !hasChapters);
           loadTopics(chapterIds);
           updateAvailableQuestions();
       });
@@ -247,12 +248,10 @@ document.addEventListener('DOMContentLoaded', function() {
               $("#selectQuestionsBtn").prop("disabled", true);
           } else {
               let chapterIds = $("#chapter_ids").val();
-              let topicIds = $("#topic_ids").val() || [];
-              if(topicIds.length > 0) {
-                  topicIds = topicIds.filter(function(id){ return id; });
-              }
-              if(chapterIds && chapterIds.length > 0 && topicIds && topicIds.length > 0) {
+              if(chapterIds && chapterIds.length > 0) {
                   $("#selectQuestionsBtn").prop("disabled", false);
+              } else {
+                  $("#selectQuestionsBtn").prop("disabled", true);
               }
           }
       });
@@ -2033,7 +2032,7 @@ function saveSelectedQuestions() {
           if(topicIds.length > 0) {
             topicIds = topicIds.filter(function(id){ return id; });
           }
-          if(chapterIds && chapterIds.length > 0 && topicIds && topicIds.length > 0) {
+          if(chapterIds && chapterIds.length > 0) {
             $("#random_quiz_checkbox").prop("disabled", false);
             if(!$("#random_quiz_checkbox").is(":checked")) {
               $("#selectQuestionsBtn").prop("disabled", false);
