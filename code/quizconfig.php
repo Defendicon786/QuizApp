@@ -355,8 +355,8 @@ function openQuestionSelector() {
     loadQuestionsByType('short', 'shortQuestions', chapterIds, topicIds);
     loadQuestionsByType('essay', 'essayQuestions', chapterIds, topicIds);
     
-    // Show the modal
-    $('#questionSelectorModal').modal('show');
+    // Ensure modal is attached to body before showing
+    $('#questionSelectorModal').appendTo('body').modal('show');
 }
 
 // Function to load questions by type
