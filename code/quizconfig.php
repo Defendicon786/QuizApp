@@ -921,6 +921,14 @@ function saveSelectedQuestions() {
       color: #007bff;
       border-color: #007bff;
     }
+    /* Override Material Kit styles to ensure tab text is visible */
+    .question-tabs .nav-tabs .nav-item .nav-link {
+      color: #495057 !important;
+    }
+    .question-tabs .nav-tabs .nav-item .nav-link.active {
+      color: #007bff !important;
+      border-color: #007bff !important;
+    }
     .questions-list {
       max-height: 400px;
       overflow-y: auto;
