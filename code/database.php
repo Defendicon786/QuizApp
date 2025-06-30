@@ -1,6 +1,11 @@
 <?php
-	// Set PHP default timezone to match your country's timezone
-	date_default_timezone_set('Asia/Karachi'); // Replace with your timezone
+        // Ensure a session is active before using \$_SESSION
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // Set PHP default timezone to match your country's timezone
+        date_default_timezone_set('Asia/Karachi'); // Replace with your timezone
 
 	$db_host = 'localhost';
 	$db_name = 'database';
