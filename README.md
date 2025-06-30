@@ -192,3 +192,7 @@ and run `npm install`. The project now uses `gulp-sass` version 5 with the
 ---
 
     
+
+### Android App
+A basic Android application is included under the `android/` folder. It loads the web portal inside a `WebView`. Import this folder into Android Studio to build and run the app. Update the URL in `MainActivity.kt` to point to the server hosting the PHP application.
+The Gradle wrapper JAR is not included; instead `android/gradle/wrapper/gradle-wrapper.jar` contains a placeholder text. Replace this file with the real `gradle-wrapper.jar` from a standard Android Studio project before building.
