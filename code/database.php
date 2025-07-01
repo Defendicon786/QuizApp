@@ -1,11 +1,16 @@
 <?php
-	// Set PHP default timezone to match your country's timezone
-	date_default_timezone_set('Asia/Karachi'); // Replace with your timezone
+	 // Ensure a session is active before using \$_SESSION
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // Set PHP default timezone to match your country's timezone
+        date_default_timezone_set('Asia/Karachi'); // Replace with your timezone
 
 	$db_host = 'localhost';
-	$db_name = 'database';
-	$db_user = 'username';
-	$db_pass = 'password';
+	$db_name = 'studyhtc_quiz';
+	$db_user = 'studyhtc_hassan';
+	$db_pass = 'hassan@tariq786';
 	$conn = new mysqli($db_host,$db_user,$db_pass,$db_name);
 	if($conn->connect_error){
 		printf("Connect failed: %s\n",$conn->connect_error);
