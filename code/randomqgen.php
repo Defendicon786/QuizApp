@@ -4,88 +4,92 @@
       header("location: studentlogin.php");
       exit;
   }
-  $rollnumber=$_SESSION["rollnumber"];
+  $rollnumber = $_SESSION["rollnumber"];
 ?>
 <?php
-			include "database.php";
-		    $query = "select * from quizconfig where quiznumber=(select max(quiznumber) from quizconfig);";		    
-		    $result = $conn->query($query);   
-		    $row = $result->fetch_assoc();                   
-		    $quiznumber=$row["quiznumber"];
-		    $typea=$row["typea"];
-		    $typeb=$row["typeb"];
-		    $typec=$row["typec"];
-		    $typed=$row["typed"];
-		    $typee=$row["typee"];
-		    $typef=$row["typef"];
-		    $typeamarks=$row["typeamarks"];
-		    $typebmarks=$row["typebmarks"];
-		    $typecmarks=$row["typecmarks"];
-		    $typedmarks=$row["typedmarks"];
-		    $typeemarks=$row["typeemarks"];
-		    $typefmarks=$row["typefmarks"];
-			selectrand($conn, $typea,$typeamarks,'a',$rollnumber,$quiznumber); 
-		    selectrand($conn, $typeb,$typebmarks,'b',$rollnumber,$quiznumber); 
-		    selectrand($conn, $typec,$typecmarks,'c',$rollnumber,$quiznumber); 
-		    selectrand($conn, $typed,$typedmarks,'d',$rollnumber,$quiznumber); 
-		    selectrand($conn, $typee,$typeemarks,'e',$rollnumber,$quiznumber); 
-		    selectrand($conn, $typef,$typefmarks,'f',$rollnumber,$quiznumber); 
-			$_SESSION["quizset"] = true;
-		    header("location: quizpage.php");		
-		    exit;
-      		function selectrand($conn1, $typen,$typemarks,$type,$rollno,$quizno){	      		
-				static $serialnumber=1;			
-				if ($conn1->connect_error) {
-				    die("Connection failed: " . $conn1->connect_error);
-				}          
-	            if($type=='a'){
-					$sql = "select id,question
-					from mcqdb
-					order by rand()
-					limit ".$typen.";";
-				}
-				if($type=='b'){
-					$sql = "select id,question
-					from numericaldb
-					order by rand()
-					limit ".$typen.";";
-				}
-				if($type=='c'){
-					$sql = "select id,question
-					from dropdown
-					order by rand()
-					limit ".$typen.";";
-				}
-				if($type=='d'){
-					$sql = "select id,question
-					from fillintheblanks
-					order by rand()
-					limit ".$typen.";";
-				}
-				if($type=='e'){
-					$sql = "select id,question
-					from shortanswer
-					order by rand()
-					limit ".$typen.";";
-				}
-				if($type=='f'){
-					$sql = "select id,question
-					from essay
-					order by rand()
-					limit ".$typen.";";
-				}
-				$result= $conn1->query($sql);
-	            if ($result->num_rows > 0) {
-				    while($row = $result->fetch_assoc()) {   
-		        		$insert = "insert into response (serialnumber,rollnumber,quiznumber,quesid,type,quesmarks) values (".$serialnumber.",".$rollno.",".$quizno.",".$row["id"].",'".$type."',".$typemarks.");";						
-						$conn1->query($insert);
-						$serialnumber=$serialnumber+1;
-			   		}
-	   			 	mysqli_free_result($result);
-				} 
-				else {
-	    			// echo "0 results"; // Temporarily commented out
-				}
-	      		// $conn1->close(); // Removed as connection is managed outside
-      		}				
-		?>
+include "database.php";
+
+// Get the latest quiz configuration
+$query  = "SELECT * FROM quizconfig ORDER BY quiznumber DESC LIMIT 1";
+$result = $conn->query($query);
+$row    = $result->fetch_assoc();
+
+$quizid    = (int)$row["quizid"];
+$quiznumber = (int)$row["quiznumber"];
+$typea      = (int)$row["typea"];
+$typeb      = (int)$row["typeb"];
+$typec      = (int)$row["typec"];
+$typed      = (int)$row["typed"];
+$typee      = (int)$row["typee"];
+$typef      = (int)$row["typef"];
+
+$attempt = 1; // Default attempt when using this script
+
+selectrand($conn, $typea, 'a', $rollnumber, $quizid, $attempt);
+selectrand($conn, $typeb, 'b', $rollnumber, $quizid, $attempt);
+selectrand($conn, $typec, 'c', $rollnumber, $quizid, $attempt);
+selectrand($conn, $typed, 'd', $rollnumber, $quizid, $attempt);
+selectrand($conn, $typee, 'e', $rollnumber, $quizid, $attempt);
+selectrand($conn, $typef, 'f', $rollnumber, $quizid, $attempt);
+
+$_SESSION["quizset"] = true;
+header("location: quizpage.php");
+exit;
+
+function selectrand($conn1, $count, $type, $rollno, $quizid, $attempt) {
+    static $serialnumber = 1;
+
+    if ($conn1->connect_error) {
+        die("Connection failed: " . $conn1->connect_error);
+    }
+
+    switch ($type) {
+        case 'a':
+            $table = 'mcqdb';
+            break;
+        case 'b':
+            $table = 'numericaldb';
+            break;
+        case 'c':
+            $table = 'dropdown';
+            break;
+        case 'd':
+            $table = 'fillintheblanks';
+            break;
+        case 'e':
+            $table = 'shortanswer';
+            break;
+        case 'f':
+            $table = 'essay';
+            break;
+        default:
+            return;
+    }
+
+    $sql = "SELECT id FROM $table ORDER BY RAND() LIMIT " . intval($count);
+    $result = $conn1->query($sql);
+
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $stmt = $conn1->prepare(
+                "INSERT INTO response (quizid, rollnumber, attempt, qtype, qid, serialnumber, response) VALUES (?, ?, ?, ?, ?, ?, '')"
+            );
+            if ($stmt) {
+                $stmt->bind_param(
+                    "iiisii",
+                    $quizid,
+                    $rollno,
+                    $attempt,
+                    $type,
+                    $row['id'],
+                    $serialnumber
+                );
+                $stmt->execute();
+                $stmt->close();
+            }
+            $serialnumber++;
+        }
+        mysqli_free_result($result);
+    }
+}
+?>
