@@ -8,9 +8,9 @@
         date_default_timezone_set('Asia/Karachi'); // Replace with your timezone
 
 	$db_host = 'localhost';
-	$db_name = 'studyhtc_quiz';
-	$db_user = 'studyhtc_hassan';
-	$db_pass = 'hassan@tariq786';
+	$db_name = 'database';
+	$db_user = 'username';
+	$db_pass = 'password';
 	$conn = new mysqli($db_host,$db_user,$db_pass,$db_name);
 	if($conn->connect_error){
 		printf("Connect failed: %s\n",$conn->connect_error);
