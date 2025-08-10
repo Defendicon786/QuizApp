@@ -92,31 +92,9 @@ try {
     }
 
     $result = $conn->query($sql);
-
+    
     if (!$result) {
         throw new Exception("Query error: " . $conn->error);
-    }
-
-    // If no MCQ results are found for a specific topic, attempt a fallback
-    // search based on the topic name. This handles older data where the
-    // topic_id column was left NULL for some questions (e.g., Domain Archaea).
-    if ($question_type === 'mcq' && $result->num_rows === 0 && !empty($topic_ids) && count($topic_ids) === 1) {
-        $tId = (int)$topic_ids[0];
-        $nameStmt = $conn->prepare("SELECT topic_name FROM topics WHERE topic_id=? LIMIT 1");
-        if ($nameStmt) {
-            $nameStmt->bind_param('i', $tId);
-            $nameStmt->execute();
-            $nameRes = $nameStmt->get_result();
-            if ($nameRow = $nameRes->fetch_assoc()) {
-                $keyword = '%' . $conn->real_escape_string($nameRow['topic_name']) . '%';
-                $fallback_sql = "SELECT id, question, optiona, optionb, optionc, optiond, answer, chapter_id
-                        FROM mcqdb
-                        WHERE chapter_id IN ($chapter_ids_str) AND question LIKE '$keyword'
-                        ORDER BY id";
-                $result = $conn->query($fallback_sql);
-            }
-            $nameStmt->close();
-        }
     }
     
     while ($row = $result->fetch_assoc()) {
