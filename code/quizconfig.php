@@ -238,31 +238,16 @@ function updateAvailableQuestions() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Add event listener for chapter selection to show/hide Select Questions button
-      $("#chapter_ids").on("change", function() {
-          var chapterIds = $(this).val();
-          $("#selectQuestionsBtn").prop("disabled", true);
-          $("#random_quiz_checkbox").prop("disabled", true);
-          loadTopics(chapterIds);
-          updateAvailableQuestions();
-      });
-
     // Toggle visibility of Select Questions button based on random quiz checkbox
-      $("#random_quiz_checkbox").on("change", function() {
-          if($(this).is(":checked")) {
-              $("#selectQuestionsBtn").prop("disabled", true);
-          } else {
-              let chapterIds = $("#chapter_ids").val();
-              if(chapterIds && chapterIds.length > 0) {
-                  $("#selectQuestionsBtn").prop("disabled", false);
-              }
-          }
-      });
-
-    // Initialize Select2 for all dropdowns
-    $('#subject_id, #class_id, #chapter_ids, #section_id, #topic_ids').select2({
-        width: '100%',
-        minimumResultsForSearch: 10
+    $("#random_quiz_checkbox").on("change", function() {
+        if($(this).is(":checked")) {
+            $("#selectQuestionsBtn").prop("disabled", true);
+        } else {
+            let chapterIds = $("#chapter_ids").val();
+            if(chapterIds && chapterIds.length > 0) {
+                $("#selectQuestionsBtn").prop("disabled", false);
+            }
+        }
     });
 
     // Add onsubmit validation to the form
