@@ -272,7 +272,8 @@ if (isset($_POST['action'])) {
         !empty($_POST['subject_id']) &&
         !empty($_POST['chapter_id'])
     ) {
-        $topic_name = $conn->real_escape_string(trim($_POST['topic_name']));
+        // Normalize topic name for consistent duplicate checking
+        $topic_name = trim($_POST['topic_name']);
         $class_id = intval($_POST['class_id']);
         $subject_id = intval($_POST['subject_id']);
         $chapter_id = intval($_POST['chapter_id']);
@@ -288,8 +289,8 @@ if (isset($_POST['action'])) {
         if ($verify_result->num_rows === 0) {
             $feedback_message = '<div class="alert alert-danger">Invalid chapter selection.</div>';
         } else {
-            // Check if topic already exists for this chapter
-            $check_sql = "SELECT COUNT(*) FROM topics WHERE chapter_id = ? AND topic_name = ?";
+            // Check if topic already exists for this chapter (case-insensitive)
+            $check_sql = "SELECT COUNT(*) FROM topics WHERE chapter_id = ? AND LOWER(topic_name) = LOWER(?)";
             $check_stmt = $conn->prepare($check_sql);
             $check_stmt->bind_param("is", $chapter_id, $topic_name);
             $check_stmt->execute();
@@ -300,6 +301,7 @@ if (isset($_POST['action'])) {
             if ($count > 0) {
                 $feedback_message = '<div class="alert alert-warning">Topic already exists for this chapter.</div>';
             } else {
+                // Store the topic name exactly as entered
                 $sql = "INSERT INTO topics (chapter_id, topic_name) VALUES (?, ?)";
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param("is", $chapter_id, $topic_name);
