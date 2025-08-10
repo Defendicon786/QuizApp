@@ -468,39 +468,41 @@ $conn->close();
                                 <?php if (empty($quizzes)): ?>
                                     <p class="text-center">No quizzes found.</p>
                                 <?php else: ?>
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Quiz #</th>
-                                                <th>Quiz Name</th>
-                                                <th>Class</th>
-                                                <th>Section</th>
-                                                <th>Start Time</th>
-                                                <th>End Time</th>
-                                                <th>Duration (Mins)</th>
-                                                <th class="text-right">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php foreach ($quizzes as $quiz): ?>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
                                                 <tr>
-                                                    <td><?php echo htmlspecialchars($quiz['quiznumber']); ?></td>
-                                                    <td><?php echo htmlspecialchars($quiz['quizname'] ?? 'N/A'); ?></td>
-                                                    <td><?php echo htmlspecialchars($quiz['class_name'] ?? 'N/A'); ?></td>
-                                                    <td><?php echo htmlspecialchars($quiz['section'] ?? 'N/A'); ?></td>
-                                                    <td><?php echo htmlspecialchars($quiz['starttime']); ?></td>
-                                                    <td><?php echo htmlspecialchars($quiz['endtime']); ?></td>
-                                                    <td><?php echo htmlspecialchars($quiz['duration']); ?></td>
-                                                    <td class="text-right table-actions">
-                                                        <a href="edit_quiz.php?quiz_id=<?php echo $quiz['quiznumber']; ?>" class="btn btn-info btn-sm">Edit</a>
-                                                        <a href="direct_export.php?quiz_id=<?php echo $quiz['quiznumber']; ?>" class="btn btn-success btn-sm">PDF</a>
-                                                        <a href="export.php?quiz_id=<?php echo $quiz['quiznumber']; ?>&export_type=word" class="btn btn-primary btn-sm">Word</a>
-                                                        <a href="manage_quizzes.php?action=delete&quiz_id=<?php echo $quiz['quiznumber']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete Quiz #<?php echo $quiz['quiznumber']; ?>? This will also delete associated results and responses.');">Delete</a>
-                                                    </td>
+                                                    <th>Quiz #</th>
+                                                    <th>Quiz Name</th>
+                                                    <th>Class</th>
+                                                    <th>Section</th>
+                                                    <th>Start Time</th>
+                                                    <th>End Time</th>
+                                                    <th>Duration (Mins)</th>
+                                                    <th class="text-right">Actions</th>
                                                 </tr>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($quizzes as $quiz): ?>
+                                                    <tr>
+                                                        <td><?php echo htmlspecialchars($quiz['quiznumber']); ?></td>
+                                                        <td><?php echo htmlspecialchars($quiz['quizname'] ?? 'N/A'); ?></td>
+                                                        <td><?php echo htmlspecialchars($quiz['class_name'] ?? 'N/A'); ?></td>
+                                                        <td><?php echo htmlspecialchars($quiz['section'] ?? 'N/A'); ?></td>
+                                                        <td><?php echo htmlspecialchars($quiz['starttime']); ?></td>
+                                                        <td><?php echo htmlspecialchars($quiz['endtime']); ?></td>
+                                                        <td><?php echo htmlspecialchars($quiz['duration']); ?></td>
+                                                        <td class="text-right table-actions">
+                                                            <a href="edit_quiz.php?quiz_id=<?php echo $quiz['quiznumber']; ?>" class="btn btn-info btn-sm">Edit</a>
+                                                            <a href="direct_export.php?quiz_id=<?php echo $quiz['quiznumber']; ?>" class="btn btn-success btn-sm">PDF</a>
+                                                            <a href="export.php?quiz_id=<?php echo $quiz['quiznumber']; ?>&export_type=word" class="btn btn-primary btn-sm">Word</a>
+                                                            <a href="manage_quizzes.php?action=delete&quiz_id=<?php echo $quiz['quiznumber']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete Quiz #<?php echo $quiz['quiznumber']; ?>? This will also delete associated results and responses.');">Delete</a>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 <?php endif; ?>
                             </div>
                             <div class="card-footer text-center">
