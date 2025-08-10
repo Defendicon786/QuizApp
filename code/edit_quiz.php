@@ -70,27 +70,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['quiz_id_to_edit'])) {
 
     // Validate chapter selection
     $selected_chapters_value = NULL;
-    if(isset($_POST['chapter_id'])){
-        if(is_array($_POST['chapter_id'])){
-            $filtered_chapters = array_filter($_POST['chapter_id'], function($value) { 
-                return $value !== 'all' && $value !== '' && is_numeric($value); 
+    if(isset($_POST['chapter_ids'])){
+        if(is_array($_POST['chapter_ids'])){
+            $filtered_chapters = array_filter($_POST['chapter_ids'], function($value) {
+                return $value !== 'all' && $value !== '' && is_numeric($value);
             });
             if(!empty($filtered_chapters)){
                 // Make sure all values are integers
                 $filtered_chapters = array_map('intval', $filtered_chapters);
                 $selected_chapters_value = implode(',', $filtered_chapters);
-            } else if (in_array('all', $_POST['chapter_id'])){
+            } else if (in_array('all', $_POST['chapter_ids'])){
                 $selected_chapters_value = 'all';
             }
-        } else if ($_POST['chapter_id'] === 'all'){
+        } else if ($_POST['chapter_ids'] === 'all'){
             $selected_chapters_value = 'all';
-        } else if(is_numeric($_POST['chapter_id'])){
-            $selected_chapters_value = intval($_POST['chapter_id']);
+        } else if(is_numeric($_POST['chapter_ids'])){
+            $selected_chapters_value = intval($_POST['chapter_ids']);
         }
     }
 
     // If no chapters are selected despite the field being present, set as 'all'
-    if (empty($selected_chapters_value) && isset($_POST['chapter_id'])) {
+    if (empty($selected_chapters_value) && isset($_POST['chapter_ids'])) {
         $selected_chapters_value = 'all';
     }
 
@@ -202,7 +202,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['quiz_id_to_edit'])) {
         $random_quiz = isset($_POST["random_quiz"]) ? 1 : 0;
         $quiz_name = isset($_POST["quizname"]) ? $conn->real_escape_string(trim($_POST["quizname"])) : ($quiz_data['quizname'] ?? 'Quiz');
         $attempts = isset($_POST["attempts"]) ? intval($_POST["attempts"]) : ($quiz_data['attempts'] ?? 1);
-        $section = !empty($_POST['section']) ? $conn->real_escape_string(trim($_POST['section'])) : NULL;
+        // Handle section selection
+        $section = NULL;
+        if (!empty($_POST['section_id'])) {
+            $section_id_input = intval($_POST['section_id']);
+            $section_stmt = $conn->prepare("SELECT section_name FROM sections WHERE id = ?");
+            $section_stmt->bind_param("i", $section_id_input);
+            $section_stmt->execute();
+            $section_res = $section_stmt->get_result();
+            if ($section_row = $section_res->fetch_assoc()) {
+                $section = $section_row['section_name'];
+            }
+            $section_stmt->close();
+        } elseif (!empty($_POST['section'])) {
+            $section = $conn->real_escape_string(trim($_POST['section']));
+        }
+
+        // Handle topic selection
+        $topic_ids = NULL;
+        if (isset($_POST['topic_ids'])) {
+            $topic_input = $_POST['topic_ids'];
+            if (!is_array($topic_input)) {
+                $topic_input = explode(',', $topic_input);
+            }
+            $topic_input = array_filter($topic_input, function($value) { return $value !== ''; });
+            if (!empty($topic_input)) {
+                $topic_ids = implode(',', array_map('intval', $topic_input));
+            }
+        }
 
         // Make sure all integer values are properly converted to integers
         $attempts = intval($attempts);
@@ -231,6 +258,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['quiz_id_to_edit'])) {
         $starttime_sql = "'" . $conn->real_escape_string($starttime) . "'";
         $selected_chapters_sql = "'" . $conn->real_escape_string($selected_chapters_value) . "'";
         $section_sql = $section !== NULL ? "'" . $conn->real_escape_string($section) . "'" : "NULL";
+        $topic_ids_sql = $topic_ids !== NULL ? "'" . $conn->real_escape_string($topic_ids) . "'" : "NULL";
         $subject_id_sql = $subject_id !== NULL ? $subject_id : "NULL";
         $class_id_sql = $class_id !== NULL ? $class_id : "NULL";
         
@@ -254,6 +282,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['quiz_id_to_edit'])) {
         error_log("is_random: " . $random_quiz);
         error_log("chapter_ids: " . $selected_chapters_value);
         error_log("section: " . ($section ?? 'NULL'));
+        error_log("topic_ids: " . ($topic_ids ?? 'NULL'));
         
         // Build a direct SQL query instead of using prepared statements
         $sql_update = "UPDATE quizconfig SET 
@@ -279,7 +308,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['quiz_id_to_edit'])) {
                 typefmarks = $typefmarks,
                 total_questions = $total_questions, 
                 is_random = $random_quiz, 
-                chapter_ids = $selected_chapters_sql, 
+                chapter_ids = $selected_chapters_sql,
+                topic_ids = $topic_ids_sql,
                 section = $section_sql
             WHERE quiznumber = $quiz_id_to_edit";
         
@@ -327,25 +357,12 @@ if (!empty($q_starttime)) {
 $q_subject_id = $quiz_data['subject_id'] ?? '';
 $q_class_id = $quiz_data['class_id'] ?? '';
 $q_chapter_ids_str = $quiz_data['chapter_ids'] ?? '';
+$q_topic_ids_str = $quiz_data['topic_ids'] ?? '';
 $q_total_questions = $quiz_data['total_questions'] ?? 10;
 $q_is_random = $quiz_data['is_random'] ?? 0;
 $q_section = $quiz_data['section'] ?? '';
 
 // Fetch pre-selected chapter names for display
-$preselected_chapters = [];
-if (!empty($q_chapter_ids_str) && $q_chapter_ids_str !== 'all') {
-    $chapter_ids_array = explode(',', $q_chapter_ids_str);
-    $chapter_ids_placeholders = str_repeat('?,', count($chapter_ids_array) - 1) . '?';
-    $stmt_chapters = $conn->prepare("SELECT chapter_id, chapter_name FROM chapters WHERE chapter_id IN ($chapter_ids_placeholders)");
-    $param_types = str_repeat('i', count($chapter_ids_array));
-    $stmt_chapters->bind_param($param_types, ...$chapter_ids_array);
-    $stmt_chapters->execute();
-    $result_chapters = $stmt_chapters->get_result();
-    while ($row_chapter = $result_chapters->fetch_assoc()) {
-        $preselected_chapters[$row_chapter['chapter_id']] = $row_chapter['chapter_name'];
-    }
-    $stmt_chapters->close();
-}
 
 $q_typea = $quiz_data['typea'] ?? 0;
 $q_typeamarks = $quiz_data['typeamarks'] ?? 0;
@@ -534,7 +551,7 @@ $conn->close();
         }
         
         // Make sure at least one chapter is selected
-        var chapterField = document.getElementById('chapter_id');
+        var chapterField = document.getElementById('chapter_ids');
         if (chapterField && chapterField.selectedOptions.length === 0) {
             alert('Please select at least one chapter or "All Chapters"');
             return false;
@@ -627,7 +644,7 @@ $conn->close();
       <div class="row justify-content-center" style="margin-top: 20px">
         <div class="col-lg-9 col-md-9 ml-auto mr-auto" >
           <div class="card card-login" >
-            <form class="form" name="editQuizForm" action="edit_quiz.php?quiz_id=<?php echo $quiz_id_to_edit; ?>" method="post" onsubmit="return validateQuizForm()">
+            <form class="form" name="editQuizForm" action="edit_quiz.php?quiz_id=<?php echo $quiz_id_to_edit; ?>" method="post">
               <input type="hidden" name="quiz_id_to_edit" value="<?php echo $quiz_id_to_edit; ?>">
               <div class="card-header card-header-primary text-center">
                 <h4 class="card-title"><?php echo $page_title; ?> #<?php echo htmlspecialchars($q_num); ?></h4>
@@ -700,17 +717,30 @@ $conn->close();
                     <p class="h5 text-center">Chapters</p>
                   </div>
                   <div class="col-md-9">
-                    <select name="chapter_id[]" id="chapter_id" class="form-control select2" multiple>
-                        <option value="" disabled>Select Class and Subject first</option>
-                        <option value="all" <?php if ($q_chapter_ids_str === 'all') echo 'selected'; ?>>All Chapters</option>
-                        <?php if (!empty($preselected_chapters)): ?>
-                            <?php foreach ($preselected_chapters as $chapter_id => $chapter_name): ?>
-                                <option value="<?php echo $chapter_id; ?>" selected><?php echo htmlspecialchars($chapter_name); ?></option>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                        <!-- Additional chapters will be loaded by AJAX -->
+                    <select name="chapter_ids[]" id="chapter_ids" class="form-control" multiple>
+                        <option value="">Select Class and Subject first</option>
                     </select>
                     <small class="form-text text-muted">Hold Ctrl/Cmd to select multiple chapters. Select 'All Chapters' to include all.</small>
+                  </div>
+                </div>
+                <div class="row" style="margin-top: 15px;">
+                  <div class="col-md-3">
+                    <p class="h5 text-center">Topics</p>
+                  </div>
+                  <div class="col-md-9">
+                    <select name="topic_ids[]" id="topic_ids" class="form-control" multiple>
+                        <option value="">All Topics</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row" style="margin-top: 15px;">
+                  <div class="col-md-3">
+                    <p class="h5 text-center">Section</p>
+                  </div>
+                  <div class="col-md-9">
+                    <select class="form-control" id="section_id" name="section_id">
+                        <option value="">Select Section (Optional)</option>
+                    </select>
                   </div>
                 </div>
                  <div class="row" style="margin-top: 15px;">
@@ -732,12 +762,6 @@ $conn->close();
                             </label>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                  <div class="form-group col-md-6">
-                    <label for="section" class="bmd-label-floating">Section (Optional)</label>
-                    <input type="text" name="section" id="section" class="form-control" placeholder="Leave blank for all sections" value="<?php echo htmlspecialchars($q_section); ?>">
-                  </div>
                 </div>
               </div>
               <div class="card-body row form-group" style="padding-left: 20px;padding-right: 20px">
@@ -777,42 +801,42 @@ $conn->close();
                   <div class="col"><p class="h6">MCQ :</p></div>
                   <div class="col"><input type="number" min="0" class="form-control text-center" name="typea" id="typea" value="<?php echo htmlspecialchars($q_typea); ?>" oninput="marks()"></div>
                   <div class="col"><input type="number" min="0" class="form-control text-center" name="typeamarks" id="typeamarks" value="<?php echo htmlspecialchars($q_typeamarks); ?>" oninput="marks()"></div>
-                  <div class="col"><p class="text-center" id="totala" style="margin-top:15px;font-weight: bold;"></p></div>
+                  <div class="col"><p class="text-center" id="totala" style="margin-top:15px;font-weight: bold;"></p><small id="mcq-available" class="text-info"></small></div>
                 </div>
                 <!-- Type B: Numerical -->
                 <div class="row">
                   <div class="col"><p class="h6">Numerical :</p></div>
                   <div class="col"><input type="number" min="0" class="form-control text-center" name="typeb" id="typeb" value="<?php echo htmlspecialchars($q_typeb); ?>" oninput="marks()"></div>
                   <div class="col"><input type="number" min="0" class="form-control text-center" name="typebmarks" id="typebmarks" value="<?php echo htmlspecialchars($q_typebmarks); ?>" oninput="marks()"></div>
-                  <div class="col"><p class="text-center" id="totalb" style="margin-top:15px;font-weight: bold;"></p></div>
+                  <div class="col"><p class="text-center" id="totalb" style="margin-top:15px;font-weight: bold;"></p><small id="numerical-available" class="text-info"></small></div>
                 </div>
                 <!-- Type C: Drop Down -->
                  <div class="row">
                   <div class="col"><p class="h6">Drop Down :</p></div>
                   <div class="col"><input type="number" min="0" class="form-control text-center" name="typec" id="typec" value="<?php echo htmlspecialchars($q_typec); ?>" oninput="marks()"></div>
                   <div class="col"><input type="number" min="0" class="form-control text-center" name="typecmarks" id="typecmarks" value="<?php echo htmlspecialchars($q_typecmarks); ?>" oninput="marks()"></div>
-                  <div class="col"><p class="text-center" id="totalc" style="margin-top:15px;font-weight: bold;"></p></div>
+                  <div class="col"><p class="text-center" id="totalc" style="margin-top:15px;font-weight: bold;"></p><small id="dropdown-available" class="text-info"></small></div>
                 </div>
                 <!-- Type D: Fill in the Blanks -->
                 <div class="row">
                   <div class="col"><p class="h6">Fill in the Blanks :</p></div>
                   <div class="col"><input type="number" min="0" class="form-control text-center" name="typed" id="typed" value="<?php echo htmlspecialchars($q_typed); ?>" oninput="marks()"></div>
                   <div class="col"><input type="number" min="0" class="form-control text-center" name="typedmarks" id="typedmarks" value="<?php echo htmlspecialchars($q_typedmarks); ?>" oninput="marks()"></div>
-                  <div class="col"><p class="text-center" id="totald" style="margin-top:15px;font-weight: bold;"></p></div>
+                  <div class="col"><p class="text-center" id="totald" style="margin-top:15px;font-weight: bold;"></p><small id="fillblanks-available" class="text-info"></small></div>
                 </div>
                 <!-- Type E: Short Answer -->
                 <div class="row">
                   <div class="col"><p class="h6">Short Answer :</p></div>
                   <div class="col"><input type="number" min="0" class="form-control text-center" name="typee" id="typee" value="<?php echo htmlspecialchars($q_typee); ?>" oninput="marks()"></div>
                   <div class="col"><input type="number" min="0" class="form-control text-center" name="typeemarks" id="typeemarks" value="<?php echo htmlspecialchars($q_typeemarks); ?>" oninput="marks()"></div>
-                  <div class="col"><p class="text-center" id="totale" style="margin-top:15px;font-weight: bold;"></p></div>
+                  <div class="col"><p class="text-center" id="totale" style="margin-top:15px;font-weight: bold;"></p><small id="short-available" class="text-info"></small></div>
                 </div>
                 <!-- Type F: Essay -->
                  <div class="row">
                   <div class="col"><p class="h6">Essay :</p></div>
                   <div class="col"><input type="number" min="0" class="form-control text-center" name="typef" id="typef" value="<?php echo htmlspecialchars($q_typef); ?>" oninput="marks()"></div>
                   <div class="col"><input type="number" min="0" class="form-control text-center" name="typefmarks" id="typefmarks" value="<?php echo htmlspecialchars($q_typefmarks); ?>" oninput="marks()"></div>
-                  <div class="col"><p class="text-center" id="totalf" style="margin-top:15px;font-weight: bold;"></p></div>
+                  <div class="col"><p class="text-center" id="totalf" style="margin-top:15px;font-weight: bold;"></p><small id="essay-available" class="text-info"></small></div>
                 </div>
                 <hr>
                 <div class="row">
@@ -849,209 +873,178 @@ $conn->close();
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
   <script>
     $(document).ready(function() {
-      marks(); // Calculate total marks on page load
-      
-      // Call marks() function after a small delay to ensure the values are properly calculated
-      setTimeout(function() {
-        marks();
-      }, 500);
-      
-      // Call the loadChapters function manually to ensure the chapter selection works
-      var classId = $('#class_id').val();
-      var subjectId = $('#subject_id').val();
-      if (classId && subjectId) {
-        // Parse chapter IDs for initial loading
-        var chapterIdsStr = "<?php echo $q_chapter_ids_str; ?>";
-        var initialChapIds = chapterIdsStr !== 'all' ? 
-            chapterIdsStr.split(',').map(s => s.trim()).filter(s => s !== '') : [];
-        var allChapsSelected = chapterIdsStr === 'all';
-        
-        // Call with proper arguments
-        loadChapters(classId, subjectId, initialChapIds, allChapsSelected);
-      }
-      
-      // Initialize datetimepicker
-      if($('.datetimepicker').length != 0){
+      marks();
+      setTimeout(marks, 500);
+
+      if($('.datetimepicker').length !== 0){
         $('.datetimepicker').datetimepicker({
-          icons: {
-            time: "fa fa-clock-o",
-            date: "fa fa-calendar",
-            up: "fa fa-chevron-up",
-            down: "fa fa-chevron-down",
-            previous: 'fa fa-chevron-left',
-            next: 'fa fa-chevron-right',
-            today: 'fa fa-screenshot',
-            clear: 'fa fa-trash',
-            close: 'fa fa-remove'
-          },
-          format: 'DD/MM/YYYY hh:mm A',
-          timeZone: 'Asia/Karachi',
-          useStrict: true,
-          keepLocalTime: true,
-          sideBySide: true,
-          showTodayButton: true,
-          showClear: true,
-          showClose: true,
-          toolbarPlacement: 'bottom',
-          widgetPositioning: {
-            horizontal: 'auto',
-            vertical: 'bottom'
-          }
-        }).on('dp.change', function(e) {
-          // Log the selected date when changed for debugging
-          console.log("Date changed to: ", $(this).val());
-          
-          // Ensure the date is in the expected format for the server
-          var formattedDate = moment(e.date).format('DD/MM/YYYY hh:mm A');
-          $(this).val(formattedDate);
-          console.log("Formatted date: ", formattedDate);
-        });
+          icons:{time:"fa fa-clock-o",date:"fa fa-calendar",up:"fa fa-chevron-up",down:"fa fa-chevron-down",previous:'fa fa-chevron-left',next:'fa fa-chevron-right',today:'fa fa-screenshot',clear:'fa fa-trash',close:'fa fa-remove'},
+          format:'DD/MM/YYYY hh:mm A',timeZone:'Asia/Karachi',useStrict:true,keepLocalTime:true,sideBySide:true,showTodayButton:true,showClear:true,showClose:true,toolbarPlacement:'bottom',widgetPositioning:{horizontal:'auto',vertical:'bottom'}
+        }).on('dp.change',function(e){var formattedDate=moment(e.date).format('DD/MM/YYYY hh:mm A');$(this).val(formattedDate);});
       }
 
-      // Initialize Select2 for chapters with enhanced settings
-      $('#chapter_id').select2({
-          placeholder: "Select chapters after class/subject",
-          width: '100%',
-          allowClear: true,
-          closeOnSelect: false
-      });
+      $('#subject_id, #class_id, #chapter_ids, #section_id, #topic_ids').select2({width:'100%',minimumResultsForSearch:10});
 
       var initialClassId = $('#class_id').val();
       var initialSubjectId = $('#subject_id').val();
-      // Parse chapter IDs string properly to handle both 'all' and specific chapter IDs
       var chapterIdsStr = "<?php echo $q_chapter_ids_str; ?>";
-      var initialChapterIds = chapterIdsStr !== 'all' ? 
-          chapterIdsStr.split(',').map(s => s.trim()).filter(s => s !== '') : [];
+      var initialChapterIds = chapterIdsStr && chapterIdsStr !== 'all' ? chapterIdsStr.split(',').map(s=>s.trim()).filter(s=>s!=='') : [];
       var allChaptersSelectedInitially = chapterIdsStr === 'all';
+      var initialTopicIds = "<?php echo $q_topic_ids_str ?? ''; ?>".split(',').filter(s=>s);
+      var initialSectionName = "<?php echo htmlspecialchars($q_section); ?>";
 
-      function loadChapters(classId, subjectId, selectedChapterIds, allChapters) {
-          console.log("Loading chapters for class: " + classId + ", subject: " + subjectId);
-          console.log("Selected chapters: ", selectedChapterIds);
-          console.log("All chapters selected: ", allChapters);
-          
-          if (classId) { // Subject ID is optional for fetching chapters as per quizconfig.php logic
-              // Keep track of currently selected chapters before clearing
-              var currentlySelected = $('#chapter_id').val() || [];
-              
-              $('#chapter_id').empty().append('<option value="" disabled>Loading chapters...</option>'); // Clear existing and show loading
-              $.ajax({
-                  url: 'get_chapters.php',
-                  type: 'GET',
-                  data: { class_id: classId, subject_id: subjectId }, // subject_id can be null
-                  dataType: 'json',
-                  success: function(response) {
-                      $('#chapter_id').empty(); // Clear loading message
-                      $('#chapter_id').append('<option value="all">All Chapters</option>');
-                      
-                      // Handle different response formats from get_chapters.php
-                      var chapters = [];
-                      if (response.chapters) {
-                          chapters = response.chapters;
-                      } else if (Array.isArray(response)) {
-                          chapters = response;
-                      }
-                      
-                      console.log("Chapters received: ", chapters);
-                      
-                      if (chapters.length > 0) {
-                          // Add received chapters to dropdown
-                          $.each(chapters, function(index, chapter) {
-                              $('#chapter_id').append($('<option>', {
-                                  value: chapter.chapter_id,
-                                  text: chapter.chapter_name
-                              }));
-                          });
-                          
-                          // We need to initialize Select2 again after dynamically adding options
-                          $('#chapter_id').select2({
-                              placeholder: "Select chapters after class/subject",
-                              width: '100%',
-                              allowClear: true,
-                              closeOnSelect: false
-                          });
-                          
-                          // Set selected chapters after loading
-                          setTimeout(function() {
-                              if (allChapters) {
-                                  console.log("Setting 'all' as selected");
-                                  $('#chapter_id').val('all').trigger('change');
-                              } else if (selectedChapterIds && selectedChapterIds.length > 0) {
-                                  console.log("Setting specific chapters as selected: ", selectedChapterIds);
-                                  // If this is coming from an AJAX reload but user had already selected chapters,
-                                  // preserve their selections, otherwise use the initialChapterIds
-                                  var chaptersToSelect = currentlySelected.length > 0 && 
-                                      !currentlySelected.includes('') &&
-                                      !currentlySelected.includes('all') ? 
-                                      currentlySelected : selectedChapterIds;
-                                  
-                                  $('#chapter_id').val(chaptersToSelect).trigger('change');
-                              }
-                          }, 100);
-                      } else {
-                          $('#chapter_id').append('<option value="" disabled>No chapters found for this selection.</option>');
-                      }
-                  },
-                  error: function(xhr, status, error) {
-                      console.error("Error loading chapters: ", error);
-                      $('#chapter_id').empty().append('<option value="" disabled>Error loading chapters: ' + error + '</option>');
-                  }
-              });
-          } else {
-              $('#chapter_id').empty()
-                  .append('<option value="" disabled>Select Class first</option>')
-                  .append('<option value="all">All Chapters</option>')
-                  .trigger('change');
-          }
+      if(initialClassId){
+        loadChapters(initialClassId, initialSubjectId, initialChapterIds, allChaptersSelectedInitially, initialTopicIds);
+        loadSections(initialClassId, initialSectionName);
       }
 
-      // Special handling for when 'all' is selected
-      $(document).on('change', '#chapter_id', function() {
-          var selectedValues = $(this).val();
-          if (selectedValues && Array.isArray(selectedValues) && selectedValues.includes('all')) {
-              // If 'all' is one of multiple selections, make it the only selection
-              $(this).val(['all']).trigger('change');
-          }
+      $('#class_id, #subject_id').on('change', function(){
+        var cId = $('#class_id').val();
+        var sId = $('#subject_id').val();
+        loadChapters(cId, sId, [], false, []);
+        loadSections(cId, null);
       });
 
-      // Load chapters on page load if class and subject are pre-selected
-      if (initialClassId) {
-          loadChapters(initialClassId, initialSubjectId, initialChapterIds, allChaptersSelectedInitially);
-      }
-
-      // Reload chapters when class or subject changes
-      $('#class_id, #subject_id').on('change', function() {
-          var classId = $('#class_id').val();
-          var subjectId = $('#subject_id').val();
-          
-          if (!classId) {
-              $('#chapter_id').empty()
-                  .append('<option value="" disabled>Select Class first</option>')
-                  .append('<option value="all">All Chapters</option>')
-                  .trigger('change');
-              return;
-          }
-          
-          // When class/subject changes, preserve any currently selected chapters if possible
-          var currentlySelected = $('#chapter_id').val() || [];
-          // If all chapters is selected or nothing is selected, don't try to preserve
-          if (currentlySelected.includes('all') || currentlySelected.length === 0) {
-              currentlySelected = [];
-          }
-          
-          loadChapters(classId, subjectId, currentlySelected, false);
+      $('#chapter_ids').on('change', function(){
+        var cIds = $(this).val();
+        loadTopics(cIds, []);
+        updateAvailableQuestions();
       });
 
+      $('#topic_ids').on('change', updateAvailableQuestions);
+
+      $('form').on('submit', function(e){
+        if(!validateQuizForm() || !validateQuestionCounts()) e.preventDefault();
+      });
     });
-    
-    // Add scrolled class to navbar on scroll
-    $(window).scroll(function() {
-      if ($(document).scrollTop() > 50) {
-        $('.navbar').addClass('scrolled');
-      } else {
-        $('.navbar').removeClass('scrolled');
+
+    function loadChapters(classId, subjectId, selectedChapterIds, allChapters, topicIds){
+      if(classId){
+        fetch('get_chapters.php?class_id='+classId+'&subject_id='+subjectId)
+          .then(r=>r.json())
+          .then(data=>{
+            var chapterSelect=document.getElementById('chapter_ids');
+            chapterSelect.innerHTML='<option value="">Select Chapters</option>';
+            if(data.length>0){
+              var allOption=document.createElement('option');
+              allOption.value='all';
+              allOption.text='All Chapters';
+              chapterSelect.add(allOption,1);
+            }
+            data.forEach(function(ch){
+              chapterSelect.innerHTML+='<option value="'+ch.chapter_id+'">'+ch.chapter_name+'</option>';
+            });
+            $(chapterSelect).select2();
+            setTimeout(function(){
+              if(allChapters){
+                $(chapterSelect).val('all').trigger('change');
+              }else if(selectedChapterIds && selectedChapterIds.length>0){
+                $(chapterSelect).val(selectedChapterIds).trigger('change');
+              }
+              loadTopics($(chapterSelect).val(), topicIds);
+              updateAvailableQuestions();
+            },100);
+            $(chapterSelect).off('change.all').on('change.all',function(){
+              var values=$(this).val();
+              if(values && values.includes('all')){
+                $(this).val('all').trigger('change');
+              }
+            });
+          })
+          .catch(err=>console.error('Error:',err));
       }
+    }
+
+    function loadSections(classId, selectedName){
+      if(!classId) return;
+      fetch('get_sections.php?class_id='+classId)
+        .then(r=>r.json())
+        .then(data=>{
+          var sectionSelect=document.getElementById('section_id');
+          sectionSelect.innerHTML='<option value="">Select Section (Optional)</option>';
+          data.forEach(function(sec){
+            var opt=document.createElement('option');
+            opt.value=sec.id;
+            opt.text=sec.section_name;
+            if(selectedName && sec.section_name===selectedName){ opt.selected=true; }
+            sectionSelect.appendChild(opt);
+          });
+          $(sectionSelect).select2();
+        })
+        .catch(err=>console.error('Error:',err));
+    }
+
+    function loadTopics(chapterIds, selectedTopicIds){
+      var topicSelect=document.getElementById('topic_ids');
+      topicSelect.innerHTML='<option value="">All Topics</option>';
+      if(chapterIds && chapterIds.length>0 && chapterIds!=='all'){
+        fetch('get_topics.php?chapter_ids='+chapterIds.join(','))
+          .then(r=>r.json())
+          .then(data=>{
+            data.forEach(function(topic){
+              var opt=document.createElement('option');
+              opt.value=topic.topic_id;
+              opt.text=topic.topic_name;
+              topicSelect.appendChild(opt);
+            });
+            $(topicSelect).select2();
+            if(selectedTopicIds && selectedTopicIds.length>0){
+              $(topicSelect).val(selectedTopicIds).trigger('change');
+            }
+          })
+          .catch(err=>console.error('Error:',err));
+      } else {
+        $(topicSelect).select2();
+      }
+    }
+
+    function updateAvailableQuestions(){
+      var chapterIds=$('#chapter_ids').val();
+      var topicIds=$('#topic_ids').val()||[];
+      if(topicIds.length>0){
+        topicIds=topicIds.filter(function(id){return id;});
+        var totalTopics=$('#topic_ids option[value!=""]').length;
+        if(topicIds.length===totalTopics){topicIds=[];}
+      }
+      if(chapterIds && chapterIds.length>0 && chapterIds!=='all'){
+        var url='get_question_counts.php?chapter_ids='+chapterIds.join(',');
+        if(topicIds && topicIds.length>0){url+='&topic_ids='+topicIds.join(',');}
+        fetch(url)
+          .then(response=>response.text())
+          .then(text=>{var data=text.trim()===''?{}:JSON.parse(text);$('#typea').attr('max',data.mcq);$('#typeb').attr('max',data.numerical);$('#typec').attr('max',data.dropdown);$('#typed').attr('max',data.fillblanks);$('#typee').attr('max',data.short);$('#typef').attr('max',data.essay);$('#mcq-available').text('Available: '+data.mcq);$('#numerical-available').text('Available: '+data.numerical);$('#dropdown-available').text('Available: '+data.dropdown);$('#fillblanks-available').text('Available: '+data.fillblanks);$('#short-available').text('Available: '+data.short);$('#essay-available').text('Available: '+data.essay);})
+          .catch(err=>console.error('Error:',err));
+      }
+    }
+
+    function validateQuestionCounts(){
+      var chapterIds=$('#chapter_ids').val();
+      if(!chapterIds || chapterIds.length===0){alert('Please select at least one chapter');return false;}
+      var typea=parseInt($('#typea').val())||0;
+      var typeb=parseInt($('#typeb').val())||0;
+      var typec=parseInt($('#typec').val())||0;
+      var typed=parseInt($('#typed').val())||0;
+      var typee=parseInt($('#typee').val())||0;
+      var typef=parseInt($('#typef').val())||0;
+      var maxMcq=parseInt($('#typea').attr('max'))||0;
+      var maxNumerical=parseInt($('#typeb').attr('max'))||0;
+      var maxDropdown=parseInt($('#typec').attr('max'))||0;
+      var maxFill=parseInt($('#typed').attr('max'))||0;
+      var maxShort=parseInt($('#typee').attr('max'))||0;
+      var maxEssay=parseInt($('#typef').attr('max'))||0;
+      var errors=[];
+      if(typea>maxMcq) errors.push('MCQ questions requested ('+typea+') exceed available questions ('+maxMcq+')');
+      if(typeb>maxNumerical) errors.push('Numerical questions requested ('+typeb+') exceed available questions ('+maxNumerical+')');
+      if(typec>maxDropdown) errors.push('Dropdown questions requested ('+typec+') exceed available questions ('+maxDropdown+')');
+      if(typed>maxFill) errors.push('Fill in blanks questions requested ('+typed+') exceed available questions ('+maxFill+')');
+      if(typee>maxShort) errors.push('Short answer questions requested ('+typee+') exceed available questions ('+maxShort+')');
+      if(typef>maxEssay) errors.push('Essay questions requested ('+typef+') exceed available questions ('+maxEssay+')');
+      if(errors.length>0){alert('Error:\n'+errors.join('\n'));return false;}return true;
+    }
+
+    $(window).scroll(function(){
+      if($(document).scrollTop()>50){$('.navbar').addClass('scrolled');}else{$('.navbar').removeClass('scrolled');}
     });
   </script>
 <script src="./assets/js/dark-mode.js"></script>
 </body>
-</html> 
+</html>
