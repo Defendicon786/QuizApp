@@ -81,13 +81,16 @@ if ($selected_quiz_number > 0) {
 
         if ($results->num_rows > 0) {
             $quiz_results_html = '<div class="card mt-4">
-                <div class="card-header card-header-primary">
-                    <h4 class="card-title mb-0">Quiz Results</h4>
-                    <p class="card-category">
-                        ' . htmlspecialchars($quiz_info['quizname']) . ' - 
-                        Class: ' . htmlspecialchars($quiz_info['class_name'] ?? 'N/A') . ', 
-                        Subject: ' . htmlspecialchars($quiz_info['subject_name'] ?? 'N/A') . '
-                    </p>
+                <div class="card-header card-header-primary d-flex justify-content-between align-items-center">
+                    <div>
+                        <h4 class="card-title mb-0">Quiz Results</h4>
+                        <p class="card-category">
+                            ' . htmlspecialchars($quiz_info['quizname']) . ' -
+                            Class: ' . htmlspecialchars($quiz_info['class_name'] ?? 'N/A') . ',
+                            Subject: ' . htmlspecialchars($quiz_info['subject_name'] ?? 'N/A') . '
+                        </p>
+                    </div>
+                    <a href="results_export.php?quiz_id=' . $selected_quiz_number . '" class="btn btn-success btn-sm" target="_blank">Download All Results</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
