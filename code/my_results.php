@@ -92,6 +92,9 @@ $results = $stmt->get_result();
                 <a href="studenthome.php" class="btn btn-primary back-btn">
                     <i class="material-icons">arrow_back</i> Back to Quiz Home
                 </a>
+                <a href="results_export.php?students=<?php echo $rollnumber; ?>" class="btn btn-secondary ml-2 back-btn">
+                    <i class="material-icons">picture_as_pdf</i> Download All Results PDF
+                </a>
             </div>
         </div>
 
