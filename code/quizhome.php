@@ -176,6 +176,11 @@ try {
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="manage_notifications.php" class="nav-link">
+                            <i class="material-icons">notifications</i> Manage Notifications
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="instructorlogout.php" class="nav-link">
                             <i class="material-icons">power_settings_new</i> Logout
                         </a>
