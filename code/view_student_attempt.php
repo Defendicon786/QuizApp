@@ -379,6 +379,12 @@ $conn->close();
         .back-button {
             margin-bottom: 20px;
         }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+        }
     </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
@@ -472,10 +478,13 @@ $conn->close();
                     <h2 class="title">Student Quiz Attempt Details</h2>
                 </div>
                 <div class="section">
-                    <div class="back-button">
+                    <div class="back-button d-flex justify-content-between no-print">
                         <a href="view_quiz_results.php?quiz_number=<?php echo $quiz_id; ?>" class="btn btn-sm btn-primary">
                             <i class="material-icons">arrow_back</i> Back to Results
                         </a>
+                        <button onclick="window.print();" class="btn btn-sm btn-info">
+                            <i class="material-icons">print</i> Print
+                        </button>
                     </div>
                     
                     <div class="row">
