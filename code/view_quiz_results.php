@@ -111,6 +111,7 @@ if ($selected_quiz_number > 0) {
                         <table class="table">
                             <thead class="text-primary">
                                 <tr>
+                                    <th>#</th>
                                     <th>Class</th>
                                     <th>Section</th>
                                     <th>Student Name</th>
@@ -129,6 +130,7 @@ if ($selected_quiz_number > 0) {
                             </thead>
                             <tbody>';
 
+                            $serial_number = 1;
                             while ($row = $results->fetch_assoc()) {
                 $percentage = ($row['total_marks'] / $quiz_info['maxmarks']) * 100;
                 $row_class = '';
@@ -141,6 +143,7 @@ if ($selected_quiz_number > 0) {
                 $student_pdf_link = 'direct_export.php?quiz_id=' . $selected_quiz_number . '&student=' . $row['rollnumber'] . '&attempt=' . $row['attempt'] . '&student_specific=1';
 
                 $quiz_results_html .= '<tr class="' . $row_class . '">
+                    <td>' . $serial_number++ . '</td>
                     <td>' . htmlspecialchars($row['class_name'] ?? 'N/A') . '</td>
                     <td>' . htmlspecialchars($row['section_name'] ?? 'N/A') . '</td>
                     <td>' . htmlspecialchars($row['student_name']) . '</td>
