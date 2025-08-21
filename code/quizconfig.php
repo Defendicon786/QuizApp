@@ -1095,16 +1095,21 @@ function saveSelectedQuestions() {
               <i class="material-icons">people</i> Manage Instructors
             </a>
           </li>
-          <li class="nav-item">
-            <a href="manage_students.php" class="nav-link">
-              <i class="material-icons">group</i> Manage Students
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="my_profile.php" class="nav-link">
-              <i class="material-icons">person</i> My Profile
-            </a>
-          </li>
+                    <li class="nav-item">
+                        <a href="manage_students.php" class="nav-link">
+                            <i class="material-icons">group</i> Manage Students
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="manage_notifications.php" class="nav-link">
+                            <i class="material-icons">notifications</i> Manage Notifications
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="my_profile.php" class="nav-link">
+                            <i class="material-icons">person</i> My Profile
+                        </a>
+                    </li>
           <li class="nav-item">
             <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="instructorlogout.php" data-original-title="Get back to Login Page">
               <i class="material-icons">power_settings_new</i> Log Out
