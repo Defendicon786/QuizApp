@@ -36,6 +36,20 @@ while ($quiz = $quizzes_result->fetch_assoc()) {
     );
 }
 
+// Fetch classes for student results export
+$class_options_html = '<option value="">Select Class</option>';
+$classes_sql = "SELECT class_id, class_name FROM classes ORDER BY class_name ASC";
+$classes_result = $conn->query($classes_sql);
+if ($classes_result) {
+    while ($class = $classes_result->fetch_assoc()) {
+        $class_options_html .= sprintf(
+            '<option value="%d">%s</option>',
+            $class['class_id'],
+            htmlspecialchars($class['class_name'])
+        );
+    }
+}
+
 if ($selected_quiz_number > 0) {
     // Get quiz details - now show any quiz without instructor restriction
     $quiz_sql = "SELECT qc.*, c.class_name, s.subject_name 
@@ -399,6 +413,32 @@ $conn->close();
                     <h2 class="title">View Quiz Results</h2>
                 </div>
                 <div class="section">
+                    <div class="card mb-4">
+                        <div class="card-header card-header-info">
+                            <h4 class="card-title mb-0">Download Student Results</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <select id="class_select" class="form-control">
+                                        <?php echo $class_options_html; ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <select id="section_select" class="form-control">
+                                        <option value="">Select Section</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <select id="student_select" class="form-control">
+                                        <option value="">Select Student</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button id="download_student_pdf" class="btn btn-success" type="button" disabled>Download Student Results PDF</button>
+                        </div>
+                    </div>
+
                     <form method="GET" action="view_quiz_results.php" class="form-inline justify-content-center mb-4">
                         <div class="form-group">
                             <label for="quiz_number_select" class="mr-2">Select Quiz:</label>
@@ -437,5 +477,52 @@ $conn->close();
     <script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
     <script src="./assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
 <script src="./assets/js/dark-mode.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#class_select').on('change', function() {
+            var classId = $(this).val();
+            $('#section_select').html('<option value="">Select Section</option>');
+            $('#student_select').html('<option value="">Select Student</option>');
+            $('#download_student_pdf').prop('disabled', true);
+            if (classId) {
+                $.getJSON('get_sections.php', { class_id: classId }, function(data) {
+                    var options = '<option value="">Select Section</option>';
+                    $.each(data, function(index, section) {
+                        options += '<option value="' + section.id + '">' + section.section_name + '</option>';
+                    });
+                    $('#section_select').html(options);
+                });
+            }
+        });
+
+        $('#section_select').on('change', function() {
+            var classId = $('#class_select').val();
+            var sectionId = $(this).val();
+            $('#student_select').html('<option value="">Select Student</option>');
+            $('#download_student_pdf').prop('disabled', true);
+            if (classId) {
+                $.getJSON('get_students.php', { class_id: classId, section_id: sectionId }, function(data) {
+                    var options = '<option value="">Select Student</option>';
+                    $.each(data, function(index, student) {
+                        options += '<option value="' + student.rollnumber + '">' + student.name + ' (' + student.rollnumber + ')</option>';
+                    });
+                    $('#student_select').html(options);
+                });
+            }
+        });
+
+        $('#student_select').on('change', function() {
+            $('#download_student_pdf').prop('disabled', $(this).val() === '');
+        });
+
+        $('#download_student_pdf').on('click', function() {
+            var roll = $('#student_select').val();
+            if (roll) {
+                var url = 'results_export.php?student=' + roll;
+                window.open(url, '_blank');
+            }
+        });
+    });
+    </script>
 </body>
-</html> 
+</html>
