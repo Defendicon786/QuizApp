@@ -66,7 +66,8 @@ function selectrand($conn1, $count, $type, $rollno, $quizid, $attempt) {
             return;
     }
 
-    $sql = "SELECT id FROM $table ORDER BY RAND() LIMIT " . intval($count);
+    // Ensure we don't select the same question more than once
+    $sql = "SELECT DISTINCT id FROM $table ORDER BY RAND() LIMIT " . intval($count);
     $result = $conn1->query($sql);
 
     if ($result && $result->num_rows > 0) {

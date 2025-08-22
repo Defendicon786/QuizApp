@@ -274,7 +274,8 @@ if (isset($_SESSION['quiz_started']) && $_SESSION['quiz_started'] === true) {
                         throw new Exception("No valid chapters found");
                     }
                     
-                    $sql = "SELECT id FROM $table WHERE chapter_id IN ($chapter_ids_str)";
+                    // Use DISTINCT to avoid retrieving the same question multiple times
+                    $sql = "SELECT DISTINCT id FROM $table WHERE chapter_id IN ($chapter_ids_str)";
                     if (!empty($topic_ids_str)) {
                         $sql .= " AND topic_id IN ($topic_ids_str)";
                     }
@@ -401,6 +402,18 @@ if (isset($_SESSION['quiz_started']) && $_SESSION['quiz_started'] === true) {
                 throw new Exception("Failed to get required questions: " . $e->getMessage());
             }
             
+            // Remove any duplicate questions that might have been selected
+            $unique_questions = [];
+            $seen = [];
+            foreach ($questions as $q) {
+                $key = $q['type'] . '-' . $q['id'];
+                if (!isset($seen[$key])) {
+                    $seen[$key] = true;
+                    $unique_questions[] = $q;
+                }
+            }
+            $questions = $unique_questions;
+
             // Check if we got enough questions
             if (count($questions) > 0) {
                 logDebug("Got questions", array('count' => count($questions)));
