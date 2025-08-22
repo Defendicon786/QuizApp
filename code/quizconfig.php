@@ -2069,13 +2069,9 @@ function saveSelectedQuestions() {
           updateAvailableQuestions();
         });
 
-      // Reload questions when topic filter changes
+      // Update available question counts when topic filter changes
         $(document).on('change', '#topic_ids', function() {
           var chapterIds = $("#chapter_ids").val();
-          var topicIds = $("#topic_ids").val() || [];
-          if(topicIds.length > 0) {
-            topicIds = topicIds.filter(function(id){ return id; });
-          }
           if(chapterIds && chapterIds.length > 0) {
             $("#random_quiz_checkbox").prop("disabled", false);
             if(!$("#random_quiz_checkbox").is(":checked")) {
@@ -2087,13 +2083,6 @@ function saveSelectedQuestions() {
             $("#selectQuestionsBtn").prop("disabled", true);
             $("#random_quiz_checkbox").prop("disabled", true);
           }
-          $('.questions-list').html('<div class="text-center"><i class="fa fa-spinner fa-spin"></i> Loading questions...</div>');
-          loadQuestionsByType('mcq', 'mcqQuestions', chapterIds, topicIds);
-          loadQuestionsByType('numerical', 'numericalQuestions', chapterIds, topicIds);
-          loadQuestionsByType('dropdown', 'dropdownQuestions', chapterIds, topicIds);
-          loadQuestionsByType('fillblanks', 'fillblanksQuestions', chapterIds, topicIds);
-          loadQuestionsByType('short', 'shortQuestions', chapterIds, topicIds);
-          loadQuestionsByType('essay', 'essayQuestions', chapterIds, topicIds);
           updateAvailableQuestions();
         });
 
