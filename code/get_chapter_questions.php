@@ -1,8 +1,15 @@
 <?php
 include 'database.php';
 
-// If the database connection failed, return a JSON error immediately.
-if (isset($conn) && $conn->connect_errno) {
+// If the database connection failed, return a JSON error immediately. The
+// database bootstrap file deliberately avoids emitting output on failure so
+// that we can send a clean JSON response here.
+if (!isset($conn) || $conn === null) {
+    echo json_encode(['error' => 'Database connection failed']);
+    exit;
+}
+
+if ($conn->connect_errno) {
     echo json_encode(['error' => 'Database connection failed: ' . $conn->connect_error]);
     exit;
 }
