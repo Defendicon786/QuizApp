@@ -7,20 +7,30 @@
  * response.
  */
 
-// Start output buffering to capture any stray warnings/notices.
+// Start output buffering to capture any stray warnings/notices that might
+// corrupt JSON output.
 ob_start();
 
 include 'database.php';
 
 /**
  * Helper function to emit a clean JSON response and terminate the script.
+ * This function ensures that any buffered output is discarded before the
+ * JSON payload is sent to the client.
  */
 function send_json($data) {
-    if (ob_get_length()) {
-        ob_clean();
+    $json = json_encode($data);
+    if ($json === false) {
+        $json = json_encode(['error' => 'JSON encoding failed: ' . json_last_error_msg()]);
     }
+
+    // Remove any previously buffered output to guarantee valid JSON
+    while (ob_get_level()) {
+        ob_end_clean();
+    }
+
     header('Content-Type: application/json');
-    echo json_encode($data);
+    echo $json;
     exit;
 }
 
