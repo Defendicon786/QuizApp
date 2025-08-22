@@ -31,6 +31,12 @@ if ($conn && $conn->connect_error) {
 }
 
 if ($conn) {
+    // Ensure the connection uses UTF-8 so JSON encoding doesn't fail on
+    // characters stored with a different encoding in the database.
+    if (!$conn->set_charset('utf8mb4')) {
+        error_log('Failed to set database connection charset: ' . $conn->error, 3, 'quiz_errors.log');
+    }
+
     // Set session timezone to match PHP timezone
     if (!$conn->query("SET time_zone = '+05:00'")) { // Replace +05:00 with your timezone offset
         // Failed to set timezone, log error.
