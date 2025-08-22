@@ -6,7 +6,10 @@ header('Content-Type: application/json');
 include "database.php";
 
 function send_json($data) {
-    $json = json_encode($data);
+    // Use JSON_INVALID_UTF8_SUBSTITUTE to replace any invalid UTF-8 sequences
+    // instead of failing outright, which previously caused errors when
+    // topics contained characters stored with a different encoding.
+    $json = json_encode($data, JSON_INVALID_UTF8_SUBSTITUTE);
     if ($json === false) {
         $json = json_encode(['error' => 'JSON encoding failed: ' . json_last_error_msg()]);
     }

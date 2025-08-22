@@ -6,7 +6,9 @@ include 'database.php';
 
 // Helper to emit a JSON response and terminate.
 function send_json($data) {
-    $json = json_encode($data);
+    // Use JSON_INVALID_UTF8_SUBSTITUTE so invalid sequences do not cause
+    // json_encode to fail when question text contains mixed encodings.
+    $json = json_encode($data, JSON_INVALID_UTF8_SUBSTITUTE);
     if ($json === false) {
         $json = json_encode(['error' => 'JSON encoding failed: ' . json_last_error_msg()]);
     }

@@ -3,3 +3,5 @@ request_audit.log
 /android/.gradle/
 /android/local.properties
 /android/app/build/
+/android/build/
+code/node_modules/
