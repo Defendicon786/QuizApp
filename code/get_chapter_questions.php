@@ -8,10 +8,13 @@
  */
 
 // Start output buffering to capture any stray warnings/notices that might
-// corrupt JSON output.
+// corrupt JSON output and ensure they don't reach the client.
 ob_start();
 
-include 'database.php';
+// Capture all PHP errors but keep them out of the response body so the
+// frontend always receives valid JSON.
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
 
 /**
  * Helper function to emit a clean JSON response and terminate the script.
@@ -36,6 +39,18 @@ function send_json($data) {
     echo $json;
     exit;
 }
+
+// If a fatal error occurs (e.g. due to a missing database connection or an
+// unexpected runtime issue), ensure we still return a JSON payload rather
+// than raw PHP error output which would break the frontend.
+register_shutdown_function(function() {
+    $error = error_get_last();
+    if ($error && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR])) {
+        send_json(['error' => 'Fatal error: ' . $error['message']]);
+    }
+});
+
+include 'database.php';
 
 // If the database connection failed, return a JSON error immediately. The
 // database bootstrap file deliberately avoids emitting output on failure so
