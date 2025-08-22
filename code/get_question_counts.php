@@ -1,11 +1,35 @@
 <?php
+// Buffer any stray output so that we can emit clean JSON.
+ob_start();
+
 include 'database.php';
 
-header('Content-Type: application/json');
+// Helper to emit a JSON response and terminate.
+function send_json($data) {
+    $json = json_encode($data);
+    if ($json === false) {
+        $json = json_encode(['error' => 'JSON encoding failed: ' . json_last_error_msg()]);
+    }
+
+    while (ob_get_level()) {
+        ob_end_clean();
+    }
+
+    header('Content-Type: application/json');
+    echo $json;
+    exit;
+}
+
+if (!isset($conn) || $conn === null) {
+    send_json(['error' => 'Database connection failed']);
+}
+
+if ($conn->connect_errno) {
+    send_json(['error' => 'Database connection failed: ' . $conn->connect_error]);
+}
 
 if (!isset($_GET['chapter_ids'])) {
-    echo json_encode(['error' => 'No chapter IDs provided']);
-    exit;
+    send_json(['error' => 'No chapter IDs provided']);
 }
 
 $chapter_ids = explode(',', $_GET['chapter_ids']);
@@ -70,4 +94,4 @@ if (!empty($chapter_ids)) {
     $counts['essay'] = (int)$result->fetch_assoc()['count'];
 }
 
-echo json_encode($counts);
+send_json($counts);

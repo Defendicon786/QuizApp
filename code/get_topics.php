@@ -1,6 +1,33 @@
 <?php
+// Buffer output to avoid corrupting JSON with notices or warnings.
+ob_start();
+
 header('Content-Type: application/json');
 include "database.php";
+
+function send_json($data) {
+    $json = json_encode($data);
+    if ($json === false) {
+        $json = json_encode(['error' => 'JSON encoding failed: ' . json_last_error_msg()]);
+    }
+
+    while (ob_get_level()) {
+        ob_end_clean();
+    }
+
+    header('Content-Type: application/json');
+    echo $json;
+    exit;
+}
+
+if (!isset($conn) || $conn === null) {
+    send_json(['error' => 'Database connection failed']);
+}
+
+if ($conn->connect_errno) {
+    send_json(['error' => 'Database connection failed: ' . $conn->connect_error]);
+}
+
 $chapter_ids = [];
 if (isset($_GET['chapter_ids'])) {
     $chapter_ids = array_map('intval', explode(',', $_GET['chapter_ids']));
@@ -23,5 +50,5 @@ if (!empty($chapter_ids)) {
         $stmt->close();
     }
 }
-echo json_encode($topics);
+send_json($topics);
 
