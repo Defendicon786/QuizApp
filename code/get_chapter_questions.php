@@ -1,20 +1,39 @@
 <?php
+/**
+ * Fetches questions for selected chapters and returns them as JSON.
+ * Some PHP configurations emit warnings/notices which can corrupt JSON
+ * responses.  To guarantee that the client always receives valid JSON,
+ * we buffer any unexpected output and clear it before sending the final
+ * response.
+ */
+
+// Start output buffering to capture any stray warnings/notices.
+ob_start();
+
 include 'database.php';
+
+/**
+ * Helper function to emit a clean JSON response and terminate the script.
+ */
+function send_json($data) {
+    if (ob_get_length()) {
+        ob_clean();
+    }
+    header('Content-Type: application/json');
+    echo json_encode($data);
+    exit;
+}
 
 // If the database connection failed, return a JSON error immediately. The
 // database bootstrap file deliberately avoids emitting output on failure so
 // that we can send a clean JSON response here.
 if (!isset($conn) || $conn === null) {
-    echo json_encode(['error' => 'Database connection failed']);
-    exit;
+    send_json(['error' => 'Database connection failed']);
 }
 
 if ($conn->connect_errno) {
-    echo json_encode(['error' => 'Database connection failed: ' . $conn->connect_error]);
-    exit;
+    send_json(['error' => 'Database connection failed: ' . $conn->connect_error]);
 }
-
-header('Content-Type: application/json');
 
 // Get parameters
 $chapter_ids = isset($_GET['chapter_ids']) ? explode(',', $_GET['chapter_ids']) : [];
@@ -35,13 +54,11 @@ if (!empty($topic_ids)) {
 }
 
 if (empty($chapter_ids) || empty($chapter_ids_str)) {
-    echo json_encode(['error' => 'No chapter IDs provided']);
-    exit;
+    send_json(['error' => 'No chapter IDs provided']);
 }
 
 if (empty($question_type)) {
-    echo json_encode(['error' => 'No question type specified']);
-    exit;
+    send_json(['error' => 'No question type specified']);
 }
 
 $questions = [];
@@ -94,8 +111,7 @@ try {
             break;
             
         default:
-            echo json_encode(['error' => 'Invalid question type']);
-            exit;
+            send_json(['error' => 'Invalid question type']);
     }
 
     $result = $conn->query($sql);
@@ -110,8 +126,8 @@ try {
         $questions[] = $row;
     }
     
-    echo json_encode($questions);
-    
+    send_json($questions);
+
 } catch (Exception $e) {
-    echo json_encode(['error' => $e->getMessage()]);
+    send_json(['error' => $e->getMessage()]);
 }
