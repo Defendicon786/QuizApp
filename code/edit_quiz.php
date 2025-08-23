@@ -713,9 +713,9 @@ $conn->close();
   </nav>
   <div class="main-container">
     <div class="page-header header-filter" style="background-image: url('./assets/img/bg2.jpg'); background-size: cover; background-position: top center;">
-      <div class="container" style="padding-top: 20px;">
-        <div class="row justify-content-center">
-          <div class="col-lg-10 col-md-12">
+      <div class="container-fluid" style="padding-top: 20px;">
+        <div class="row">
+          <div class="col-12">
             <div class="card card-login" >
             <form class="form" name="editQuizForm" action="edit_quiz.php?quiz_id=<?php echo $quiz_id_to_edit; ?>" method="post">
               <input type="hidden" name="quiz_id_to_edit" value="<?php echo $quiz_id_to_edit; ?>">
@@ -946,15 +946,15 @@ $conn->close();
         </div>
       </div>
     </div>
-    <footer class="footer">
-      <div class="container">
-        <div class="copyright text-center w-100">
-          &copy; <script>document.write(new Date().getFullYear())</script> A Project of StudyHT.com, Designed and Developed by Sir Hassan Tariq
-        </div>
-      </div>
-    </footer>
   </div>
 </div>
+<footer class="footer">
+  <div class="container">
+    <div class="copyright text-center w-100">
+      &copy; <script>document.write(new Date().getFullYear())</script> A Project of StudyHT.com, Designed and Developed by Sir Hassan Tariq
+    </div>
+  </div>
+</footer>
   <script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>
   <script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
   <script src="./assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
