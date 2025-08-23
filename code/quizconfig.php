@@ -44,9 +44,9 @@ function loadChapters() {
             .then(response => response.json())
             .then(data => {
                 var chapterSelect = document.getElementById('chapter_ids');
-                chapterSelect.innerHTML = '<option value=\"\">Select Chapters</option>';
+                chapterSelect.innerHTML = '<option value="">Select Chapters</option>';
                 
-                // Add \"All Chapters\" option at the top
+                // Add "All Chapters" option at the top
                 if (data.length > 0) {
                     var allOption = document.createElement('option');
                     allOption.value = 'all_chapters';
@@ -55,7 +55,7 @@ function loadChapters() {
                 }
                 
                 data.forEach(function(chapter) {
-                    chapterSelect.innerHTML += '<option value=\"' + chapter.chapter_id + '\">' + chapter.chapter_name + '</option>';
+                    chapterSelect.innerHTML += '<option value="' + chapter.chapter_id + '">' + chapter.chapter_name + '</option>';
                 });
                 
                 $(chapterSelect).select2();
@@ -96,10 +96,10 @@ function loadSections() {
             .then(response => response.json())
             .then(data => {
                 var sectionSelect = document.getElementById('section_id');
-                sectionSelect.innerHTML = '<option value=\"\">Select Section (Optional)</option>';
+                sectionSelect.innerHTML = '<option value="">Select Section (Optional)</option>';
                 
                 data.forEach(function(section) {
-                    sectionSelect.innerHTML += '<option value=\"' + section.id + '\">' + section.section_name + '</option>';
+                    sectionSelect.innerHTML += '<option value="' + section.id + '">' + section.section_name + '</option>';
                 });
                 
                 $(sectionSelect).select2();
@@ -332,7 +332,7 @@ function openQuestionSelector() {
 
     
     // Show loading indicator
-    $('.questions-list').html('<div class=\"text-center\"><i class=\"fa fa-spinner fa-spin\"></i> Loading questions...</div>');
+    $('.questions-list').html('<div class="text-center"><i class="fa fa-spinner fa-spin"></i> Loading questions...</div>');
     
     // Reset previous selections and UI on modal open
     // Reset global selections
@@ -350,13 +350,28 @@ function openQuestionSelector() {
     $('#typea, #typeb, #typec, #typed, #typee, #typef').val(0);
     marks(); // Update total marks display
     
-    // Load questions for each type
-    loadQuestionsByType('mcq', 'mcqQuestions', chapterIds, topicIds);
-    loadQuestionsByType('numerical', 'numericalQuestions', chapterIds, topicIds);
-    loadQuestionsByType('dropdown', 'dropdownQuestions', chapterIds, topicIds);
-    loadQuestionsByType('fillblanks', 'fillblanksQuestions', chapterIds, topicIds);
-    loadQuestionsByType('short', 'shortQuestions', chapterIds, topicIds);
-    loadQuestionsByType('essay', 'essayQuestions', chapterIds, topicIds);
+    // Load questions for each type sequentially instead of firing all
+    // requests at once.  Some deployments throttle concurrent requests
+    // which previously resulted in HTTP 503 responses for later requests.
+    // By chaining the promises we give the backend breathing room and
+    // avoid overloading it when the question selector is opened.
+    const typesToLoad = [
+        ['mcq', 'mcqQuestions'],
+        ['numerical', 'numericalQuestions'],
+        ['dropdown', 'dropdownQuestions'],
+        ['fillblanks', 'fillblanksQuestions'],
+        ['short', 'shortQuestions'],
+        ['essay', 'essayQuestions']
+    ];
+
+    function loadSequentially(index) {
+        if (index >= typesToLoad.length) return Promise.resolve();
+        const [type, container] = typesToLoad[index];
+        return loadQuestionsByType(type, container, chapterIds, topicIds)
+            .finally(() => loadSequentially(index + 1));
+    }
+
+    loadSequentially(0);
     
     // Ensure modal is attached to body before showing
     $('#questionSelectorModal').appendTo('body').modal('show');
@@ -364,14 +379,19 @@ function openQuestionSelector() {
 
 // Function to load questions by type
 function loadQuestionsByType(type, containerId, chapterIds, topicIds) {
-    if(!chapterIds || chapterIds.length === 0) return;
+    if(!chapterIds || chapterIds.length === 0) return Promise.resolve();
     var url = 'get_chapter_questions.php?type=' + type + '&chapter_ids=' + chapterIds.join(',');
     if(topicIds && topicIds.length > 0) {
         url += '&topic_ids=' + topicIds.join(',');
     }
 
-    fetch(url, { credentials: 'same-origin' })
-        .then(response => response.text())
+    return fetch(url, { credentials: 'same-origin' })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('HTTP ' + response.status);
+            }
+            return response.text();
+        })
         .then(text => {
             let data;
             try {
@@ -384,23 +404,23 @@ function loadQuestionsByType(type, containerId, chapterIds, topicIds) {
             container.empty();
             
             if(data.error) {
-                container.html('<div class=\"alert alert-danger\">' + data.error + '</div>');
+                container.html('<div class="alert alert-danger">' + data.error + '</div>');
                 return;
             }
             
             if(data.length === 0) {
-                container.html('<div class=\"alert alert-info\">No questions available for this chapter and question type</div>');
+                container.html('<div class="alert alert-info">No questions available for this chapter and question type</div>');
                 return;
             }
             
             // Create checkboxes for each question with improved UI
-            var html = '<div class=\"question-selection-container\">';
+            var html = '<div class="question-selection-container">';
             
             // Add select all option
-            html += '<div class=\"select-all-container mb-3 p-2 bg-light rounded\">' +
-                    '<div class=\"form-check\">' +
-                    '<label class=\"form-check-label\">' +
-                    '<input type=\"checkbox\" class=\"form-check-input select-all-checkbox\" id=\"select-all-' + type + '\">' +
+            html += '<div class="select-all-container mb-3 p-2 bg-light rounded">' +
+                    '<div class="form-check">' +
+                    '<label class="form-check-label">' +
+                    '<input type="checkbox" class="form-check-input select-all-checkbox" id="select-all-' + type + '">' +
                     '<strong>Select All Questions</strong>' +
                     '</label>' +
                     '</div></div>';
@@ -410,30 +430,30 @@ function loadQuestionsByType(type, containerId, chapterIds, topicIds) {
                 var questionText = '';
                 
                 if(type === 'mcq') {
-                    questionText = '<div class=\"question-text\"><strong>Question:</strong> ' + question.question + 
+                    questionText = '<div class="question-text"><strong>Question:</strong> ' + question.question + 
                                   '<br><strong>A:</strong> ' + question.optiona + 
                                   '<br><strong>B:</strong> ' + question.optionb + 
                                   '<br><strong>C:</strong> ' + question.optionc + 
                                   '<br><strong>D:</strong> ' + question.optiond + 
                                   '<br><strong>Answer:</strong> ' + question.answer + '</div>';
                 } else if(type === 'fillblanks') {
-                    questionText = '<div class=\"question-text\"><strong>Sentence:</strong> ' + question.sentence + 
+                    questionText = '<div class="question-text"><strong>Sentence:</strong> ' + question.sentence + 
                                   '<br><strong>Answer:</strong> ' + question.answer + '</div>';
                 } else {
                     // Default format for numerical, short, essay
-                    questionText = '<div class=\"question-text\"><strong>Question:</strong> ' + (question.question || question.sentence) + 
+                    questionText = '<div class="question-text"><strong>Question:</strong> ' + (question.question || question.sentence) + 
                                   '<br><strong>Answer:</strong> ' + question.answer + '</div>';
                 }
                 
-                html += '<div class=\"question-item card mb-2\">' +
-                        '<div class=\"card-body\">' +
-                        '<div class=\"form-check\">' +
-                        '<label class=\"form-check-label\">' +
-                        '<input type=\"checkbox\" class=\"form-check-input question-checkbox\" ' +
-                        'id=\"' + type + '-question-' + index + '\" ' +
-                        'name=\"question[]\" value=\"' + question.unique_id + '\" ' +
-                        'data-question-id=\"' + question.id + '\" ' +
-                        'data-question-type=\"' + type + '\">' +
+                html += '<div class="question-item card mb-2">' +
+                        '<div class="card-body">' +
+                        '<div class="form-check">' +
+                        '<label class="form-check-label">' +
+                        '<input type="checkbox" class="form-check-input question-checkbox" ' +
+                        'id="' + type + '-question-' + index + '" ' +
+                        'name="question[]" value="' + question.unique_id + '" ' +
+                        'data-question-id="' + question.id + '" ' +
+                        'data-question-type="' + type + '">' +
                         '<strong>Question #' + (index + 1) + '</strong>' +
                         '</label>' +
                         '</div>' +
@@ -452,7 +472,8 @@ function loadQuestionsByType(type, containerId, chapterIds, topicIds) {
         })
         .catch(error => {
             console.error('Error loading questions:', error);
-            $('#' + containerId + ' .questions-list').html('<div class=\"alert alert-danger\">Error loading questions: ' + error + '</div>');
+            var container = $('#' + containerId + ' .questions-list');
+            container.html('<div class="alert alert-danger">Error loading questions: ' + error.message + '</div>');
         });
 }
 
@@ -512,7 +533,7 @@ function setupCheckboxListeners(type, containerId) {
             e.preventDefault();
             
             // Find the checkbox within this label and toggle it
-            var checkbox = $(this).find('input[type=\"checkbox\"]');
+            var checkbox = $(this).find('input[type="checkbox"]');
             checkbox.prop('checked', !checkbox.prop('checked')).trigger('change');
         }
     });
@@ -619,7 +640,7 @@ function saveSelectedQuestions() {
     // Create hidden inputs for MCQ questions
     var mcqIds = selectedQuestions.mcq.map(q => q.uniqueId);
     if(mcqIds.length > 0) {
-        hiddenInputs += '<input type=\"hidden\" name=\"selected_mcq\" class=\"selected-question-input\" value=\"' + mcqIds.join(',') + '\">';
+        hiddenInputs += '<input type="hidden" name="selected_mcq" class="selected-question-input" value="' + mcqIds.join(',') + '">';
         // Update the displayed count
         $('#typea').val(mcqIds.length);
     } else {
@@ -629,7 +650,7 @@ function saveSelectedQuestions() {
     // Numerical questions
     var numericalIds = selectedQuestions.numerical.map(q => q.uniqueId);
     if(numericalIds.length > 0) {
-        hiddenInputs += '<input type=\"hidden\" name=\"selected_numerical\" class=\"selected-question-input\" value=\"' + numericalIds.join(',') + '\">';
+        hiddenInputs += '<input type="hidden" name="selected_numerical" class="selected-question-input" value="' + numericalIds.join(',') + '">';
         $('#typeb').val(numericalIds.length);
     } else {
         $('#typeb').val(0);
@@ -638,7 +659,7 @@ function saveSelectedQuestions() {
     // Dropdown questions
     var dropdownIds = selectedQuestions.dropdown.map(q => q.uniqueId);
     if(dropdownIds.length > 0) {
-        hiddenInputs += '<input type=\"hidden\" name=\"selected_dropdown\" class=\"selected-question-input\" value=\"' + dropdownIds.join(',') + '\">';
+        hiddenInputs += '<input type="hidden" name="selected_dropdown" class="selected-question-input" value="' + dropdownIds.join(',') + '">';
         $('#typec').val(dropdownIds.length);
     } else {
         $('#typec').val(0);
@@ -647,7 +668,7 @@ function saveSelectedQuestions() {
     // Fill in blanks questions
     var fillblanksIds = selectedQuestions.fillblanks.map(q => q.uniqueId);
     if(fillblanksIds.length > 0) {
-        hiddenInputs += '<input type=\"hidden\" name=\"selected_fillblanks\" class=\"selected-question-input\" value=\"' + fillblanksIds.join(',') + '\">';
+        hiddenInputs += '<input type="hidden" name="selected_fillblanks" class="selected-question-input" value="' + fillblanksIds.join(',') + '">';
         $('#typed').val(fillblanksIds.length);
     } else {
         $('#typed').val(0);
@@ -656,7 +677,7 @@ function saveSelectedQuestions() {
     // Short answer questions
     var shortIds = selectedQuestions.short.map(q => q.uniqueId);
     if(shortIds.length > 0) {
-        hiddenInputs += '<input type=\"hidden\" name=\"selected_short\" class=\"selected-question-input\" value=\"' + shortIds.join(',') + '\">';
+        hiddenInputs += '<input type="hidden" name="selected_short" class="selected-question-input" value="' + shortIds.join(',') + '">';
         $('#typee').val(shortIds.length);
     } else {
         $('#typee').val(0);
@@ -665,7 +686,7 @@ function saveSelectedQuestions() {
     // Essay questions
     var essayIds = selectedQuestions.essay.map(q => q.uniqueId);
     if(essayIds.length > 0) {
-        hiddenInputs += '<input type=\"hidden\" name=\"selected_essay\" class=\"selected-question-input\" value=\"' + essayIds.join(',') + '\">';
+        hiddenInputs += '<input type="hidden" name="selected_essay" class="selected-question-input" value="' + essayIds.join(',') + '">';
         $('#typef').val(essayIds.length);
     } else {
         $('#typef').val(0);
@@ -676,10 +697,10 @@ function saveSelectedQuestions() {
                          fillblanksIds.length + shortIds.length + essayIds.length;
     
     // Add hidden input for total questions count
-    hiddenInputs += '<input type=\"hidden\" name=\"total_questions\" class=\"selected-question-input\" value=\"' + totalQuestions + '\">';
+    hiddenInputs += '<input type="hidden" name="total_questions" class="selected-question-input" value="' + totalQuestions + '">';
     
     // Add a flag to indicate manual selection
-    hiddenInputs += '<input type=\"hidden\" name=\"is_manual_selection\" class=\"selected-question-input\" value=\"1\">';
+    hiddenInputs += '<input type="hidden" name="is_manual_selection" class="selected-question-input" value="1">';
 
     // Store selected topics from the dropdown
     var topicIds = $('#topic_ids').val() || [];
@@ -691,7 +712,7 @@ function saveSelectedQuestions() {
     }
     
     // Append hidden inputs to the form
-    $('form[name=\"quizconfig\"]').append(hiddenInputs);
+    $('form[name="quizconfig"]').append(hiddenInputs);
     
     // Recalculate total marks
     marks();
