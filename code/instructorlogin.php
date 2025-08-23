@@ -171,7 +171,7 @@
         .footer {
             padding: 30px 0;
             margin: 50px auto 0;
-            background: #f8f9fa;
+            background: #ffffff;
             border-top: none;
             position: relative;
             width: 95%;
