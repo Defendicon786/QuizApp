@@ -965,6 +965,10 @@ $conn->close();
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
   <script>
     $(document).ready(function() {
+      // Ensure any stray navigation overlays are removed on page load
+      $('#bodyClick').remove();
+      $('html').removeClass('nav-open');
+
       marks();
       setTimeout(marks, 500);
 
