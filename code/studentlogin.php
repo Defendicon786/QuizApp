@@ -72,9 +72,18 @@ $conn->close();
     <link href="./assets/css/material-kit.css?v=2.0.4" rel="stylesheet" />
     <link href="./assets/css/modern.css" rel="stylesheet" />
     <style>
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
         .page-header {
-            height: 100vh;
-            background: linear-gradient(45deg, rgba(0,0,0,0.7), rgba(72,72,176,0.7)), 
+            background: linear-gradient(45deg, rgba(0,0,0,0.7), rgba(72,72,176,0.7)),
                         url('./assets/img/bg.jpg') center center;
             background-size: cover;
             margin: 0;
@@ -82,6 +91,7 @@ $conn->close();
             border: 0;
             display: flex;
             align-items: center;
+            flex: 1 0 auto;
         }
 
         .card {
@@ -183,12 +193,10 @@ $conn->close();
 
         .footer {
             padding: 30px 0;
-            margin-top: 50px;
             background: #f8f9fa;
             border-top: 1px solid #eee;
-            position: absolute;
-            bottom: 0;
             width: 100%;
+            margin-top: auto;
         }
         
         .footer .copyright {
@@ -310,6 +318,6 @@ $conn->close();
     <script src="./assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
     <script src="./assets/js/plugins/moment.min.js"></script>
     <script src="./assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
-<script src="./assets/js/dark-mode.js"></script>
+    <script src="./assets/js/dark-mode.js"></script>
 </body>
 </html>
