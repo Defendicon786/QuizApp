@@ -948,7 +948,7 @@ $conn->close();
     </div>
     <footer class="footer">
       <div class="container">
-        <div class="copyright float-right">
+        <div class="copyright text-center w-100">
           &copy; <script>document.write(new Date().getFullYear())</script> A Project of StudyHT.com, Designed and Developed by Sir Hassan Tariq
         </div>
       </div>
@@ -1011,40 +1011,58 @@ $conn->close();
     });
 
     function loadChapters(classId, subjectId, selectedChapterIds, allChapters, topicIds){
-      if(classId){
-        fetch('get_chapters.php?class_id='+classId+'&subject_id='+subjectId)
-          .then(r=>r.json())
-          .then(data=>{
-            var chapterSelect=document.getElementById('chapter_ids');
-            chapterSelect.innerHTML='<option value="">Select Chapters</option>';
-            if(data.length>0){
-              var allOption=document.createElement('option');
-              allOption.value='all';
-              allOption.text='All Chapters';
-              chapterSelect.add(allOption,1);
-            }
-            data.forEach(function(ch){
-              chapterSelect.innerHTML+='<option value="'+ch.chapter_id+'">'+ch.chapter_name+'</option>';
-            });
-            $(chapterSelect).select2();
-            setTimeout(function(){
-              if(allChapters){
-                $(chapterSelect).val('all').trigger('change');
-              }else if(selectedChapterIds && selectedChapterIds.length>0){
-                $(chapterSelect).val(selectedChapterIds).trigger('change');
-              }
-              loadTopics($(chapterSelect).val(), topicIds);
-              updateAvailableQuestions();
-            },100);
-            $(chapterSelect).off('change.all').on('change.all',function(){
-              var values=$(this).val();
-              if(values && values.includes('all')){
-                $(this).val('all').trigger('change');
-              }
-            });
-          })
-          .catch(err=>console.error('Error:',err));
+      var chapterSelect=document.getElementById('chapter_ids');
+      if(!classId || !subjectId){
+        if(chapterSelect){
+          chapterSelect.innerHTML='<option value="">Select Chapters</option>';
+          $(chapterSelect).select2();
+        }
+        var topicSelect=document.getElementById('topic_ids');
+        if(topicSelect){
+          topicSelect.innerHTML='<option value="">All Topics</option>';
+          $(topicSelect).select2();
+        }
+        return;
       }
+      fetch('get_chapters.php?class_id='+classId+'&subject_id='+subjectId)
+        .then(r=>r.json())
+        .then(data=>{
+          if(!Array.isArray(data)){
+            console.error('Error loading chapters:', data);
+            if(chapterSelect){
+              chapterSelect.innerHTML='<option value="">Select Chapters</option>';
+              $(chapterSelect).select2();
+            }
+            return;
+          }
+          chapterSelect.innerHTML='<option value="">Select Chapters</option>';
+          if(data.length>0){
+            var allOption=document.createElement('option');
+            allOption.value='all';
+            allOption.text='All Chapters';
+            chapterSelect.add(allOption,1);
+          }
+          data.forEach(function(ch){
+            chapterSelect.innerHTML+='<option value="'+ch.chapter_id+'">'+ch.chapter_name+'</option>';
+          });
+          $(chapterSelect).select2();
+          setTimeout(function(){
+            if(allChapters){
+              $(chapterSelect).val('all').trigger('change');
+            }else if(selectedChapterIds && selectedChapterIds.length>0){
+              $(chapterSelect).val(selectedChapterIds).trigger('change');
+            }
+            loadTopics($(chapterSelect).val(), topicIds);
+            updateAvailableQuestions();
+          },100);
+          $(chapterSelect).off('change.all').on('change.all',function(){
+            var values=$(this).val();
+            if(values && values.includes('all')){
+              $(this).val('all').trigger('change');
+            }
+          });
+        })
+        .catch(err=>console.error('Error:',err));
     }
 
     function loadSections(classId, selectedName){
