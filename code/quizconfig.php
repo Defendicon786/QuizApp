@@ -370,7 +370,7 @@ function loadQuestionsByType(type, containerId, chapterIds, topicIds) {
         url += '&topic_ids=' + topicIds.join(',');
     }
 
-    fetch(url)
+    fetch(url, { credentials: 'same-origin' })
         .then(response => response.text())
         .then(text => {
             let data;
