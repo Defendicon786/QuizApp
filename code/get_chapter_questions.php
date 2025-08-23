@@ -30,9 +30,8 @@ function send_json($data) {
         JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE
     );
     if ($json === false) {
-        $json = json_encode([
-            'error' => 'JSON encoding failed: ' . json_last_error_msg()
-        ]);
+        $data = ['error' => 'JSON encoding failed: ' . json_last_error_msg()];
+        $json = json_encode($data);
     }
 
     // Remove any previously buffered output to guarantee valid JSON
@@ -40,6 +39,8 @@ function send_json($data) {
         ob_end_clean();
     }
 
+    $status = (is_array($data) && isset($data['error'])) ? 500 : 200;
+    http_response_code($status);
     header('Content-Type: application/json');
     echo $json;
     exit;
