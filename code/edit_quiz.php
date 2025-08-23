@@ -724,43 +724,72 @@ $conn->close();
               </div>
               <?php if(!empty($feedback_message)) echo $feedback_message; ?>
               <p class="description text-center">Update the details of the quiz.</p>
-              <div class="card-body" style="padding-left: 20px;padding-right: 20px">
-                <div class="row">
-                  <div class="col">                   
-                    <p class="h5 text-center" >Quiz Number</p>
+              <div class="card-body">
+                <div class="row form-row-mobile">
+                  <div class="col-md-6 col-12 mb-3">
+                    <div class="row">
+                      <div class="col-md-4 col-5">
+                        <p class="h5 mobile-text-center">Quiz Number</p>
+                      </div>
+                      <div class="col-md-8 col-7">
+                        <input type="number" name="quiznumber_display" id="quiznumber_display" class="form-control text-center" value="<?php echo htmlspecialchars($q_num); ?>" readonly>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col">
-                    <input type="number" name="quiznumber_display" id="quiznumber_display" class="form-control text-center" value="<?php echo htmlspecialchars($q_num); ?>" readonly>
+                  <div class="col-md-3 col-6 mb-3">
+                    <div class="row">
+                      <div class="col-6">
+                        <p class="h5 mobile-text-center">Duration</p>
+                      </div>
+                      <div class="col-6">
+                        <input type="number" min="0" name="duration" class="form-control text-center" value="<?php echo htmlspecialchars($q_duration); ?>">
+                      </div>
+                    </div>
                   </div>
-                  <div class="col">
-                    <p class="h5 text-center">Duration (mins)</p>
-                  </div>
-                  <div class="col">
-                    <input type="number" min="0" name="duration" class="form-control text-center" value="<?php echo htmlspecialchars($q_duration); ?>">
+                  <div class="col-md-3 col-6">
+                    <div class="row">
+                      <div class="col-6">
+                        <p class="h5 mobile-text-center">Attempts</p>
+                      </div>
+                      <div class="col-6">
+                        <input type="number" min="1" name="attempts" class="form-control text-center" value="<?php echo htmlspecialchars($quiz_data['attempts'] ?? 1); ?>" required>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="row" style="margin-top: 15px;">
-                  <div class="col-md-3">
-                    <p class="h5 text-center">Quiz Name</p>
+
+                <div class="row form-row-mobile">
+                  <div class="col-md-3 col-12 mb-2">
+                    <p class="h5 mobile-text-center">Quiz Name</p>
                   </div>
-                  <div class="col-md-9">
+                  <div class="col-md-9 col-12">
                     <input type="text" name="quizname" class="form-control" value="<?php echo htmlspecialchars($quiz_data['quizname'] ?? ''); ?>" required>
                   </div>
                 </div>
-                <div class="row" style="margin-top: 15px;">
-                  <div class="col-md-3">
-                    <p class="h5 text-center">Attempts</p>
+
+                <div class="row form-row-mobile">
+                  <div class="col-md-3 col-12 mb-2">
+                    <p class="h5 mobile-text-center">Class</p>
                   </div>
-                  <div class="col-md-9">
-                    <input type="number" min="1" name="attempts" class="form-control" value="<?php echo htmlspecialchars($quiz_data['attempts'] ?? 1); ?>" required>
+                  <div class="col-md-9 col-12">
+                    <select name="class_id" id="class_id" class="form-control mobile-full-width" onchange="loadChapters()">
+                        <option value="">Select Class</option>
+                        <?php foreach ($classes as $class_item): ?>
+                            <option value="<?php echo htmlspecialchars($class_item['class_id']); ?>" <?php if($class_item['class_id'] == $q_class_id) echo 'selected'; ?>>
+                                <?php echo htmlspecialchars($class_item['class_name']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                    <small class="form-text text-muted">First select class and subject to enable chapter selection</small>
                   </div>
                 </div>
-                <div class="row" style="margin-top: 15px;">
-                  <div class="col-md-3">
-                    <p class="h5 text-center">Subject</p>
+
+                <div class="row form-row-mobile">
+                  <div class="col-md-3 col-12 mb-2">
+                    <p class="h5 mobile-text-center">Subject</p>
                   </div>
-                  <div class="col-md-9">
-                    <select name="subject_id" id="subject_id" class="form-control" onchange="loadChapters()">
+                  <div class="col-md-9 col-12">
+                    <select name="subject_id" id="subject_id" class="form-control mobile-full-width" onchange="loadChapters()">
                         <option value="">Select Subject</option>
                         <?php foreach($subjects as $subject): ?>
                             <option value="<?php echo $subject['subject_id']; ?>" <?php if($q_subject_id == $subject['subject_id']) echo 'selected'; ?> >
@@ -770,71 +799,60 @@ $conn->close();
                     </select>
                   </div>
                 </div>
-                <div class="row" style="margin-top: 15px;">
-                  <div class="col-md-3">
-                    <p class="h5 text-center">Class</p>
+
+                <div class="row form-row-mobile">
+                  <div class="col-md-3 col-12 mb-2">
+                    <p class="h5 mobile-text-center">Section</p>
                   </div>
-                  <div class="col-md-9">
-                    <select name="class_id" id="class_id" class="form-control">
-                        <option value="">Select Class</option>
-                        <?php foreach ($classes as $class_item): ?>
-                            <option value="<?php echo htmlspecialchars($class_item['class_id']); ?>" <?php if($class_item['class_id'] == $q_class_id) echo 'selected'; ?>>
-                                <?php echo htmlspecialchars($class_item['class_name']); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                  </div>
-                </div>
-                <div class="row" style="margin-top: 15px;">
-                  <div class="col-md-3">
-                    <p class="h5 text-center">Chapters</p>
-                  </div>
-                  <div class="col-md-9">
-                    <select name="chapter_ids[]" id="chapter_ids" class="form-control" multiple>
-                        <option value="">Select Class and Subject first</option>
-                    </select>
-                    <small class="form-text text-muted">Hold Ctrl/Cmd to select multiple chapters. Select 'All Chapters' to include all.</small>
-                  </div>
-                </div>
-                <div class="row" style="margin-top: 15px;">
-                  <div class="col-md-3">
-                    <p class="h5 text-center">Topics</p>
-                  </div>
-                  <div class="col-md-9">
-                    <select name="topic_ids[]" id="topic_ids" class="form-control" multiple>
-                        <option value="">All Topics</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row" style="margin-top: 15px;">
-                  <div class="col-md-3">
-                    <p class="h5 text-center">Section</p>
-                  </div>
-                  <div class="col-md-9">
+                  <div class="col-md-9 col-12">
                     <select class="form-control" id="section_id" name="section_id">
                         <option value="">Select Section (Optional)</option>
                     </select>
                   </div>
                 </div>
-                 <div class="row" style="margin-top: 15px;">
-                    <div class="col-md-3">
-                        <p class="h5 text-center">Total Questions</p>
+
+                <div class="row form-row-mobile">
+                  <div class="col-md-3 col-12 mb-2">
+                    <p class="h5 mobile-text-center">Chapters</p>
+                  </div>
+                  <div class="col-md-9 col-12">
+                    <select name="chapter_ids[]" id="chapter_ids" class="form-control mobile-full-width" multiple>
+                        <option value="">Select Class and Subject first</option>
+                    </select>
+                    <small class="form-text text-muted">Hold Ctrl/Cmd to select multiple chapters. Select 'All Chapters' to include all.</small>
+                  </div>
+                </div>
+
+                <div class="row form-row-mobile">
+                  <div class="col-md-3 col-12 mb-2">
+                    <p class="h5 mobile-text-center">Topics</p>
+                  </div>
+                  <div class="col-md-9 col-12">
+                    <select name="topic_ids[]" id="topic_ids" class="form-control mobile-full-width" multiple>
+                        <option value="">All Topics</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row form-row-mobile">
+                  <div class="col-md-3 col-12 mb-2">
+                    <p class="h5 mobile-text-center">Total Questions</p>
+                  </div>
+                  <div class="col-md-3 col-12 mb-2">
+                    <input type="number" min="1" name="total_questions" id="total_questions" class="form-control text-center" value="<?php echo htmlspecialchars($q_total_questions); ?>">
+                  </div>
+                  <div class="col-md-3 col-12 mb-2">
+                    <p class="h5 mobile-text-center">Randomize Quiz?</p>
+                  </div>
+                  <div class="col-md-3 col-12">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input position-static" type="checkbox" name="random_quiz" value="1" <?php if($q_is_random) echo 'checked'; ?>>
+                            Yes
+                            <span class="form-check-sign"><span class="check"></span></span>
+                        </label>
                     </div>
-                    <div class="col-md-3">
-                        <input type="number" min="1" name="total_questions" id="total_questions" class="form-control text-center" value="<?php echo htmlspecialchars($q_total_questions); ?>">
-                    </div>
-                    <div class="col-md-3">
-                        <p class="h5 text-center">Randomize Quiz?</p>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input class="form-check-input position-static" type="checkbox" name="random_quiz" value="1" <?php if($q_is_random) echo 'checked'; ?>>
-                                Yes
-                                <span class="form-check-sign"><span class="check"></span></span>
-                            </label>
-                        </div>
-                    </div>
+                  </div>
                 </div>
               </div>
               <div class="card-body row form-group" style="padding-left: 20px;padding-right: 20px">
