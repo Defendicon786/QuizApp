@@ -227,6 +227,9 @@ $conn->close();
 
         /* Responsive Styles */
         @media (max-width: 768px) {
+            .page-header {
+                padding-bottom: 120px;
+            }
             .card-login {
                 margin: 20px;
             }
@@ -245,6 +248,9 @@ $conn->close();
         }
 
         @media (max-width: 480px) {
+            .page-header {
+                padding-bottom: 150px;
+            }
             .card-login {
                 margin: 10px;
                 padding: 15px;
