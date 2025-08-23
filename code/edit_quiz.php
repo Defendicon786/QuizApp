@@ -389,109 +389,176 @@ $conn->close();
   <title><?php echo $page_title; ?> - Quiz Portal</title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="./assets/css/material-kit.css?v=2.0.4" rel="stylesheet" />
     <link href="./assets/css/modern.css" rel="stylesheet" />
     <link href="./assets/css/navbar.css" rel="stylesheet" />
     <link href="./assets/css/portal.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
   <style>
-    /* Fixed Navbar Styles */
-    .navbar {
-        background-color: #fff !important;
-        box-shadow: 0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15);
-        z-index: 1040;
-    }
-    
-    .navbar-brand {
-        color: #555 !important;
-        font-weight: 500;
-        font-size: 1.25rem;
-    }
-    
-    .navbar-toggler {
-        border: none;
-        background: transparent !important;
-    }
-    
-    .navbar-toggler-icon {
-        background-color: #555;
-        width: 22px;
-        height: 2px;
-        margin: 4px 0;
-        display: block;
-        transition: all 0.2s;
-    }
-    
-    .navbar .navbar-nav {
-        align-items: center;
-    }
-    
-    .navbar .nav-item {
-        margin: 0 0.3rem;
-    }
-    
-    .navbar.scrolled {
-        background-color: #fff !important;
-        box-shadow: 0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15);
-    }
-    
-    .navbar.scrolled .nav-link {
-        white-space: nowrap;
-        color: #555 !important;
-    }
-    
-    .navbar.scrolled .navbar-brand {
-        color: #555 !important;
-    }
-    
-    .page-header {
-        background-color: #f5f5f5;
-        background-size: cover;
-        margin: 0;
-        padding: 0;
-        border: 0;
-        min-height: auto;
-        height: auto;
-        padding-top: 90px; /* Add space for fixed navbar */
+    /* Fixed Navbar Styles are defined globally in navbar.css */
+    .navbar.main-navbar .container {
+      width: 100%;
+      max-width: 100%;
+      margin-right: auto;
+      margin-left: auto;
+      padding-left: 20px;
+      padding-right: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: nowrap;
     }
 
-    .card-login {
-        max-width: 900px;
-        margin: 0 auto;
+    /* Footer Styles */
+    .footer {
+      padding: 30px 0;
+      margin-top: 50px;
+      background: #f8f9fa;
+      border-top: 1px solid #eee;
     }
-    
-    /* For better spacing */
-    .form-row-mobile {
-        margin-bottom: 15px;
+
+    .footer .copyright {
+      color: #555;
+      font-size: 14px;
+      line-height: 1.8;
     }
-    
-    /* Mobile responsiveness */
+
+    .footer .copyright strong {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .footer .copyright .department {
+      color: #1a73e8;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .footer .copyright .designer {
+      font-style: italic;
+      margin: 5px 0;
+    }
+
+    .footer .copyright .year {
+      background: #1a73e8;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-top: 5px;
+    }
+
     @media (max-width: 768px) {
-        .mobile-text-center {
-            text-align: center !important;
-        }
-        
-        .mobile-full-width {
-            width: 100% !important;
-        }
-        
-        .form-row-mobile {
-            margin-bottom: 20px;
-        }
-        
-        .navbar .nav-link {
-        white-space: nowrap;
-            padding: 0.5rem 0;
-        }
-        
-        .page-header {
-            padding-top: 60px;
-        }
-        
-        .card-body {
-            padding: 15px 10px;
-        }
+      .footer {
+        padding: 20px 0;
+        margin-top: 30px;
+      }
+
+      .footer .copyright {
+        font-size: 12px;
+      }
+    }
+
+    /* Existing Styles */
+    body {
+      overflow-x: hidden;
+      padding-top: 70px;
+      background-color: #f5f5f5;
+    }
+    .navbar-translate {
+      display: flex;
+      align-items: center;
+    }
+    .page-header {
+      min-height: auto !important;
+      height: auto !important;
+      margin: 60px 0 0 0 !important;
+      padding: 90px 0 20px 0 !important;
+      background-image: none !important;
+      background-color: #f5f5f5 !important;
+    }
+    .container {
+      width: 100%;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    .card {
+      margin: 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .card-login {
+      margin: 0 auto;
+      max-width: 900px;
+    }
+    .card-body {
+      padding: 20px !important;
+    }
+    .form-control {
+      height: auto;
+      padding: 8px 12px;
+    }
+    .select2-container {
+      width: 100% !important;
+    }
+    .select2-container .select2-selection--single,
+    .select2-container .select2-selection--multiple {
+      height: 38px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .quiz-type-row {
+      margin-bottom: 15px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border-radius: 4px;
+    }
+    .btn-primary {
+      margin: 20px 0;
+      padding: 12px 30px;
+    }
+    @media (max-width: 991px) {
+      .container {
+        padding: 0 10px;
+      }
+      .card-body {
+        padding: 15px !important;
+      }
+      .form-row-mobile {
+        margin-bottom: 15px;
+      }
+      .form-control {
+        font-size: 14px;
+      }
+      .h5 {
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+      }
+      .h6 {
+        font-size: 0.85rem;
+      }
+      .quiz-type-row {
+        padding: 8px;
+        margin-bottom: 10px;
+      }
+      .btn-primary {
+        width: 100%;
+        margin: 15px 0;
+      }
+    }
+    /* Fix for Select2 on mobile */
+    @media (max-width: 767px) {
+      .select2-container {
+        width: 100% !important;
+      }
+      .select2-container .select2-selection--single {
+        height: 38px !important;
+      }
+      .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 36px !important;
+      }
     }
   </style>
   <script>
@@ -562,7 +629,7 @@ $conn->close();
   </script>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
-<body class="login-page sidebar-collapse">
+<body class="landing-page sidebar-collapse">
   <nav class="navbar main-navbar fixed-top navbar-expand-lg">
     <div class="container">
       <div class="navbar-translate">
@@ -644,11 +711,12 @@ $conn->close();
       </div>      
     </div>
   </nav>
-  <div class="page-header">
-    <div class="container">
-      <div class="row justify-content-center" style="margin-top: 20px">
-        <div class="col-lg-9 col-md-9 ml-auto mr-auto" >
-          <div class="card card-login" >
+  <div class="main-container">
+    <div class="page-header header-filter" style="background-image: url('./assets/img/bg2.jpg'); background-size: cover; background-position: top center;">
+      <div class="container" style="padding-top: 20px;">
+        <div class="row justify-content-center">
+          <div class="col-lg-10 col-md-12">
+            <div class="card card-login" >
             <form class="form" name="editQuizForm" action="edit_quiz.php?quiz_id=<?php echo $quiz_id_to_edit; ?>" method="post">
               <input type="hidden" name="quiz_id_to_edit" value="<?php echo $quiz_id_to_edit; ?>">
               <div class="card-header card-header-primary text-center">
@@ -868,6 +936,7 @@ $conn->close();
       </div>
     </footer>
   </div>
+</div>
   <script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>
   <script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
   <script src="./assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
