@@ -25,9 +25,14 @@ function send_json($data) {
     // Replace invalid UTF-8 sequences rather than failing so that questions
     // containing characters stored with a different encoding still return
     // a valid JSON response.
-    $json = json_encode($data, JSON_INVALID_UTF8_SUBSTITUTE);
+    $json = json_encode(
+        $data,
+        JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE
+    );
     if ($json === false) {
-        $json = json_encode(['error' => 'JSON encoding failed: ' . json_last_error_msg()]);
+        $json = json_encode([
+            'error' => 'JSON encoding failed: ' . json_last_error_msg()
+        ]);
     }
 
     // Remove any previously buffered output to guarantee valid JSON
