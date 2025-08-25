@@ -464,9 +464,9 @@ if (isset($_SESSION['quiz_started']) && $_SESSION['quiz_started'] === true) {
                 throw new Exception("No questions available for this quiz");
             }
         } else {
-            logDebug("No active quiz found for rollnumber: $rollnumber. Redirecting to quizhome.");
+            logDebug("No active quiz found for rollnumber: $rollnumber. Redirecting to studenthome.");
             $_SESSION['error'] = "No available quiz found. Please check back later.";
-            header("location: quizhome.php");
+            header("location: studenthome.php");
             exit;
         }
     } catch (Exception $e) {
@@ -476,9 +476,9 @@ if (isset($_SESSION['quiz_started']) && $_SESSION['quiz_started'] === true) {
             'quiz_data' => isset($quiz) ? $quiz : null
         ));
         $_SESSION['error'] = "Error initializing quiz: " . $e->getMessage() . ". Please try again or contact administrator.";
-        logDebug("Redirecting to quizhome due to error during quiz initialization.", array('error_message' => $_SESSION['error']));
+        logDebug("Redirecting to studenthome due to error during quiz initialization.", array('error_message' => $_SESSION['error']));
         ob_end_clean();
-        header("location: quizhome.php");
+        header("location: studenthome.php");
         exit;
     }
 }

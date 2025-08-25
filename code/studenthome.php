@@ -334,7 +334,11 @@
                 <h4 class="card-title">Take Quiz</h4>
                 <p class="card-text">Start your quiz now</p>
                 <?php if(isset($upcoming_quiz) && $upcoming_quiz): ?>
-                  <a href="quizpage.php" class="btn btn-primary">Start Quiz</a>
+                  <?php if(strtotime($upcoming_quiz['starttime']) <= time()): ?>
+                    <a href="quizpage.php" class="btn btn-primary">Start Quiz</a>
+                  <?php else: ?>
+                    <a href="#" class="btn btn-primary" onclick="alert('Quiz has not started yet. Please wait for the start time.'); return false;">Start Quiz</a>
+                  <?php endif; ?>
                 <?php else: ?>
                   <a href="#" class="btn btn-primary" onclick="alert('No quiz is currently available.'); return false;">Start Quiz</a>
                 <?php endif; ?>
