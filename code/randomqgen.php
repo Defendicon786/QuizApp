@@ -25,6 +25,16 @@ $typef      = (int)$row["typef"];
 
 $attempt = 1; // Default attempt when using this script
 
+// Clear any existing questions for this quiz attempt to avoid duplicates
+$cleanup = $conn->prepare(
+    "DELETE FROM response WHERE quizid = ? AND rollnumber = ? AND attempt = ?"
+);
+if ($cleanup) {
+    $cleanup->bind_param("iii", $quizid, $rollnumber, $attempt);
+    $cleanup->execute();
+    $cleanup->close();
+}
+
 selectrand($conn, $typea, 'a', $rollnumber, $quizid, $attempt);
 selectrand($conn, $typeb, 'b', $rollnumber, $quizid, $attempt);
 selectrand($conn, $typec, 'c', $rollnumber, $quizid, $attempt);
@@ -38,6 +48,8 @@ exit;
 
 function selectrand($conn1, $count, $type, $rollno, $quizid, $attempt) {
     static $serialnumber = 1;
+    // Track selected questions to avoid duplicates across calls
+    static $selected = [];
 
     if ($conn1->connect_error) {
         die("Connection failed: " . $conn1->connect_error);
@@ -66,12 +78,20 @@ function selectrand($conn1, $count, $type, $rollno, $quizid, $attempt) {
             return;
     }
 
-    // Ensure we don't select the same question more than once
-    $sql = "SELECT DISTINCT id FROM $table ORDER BY RAND() LIMIT " . intval($count);
+    $exclude = '';
+    if (isset($selected[$table]) && count($selected[$table]) > 0) {
+        $exclude_ids = implode(',', array_map('intval', $selected[$table]));
+        $exclude = " WHERE id NOT IN ($exclude_ids)";
+    }
+
+    // Fetch unique questions, excluding any already selected
+    $sql = "SELECT id FROM $table" . $exclude . " ORDER BY RAND() LIMIT " . intval($count);
     $result = $conn1->query($sql);
 
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
+            $qid = (int)$row['id'];
+
             $stmt = $conn1->prepare(
                 "INSERT INTO response (quizid, rollnumber, attempt, qtype, qid, serialnumber, response) VALUES (?, ?, ?, ?, ?, ?, '')"
             );
@@ -82,12 +102,15 @@ function selectrand($conn1, $count, $type, $rollno, $quizid, $attempt) {
                     $rollno,
                     $attempt,
                     $type,
-                    $row['id'],
+                    $qid,
                     $serialnumber
                 );
                 $stmt->execute();
                 $stmt->close();
             }
+
+            // remember this question so it isn't selected again
+            $selected[$table][] = $qid;
             $serialnumber++;
         }
         mysqli_free_result($result);
