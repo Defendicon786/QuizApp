@@ -56,3 +56,9 @@
     padding: 0.8vh 1vw !important;
   }
 }
+
+/* Hide navigation overlay from Material Kit that blocks page interaction */
+#bodyClick {
+  display: none !important;
+  pointer-events: none;
+}
