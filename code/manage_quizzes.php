@@ -414,20 +414,17 @@ $conn->close();
         </div>
     </nav>
 
-    <div class="main-container">
-        <div class="page-header header-filter" style="background-image: url('./assets/img/bg2.jpg'); background-size: cover; background-position: top center;">
-            <div class="container" style="padding-top: 20px;">
-                <div class="row">
-                    <div class="col-md-12 ml-auto mr-auto">
-                        <div class="card card-login">
-                            <div class="card-header card-header-primary text-center">
-                                <h4 class="card-title">Manage Quizzes</h4>
-                            </div>
-                            <div class="card-body">
-                                <?php echo $feedback_message; ?>
-                                
-                                <!-- Filter Form -->
-                                <form method="GET" action="manage_quizzes.php" class="mb-4">
+    <div class="wrapper">
+        <div class="main main-raised">
+            <div class="container">
+                <div class="section text-center">
+                    <h2 class="title">Manage Quizzes</h2>
+                </div>
+                <div class="section">
+                    <?php echo $feedback_message; ?>
+
+                    <!-- Filter Form -->
+                    <form method="GET" action="manage_quizzes.php" class="mb-4">
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
@@ -509,18 +506,13 @@ $conn->close();
                                         </table>
                                     </div>
                                 <?php endif; ?>
-                            </div>
-                            <div class="card-footer text-center">
-                                <a href="quizconfig.php" class="btn btn-primary">Add New Quiz</a>
-                            </div>
-                        </div>
+                    <div class="text-center mt-4">
+                        <a href="quizconfig.php" class="btn btn-primary">Add New Quiz</a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <footer class="footer footer-default">
+        <footer class="footer footer-default">
         <div class="container">
             <div class="copyright text-center">
                 <div class="department">A Project of StudyHT.com</div>
@@ -531,6 +523,8 @@ $conn->close();
             </div>
         </div>
     </footer>
+
+    </div> <!-- wrapper -->
 
     <!--   Core JS Files   -->
     <script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>

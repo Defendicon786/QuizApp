@@ -422,7 +422,7 @@ $conn->close();
                 </div>
                 <div class="section">
                     <div class="card mb-4">
-                        <div class="card-header card-header-info">
+                        <div class="card-header card-header-primary">
                             <h4 class="card-title mb-0">Download Student Results</h4>
                         </div>
                         <div class="card-body">
