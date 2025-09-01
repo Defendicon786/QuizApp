@@ -593,9 +593,10 @@ function getChapters($conn, $class_id, $subject_id) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title><?php echo $page_title; ?></title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,700|Material+Icons" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="./assets/css/material-kit.css?v=2.0.4" rel="stylesheet" />
+  <link href="./assets/css/sidebar.css" rel="stylesheet" />
     <link href="./assets/css/modern.css" rel="stylesheet" />
     <link href="./assets/css/navbar.css" rel="stylesheet" />
     <link href="./assets/css/portal.css" rel="stylesheet" />
@@ -1289,90 +1290,12 @@ function getChapters($conn, $class_id, $subject_id) {
   </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
-<body class="landing-page sidebar-collapse">
-  <nav class="navbar main-navbar fixed-top navbar-expand-lg">
-    <div class="container">
-      <div class="navbar-translate">
-        <a class="navbar-brand" href="instructorhome.php">Quiz Portal</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="navbar-toggler-icon"></span>
-          <span class="navbar-toggler-icon"></span>
-          <span class="navbar-toggler-icon"></span>
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </div>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mx-auto">
-          <li class="nav-item">
-            <a href="manage_classes_subjects.php" class="nav-link">
-              <i class="material-icons">school</i> Manage Classes & Subjects
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="questionfeed.php" class="nav-link">
-              <i class="material-icons">input</i> Feed Questions
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="view_questions.php" class="nav-link">
-              <i class="material-icons">list_alt</i> Questions Bank
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="quizconfig.php" class="nav-link">
-              <i class="material-icons">layers</i> Set Quiz
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="manage_quizzes.php" class="nav-link">
-              <i class="material-icons">settings</i> Manage Quizzes
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="view_quiz_results.php" class="nav-link">
-              <i class="material-icons">assessment</i> View Results
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="manage_instructors.php" class="nav-link">
-              <i class="material-icons">people</i> Manage Instructors
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="manage_students.php" class="nav-link">
-              <i class="material-icons">group</i> Manage Students
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="manage_notifications.php" class="nav-link">
-              <i class="material-icons">notifications</i> Manage Notifications
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="my_profile.php" class="nav-link">
-              <i class="material-icons">person</i> My Profile
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="instructorlogout.php" data-original-title="Get back to Login Page">
-              <i class="material-icons">power_settings_new</i> Log Out
-            </a>
-          </li>
-          <li class="nav-item d-flex align-items-center">
-            <div class="togglebutton mb-0">
-                <label class="m-0">
-                  <input type="checkbox" id="darkModeToggle">
-                  <span class="toggle"></span>
-                </label>
-              </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <div class="main-container">
+<body class="dark-mode">
+<div class="layout">
+  <?php include './includes/sidebar.php'; ?>
+  <div class="main">
+    <?php include './includes/header.php'; ?>
+    <main class="content">
     <div class="page-header header-filter" style="background-image: url('./assets/img/bg2.jpg'); background-size: cover; background-position: top center;">
       <div class="container" style="padding-top: 20px;">
       <div class="row" style="margin-bottom: 50px; position: relative; z-index: 2;">
@@ -2106,6 +2029,10 @@ function getChapters($conn, $class_id, $subject_id) {
       }
     });
   </script>
+    </main>
+  </div>
+</div>
+<script src="./assets/js/sidebar.js"></script>
 <script src="./assets/js/dark-mode.js"></script>
 </body>
 </html>

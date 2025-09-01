@@ -161,7 +161,12 @@
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
 
-<body class="landing-page sidebar-collapse">
+<body class="dark-mode">
+<div class="layout">
+  <?php include './includes/sidebar.php'; ?>
+  <div class="main">
+    <?php include './includes/header.php'; ?>
+    <main class="content">
   <nav class="navbar main-navbar fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
     <div class="container">
       <div class="navbar-translate">
@@ -447,6 +452,10 @@
       });
     });
   </script>
+        </main>
+    </div>
+</div>
+<script src="./assets/js/sidebar.js"></script>
 <script src="./assets/js/dark-mode.js"></script>
 </body>
-</html> 
+</html>
