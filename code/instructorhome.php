@@ -21,10 +21,14 @@
 <body>
 <div class="layout">
   <?php include './includes/sidebar.php'; ?>
-  <main class="content">
-    <h1>Welcome to the Instructor Portal</h1>
-    <p>Use the menu to manage classes, questions, and quizzes.</p>
-  </main>
+  <div class="main">
+    <?php include './includes/header.php'; ?>
+    <main class="content">
+      <h1>Welcome to the Instructor Portal</h1>
+      <p>Use the menu to manage classes, questions, and quizzes.</p>
+    </main>
+  </div>
 </div>
+<script src="./assets/js/sidebar.js"></script>
 </body>
 </html>
