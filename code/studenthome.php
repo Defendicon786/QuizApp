@@ -98,14 +98,18 @@
 <body>
 <div class="layout">
   <?php include './includes/sidebar.php'; ?>
-  <main class="content">
-    <h1>Welcome to the Student Portal</h1>
-    <?php if ($upcoming_quiz): ?>
-      <p>Upcoming quiz: <strong><?php echo htmlspecialchars($upcoming_quiz['quizname']); ?></strong> on <?php echo htmlspecialchars($upcoming_quiz['starttime']); ?></p>
-    <?php else: ?>
-      <p>No upcoming quizzes.</p>
-    <?php endif; ?>
-  </main>
+  <div class="main">
+    <?php include './includes/header.php'; ?>
+    <main class="content">
+      <h1>Welcome to the Student Portal</h1>
+      <?php if ($upcoming_quiz): ?>
+        <p>Upcoming quiz: <strong><?php echo htmlspecialchars($upcoming_quiz['quizname']); ?></strong> on <?php echo htmlspecialchars($upcoming_quiz['starttime']); ?></p>
+      <?php else: ?>
+        <p>No upcoming quizzes.</p>
+      <?php endif; ?>
+    </main>
+  </div>
 </div>
+<script src="./assets/js/sidebar.js"></script>
 </body>
 </html>

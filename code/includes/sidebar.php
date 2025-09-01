@@ -3,7 +3,7 @@ $home = isset($_SESSION['studentloggedin']) ? 'studenthome.php' : 'instructorhom
 $logout = isset($_SESSION['studentloggedin']) ? 'studentlogout.php' : 'instructorlogout.php';
 ?>
 <aside class="sidebar">
-    <div class="logo">QuizApp</div>
+    <div class="logo"><span>QuizApp</span></div>
     <ul>
         <li><a href="<?php echo $home; ?>" class="active"><i class="fas fa-home"></i><span>Dashboard</span></a></li>
         <li><a href="quizhome.php"><i class="fas fa-question-circle"></i><span>Quizzes</span></a></li>
@@ -11,4 +11,5 @@ $logout = isset($_SESSION['studentloggedin']) ? 'studentlogout.php' : 'instructo
         <li><a href="my_profile.php"><i class="fas fa-user"></i><span>Profile</span></a></li>
         <li><a href="<?php echo $logout; ?>"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
     </ul>
+    <footer class="sidebar-footer">&copy; <?php echo date('Y'); ?> QuizApp</footer>
 </aside>
