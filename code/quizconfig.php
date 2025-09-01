@@ -1033,6 +1033,11 @@ function saveSelectedQuestions() {
     .form-check-label {
       cursor: pointer;
     }
+    .main-container {
+      min-height: calc(100vh - 170px);
+      padding-bottom: 50px;
+      position: relative;
+    }
   </style>
   <script>
     function marks() {

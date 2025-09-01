@@ -203,6 +203,18 @@ $conn->close();
     <link href="./assets/css/portal.css" rel="stylesheet" />
     <style>
         /* Fixed Navbar Styles */
+        .navbar.main-navbar .container {
+            width: 100%;
+            max-width: 100%;
+            margin-right: auto;
+            margin-left: auto;
+            padding-left: 20px;
+            padding-right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+        }
         .navbar {
             transition: all 0.3s ease;
             padding-top: 20px !important;
@@ -319,14 +331,10 @@ $conn->close();
         }
 
         /* Additional Styles */
-        .main-raised {
-            margin-top: 80px !important;
-        }
-        .section {
-            padding: 40px 0;
-        }
-        .title {
-            margin-bottom: 30px;
+        .main-container {
+            min-height: calc(100vh - 170px);
+            padding-bottom: 50px;
+            position: relative;
         }
     </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
@@ -414,56 +422,63 @@ $conn->close();
         </div>
     </nav>
 
-    <div class="wrapper">
-        <div class="main main-raised">
-            <div class="container">
-                <div class="section text-center">
-                    <h2 class="title">View Quiz Results</h2>
-                </div>
-                <div class="section">
-                    <div class="card mb-4">
-                        <div class="card-header card-header-info">
-                            <h4 class="card-title mb-0">Download Student Results</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <select id="class_select" class="form-control">
-                                        <?php echo $class_options_html; ?>
-                                    </select>
+    <div class="main-container">
+        <div class="page-header header-filter" style="background-image: url('./assets/img/bg2.jpg'); background-size: cover; background-position: top center;">
+            <div class="container" style="padding-top: 20px;">
+                <div class="row">
+                    <div class="col-md-12 ml-auto mr-auto">
+                        <div class="card card-login">
+                            <div class="card-header card-header-primary text-center">
+                                <h4 class="card-title">View Quiz Results</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="card mb-4">
+                                    <div class="card-header card-header-info">
+                                        <h4 class="card-title mb-0">Download Student Results</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-row">
+                                            <div class="col-md-4 mb-3">
+                                                <select id="class_select" class="form-control">
+                                                    <?php echo $class_options_html; ?>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <select id="section_select" class="form-control">
+                                                    <option value="">Select Section</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <select id="student_select" class="form-control">
+                                                    <option value="">Select Student</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <button id="download_student_pdf" class="btn btn-success" type="button" disabled>Download Student Results PDF</button>
+                                    </div>
                                 </div>
-                                <div class="col-md-4 mb-3">
-                                    <select id="section_select" class="form-control">
-                                        <option value="">Select Section</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <select id="student_select" class="form-control">
-                                        <option value="">Select Student</option>
-                                    </select>
+
+                                <form method="GET" action="view_quiz_results.php" class="form-inline justify-content-center mb-4">
+                                    <div class="form-group">
+                                        <label for="quiz_number_select" class="mr-2">Select Quiz:</label>
+                                        <select name="quiz_number" id="quiz_number_select" class="form-control mr-2" onchange="this.form.submit()">
+                                            <?php echo $quizzes_options_html; ?>
+                                        </select>
+                                    </div>
+                                    <noscript><button type="submit" class="btn btn-primary btn-sm">View Results</button></noscript>
+                                </form>
+
+                                <div id="results_display_area">
+                                    <?php echo $quiz_results_html; ?>
                                 </div>
                             </div>
-                            <button id="download_student_pdf" class="btn btn-success" type="button" disabled>Download Student Results PDF</button>
                         </div>
-                    </div>
-
-                    <form method="GET" action="view_quiz_results.php" class="form-inline justify-content-center mb-4">
-                        <div class="form-group">
-                            <label for="quiz_number_select" class="mr-2">Select Quiz:</label>
-                            <select name="quiz_number" id="quiz_number_select" class="form-control mr-2" onchange="this.form.submit()">
-                                <?php echo $quizzes_options_html; ?>
-                            </select>
-                        </div>
-                        <noscript><button type="submit" class="btn btn-primary btn-sm">View Results</button></noscript>
-                    </form>
-                    
-                    <div id="results_display_area">
-                        <?php echo $quiz_results_html; ?>
                     </div>
                 </div>
             </div>
         </div>
-        <footer class="footer footer-default">
+    </div>
+    <footer class="footer footer-default">
             <div class="container">
                 <div class="copyright text-center">
                     <div class="department">A Project of StudyHT.com</div>
@@ -474,7 +489,6 @@ $conn->close();
                 </div>
             </div>
         </footer>
-    </div>
 
     <!--   Core JS Files   -->
     <script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>

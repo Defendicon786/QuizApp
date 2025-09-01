@@ -189,6 +189,18 @@ $conn->close();
     <link href="./assets/css/portal.css" rel="stylesheet" />
     <style>
         /* Fixed Navbar Styles */
+        .navbar.main-navbar .container {
+            width: 100%;
+            max-width: 100%;
+            margin-right: auto;
+            margin-left: auto;
+            padding-left: 20px;
+            padding-right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+        }
         .navbar {
             transition: all 0.3s ease;
             padding-top: 20px !important;
