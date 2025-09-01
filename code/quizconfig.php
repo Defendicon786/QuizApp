@@ -190,7 +190,6 @@ function getAvailableQuestionsCount($conn, $chapter_ids) {
 }
 
 ?>
-<link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 <script>
 function updateAvailableQuestions() {
     var chapterIds = $('#chapter_ids').val();
@@ -1149,19 +1148,20 @@ function saveSelectedQuestions() {
     </div>
   </nav>
 
-  <div class="main-container">
-    <div class="page-header header-filter" style="background-image: url('./assets/img/bg2.jpg'); background-size: cover; background-position: top center;">
-      <div class="container" style="padding-top: 20px;">
-      <div class="row justify-content-center">
-        <div class="col-lg-10 col-md-12">
-          <div class="card card-login">
-            <form class="form" name="quizconfig" action="quizconfig.php" method="post">
-              <div class="card-header card-header-primary text-center">
-                <h4 class="card-title">Set Quiz</h4>
-                <p class="description">Set the pattern of the next quiz</p>
-              </div>
-              
-              <div class="card-body">
+  <div class="wrapper">
+    <div class="main main-raised">
+      <div class="container">
+        <div class="section">
+          <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-12">
+              <div class="card">
+                <form class="form" name="quizconfig" action="quizconfig.php" method="post">
+                  <div class="card-header card-header-primary text-center">
+                    <h4 class="card-title">Set Quiz</h4>
+                    <p class="description">Set the pattern of the next quiz</p>
+                  </div>
+
+                  <div class="card-body">
                 <!-- Quiz Basic Info -->
                 <div class="row form-row-mobile">
                   <div class="col-md-6 col-12 mb-3">
@@ -2037,12 +2037,24 @@ function saveSelectedQuestions() {
             ?>
               </div>
             <?php endif; ?>
-          </div>
-        </div>
+          </div> <!-- card -->
+        </div> <!-- col -->
+      </div> <!-- row -->
+    </div> <!-- section -->
+  </div> <!-- container -->
+</div> <!-- main -->
+<footer class="footer footer-default">
+  <div class="container">
+    <div class="copyright text-center">
+      <div class="department">A Project of StudyHT.com</div>
+      <div class="designer">Designed and Developed by Sir Hassan Tariq</div>
+      <div class="year">
+        &copy; <script>document.write(new Date().getFullYear())</script>
       </div>
     </div>
   </div>
-</div>
+</footer>
+</div> <!-- wrapper -->
 
   <!-- Core JS Files -->
   <script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>
