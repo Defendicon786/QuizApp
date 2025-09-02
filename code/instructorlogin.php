@@ -2,8 +2,24 @@
   session_start();
   $login_error_message = ''; // Initialize error message variable
 
+  // Initialize attempt tracking
+  if (!isset($_SESSION['instructor_attempts'])) {
+      $_SESSION['instructor_attempts'] = 0;
+  }
+
+  // Check for lockout and reset attempts if lock has expired
+  if (isset($_SESSION['instructor_lock_time'])) {
+      if (time() - $_SESSION['instructor_lock_time'] < 300) {
+          $remaining = 300 - (time() - $_SESSION['instructor_lock_time']);
+          $login_error_message = '<div class="alert alert-danger">Too many failed attempts. Please try again after ' . ceil($remaining / 60) . ' minute(s).</div>';
+      } else {
+          unset($_SESSION['instructor_lock_time']);
+          $_SESSION['instructor_attempts'] = 0;
+      }
+  }
+
   // Handle POST request for login
-  if ($_SERVER["REQUEST_METHOD"] == "POST"){
+  if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($login_error_message)){
     include "database.php"; // Ensure $conn is available
     if (isset($_POST["email"]) && isset($_POST["password"])) {
         $email_unsafe = $_POST["email"];
@@ -18,22 +34,32 @@
                 $sql = sprintf("SELECT email FROM instructorinfo WHERE email='%s' AND password='%s';", $email, $password);
                 $result = $conn->query($sql);
                 if($result && $result->num_rows > 0){
-                    // session_start(); // Already started
+                    // Successful login, reset attempts
+                    $_SESSION['instructor_attempts'] = 0;
+                    unset($_SESSION['instructor_lock_time']);
+
                     $_SESSION["instructorloggedin"] = true;
-                    $_SESSION["email"] = $email;   
+                    $_SESSION["email"] = $email;
                     header("Location: instructorhome.php");
                     exit; // Crucial
                 }
                 else{
-                    $login_error_message = '<div class="alert alert-danger">Invalid email or password!</div>';
-                } 
+                    $_SESSION['instructor_attempts']++;
+                    if ($_SESSION['instructor_attempts'] >= 5) {
+                        $_SESSION['instructor_lock_time'] = time();
+                        $login_error_message = '<div class="alert alert-danger">Too many failed attempts. Please try again after 5 minutes.</div>';
+                    } else {
+                        $remaining = 5 - $_SESSION['instructor_attempts'];
+                        $login_error_message = '<div class="alert alert-danger">Invalid email or password! You have ' . $remaining . ' attempt(s) remaining.</div>';
+                    }
+                }
             } else {
                 $login_error_message = '<div class="alert alert-danger">Invalid email format.</div>';
             }
         } else {
             $login_error_message = '<div class="alert alert-danger">Email and password cannot be empty.</div>';
         }
-        $conn->close(); 
+        $conn->close();
     } else {
         $login_error_message = '<div class="alert alert-danger">Please provide email and password.</div>';
     }
