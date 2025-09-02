@@ -829,6 +829,20 @@ function saveSelectedQuestions() {
       background-color: #1e1e2f;
       border-color: #1e1e2f;
     }
+
+    /* Ensure checkboxes in manual selection modal are visible */
+    #questionSelectorModal .form-check-input {
+      position: static;
+      margin-left: 0;
+      margin-right: 0.5rem;
+      accent-color: #fff;
+      border: 1px solid #fff;
+    }
+    #questionSelectorModal .form-check-label {
+      display: flex;
+      align-items: center;
+      color: #fff;
+    }
   </style>
   <script>
     function marks() {
