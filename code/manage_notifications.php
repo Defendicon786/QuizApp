@@ -101,6 +101,7 @@
   <link href="./assets/css/modern.css" rel="stylesheet" />
   <link href="./assets/css/navbar.css" rel="stylesheet" />
   <link href="./assets/css/portal.css" rel="stylesheet" />
+  <link href="./assets/css/manage.css" rel="stylesheet" />
   <link href="./assets/css/sidebar.css" rel="stylesheet" />
   <link href="./assets/demo/demo.css" rel="stylesheet" />
   <style>
