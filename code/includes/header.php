@@ -16,7 +16,7 @@ if (isset($_SESSION['studentloggedin'])) {
 }
 ?>
 <header class="header">
-    <button class="toggle-sidebar"><i class="fas fa-bars"></i></button>
+    <button class="toggle-sidebar" type="button"><i class="fas fa-bars"></i></button>
     <div class="user-info">
         <img src="./assets/img/profile.jpg" alt="Profile">
         <span><?php echo htmlspecialchars($userName); ?></span>
