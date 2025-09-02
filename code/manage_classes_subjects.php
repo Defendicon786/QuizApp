@@ -784,8 +784,17 @@ $stmt->close();
             color: #fff;
         }
         .card-header.card-header-primary a {
-            display: block;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             color: #fff;
+            text-decoration: none;
+        }
+        .card-header.card-header-primary a .toggle-arrow {
+            transition: transform 0.3s;
+        }
+        .card-header.card-header-primary a[aria-expanded="true"] .toggle-arrow {
+            transform: rotate(180deg);
         }
         .card-header.card-header-primary .card-title {
             font-size: 1.1rem;
@@ -816,7 +825,10 @@ $stmt->close();
                             <div class="card">
                                 <div class="card-header card-header-primary" id="headingClasses">
                                     <h4 class="card-title mb-0">
-                                        <a class="d-block text-left" data-toggle="collapse" href="#collapseClasses" aria-expanded="false" aria-controls="collapseClasses">Classes</a>
+                                        <a class="d-flex justify-content-between align-items-center collapsed" data-toggle="collapse" href="#collapseClasses" aria-expanded="false" aria-controls="collapseClasses">
+                                            <span>Classes</span>
+                                            <i class="fas fa-chevron-down toggle-arrow"></i>
+                                        </a>
                                     </h4>
                                 </div>
                                 <div id="collapseClasses" class="collapse">
@@ -901,7 +913,10 @@ $stmt->close();
                             <div class="card">
                                 <div class="card-header card-header-primary" id="headingSubjects">
                                     <h4 class="card-title mb-0">
-                                        <a class="d-block text-left" data-toggle="collapse" href="#collapseSubjects" aria-expanded="false" aria-controls="collapseSubjects">Subjects</a>
+                                        <a class="d-flex justify-content-between align-items-center collapsed" data-toggle="collapse" href="#collapseSubjects" aria-expanded="false" aria-controls="collapseSubjects">
+                                            <span>Subjects</span>
+                                            <i class="fas fa-chevron-down toggle-arrow"></i>
+                                        </a>
                                     </h4>
                                 </div>
                                 <div id="collapseSubjects" class="collapse">
@@ -986,7 +1001,10 @@ $stmt->close();
                             <div class="card">
                                 <div class="card-header card-header-primary" id="headingSections">
                                     <h4 class="card-title mb-0">
-                                        <a class="d-block text-left" data-toggle="collapse" href="#collapseSections" aria-expanded="false" aria-controls="collapseSections">Class Sections</a>
+                                        <a class="d-flex justify-content-between align-items-center collapsed" data-toggle="collapse" href="#collapseSections" aria-expanded="false" aria-controls="collapseSections">
+                                            <span>Class Sections</span>
+                                            <i class="fas fa-chevron-down toggle-arrow"></i>
+                                        </a>
                                     </h4>
                                 </div>
                                 <div id="collapseSections" class="collapse">
@@ -1110,7 +1128,10 @@ $stmt->close();
                             <div class="card">
                                 <div class="card-header card-header-primary" id="headingAddChapter">
                                     <h4 class="card-title mb-0">
-                                        <a class="d-block text-left" data-toggle="collapse" href="#collapseAddChapter" aria-expanded="false" aria-controls="collapseAddChapter">Add New Chapter</a>
+                                        <a class="d-flex justify-content-between align-items-center collapsed" data-toggle="collapse" href="#collapseAddChapter" aria-expanded="false" aria-controls="collapseAddChapter">
+                                            <span>Add New Chapter</span>
+                                            <i class="fas fa-chevron-down toggle-arrow"></i>
+                                        </a>
                                     </h4>
                                 </div>
                                 <div id="collapseAddChapter" class="collapse">
@@ -1154,7 +1175,10 @@ $stmt->close();
                             <div class="card">
                                 <div class="card-header card-header-primary" id="headingAddTopic">
                                     <h4 class="card-title mb-0">
-                                        <a class="d-block text-left" data-toggle="collapse" href="#collapseAddTopic" aria-expanded="false" aria-controls="collapseAddTopic">Add New Topic</a>
+                                        <a class="d-flex justify-content-between align-items-center collapsed" data-toggle="collapse" href="#collapseAddTopic" aria-expanded="false" aria-controls="collapseAddTopic">
+                                            <span>Add New Topic</span>
+                                            <i class="fas fa-chevron-down toggle-arrow"></i>
+                                        </a>
                                     </h4>
                                 </div>
                                 <div id="collapseAddTopic" class="collapse">
@@ -1198,7 +1222,10 @@ $stmt->close();
                     <div class="card">
                         <div class="card-header card-header-primary" id="headingChapters">
                             <h4 class="card-title mb-0">
-                                <a class="d-block text-left" data-toggle="collapse" href="#collapseChapters" aria-expanded="false" aria-controls="collapseChapters">Manage Chapters</a>
+                                <a class="d-flex justify-content-between align-items-center collapsed" data-toggle="collapse" href="#collapseChapters" aria-expanded="false" aria-controls="collapseChapters">
+                                    <span>Manage Chapters</span>
+                                    <i class="fas fa-chevron-down toggle-arrow"></i>
+                                </a>
                             </h4>
                         </div>
                         <div id="collapseChapters" class="collapse">
@@ -1303,7 +1330,10 @@ $stmt->close();
                     <div class="card">
                         <div class="card-header card-header-primary" id="headingTopics">
                             <h4 class="card-title mb-0">
-                                <a class="d-block text-left" data-toggle="collapse" href="#collapseTopics" aria-expanded="false" aria-controls="collapseTopics">Manage Topics</a>
+                                <a class="d-flex justify-content-between align-items-center collapsed" data-toggle="collapse" href="#collapseTopics" aria-expanded="false" aria-controls="collapseTopics">
+                                    <span>Manage Topics</span>
+                                    <i class="fas fa-chevron-down toggle-arrow"></i>
+                                </a>
                             </h4>
                         </div>
                         <div id="collapseTopics" class="collapse">
