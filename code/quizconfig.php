@@ -833,10 +833,15 @@ function saveSelectedQuestions() {
     /* Ensure checkboxes in manual selection modal are visible */
     #questionSelectorModal .form-check-input {
       position: static;
-      margin-left: 0;
-      margin-right: 0.5rem;
-      accent-color: #fff;
-      border: 1px solid #fff;
+      margin: 0 0.5rem 0 0;
+      width: 1rem;
+      height: 1rem;
+      opacity: 1;
+      -webkit-appearance: checkbox;
+      appearance: checkbox;
+      accent-color: #0d6efd;
+      background-color: transparent;
+      border: 2px solid #fff;
     }
     #questionSelectorModal .form-check-label {
       display: flex;
