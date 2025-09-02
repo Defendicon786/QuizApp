@@ -113,161 +113,173 @@
   <div class="main">
     <?php include './includes/header.php'; ?>
     <main class="content">
-    
-  <div class="main main-raised" style="margin-top: 0; min-height: calc(100vh - 300px);">
-    <div class="container">
-      <div class="section">
-        <div class="row">
-          <div class="col-md-12 text-center">
-            <p class="description">Send important notifications to students based on class and section</p>
-          </div>
-        </div>
-        
-        <?php if(isset($success_message)): ?>
-          <div class="alert alert-success">
-            <div class="container">
-              <div class="alert-icon">
-                <i class="material-icons">check</i>
+    <div class="wrapper">
+      <div class="main main-raised" style="margin-top: 0;">
+        <div class="container">
+          <div class="section">
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <p class="description">Send important notifications to students based on class and section</p>
               </div>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true"><i class="material-icons">clear</i></span>
-              </button>
-              <b>Success:</b> <?php echo $success_message; ?>
             </div>
-          </div>
-        <?php endif; ?>
         
-        <?php if(isset($error_message)): ?>
-          <div class="alert alert-danger">
-            <div class="container">
-              <div class="alert-icon">
-                <i class="material-icons">error_outline</i>
+            <?php if(isset($success_message)): ?>
+              <div class="alert alert-success">
+                <div class="container">
+                  <div class="alert-icon">
+                    <i class="material-icons">check</i>
+                  </div>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                  </button>
+                  <b>Success:</b> <?php echo $success_message; ?>
+                </div>
               </div>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true"><i class="material-icons">clear</i></span>
-              </button>
-              <b>Error:</b> <?php echo $error_message; ?>
+            <?php endif; ?>
+
+            <?php if(isset($error_message)): ?>
+              <div class="alert alert-danger">
+                <div class="container">
+                  <div class="alert-icon">
+                    <i class="material-icons">error_outline</i>
+                  </div>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                  </button>
+                  <b>Error:</b> <?php echo $error_message; ?>
+                </div>
+              </div>
+            <?php endif; ?>
+
+            <div class="row">
+              <div class="col-md-8 ml-auto mr-auto">
+                <div class="card">
+                  <div class="card-header card-header-primary">
+                    <h4 class="card-title">Create New Notification</h4>
+                  </div>
+                  <div class="card-body">
+                    <form method="post" action="">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="title" class="bmd-label-floating">Notification Title</label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label for="class_id" class="bmd-label-floating">Select Class</label>
+                            <select class="form-control" id="class_id" name="class_id" required>
+                              <option value="">Select Class</option>
+                              <?php while($class = $class_result->fetch_assoc()): ?>
+                                <option value="<?php echo $class['class_id']; ?>"><?php echo $class['class_name']; ?></option>
+                              <?php endwhile; ?>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label for="section_id" class="bmd-label-floating">Select Section (Optional)</label>
+                            <select class="form-control" id="section_id" name="section_id">
+                              <option value="">All Sections</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="message" class="bmd-label-floating">Notification Message</label>
+                            <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 text-right">
+                          <button type="submit" name="create_notification" class="btn btn-primary">Send Notification</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        <?php endif; ?>
-        
-        <div class="row">
-          <div class="col-md-12">
-            <div class="notification-form">
-              <h4 class="info-title">Create New Notification</h4>
-              <form method="post" action="">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="title" class="bmd-label-floating">Notification Title</label>
-                      <input type="text" class="form-control" id="title" name="title" required>
-                    </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header card-header-primary">
+                    <h4 class="card-title">Notification History</h4>
                   </div>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label for="class_id" class="bmd-label-floating">Select Class</label>
-                      <select class="form-control" id="class_id" name="class_id" required>
-                        <option value="">Select Class</option>
-                        <?php while($class = $class_result->fetch_assoc()): ?>
-                          <option value="<?php echo $class['class_id']; ?>"><?php echo $class['class_name']; ?></option>
-                        <?php endwhile; ?>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label for="section_id" class="bmd-label-floating">Select Section (Optional)</label>
-                      <select class="form-control" id="section_id" name="section_id">
-                        <option value="">All Sections</option>
-                      </select>
+                  <div class="card-body">
+                    <div class="table-responsive notification-table">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Message</th>
+                            <th>Class</th>
+                            <th>Section</th>
+                            <th>Created At</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php if($notification_result && $notification_result->num_rows > 0): ?>
+                            <?php while($notification = $notification_result->fetch_assoc()): ?>
+                              <tr>
+                                <td><?php echo $notification['notification_id']; ?></td>
+                                <td><?php echo htmlspecialchars($notification['title']); ?></td>
+                                <td class="notification-message">
+                                  <?php echo htmlspecialchars(substr($notification['message'], 0, 50)) . (strlen($notification['message']) > 50 ? '...' : ''); ?>
+                                  <div class="tooltip-content"><?php echo htmlspecialchars($notification['message']); ?></div>
+                                </td>
+                                <td><?php echo $notification['class_name']; ?></td>
+                                <td><?php echo $notification['section_name'] ? $notification['section_name'] : 'All Sections'; ?></td>
+                                <td><?php echo date('M d, Y h:i A', strtotime($notification['created_at'])); ?></td>
+                                <td>
+                                  <form method="post" action="" style="display: inline;">
+                                    <input type="hidden" name="notification_id" value="<?php echo $notification['notification_id']; ?>">
+                                    <input type="hidden" name="status" value="<?php echo $notification['is_active']; ?>">
+                                    <button type="submit" name="toggle_status" class="btn btn-link p-0 status-toggle">
+                                      <?php if($notification['is_active'] == 1): ?>
+                                        <span class="active-badge">Active</span>
+                                      <?php else: ?>
+                                        <span class="inactive-badge">Inactive</span>
+                                      <?php endif; ?>
+                                    </button>
+                                  </form>
+                                </td>
+                                <td>
+                                  <form method="post" action="" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this notification?');">
+                                    <input type="hidden" name="notification_id" value="<?php echo $notification['notification_id']; ?>">
+                                    <button type="submit" name="delete_notification" class="btn btn-danger btn-sm">
+                                      <i class="material-icons">delete</i>
+                                    </button>
+                                  </form>
+                                </td>
+                              </tr>
+                            <?php endwhile; ?>
+                          <?php else: ?>
+                            <tr>
+                              <td colspan="8" class="text-center">No notifications found</td>
+                            </tr>
+                          <?php endif; ?>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label for="message" class="bmd-label-floating">Notification Message</label>
-                      <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 text-right">
-                    <button type="submit" name="create_notification" class="btn btn-primary">Send Notification</button>
-                  </div>
-                </div>
-              </form>
+              </div>
             </div>
-          </div>
-        </div>
-        
-        <div class="row">
-          <div class="col-md-12">
-            <h4 class="info-title">Notification History</h4>
-            <div class="table-responsive notification-table">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Title</th>
-                    <th>Message</th>
-                    <th>Class</th>
-                    <th>Section</th>
-                    <th>Created At</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php if($notification_result && $notification_result->num_rows > 0): ?>
-                    <?php while($notification = $notification_result->fetch_assoc()): ?>
-                      <tr>
-                        <td><?php echo $notification['notification_id']; ?></td>
-                        <td><?php echo htmlspecialchars($notification['title']); ?></td>
-                        <td class="notification-message">
-                          <?php echo htmlspecialchars(substr($notification['message'], 0, 50)) . (strlen($notification['message']) > 50 ? '...' : ''); ?>
-                          <div class="tooltip-content"><?php echo htmlspecialchars($notification['message']); ?></div>
-                        </td>
-                        <td><?php echo $notification['class_name']; ?></td>
-                        <td><?php echo $notification['section_name'] ? $notification['section_name'] : 'All Sections'; ?></td>
-                        <td><?php echo date('M d, Y h:i A', strtotime($notification['created_at'])); ?></td>
-                        <td>
-                          <form method="post" action="" style="display: inline;">
-                            <input type="hidden" name="notification_id" value="<?php echo $notification['notification_id']; ?>">
-                            <input type="hidden" name="status" value="<?php echo $notification['is_active']; ?>">
-                            <button type="submit" name="toggle_status" class="btn btn-link p-0 status-toggle">
-                              <?php if($notification['is_active'] == 1): ?>
-                                <span class="active-badge">Active</span>
-                              <?php else: ?>
-                                <span class="inactive-badge">Inactive</span>
-                              <?php endif; ?>
-                            </button>
-                          </form>
-                        </td>
-                        <td>
-                          <form method="post" action="" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this notification?');">
-                            <input type="hidden" name="notification_id" value="<?php echo $notification['notification_id']; ?>">
-                            <button type="submit" name="delete_notification" class="btn btn-danger btn-sm">
-                              <i class="material-icons">delete</i>
-                            </button>
-                          </form>
-                        </td>
-                      </tr>
-                    <?php endwhile; ?>
-                  <?php else: ?>
-                    <tr>
-                      <td colspan="8" class="text-center">No notifications found</td>
-                    </tr>
-                  <?php endif; ?>
-                </tbody>
-              </table>
-            </div>
+
           </div>
         </div>
       </div>
     </div>
-  </div>
-  
+
     </main>
   </div>
 </div>
