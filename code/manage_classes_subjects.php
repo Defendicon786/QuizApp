@@ -792,6 +792,12 @@ $stmt->close();
         .list-group-item { display: flex; justify-content: space-between; align-items: center; }
         .delete-btn { color: #dc3545; cursor: pointer; }
         .delete-btn:hover { color: #c82333; }
+
+        body { font-size: 0.9rem; }
+        .card-title { font-size: 1rem; }
+        .card-header, .card-body { padding: 10px; }
+        .table th, .table td { padding: 0.4rem; }
+        .section { padding: 15px 0; }
     </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
@@ -880,13 +886,21 @@ $stmt->close();
 
     <div class="wrapper">
         <div class="main main-raised">
-            <div class="container">
-                <div class="section text-center">
-                    <h2 class="title">Manage Classes & Subjects</h2>
-                    <?php if (!empty($feedback_message)) echo $feedback_message; ?>
-                </div>
-                <div class="section">
-                    <div class="row">
+            <div class="container-fluid">
+                <?php if (!empty($feedback_message)) echo $feedback_message; ?>
+                <div id="manageAccordion">
+                    <div class="card">
+                        <div class="card-header" id="headingClassSubject">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseClassSubject" aria-expanded="true" aria-controls="collapseClassSubject">
+                                    Classes & Subjects
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseClassSubject" class="collapse show" aria-labelledby="headingClassSubject" data-parent="#manageAccordion">
+                            <div class="card-body">
+                                <div class="section">
+                                    <div class="row">
                         <!-- Classes Management -->
                         <div class="col-md-6">
                             <div class="card">
@@ -1050,8 +1064,21 @@ $stmt->close();
                         </div>
                     </div>
                 </div>
-                
+                            </div>
+                        </div>
+                    </div>
+
                 <!-- Sections Management -->
+                <div class="card">
+                    <div class="card-header" id="headingSections">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSections" aria-expanded="false" aria-controls="collapseSections">
+                                Class Sections
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseSections" class="collapse" aria-labelledby="headingSections" data-parent="#manageAccordion">
+                        <div class="card-body">
                 <div class="section">
                     <div class="row">
                         <div class="col-md-12">
@@ -1174,8 +1201,21 @@ $stmt->close();
                         </div>
                     </div>
                 </div>
-                
+            </div>
+        </div>
+    </div>
+
                 <!-- Add Chapter -->
+                <div class="card">
+                    <div class="card-header" id="headingAddChapter">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseAddChapter" aria-expanded="false" aria-controls="collapseAddChapter">
+                                Add New Chapter
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseAddChapter" class="collapse" aria-labelledby="headingAddChapter" data-parent="#manageAccordion">
+                        <div class="card-body">
                 <div class="section">
                     <div class="row">
                         <div class="col-md-12">
@@ -1218,8 +1258,21 @@ $stmt->close();
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
 
                 <!-- Add Topic -->
+                <div class="card">
+                    <div class="card-header" id="headingAddTopic">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseAddTopic" aria-expanded="false" aria-controls="collapseAddTopic">
+                                Add New Topic
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseAddTopic" class="collapse" aria-labelledby="headingAddTopic" data-parent="#manageAccordion">
+                        <div class="card-body">
                 <div class="section">
                     <div class="row">
                         <div class="col-md-12">
@@ -1262,8 +1315,21 @@ $stmt->close();
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
 
                 <!-- Chapters Management -->
+                <div class="card">
+                    <div class="card-header" id="headingManageChapters">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseManageChapters" aria-expanded="false" aria-controls="collapseManageChapters">
+                                Manage Chapters
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseManageChapters" class="collapse" aria-labelledby="headingManageChapters" data-parent="#manageAccordion">
+                        <div class="card-body">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-primary">
@@ -1363,8 +1429,21 @@ $stmt->close();
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
 
                 <!-- Topics Management -->
+                <div class="card">
+                    <div class="card-header" id="headingManageTopics">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseManageTopics" aria-expanded="false" aria-controls="collapseManageTopics">
+                                Manage Topics
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseManageTopics" class="collapse" aria-labelledby="headingManageTopics" data-parent="#manageAccordion">
+                        <div class="card-body">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-primary">
@@ -1442,19 +1521,10 @@ $stmt->close();
                 </div>
             </div>
         </div>
-
-        <footer class="footer footer-default">
-            <div class="container">
-                <div class="copyright text-center">
-                    <div class="department">A Project of StudyHT.com</div>
-                    <div class="designer">Designed and Developed by Sir Hassan Tariq</div>
-                    <div class="year">
-                        &copy; <script>document.write(new Date().getFullYear())</script>
-                    </div>
-                </div>
-            </div>
-        </footer>
     </div>
+</div>
+</div>
+</div>
 
     <!--   Core JS Files   -->
     <script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>
