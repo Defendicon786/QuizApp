@@ -4,18 +4,38 @@ include "database.php";
 
 $message = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Initialize attempt tracking
+if (!isset($_SESSION['student_attempts'])) {
+    $_SESSION['student_attempts'] = 0;
+}
+
+// Check for lockout and reset attempts if lock has expired
+if (isset($_SESSION['student_lock_time'])) {
+    if (time() - $_SESSION['student_lock_time'] < 300) {
+        $remaining = 300 - (time() - $_SESSION['student_lock_time']);
+        $message = "<div class='alert alert-danger'>Too many failed attempts. Please try again after " . ceil($remaining / 60) . " minute(s).</div>";
+    } else {
+        unset($_SESSION['student_lock_time']);
+        $_SESSION['student_attempts'] = 0;
+    }
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($message)) {
     $rollnumber = trim($_POST["rollnumber"]);
     $password = trim($_POST["password"]);
-    
+
     $sql = sprintf("SELECT * FROM studentinfo WHERE rollnumber=%d AND password='%s'",
         intval($rollnumber),
         $conn->real_escape_string($password)
     );
-    
+
     $result = $conn->query($sql);
-    
+
     if ($result->num_rows == 1) {
+        // Successful login, reset attempts
+        $_SESSION['student_attempts'] = 0;
+        unset($_SESSION['student_lock_time']);
+
         $student_data = $result->fetch_assoc();
         $_SESSION["studentloggedin"] = true;
         $_SESSION["rollnumber"] = $rollnumber;
@@ -24,24 +44,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["department"] = $student_data['department'];
         $_SESSION["program"] = $student_data['program'];
         $_SESSION["section"] = $student_data['section'];
-        
+
         // Get class and section IDs to store in session
         $class_query = $conn->prepare("SELECT class_id FROM classes WHERE class_name = ?");
         $class_query->bind_param("s", $student_data['department']);
         $class_query->execute();
         $class_result = $class_query->get_result();
-        
+
         if ($class_result->num_rows == 1) {
             $class_data = $class_result->fetch_assoc();
             $_SESSION["class_id"] = $class_data['class_id'];
-            
+
             // Get section ID if section exists
             if (!empty($student_data['section'])) {
                 $section_query = $conn->prepare("SELECT id FROM class_sections WHERE class_id = ? AND section_name = ?");
                 $section_query->bind_param("is", $class_data['class_id'], $student_data['section']);
                 $section_query->execute();
                 $section_result = $section_query->get_result();
-                
+
                 if ($section_result->num_rows == 1) {
                     $section_data = $section_result->fetch_assoc();
                     $_SESSION["section_id"] = $section_data['id'];
@@ -50,10 +70,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
         $class_query->close();
-        
+
         header("location: studenthome.php");
     } else {
-        $message = "<div class='alert alert-danger'>Invalid roll number or password!</div>";
+        // Failed login attempt
+        $_SESSION['student_attempts']++;
+        if ($_SESSION['student_attempts'] >= 5) {
+            $_SESSION['student_lock_time'] = time();
+            $message = "<div class='alert alert-danger'>Too many failed attempts. Please try again after 5 minutes.</div>";
+        } else {
+            $remaining = 5 - $_SESSION['student_attempts'];
+            $message = "<div class='alert alert-danger'>Invalid roll number or password! You have {$remaining} attempt(s) remaining.</div>";
+        }
     }
 }
 $conn->close();
