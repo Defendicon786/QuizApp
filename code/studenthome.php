@@ -88,6 +88,12 @@
     }
     $stmt_quiz->close();
   }
+
+  // Determine destination for "Take Quiz" button
+  $quiz_link = 'quizhome.php';
+  if ($upcoming_quiz && isset($upcoming_quiz['starttime']) && strtotime($upcoming_quiz['starttime']) <= time()) {
+    $quiz_link = 'quizpage.php';
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -161,7 +167,7 @@
             <i class="material-icons">assignment</i>
             <h4 class="card-title">Take Quiz</h4>
             <p class="card-text">Start your quiz now</p>
-            <a href="quizhome.php" class="btn">Start Quiz</a>
+            <a href="<?php echo $quiz_link; ?>" class="btn">Start Quiz</a>
           </div>
         </div>
         <div class="card">

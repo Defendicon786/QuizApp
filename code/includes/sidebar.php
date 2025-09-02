@@ -1,12 +1,49 @@
 <?php
 $logout = isset($_SESSION['studentloggedin']) ? 'studentlogout.php' : 'instructorlogout.php';
+
+// Determine where the "Take Quiz" link should point for students
+$quiz_link = 'quizhome.php';
+if (isset($_SESSION['studentloggedin']) && $_SESSION['studentloggedin'] === true) {
+    // Check if an active quiz is available for the logged-in student
+    include_once __DIR__ . '/../database.php';
+    if (
+        isset($_SESSION['class_id']) &&
+        isset($_SESSION['rollnumber']) &&
+        $conn
+    ) {
+        $class_id   = $_SESSION['class_id'];
+        $section    = isset($_SESSION['section']) ? $_SESSION['section'] : null;
+        $rollnumber = $_SESSION['rollnumber'];
+
+        $quiz_sql = "SELECT quizid FROM quizconfig
+                     WHERE starttime <= NOW() AND endtime >= NOW()
+                       AND class_id = ?
+                       AND (section IS NULL OR LOWER(section) = LOWER(?))
+                       AND (SELECT COUNT(*) FROM quizrecord qr
+                            WHERE qr.quizid = quizconfig.quizid
+                              AND qr.rollnumber = ?) < attempts
+                     LIMIT 1";
+
+        if ($stmt = $conn->prepare($quiz_sql)) {
+            $section_param = $section ? $section : '';
+            $stmt->bind_param('isi', $class_id, $section_param, $rollnumber);
+            if ($stmt->execute()) {
+                $result = $stmt->get_result();
+                if ($result && $result->num_rows > 0) {
+                    $quiz_link = 'quizpage.php';
+                }
+            }
+            $stmt->close();
+        }
+    }
+}
 ?>
 <aside class="sidebar">
     <button class="toggle-sidebar close-sidebar" type="button"><i class="fas fa-times"></i></button>
     <div class="logo"><span>QuizApp</span></div>
     <ul>
         <?php if(isset($_SESSION['studentloggedin']) && $_SESSION['studentloggedin'] === true): ?>
-            <li><a href="quizhome.php"><i class="fas fa-pencil-alt"></i><span>Take Quiz</span></a></li>
+            <li><a href="<?php echo $quiz_link; ?>"><i class="fas fa-pencil-alt"></i><span>Take Quiz</span></a></li>
             <li><a href="my_results.php"><i class="fas fa-chart-line"></i><span>My Result</span></a></li>
         <?php else: ?>
             <li><a href="manage_classes_subjects.php"><i class="fas fa-book"></i><span>Manage Classes &amp; Subjects</span></a></li>
