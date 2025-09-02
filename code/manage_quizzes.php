@@ -212,6 +212,12 @@ $conn->close();
             padding-bottom: 50px;
             position: relative;
         }
+        .quiz-table tbody tr:nth-child(odd) {
+            background: linear-gradient(to right, #f8f9fa, #ffffff);
+        }
+        .quiz-table tbody tr:nth-child(even) {
+            background: linear-gradient(to right, #ffffff, #f8f9fa);
+        }
     </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
@@ -224,10 +230,7 @@ $conn->close();
     <div class="wrapper">
         <div class="main main-raised">
             <div class="container">
-                <div class="section text-center">
-                    <h2 class="title">Manage Quizzes</h2>
-                </div>
-                <div class="section">
+                <div class="section" style="padding-top:0;">
                     <?php echo $feedback_message; ?>
 
                     <!-- Filter Form -->
@@ -273,12 +276,12 @@ $conn->close();
                                         </div>
                                     </div>
                                 </form>
-                                
+
                                 <?php if (empty($quizzes)): ?>
                                     <p class="text-center">No quizzes found.</p>
                                 <?php else: ?>
                                     <div class="table-responsive">
-                                        <table class="table table-striped">
+                                        <table class="table quiz-table">
                                             <thead>
                                                 <tr>
                                                     <th>Quiz #</th>

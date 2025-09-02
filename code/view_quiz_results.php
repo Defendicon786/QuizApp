@@ -214,10 +214,7 @@ $conn->close();
     <div class="wrapper">
         <div class="main main-raised">
             <div class="container">
-                <div class="section text-center">
-                    <h2 class="title">View Quiz Results</h2>
-                </div>
-                <div class="section">
+                <div class="section" style="padding-top:0;">
                     <div class="card mb-4">
                         <div class="card-header card-header-primary">
                             <h4 class="card-title mb-0">Download Student Results</h4>
