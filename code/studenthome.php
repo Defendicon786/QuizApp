@@ -7,12 +7,6 @@
 
   include("database.php");
 
-  // Display message if redirected without available quiz
-  $message = '';
-  if (isset($_SESSION['no_quiz_message'])) {
-    $message = $_SESSION['no_quiz_message'];
-    unset($_SESSION['no_quiz_message']);
-  }
 
   // If no class_id in session, map from department
   if (!isset($_SESSION['class_id']) && isset($_SESSION['department'])) {
@@ -89,11 +83,6 @@
     $stmt_quiz->close();
   }
 
-  // Determine destination for "Take Quiz" button
-  $quiz_link = 'quizhome.php';
-  if ($upcoming_quiz && isset($upcoming_quiz['starttime']) && strtotime($upcoming_quiz['starttime']) <= time()) {
-    $quiz_link = 'quizpage.php';
-  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -148,13 +137,10 @@
 </head>
 <body>
 <div class="layout">
-  <?php include './includes/sidebar.php'; ?>
+  <?php include './includes/sidebar.php'; // defines $quiz_link ?>
   <div class="main">
     <?php include './includes/header.php'; ?>
     <main class="content">
-      <?php if ($message): ?>
-        <div class="alert alert-warning"><?php echo htmlspecialchars($message); ?></div>
-      <?php endif; ?>
       <h1>Welcome to the Student Portal</h1>
       <?php if ($upcoming_quiz): ?>
         <p class="upcoming-quiz">Upcoming quiz: <strong><?php echo htmlspecialchars($upcoming_quiz['quizname']); ?></strong> on <?php echo htmlspecialchars($upcoming_quiz['starttime']); ?></p>
