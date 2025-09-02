@@ -762,7 +762,7 @@ function saveSelectedQuestions() {
     #section_id,
     #chapter_ids,
     #topic_ids {
-      background-color: #1e1e2f;
+      background-color: #11111a;
       color: #fff;
     }
     #class_id option,
@@ -770,19 +770,24 @@ function saveSelectedQuestions() {
     #section_id option,
     #chapter_ids option,
     #topic_ids option {
-      background-color: #1e1e2f;
+      background-color: #11111a;
       color: #fff;
     }
     .select2-container--default .select2-selection--single,
     .select2-container--default .select2-selection--multiple {
-      background-color: #1e1e2f;
+      background-color: #11111a;
       color: #fff;
-      border: 1px solid #1e1e2f;
+      border: 1px solid #11111a;
     }
     .select2-dropdown,
     .select2-search__field,
     .select2-results__option {
-      background-color: #1e1e2f;
+      background-color: #11111a;
+      color: #fff;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered,
+    .select2-container--default .select2-selection--single .select2-selection__placeholder,
+    .select2-container--default .select2-selection--multiple .select2-selection__rendered {
       color: #fff;
     }
   </style>
