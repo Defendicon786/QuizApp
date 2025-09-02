@@ -607,9 +607,14 @@ function getChapters($conn, $class_id, $subject_id) {
       body.dark-mode,
       .layout,
       .main,
-      main.content,
+      main.content {
+        background-color: #11111a !important;
+      }
       .page-header {
         background-color: #11111a !important;
+        margin-top: 0;
+        padding-top: 0;
+        min-height: calc(100vh - 60px);
       }
       .tab-structure-row .nav-link {
         color: #fff !important;
@@ -646,7 +651,7 @@ function getChapters($conn, $class_id, $subject_id) {
         <?php include './includes/header.php'; ?>
         <main class="content">
           <div class="page-header header-filter clear-filter" style="background-color: #11111a;">
-      <div class="container" style="padding-top: 20px;">
+      <div class="container">
       <div class="row" style="margin-bottom: 50px; position: relative; z-index: 2;">
         <div class="col-lg-10 col-md-10 ml-auto mr-auto">
           <div class="card card-login" style="background-color:#1e1e2f;">
