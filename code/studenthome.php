@@ -103,7 +103,7 @@
     <main class="content">
       <h1>Welcome to the Student Portal</h1>
       <?php if ($upcoming_quiz): ?>
-        <p>Upcoming quiz: <strong><?php echo htmlspecialchars($upcoming_quiz['quizname']); ?></strong> on <?php echo htmlspecialchars($upcoming_quiz['starttime']); ?></p>
+        <p style="color: blue;">Upcoming quiz: <strong><?php echo htmlspecialchars($upcoming_quiz['quizname']); ?></strong> on <?php echo htmlspecialchars($upcoming_quiz['starttime']); ?></p>
       <?php else: ?>
         <p>No upcoming quizzes.</p>
       <?php endif; ?>
