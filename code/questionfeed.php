@@ -622,12 +622,12 @@ function getChapters($conn, $class_id, $subject_id) {
               <div class="row tab-structure-row">
                 <div class="col-md-4">
                   <ul class="nav nav-pills nav-pills-rose flex-column">
-                    <li class="nav-item"><a class="nav-link <?php echo $active1;?>" href="#tab1" data-toggle="tab" data-qtype="a">MCQ Questions</a></li>
-                    <li class="nav-item"><a class="nav-link <?php echo $active2;?>" href="#tab2" data-toggle="tab" data-qtype="b">Numerical Type</a></li>
-                    <li class="nav-item"><a class="nav-link <?php echo $active3;?>" href="#tab3" data-toggle="tab" data-qtype="c">Drop Down</a></li>
-                    <li class="nav-item"><a class="nav-link <?php echo $active4;?>" href="#tab4" data-toggle="tab" data-qtype="d">Fill in the blank</a></li>
-                    <li class="nav-item"><a class="nav-link <?php echo $active5;?>" href="#tab5" data-toggle="tab" data-qtype="e">Short Answer Type</a></li>
-                    <li class="nav-item"><a class="nav-link <?php echo $active6;?>" href="#tab6" data-toggle="tab" data-qtype="f">Essay Type</a></li>
+                    <li class="nav-item"><a class="nav-link text-white <?php echo $active1;?>" href="#tab1" data-toggle="tab" data-qtype="a">MCQ Questions</a></li>
+                    <li class="nav-item"><a class="nav-link text-white <?php echo $active2;?>" href="#tab2" data-toggle="tab" data-qtype="b">Numerical Type</a></li>
+                    <li class="nav-item"><a class="nav-link text-white <?php echo $active3;?>" href="#tab3" data-toggle="tab" data-qtype="c">Drop Down</a></li>
+                    <li class="nav-item"><a class="nav-link text-white <?php echo $active4;?>" href="#tab4" data-toggle="tab" data-qtype="d">Fill in the blank</a></li>
+                    <li class="nav-item"><a class="nav-link text-white <?php echo $active5;?>" href="#tab5" data-toggle="tab" data-qtype="e">Short Answer Type</a></li>
+                    <li class="nav-item"><a class="nav-link text-white <?php echo $active6;?>" href="#tab6" data-toggle="tab" data-qtype="f">Essay Type</a></li>
                   </ul>
                 </div>
                 <div class="col-md-8 tab-content-pane">
