@@ -790,6 +790,14 @@ function saveSelectedQuestions() {
     .select2-container--default .select2-selection--multiple .select2-selection__rendered {
       color: #fff;
     }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+      background-color: #11111a;
+      border: 1px solid #11111a;
+      color: #fff;
+    }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+      color: #fff;
+    }
   </style>
   <script>
     function marks() {
