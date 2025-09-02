@@ -2,7 +2,7 @@
 $logout = isset($_SESSION['studentloggedin']) ? 'studentlogout.php' : 'instructorlogout.php';
 ?>
 <aside class="sidebar">
-    <button class="toggle-sidebar close-sidebar"><i class="fas fa-times"></i></button>
+    <button class="toggle-sidebar close-sidebar" type="button"><i class="fas fa-times"></i></button>
     <div class="logo"><span>QuizApp</span></div>
     <ul>
         <li><a href="manage_classes_subjects.php"><i class="fas fa-book"></i><span>Manage Classes &amp; Subjects</span></a></li>
