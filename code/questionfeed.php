@@ -614,6 +614,7 @@ function getChapters($conn, $class_id, $subject_id) {
         background-color: #11111a !important;
         margin-top: 0;
         padding-top: 80px;
+        height: auto !important;
         min-height: calc(100vh - 80px);
       }
 
