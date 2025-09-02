@@ -1126,17 +1126,6 @@ function getChapters($conn, $class_id, $subject_id) {
     </div>
   </div>
 </div>
-  <footer class="footer footer-default">
-    <div class="container">
-      <div class="copyright text-center">
-        <div class="department">A Project of StudyHT.com</div>
-        <div class="designer">Designed and Developed by Sir Hassan Tariq</div>
-        <div class="year">
-          &copy; <script>document.write(new Date().getFullYear())</script>
-        </div>
-      </div>
-    </div>
-  </footer>
   <!--   Core JS Files   -->
   <script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>
   <script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
