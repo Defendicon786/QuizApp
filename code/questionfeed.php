@@ -600,16 +600,28 @@ function getChapters($conn, $class_id, $subject_id) {
     <link href="./assets/css/modern.css" rel="stylesheet" />
     <link href="./assets/css/navbar.css" rel="stylesheet" />
     <link href="./assets/css/portal.css" rel="stylesheet" />
-  <link href="./assets/css/manage.css" rel="stylesheet" />
-  <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
-</head>
-<body class="dark-mode">
-<div class="layout">
-  <?php include './includes/sidebar.php'; ?>
-  <div class="main">
-    <?php include './includes/header.php'; ?>
-    <main class="content">
-    <div class="page-header header-filter" style="background-image: url('./assets/img/bg2.jpg'); background-size: cover; background-position: top center;">
+    <link href="./assets/css/manage.css" rel="stylesheet" />
+    <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
+    <style>
+      main.content {
+        background: transparent !important;
+      }
+      .tab-structure-row .nav-link {
+        color: #fff !important;
+      }
+      .clear-filter::before,
+      .clear-filter::after {
+        background: none !important;
+      }
+    </style>
+  </head>
+  <body class="dark-mode">
+    <div class="layout">
+      <?php include './includes/sidebar.php'; ?>
+      <div class="main">
+        <?php include './includes/header.php'; ?>
+        <main class="content">
+          <div class="page-header header-filter clear-filter" style="background-image: url('./assets/img/bg2.jpg'); background-size: cover; background-position: top center;">
       <div class="container" style="padding-top: 20px;">
       <div class="row" style="margin-bottom: 50px; position: relative; z-index: 2;">
         <div class="col-lg-10 col-md-10 ml-auto mr-auto">
