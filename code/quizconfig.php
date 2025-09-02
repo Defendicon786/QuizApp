@@ -416,7 +416,7 @@ function loadQuestionsByType(type, containerId, chapterIds, topicIds) {
             var html = '<div class="question-selection-container">';
             
             // Add select all option
-            html += '<div class="select-all-container mb-3 p-2 bg-light rounded">' +
+            html += '<div class="select-all-container mb-3 p-2 bg-dark rounded">' +
                     '<div class="form-check">' +
                     '<label class="form-check-label">' +
                     '<input type="checkbox" class="form-check-input select-all-checkbox" id="select-all-' + type + '">' +
