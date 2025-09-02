@@ -92,6 +92,8 @@ html, body {
     justify-content: flex-end;
     padding: 10px 20px;
     border: none;
+    position: relative;
+    z-index: 1000;
 }
 
 .header .toggle-sidebar {
@@ -101,6 +103,8 @@ html, body {
     color: #fff;
     font-size: 1.25rem;
     cursor: pointer;
+    position: relative;
+    z-index: 1001;
 }
 
 .sidebar .close-sidebar {

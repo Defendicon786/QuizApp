@@ -69,6 +69,7 @@
     height: $custom-control-indicator-size;
     pointer-events: none;
     content: "";
+    -webkit-user-select: none;
     user-select: none;
     background-color: $custom-control-indicator-bg;
     @include box-shadow($custom-control-indicator-box-shadow);
