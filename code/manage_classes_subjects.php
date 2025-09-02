@@ -732,18 +732,36 @@ $stmt->close();
 
         /* Additional Styles */
         .main-raised {
-            margin-top: 80px;
+            margin-top: 20px;
             min-height: calc(100vh - 200px);
+            background: transparent;
+            box-shadow: none;
         }
-        .card { margin-bottom: 15px; }
+        .accordion {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .section {
+            flex: 1 1 calc(50% - 20px);
+            background: transparent;
+        }
+        @media (max-width: 768px) {
+            .section { flex: 1 1 100%; }
+        }
+        .card { margin-bottom: 15px; background-color: #1e1e1e; }
         .add-form { margin-bottom: 10px; }
         .list-group-item { display: flex; justify-content: space-between; align-items: center; padding: 4px 10px; }
         .delete-btn { color: #dc3545; cursor: pointer; }
         .delete-btn:hover { color: #c82333; }
-        .accordion .card-header a {
+        .card-header.card-header-primary {
+            padding: 6px 10px;
+        }
+        .card-header.card-header-primary a {
             display: block;
-            font-size: 0.9rem;
-            padding: 8px 15px;
+        }
+        .card-header.card-header-primary .card-title {
+            font-size: 1rem;
         }
         .accordion .card-body {
             font-size: 0.85rem;
@@ -763,10 +781,8 @@ $stmt->close();
             <div class="container-fluid">
                 <?php if (!empty($feedback_message)) echo $feedback_message; ?>
                 <div class="accordion" id="manageAccordion">
+                <!-- Classes Management -->
                 <div class="section">
-                    <div class="row">
-                        <!-- Classes Management -->
-                        <div class="col-12">
                             <div class="card">
                                 <div class="card-header card-header-primary" id="headingClasses">
                                     <h4 class="card-title mb-0">
@@ -848,10 +864,10 @@ $stmt->close();
                                 </div>
                                 </div>
                             </div>
-                        </div>
+                </div>
 
-                        <!-- Subjects Management -->
-                        <div class="col-12">
+                <!-- Subjects Management -->
+                <div class="section">
                             <div class="card">
                                 <div class="card-header card-header-primary" id="headingSubjects">
                                     <h4 class="card-title mb-0">
@@ -933,14 +949,10 @@ $stmt->close();
                                 </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Sections Management -->
                 <div class="section">
-                    <div class="row">
-                        <div class="col-12">
                             <div class="card">
                                 <div class="card-header card-header-primary" id="headingSections">
                                     <h4 class="card-title mb-0">
@@ -1061,14 +1073,10 @@ $stmt->close();
                                 </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
                 </div>
                 
                 <!-- Add Chapter -->
                 <div class="section">
-                    <div class="row">
-                        <div class="col-12">
                             <div class="card">
                                 <div class="card-header card-header-primary" id="headingAddChapter">
                                     <h4 class="card-title mb-0">
@@ -1109,14 +1117,10 @@ $stmt->close();
                                 </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Add Topic -->
                 <div class="section">
-                    <div class="row">
-                        <div class="col-12">
                             <div class="card">
                                 <div class="card-header card-header-primary" id="headingAddTopic">
                                     <h4 class="card-title mb-0">
@@ -1157,12 +1161,10 @@ $stmt->close();
                                 </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Chapters Management -->
-                <div class="col-12">
+                <div class="section">
                     <div class="card">
                         <div class="card-header card-header-primary" id="headingChapters">
                             <h4 class="card-title mb-0">
@@ -1267,7 +1269,7 @@ $stmt->close();
                 </div>
 
                 <!-- Topics Management -->
-                <div class="col-12">
+                <div class="section">
                     <div class="card">
                         <div class="card-header card-header-primary" id="headingTopics">
                             <h4 class="card-title mb-0">
@@ -1347,7 +1349,8 @@ $stmt->close();
                     </div>
                 </div>
             </div>
-
+            </div>
+        </div>
     </div>
     </main>
   </div>
