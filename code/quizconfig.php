@@ -416,7 +416,7 @@ function loadQuestionsByType(type, containerId, chapterIds, topicIds) {
             var html = '<div class="question-selection-container">';
             
             // Add select all option
-            html += '<div class="select-all-container mb-3 p-2 bg-light rounded">' +
+            html += '<div class="select-all-container mb-3 p-2 bg-dark rounded">' +
                     '<div class="form-check">' +
                     '<label class="form-check-label">' +
                     '<input type="checkbox" class="form-check-input select-all-checkbox" id="select-all-' + type + '">' +
@@ -832,16 +832,32 @@ function saveSelectedQuestions() {
 
     /* Ensure checkboxes in manual selection modal are visible */
     #questionSelectorModal .form-check-input {
-      position: static;
+      position: relative;
       margin: 0 0.5rem 0 0;
       width: 1rem;
       height: 1rem;
       opacity: 1;
+      pointer-events: auto;
+      z-index: 1;
+      overflow: visible;
       -webkit-appearance: checkbox;
       appearance: checkbox;
+    }
+    #questionSelectorModal .question-checkbox {
       accent-color: #0d6efd;
-      background-color: transparent;
-      border: 2px solid #fff;
+      background-color: #fff;
+      border: 2px solid #0d6efd;
+    }
+    #questionSelectorModal .select-all-checkbox {
+      accent-color: #ffc107;
+      background-color: #fff;
+      border: 2px solid #ffc107;
+    }
+    #questionSelectorModal .select-all-container {
+      background-color: #343a40;
+      color: #fff;
+      position: relative;
+      z-index: 2;
     }
     #questionSelectorModal .form-check-label {
       display: flex;
