@@ -853,6 +853,12 @@ function saveSelectedQuestions() {
       background-color: #fff;
       border: 2px solid #ffc107;
     }
+    #questionSelectorModal .select-all-container {
+      background-color: #343a40;
+      color: #fff;
+      position: relative;
+      z-index: 2;
+    }
     #questionSelectorModal .form-check-label {
       display: flex;
       align-items: center;
