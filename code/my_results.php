@@ -149,6 +149,7 @@ $results = $stmt->get_result();
 <script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
 <script src="./assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
 <script src="./assets/js/dark-mode.js"></script>
+<script src="./assets/js/sidebar.js"></script>
 </body>
 </html>
 
