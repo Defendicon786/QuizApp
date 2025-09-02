@@ -607,9 +607,30 @@ function getChapters($conn, $class_id, $subject_id) {
       body.dark-mode,
       .layout,
       .main,
-      main.content,
+      main.content {
+        background-color: #11111a !important;
+      }
       .page-header {
         background-color: #11111a !important;
+        margin-top: 0;
+        padding-top: 80px;
+        min-height: calc(100vh - 80px);
+      }
+
+      /* Ensure header spacing on tablets */
+      @media (max-width: 992px) {
+        .page-header {
+          padding-top: 120px;
+          min-height: calc(100vh - 120px);
+        }
+      }
+
+      /* Extra spacing on smaller mobile screens */
+      @media (max-width: 576px) {
+        .page-header {
+          padding-top: 160px;
+          min-height: calc(100vh - 160px);
+        }
       }
       .tab-structure-row .nav-link {
         color: #fff !important;
@@ -646,7 +667,7 @@ function getChapters($conn, $class_id, $subject_id) {
         <?php include './includes/header.php'; ?>
         <main class="content">
           <div class="page-header header-filter clear-filter" style="background-color: #11111a;">
-      <div class="container" style="padding-top: 20px;">
+      <div class="container">
       <div class="row" style="margin-bottom: 50px; position: relative; z-index: 2;">
         <div class="col-lg-10 col-md-10 ml-auto mr-auto">
           <div class="card card-login" style="background-color:#1e1e2f;">
