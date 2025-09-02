@@ -318,7 +318,7 @@ $conn->close();
 
         /* Additional Styles */
         .main-raised {
-            margin-top: 80px !important;
+            margin-top: 0 !important;
         }
         .card { 
             margin-bottom: 30px;
