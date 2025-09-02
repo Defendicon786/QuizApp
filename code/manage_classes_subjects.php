@@ -780,7 +780,7 @@ $stmt->close();
         .delete-btn { color: #dc3545; cursor: pointer; }
         .delete-btn:hover { color: #c82333; }
         .card-header.card-header-primary {
-            padding: 4px 8px;
+            padding: 8px 12px;
             color: #fff;
             background: #1e1e2f;
             border-bottom: 1px solid #11111a;
@@ -800,7 +800,7 @@ $stmt->close();
             transform: rotate(180deg);
         }
         .card-header.card-header-primary .card-title {
-            font-size: 1.1rem;
+            font-size: 1rem;
             line-height: 1.2;
             margin: 0;
         }
