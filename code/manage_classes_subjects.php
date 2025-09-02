@@ -745,8 +745,6 @@ $stmt->close();
         .section {
             flex: 1 1 calc(50% - 6px);
             background: transparent;
-            height: 170px;
-            overflow-y: auto;
         }
         @media (max-width: 768px) {
             .section { flex: 1 1 100%; }
@@ -755,7 +753,6 @@ $stmt->close();
             margin-bottom: 6px;
             background-color: #1e1e1e;
             color: #fff;
-            height: 100%;
         }
         .add-form { margin-bottom: 10px; }
         .list-group-item {
