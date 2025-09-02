@@ -114,12 +114,11 @@
     <?php include './includes/header.php'; ?>
     <main class="content">
     
-  <div class="main main-raised" style="margin-top: 100px; min-height: calc(100vh - 300px);">
+  <div class="main main-raised" style="margin-top: 0; min-height: calc(100vh - 300px);">
     <div class="container">
       <div class="section">
         <div class="row">
           <div class="col-md-12 text-center">
-            <h2 class="title">Manage Notifications</h2>
             <p class="description">Send important notifications to students based on class and section</p>
           </div>
         </div>
