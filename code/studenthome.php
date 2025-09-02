@@ -7,12 +7,6 @@
 
   include("database.php");
 
-  // Display message if redirected without available quiz
-  $message = '';
-  if (isset($_SESSION['no_quiz_message'])) {
-    $message = $_SESSION['no_quiz_message'];
-    unset($_SESSION['no_quiz_message']);
-  }
 
   // If no class_id in session, map from department
   if (!isset($_SESSION['class_id']) && isset($_SESSION['department'])) {
@@ -88,6 +82,7 @@
     }
     $stmt_quiz->close();
   }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -142,13 +137,10 @@
 </head>
 <body>
 <div class="layout">
-  <?php include './includes/sidebar.php'; ?>
+  <?php include './includes/sidebar.php'; // defines $quiz_link ?>
   <div class="main">
     <?php include './includes/header.php'; ?>
     <main class="content">
-      <?php if ($message): ?>
-        <div class="alert alert-warning"><?php echo htmlspecialchars($message); ?></div>
-      <?php endif; ?>
       <h1>Welcome to the Student Portal</h1>
       <?php if ($upcoming_quiz): ?>
         <p class="upcoming-quiz">Upcoming quiz: <strong><?php echo htmlspecialchars($upcoming_quiz['quizname']); ?></strong> on <?php echo htmlspecialchars($upcoming_quiz['starttime']); ?></p>
@@ -161,7 +153,7 @@
             <i class="material-icons">assignment</i>
             <h4 class="card-title">Take Quiz</h4>
             <p class="card-text">Start your quiz now</p>
-            <a href="quizhome.php" class="btn">Start Quiz</a>
+            <a href="<?php echo $quiz_link; ?>" class="btn">Start Quiz</a>
           </div>
         </div>
         <div class="card">
