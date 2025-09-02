@@ -1338,15 +1338,25 @@ function saveSelectedQuestions() {
                   // Determine if random selection was requested
                   $is_random = isset($_POST["random_quiz"]) ? 1 : 0;
 
-                  // If random selection and counts are zero, default to at least one question where available
+                  // If random quiz is selected, only add a default question when no counts were provided
                   if ($is_random) {
-                      $available = getAvailableQuestionsCount($conn, explode(',', $chapter_ids));
-                      if ($typea == 0) $typea = min(1, $available['mcq']);
-                      if ($typeb == 0) $typeb = min(1, $available['numerical']);
-                      if ($typec == 0) $typec = min(1, $available['dropdown']);
-                      if ($typed == 0) $typed = min(1, $available['fillblanks']);
-                      if ($typee == 0) $typee = min(1, $available['short']);
-                      if ($typef == 0) $typef = min(1, $available['essay']);
+                      $total_selected = $typea + $typeb + $typec + $typed + $typee + $typef;
+                      if ($total_selected == 0) {
+                          $available = getAvailableQuestionsCount($conn, explode(',', $chapter_ids));
+                          if ($available['mcq'] > 0) {
+                              $typea = 1;
+                          } elseif ($available['numerical'] > 0) {
+                              $typeb = 1;
+                          } elseif ($available['dropdown'] > 0) {
+                              $typec = 1;
+                          } elseif ($available['fillblanks'] > 0) {
+                              $typed = 1;
+                          } elseif ($available['short'] > 0) {
+                              $typee = 1;
+                          } elseif ($available['essay'] > 0) {
+                              $typef = 1;
+                          }
+                      }
                   }
                   $maxmarks = $typeamarks*$typea+$typebmarks*$typeb+$typecmarks*$typec+$typedmarks*$typed+$typeemarks*$typee+$typefmarks*$typef;
                   
