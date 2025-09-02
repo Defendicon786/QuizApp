@@ -798,6 +798,37 @@ function saveSelectedQuestions() {
     .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
       color: #fff;
     }
+
+    /* Dark theme for manual question selection modal */
+    #questionSelectorModal .modal-content {
+      background-color: #1e1e2f;
+      color: #fff;
+      border: 1px solid #11111a;
+    }
+    #questionSelectorModal .modal-header,
+    #questionSelectorModal .modal-footer {
+      border-color: #11111a;
+    }
+    #questionSelectorModal .modal-title {
+      color: #fff;
+    }
+    #questionSelectorModal .close {
+      color: #fff;
+      opacity: 1;
+    }
+    #questionSelectorModal .nav-tabs {
+      border-bottom: 1px solid #11111a;
+    }
+    #questionSelectorModal .nav-tabs .nav-link {
+      background-color: #11111a;
+      color: #fff;
+      border: 1px solid #1e1e2f;
+      margin-right: 2px;
+    }
+    #questionSelectorModal .nav-tabs .nav-link.active {
+      background-color: #1e1e2f;
+      border-color: #1e1e2f;
+    }
   </style>
   <script>
     function marks() {
