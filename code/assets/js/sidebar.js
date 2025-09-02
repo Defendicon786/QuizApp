@@ -6,11 +6,8 @@ function initSidebar() {
   toggles.forEach(function (toggle) {
     toggle.addEventListener('click', function (e) {
       e.preventDefault();
-      if (window.innerWidth <= 768) {
-        sidebar.classList.toggle('open');
-      } else {
-        sidebar.classList.toggle('collapsed');
-      }
+      sidebar.classList.toggle('open');
+      sidebar.classList.toggle('collapsed');
     });
   });
 }
