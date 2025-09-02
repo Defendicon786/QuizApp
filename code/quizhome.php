@@ -26,6 +26,38 @@ try {
     header("location: index.php");
     exit;
 }
+
+// If a student is logged in, verify that a quiz is available
+if (isset($_SESSION['studentloggedin']) && $_SESSION['studentloggedin'] === true) {
+    $class_id = isset($_SESSION['class_id']) ? $_SESSION['class_id'] : null;
+    $section = isset($_SESSION['section']) ? $_SESSION['section'] : null;
+    $rollnumber = isset($_SESSION['rollnumber']) ? $_SESSION['rollnumber'] : null;
+
+    if ($class_id && $rollnumber) {
+        $quiz_sql = "SELECT quizid FROM quizconfig
+                     WHERE endtime >= NOW()
+                       AND class_id = ?
+                       AND (section IS NULL OR LOWER(section) = LOWER(?))
+                       AND (
+                           SELECT COUNT(*) FROM quizrecord qr
+                           WHERE qr.quizid = quizconfig.quizid
+                             AND qr.rollnumber = ?
+                       ) < attempts
+                     LIMIT 1";
+        $stmt_quiz = $conn->prepare($quiz_sql);
+        $section_param = $section ? $section : '';
+        $stmt_quiz->bind_param('isi', $class_id, $section_param, $rollnumber);
+        $stmt_quiz->execute();
+        $result_quiz = $stmt_quiz->get_result();
+        $stmt_quiz->close();
+
+        if (!$result_quiz || $result_quiz->num_rows === 0) {
+            $_SESSION['no_quiz_message'] = 'No quiz is currently available.';
+            header('Location: studenthome.php');
+            exit;
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

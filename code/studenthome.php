@@ -7,6 +7,13 @@
 
   include("database.php");
 
+  // Display message if redirected without available quiz
+  $message = '';
+  if (isset($_SESSION['no_quiz_message'])) {
+    $message = $_SESSION['no_quiz_message'];
+    unset($_SESSION['no_quiz_message']);
+  }
+
   // If no class_id in session, map from department
   if (!isset($_SESSION['class_id']) && isset($_SESSION['department'])) {
     $department_to_class = array(
@@ -94,6 +101,41 @@
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,700|Material+Icons" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="./assets/css/sidebar.css" rel="stylesheet" />
+  <style>
+    .dashboard-cards {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .dashboard-cards .card {
+      background: #1e1e2f;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      flex: 1;
+    }
+    .dashboard-cards .card-body {
+      padding: 20px;
+      text-align: center;
+    }
+    .dashboard-cards .card i {
+      font-size: 48px;
+      color: #1a73e8;
+    }
+    .dashboard-cards .btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #1a73e8;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .dashboard-cards .btn:hover {
+      background-color: #1557b0;
+    }
+  </style>
 </head>
 <body>
 <div class="layout">
@@ -101,12 +143,33 @@
   <div class="main">
     <?php include './includes/header.php'; ?>
     <main class="content">
+      <?php if ($message): ?>
+        <div class="alert alert-warning"><?php echo htmlspecialchars($message); ?></div>
+      <?php endif; ?>
       <h1>Welcome to the Student Portal</h1>
       <?php if ($upcoming_quiz): ?>
         <p>Upcoming quiz: <strong><?php echo htmlspecialchars($upcoming_quiz['quizname']); ?></strong> on <?php echo htmlspecialchars($upcoming_quiz['starttime']); ?></p>
       <?php else: ?>
         <p>No upcoming quizzes.</p>
       <?php endif; ?>
+      <div class="dashboard-cards">
+        <div class="card">
+          <div class="card-body">
+            <i class="material-icons">assignment</i>
+            <h4 class="card-title">Take Quiz</h4>
+            <p class="card-text">Start your quiz now</p>
+            <a href="quizhome.php" class="btn">Start Quiz</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <i class="material-icons">assessment</i>
+            <h4 class="card-title">My Results</h4>
+            <p class="card-text">View your quiz results and performance</p>
+            <a href="my_results.php" class="btn">View Results</a>
+          </div>
+        </div>
+      </div>
     </main>
   </div>
 </div>
