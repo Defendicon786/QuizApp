@@ -97,11 +97,8 @@ $conn->close();
     <?php include './includes/header.php'; ?>
     <main class="content">
     <div class="wrapper">
-        <div class="main main-raised">
+        <div class="main main-raised" style="margin-top: 0;">
             <div class="container">
-                <div class="section text-center">
-                    <h2 class="title">Manage Instructors</h2>
-                </div>
                 <div class="section">
                     <div class="row">
                         <div class="col-md-8 ml-auto mr-auto">
