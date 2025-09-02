@@ -755,6 +755,100 @@ function saveSelectedQuestions() {
   <link href="./assets/css/sidebar.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
   <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
+  <style>
+    /* Dark dropdowns for class/subject/section/chapter/topic selection */
+    #class_id,
+    #subject_id,
+    #section_id,
+    #chapter_ids,
+    #topic_ids {
+      background-color: #11111a;
+      color: #fff;
+    }
+    #class_id option,
+    #subject_id option,
+    #section_id option,
+    #chapter_ids option,
+    #topic_ids option {
+      background-color: #11111a;
+      color: #fff;
+    }
+    .select2-container--default .select2-selection--single,
+    .select2-container--default .select2-selection--multiple {
+      background-color: #11111a;
+      color: #fff;
+      border: 1px solid #11111a;
+    }
+    .select2-dropdown,
+    .select2-search__field,
+    .select2-results__option {
+      background-color: #11111a;
+      color: #fff;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered,
+    .select2-container--default .select2-selection--single .select2-selection__placeholder,
+    .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+      color: #fff;
+    }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+      background-color: #11111a;
+      border: 1px solid #11111a;
+      color: #fff;
+    }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+      color: #fff;
+    }
+
+    /* Dark theme for manual question selection modal */
+    #questionSelectorModal .modal-content {
+      background-color: #1e1e2f;
+      color: #fff;
+      border: 1px solid #11111a;
+    }
+    #questionSelectorModal .modal-header,
+    #questionSelectorModal .modal-footer {
+      border-color: #11111a;
+    }
+    #questionSelectorModal .modal-title {
+      color: #fff;
+    }
+    #questionSelectorModal .close {
+      color: #fff;
+      opacity: 1;
+    }
+    #questionSelectorModal .nav-tabs {
+      border-bottom: 1px solid #11111a;
+    }
+    #questionSelectorModal .nav-tabs .nav-link {
+      background-color: #11111a;
+      color: #fff;
+      border: 1px solid #1e1e2f;
+      margin-right: 2px;
+    }
+    #questionSelectorModal .nav-tabs .nav-link.active {
+      background-color: #1e1e2f;
+      border-color: #1e1e2f;
+    }
+
+    /* Ensure checkboxes in manual selection modal are visible */
+    #questionSelectorModal .form-check-input {
+      position: static;
+      margin: 0 0.5rem 0 0;
+      width: 1rem;
+      height: 1rem;
+      opacity: 1;
+      -webkit-appearance: checkbox;
+      appearance: checkbox;
+      accent-color: #0d6efd;
+      background-color: transparent;
+      border: 2px solid #fff;
+    }
+    #questionSelectorModal .form-check-label {
+      display: flex;
+      align-items: center;
+      color: #fff;
+    }
+  </style>
   <script>
     function marks() {
         var xa = document.getElementById("typea").value;
@@ -1687,18 +1781,7 @@ function saveSelectedQuestions() {
     </div> <!-- section -->
   </div> <!-- container -->
 </div> <!-- main -->
-<footer class="footer footer-default">
-  <div class="container">
-    <div class="copyright text-center">
-      <div class="department">A Project of StudyHT.com</div>
-      <div class="designer">Designed and Developed by Sir Hassan Tariq</div>
-      <div class="year">
-        &copy; <script>document.write(new Date().getFullYear())</script>
-      </div>
-    </div>
-  </div>
- </footer>
- </div> <!-- wrapper -->
+</div> <!-- wrapper -->
     </main>
   </div>
 </div>

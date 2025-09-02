@@ -600,20 +600,56 @@ function getChapters($conn, $class_id, $subject_id) {
     <link href="./assets/css/modern.css" rel="stylesheet" />
     <link href="./assets/css/navbar.css" rel="stylesheet" />
     <link href="./assets/css/portal.css" rel="stylesheet" />
-  <link href="./assets/css/manage.css" rel="stylesheet" />
-  <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
-</head>
-<body class="dark-mode">
-<div class="layout">
-  <?php include './includes/sidebar.php'; ?>
-  <div class="main">
-    <?php include './includes/header.php'; ?>
-    <main class="content">
-    <div class="page-header header-filter" style="background-image: url('./assets/img/bg2.jpg'); background-size: cover; background-position: top center;">
+    <link href="./assets/css/manage.css" rel="stylesheet" />
+    <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
+    <style>
+      /* Match page background with sidebar logo color */
+      body.dark-mode,
+      .layout,
+      .main,
+      main.content,
+      .page-header {
+        background-color: #11111a !important;
+      }
+      .tab-structure-row .nav-link {
+        color: #fff !important;
+      }
+      .clear-filter::before,
+      .clear-filter::after {
+        background: none !important;
+      }
+      .card.card-login {
+        background: #1e1e2f !important;
+        box-shadow: none;
+      }
+      /* Dark dropdowns for class/subject/chapter/topic selection */
+      select[id^="class_id_"],
+      select[id^="subject_id_"],
+      select[id^="chapter_id_"],
+      select[id^="topic_id_"] {
+        background-color: #1e1e2f;
+        color: #fff;
+      }
+      select[id^="class_id_"] option,
+      select[id^="subject_id_"] option,
+      select[id^="chapter_id_"] option,
+      select[id^="topic_id_"] option {
+        background-color: #1e1e2f;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body class="dark-mode">
+    <div class="layout">
+      <?php include './includes/sidebar.php'; ?>
+      <div class="main">
+        <?php include './includes/header.php'; ?>
+        <main class="content">
+          <div class="page-header header-filter clear-filter" style="background-color: #11111a;">
       <div class="container" style="padding-top: 20px;">
       <div class="row" style="margin-bottom: 50px; position: relative; z-index: 2;">
         <div class="col-lg-10 col-md-10 ml-auto mr-auto">
-          <div class="card card-login">
+          <div class="card card-login" style="background-color:#1e1e2f;">
               <div class="card-header card-header-primary text-center">
                 <h4 class="card-title"><?php echo htmlspecialchars($page_title); ?></h4>
               </div>
@@ -622,12 +658,12 @@ function getChapters($conn, $class_id, $subject_id) {
               <div class="row tab-structure-row">
                 <div class="col-md-4">
                   <ul class="nav nav-pills nav-pills-rose flex-column">
-                    <li class="nav-item"><a class="nav-link <?php echo $active1;?>" href="#tab1" data-toggle="tab" data-qtype="a">MCQ Questions</a></li>
-                    <li class="nav-item"><a class="nav-link <?php echo $active2;?>" href="#tab2" data-toggle="tab" data-qtype="b">Numerical Type</a></li>
-                    <li class="nav-item"><a class="nav-link <?php echo $active3;?>" href="#tab3" data-toggle="tab" data-qtype="c">Drop Down</a></li>
-                    <li class="nav-item"><a class="nav-link <?php echo $active4;?>" href="#tab4" data-toggle="tab" data-qtype="d">Fill in the blank</a></li>
-                    <li class="nav-item"><a class="nav-link <?php echo $active5;?>" href="#tab5" data-toggle="tab" data-qtype="e">Short Answer Type</a></li>
-                    <li class="nav-item"><a class="nav-link <?php echo $active6;?>" href="#tab6" data-toggle="tab" data-qtype="f">Essay Type</a></li>
+                    <li class="nav-item"><a class="nav-link text-white <?php echo $active1;?>" href="#tab1" data-toggle="tab" data-qtype="a">MCQ Questions</a></li>
+                    <li class="nav-item"><a class="nav-link text-white <?php echo $active2;?>" href="#tab2" data-toggle="tab" data-qtype="b">Numerical Type</a></li>
+                    <li class="nav-item"><a class="nav-link text-white <?php echo $active3;?>" href="#tab3" data-toggle="tab" data-qtype="c">Drop Down</a></li>
+                    <li class="nav-item"><a class="nav-link text-white <?php echo $active4;?>" href="#tab4" data-toggle="tab" data-qtype="d">Fill in the blank</a></li>
+                    <li class="nav-item"><a class="nav-link text-white <?php echo $active5;?>" href="#tab5" data-toggle="tab" data-qtype="e">Short Answer Type</a></li>
+                    <li class="nav-item"><a class="nav-link text-white <?php echo $active6;?>" href="#tab6" data-toggle="tab" data-qtype="f">Essay Type</a></li>
                   </ul>
                 </div>
                 <div class="col-md-8 tab-content-pane">
@@ -1126,17 +1162,6 @@ function getChapters($conn, $class_id, $subject_id) {
     </div>
   </div>
 </div>
-  <footer class="footer footer-default">
-    <div class="container">
-      <div class="copyright text-center">
-        <div class="department">A Project of StudyHT.com</div>
-        <div class="designer">Designed and Developed by Sir Hassan Tariq</div>
-        <div class="year">
-          &copy; <script>document.write(new Date().getFullYear())</script>
-        </div>
-      </div>
-    </div>
-  </footer>
   <!--   Core JS Files   -->
   <script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>
   <script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
