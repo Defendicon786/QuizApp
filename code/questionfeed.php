@@ -603,13 +603,13 @@ function getChapters($conn, $class_id, $subject_id) {
     <link href="./assets/css/manage.css" rel="stylesheet" />
     <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
     <style>
-      /* Ensure page background is solid black like other manage pages */
+      /* Match page background with sidebar logo color */
       body.dark-mode,
       .layout,
       .main,
       main.content,
       .page-header {
-        background-color: #000 !important;
+        background-color: #11111a !important;
       }
       .tab-structure-row .nav-link {
         color: #fff !important;
@@ -645,7 +645,7 @@ function getChapters($conn, $class_id, $subject_id) {
       <div class="main">
         <?php include './includes/header.php'; ?>
         <main class="content">
-          <div class="page-header header-filter clear-filter" style="background-color: #000;">
+          <div class="page-header header-filter clear-filter" style="background-color: #11111a;">
       <div class="container" style="padding-top: 20px;">
       <div class="row" style="margin-bottom: 50px; position: relative; z-index: 2;">
         <div class="col-lg-10 col-md-10 ml-auto mr-auto">
