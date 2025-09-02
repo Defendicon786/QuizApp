@@ -784,6 +784,7 @@ $stmt->close();
             color: #fff;
             background: #1e1e2f;
             border-bottom: 1px solid #11111a;
+            box-shadow: 0 4px 20px 0 rgba(0,0,0,0.14), 0 7px 10px -5px rgba(0,150,136,0.4);
         }
         .card-header.card-header-primary a {
             display: flex;
