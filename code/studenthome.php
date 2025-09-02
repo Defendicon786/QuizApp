@@ -135,6 +135,9 @@
     .dashboard-cards .btn:hover {
       background-color: #1557b0;
     }
+    .upcoming-quiz {
+      color: #1a73e8;
+    }
   </style>
 </head>
 <body>
@@ -148,9 +151,9 @@
       <?php endif; ?>
       <h1>Welcome to the Student Portal</h1>
       <?php if ($upcoming_quiz): ?>
-        <p>Upcoming quiz: <strong><?php echo htmlspecialchars($upcoming_quiz['quizname']); ?></strong> on <?php echo htmlspecialchars($upcoming_quiz['starttime']); ?></p>
+        <p class="upcoming-quiz">Upcoming quiz: <strong><?php echo htmlspecialchars($upcoming_quiz['quizname']); ?></strong> on <?php echo htmlspecialchars($upcoming_quiz['starttime']); ?></p>
       <?php else: ?>
-        <p>No upcoming quizzes.</p>
+        <p class="upcoming-quiz">No upcoming quizzes.</p>
       <?php endif; ?>
       <div class="dashboard-cards">
         <div class="card">
