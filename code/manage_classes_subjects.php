@@ -740,25 +740,46 @@ $stmt->close();
         .accordion {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 10px;
         }
         .section {
-            flex: 1 1 calc(50% - 20px);
+            flex: 1 1 calc(50% - 10px);
             background: transparent;
         }
         @media (max-width: 768px) {
             .section { flex: 1 1 100%; }
         }
-        .card { margin-bottom: 15px; background-color: #1e1e1e; }
+        .card {
+            margin-bottom: 10px;
+            background-color: #1e1e1e;
+            color: #fff;
+        }
         .add-form { margin-bottom: 10px; }
-        .list-group-item { display: flex; justify-content: space-between; align-items: center; padding: 4px 10px; }
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 10px;
+            background-color: transparent;
+            color: #fff;
+        }
+        .section .form-control {
+            background-color: #2d2d2d;
+            color: #fff;
+            border-color: #444;
+        }
+        .section .form-control::placeholder {
+            color: #bbb;
+        }
         .delete-btn { color: #dc3545; cursor: pointer; }
         .delete-btn:hover { color: #c82333; }
         .card-header.card-header-primary {
             padding: 6px 10px;
+            color: #fff;
         }
         .card-header.card-header-primary a {
             display: block;
+            color: #fff;
         }
         .card-header.card-header-primary .card-title {
             font-size: 1rem;
@@ -766,6 +787,7 @@ $stmt->close();
         .accordion .card-body {
             font-size: 0.85rem;
             padding: 10px 15px;
+            color: #fff;
         }
     </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
