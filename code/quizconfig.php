@@ -755,6 +755,37 @@ function saveSelectedQuestions() {
   <link href="./assets/css/sidebar.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
   <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
+  <style>
+    /* Dark dropdowns for class/subject/section/chapter/topic selection */
+    #class_id,
+    #subject_id,
+    #section_id,
+    #chapter_ids,
+    #topic_ids {
+      background-color: #1e1e2f;
+      color: #fff;
+    }
+    #class_id option,
+    #subject_id option,
+    #section_id option,
+    #chapter_ids option,
+    #topic_ids option {
+      background-color: #1e1e2f;
+      color: #fff;
+    }
+    .select2-container--default .select2-selection--single,
+    .select2-container--default .select2-selection--multiple {
+      background-color: #1e1e2f;
+      color: #fff;
+      border: 1px solid #1e1e2f;
+    }
+    .select2-dropdown,
+    .select2-search__field,
+    .select2-results__option {
+      background-color: #1e1e2f;
+      color: #fff;
+    }
+  </style>
   <script>
     function marks() {
         var xa = document.getElementById("typea").value;
