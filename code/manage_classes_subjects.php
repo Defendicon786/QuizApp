@@ -731,8 +731,14 @@ $stmt->close();
         }
 
         /* Additional Styles */
+        .content {
+            padding-top: 5px;
+        }
+        .container-fluid {
+            padding-top: 5px;
+        }
         .main-raised {
-            margin-top: 20px;
+            margin-top: 5px;
             min-height: calc(100vh - 200px);
             background: transparent;
             box-shadow: none;
@@ -740,17 +746,17 @@ $stmt->close();
         .accordion {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 2px;
         }
         .section {
-            flex: 1 1 calc(50% - 6px);
+            flex: 1 1 calc(50% - 2px);
             background: transparent;
         }
         @media (max-width: 768px) {
             .section { flex: 1 1 100%; }
         }
         .card {
-            margin-bottom: 6px;
+            margin-bottom: 2px;
             background-color: #1e1e1e;
             color: #fff;
         }
