@@ -1,6 +1,7 @@
 .togglebutton {
   vertical-align: middle;
   &, label, input, .toggle {
+    -webkit-user-select: none;
     user-select: none;
   }
   label {
