@@ -613,6 +613,10 @@ function getChapters($conn, $class_id, $subject_id) {
       .clear-filter::after {
         background: none !important;
       }
+      .card.card-login {
+        background: transparent !important;
+        box-shadow: none;
+      }
     </style>
   </head>
   <body class="dark-mode">
