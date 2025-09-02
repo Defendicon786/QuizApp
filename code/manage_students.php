@@ -332,44 +332,58 @@ $conn->close();
         .btn-sm i {
             font-size: 18px;
         }
-        
+
+        .dark-input {
+            background-color: #1e1e2f;
+            color: #fff;
+            border: 1px solid #27293d;
+        }
+
+        .dark-input::placeholder {
+            color: #bbb;
+        }
+
         /* Select2 custom styling */
         .select2-container--default .select2-selection--single {
             height: 36px;
-            border: 1px solid #d2d2d2;
+            border: 1px solid #27293d;
             border-radius: 0;
-            background-color: transparent;
+            background-color: #1e1e2f;
             padding-top: 2px;
+            color: #fff;
         }
-        
+
         .select2-container--default .select2-selection--single .select2-selection__arrow {
             height: 36px;
         }
-        
+
         .select2-container--default .select2-selection--single .select2-selection__rendered {
-            color: #3C4858;
+            color: #fff;
             line-height: 32px;
             padding-left: 12px;
         }
-        
+
         .select2-container--default.select2-container--focus .select2-selection--single,
         .select2-container--default.select2-container--open .select2-selection--single {
             border-color: #9c27b0;
             box-shadow: 0 1px 0 0 #9c27b0;
         }
-        
+
         .select2-dropdown {
-            border: 1px solid #d2d2d2;
+            border: 1px solid #27293d;
             border-radius: 0;
+            background-color: #1e1e2f;
+            color: #fff;
         }
-        
+
         .select2-results__option {
             padding: 8px 12px;
-            color: #3C4858;
+            color: #fff;
         }
-        
+
         .select2-container--default .select2-results__option--highlighted[aria-selected] {
             background-color: #9c27b0;
+            color: #fff;
         }
         
         /* Pagination Styles */
@@ -471,13 +485,13 @@ $conn->close();
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Email</label>
-                                                    <input type="email" class="form-control" name="email" id="email" required>
+                                                    <input type="email" class="form-control dark-input" name="email" id="email" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Password</label>
-                                                    <input type="password" class="form-control" name="password" id="password">
+                                                    <input type="password" class="form-control dark-input" name="password" id="password">
                                                     <small class="form-text text-muted">Leave empty to keep existing password when editing</small>
                                                 </div>
                                             </div>
@@ -486,7 +500,7 @@ $conn->close();
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Class</label>
-                                                    <select class="form-control" name="class_id" id="class_id">
+                                                    <select class="form-control dark-input" name="class_id" id="class_id">
                                                         <option value="">Select Class</option>
                                                         <?php foreach ($classes as $class) : ?>
                                                             <option value="<?php echo htmlspecialchars($class['class_id']); ?>"><?php echo htmlspecialchars($class['class_name']); ?></option>
@@ -499,7 +513,7 @@ $conn->close();
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Section</label>
-                                                    <select class="form-control" name="section" id="section">
+                                                    <select class="form-control dark-input" name="section" id="section">
                                                         <option value="">First select a class</option>
                                                     </select>
                                                     <div id="section-loading-indicator" style="display:none; color:blue; font-size:12px; margin-top:5px;">
@@ -580,7 +594,7 @@ $conn->close();
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="bmd-label-floating">Class</label>
-                                                    <select class="form-control" name="filter_class">
+                                                    <select class="form-control dark-input" name="filter_class">
                                                         <option value="">All Classes</option>
                                                         <?php foreach ($classes as $class) : ?>
                                                             <option value="<?php echo htmlspecialchars($class['class_id']); ?>" <?php echo $filter_class == $class['class_id'] ? 'selected' : ''; ?>>
