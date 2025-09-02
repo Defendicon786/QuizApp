@@ -782,6 +782,8 @@ $stmt->close();
         .card-header.card-header-primary {
             padding: 4px 8px;
             color: #fff;
+            background-color: #2d2d2d;
+            border-bottom: 1px solid #444;
         }
         .card-header.card-header-primary a {
             display: flex;
