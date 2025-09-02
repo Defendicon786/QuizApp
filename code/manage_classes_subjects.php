@@ -732,13 +732,13 @@ $stmt->close();
 
         /* Additional Styles */
         .content {
-            padding-top: 5px;
+            padding-top: 0;
         }
         .container-fluid {
-            padding-top: 5px;
+            padding-top: 0;
         }
         .main-raised {
-            margin-top: 5px;
+            margin-top: 0;
             min-height: calc(100vh - 200px);
             background: transparent;
             box-shadow: none;
@@ -746,17 +746,17 @@ $stmt->close();
         .accordion {
             display: flex;
             flex-wrap: wrap;
-            gap: 2px;
+            gap: 0;
         }
         .section {
-            flex: 1 1 calc(50% - 2px);
+            flex: 1 1 50%;
             background: transparent;
         }
         @media (max-width: 768px) {
             .section { flex: 1 1 100%; }
         }
         .card {
-            margin-bottom: 2px;
+            margin-bottom: 1px;
             background-color: #1e1e1e;
             color: #fff;
         }
@@ -780,7 +780,7 @@ $stmt->close();
         .delete-btn { color: #dc3545; cursor: pointer; }
         .delete-btn:hover { color: #c82333; }
         .card-header.card-header-primary {
-            padding: 6px 10px;
+            padding: 4px 8px;
             color: #fff;
         }
         .card-header.card-header-primary a {
@@ -788,11 +788,13 @@ $stmt->close();
             color: #fff;
         }
         .card-header.card-header-primary .card-title {
-            font-size: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.2;
+            margin: 0;
         }
         .accordion .card-body {
             font-size: 0.85rem;
-            padding: 10px 15px;
+            padding: 8px 12px;
             color: #fff;
         }
     </style>
