@@ -1187,7 +1187,7 @@ $stmt->close();
                                     <form class="add-form" method="post">
                                         <input type="hidden" name="action" value="add_chapter">
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <select class="form-control" name="class_id" required>
                                                     <option value="">Select Class</option>
                                                     <?php foreach ($classes as $class): ?>
@@ -1195,7 +1195,7 @@ $stmt->close();
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <select class="form-control" name="subject_id" required>
                                                     <option value="">Select Subject</option>
                                                     <?php foreach ($subjects as $subject): ?>
@@ -1204,12 +1204,10 @@ $stmt->close();
                                                 </select>
                                             </div>
                                             <div class="col-md-4">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" name="chapter_name" placeholder="Enter chapter name" required>
-                                                    <div class="input-group-append">
-                                                        <button type="submit" class="btn btn-primary">Add Chapter</button>
-                                                    </div>
-                                                </div>
+                                                <input type="text" class="form-control" name="chapter_name" placeholder="Enter chapter name" required>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button type="submit" class="btn btn-primary btn-block">Add Chapter</button>
                                             </div>
                                         </div>
                                     </form>
@@ -1231,7 +1229,7 @@ $stmt->close();
                                     <form class="add-form" method="post">
                                         <input type="hidden" name="action" value="add_topic">
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <select class="form-control" name="class_id" id="add-topic-class" required>
                                                     <option value="">Select Class</option>
                                                     <?php foreach ($classes as $class): ?>
@@ -1239,21 +1237,21 @@ $stmt->close();
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <select class="form-control" name="subject_id" id="add-topic-subject" required>
                                                     <option value="">Select Subject</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-4">
-                                                <div class="input-group">
-                                                    <select class="form-control" name="chapter_id" id="add-topic-chapter" required>
-                                                        <option value="">Select Chapter</option>
-                                                    </select>
-                                                    <input type="text" class="form-control ml-2" name="topic_name" placeholder="Enter topic name" required>
-                                                    <div class="input-group-append">
-                                                        <button type="submit" class="btn btn-primary">Add Topic</button>
-                                                    </div>
-                                                </div>
+                                            <div class="col-md-3">
+                                                <select class="form-control" name="chapter_id" id="add-topic-chapter" required>
+                                                    <option value="">Select Chapter</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" class="form-control" name="topic_name" placeholder="Enter topic name" required>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <button type="submit" class="btn btn-primary btn-block">Add Topic</button>
                                             </div>
                                         </div>
                                     </form>
