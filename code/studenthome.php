@@ -7,6 +7,13 @@
 
   include("database.php");
 
+  // Display message if redirected without available quiz
+  $message = '';
+  if (isset($_SESSION['no_quiz_message'])) {
+    $message = $_SESSION['no_quiz_message'];
+    unset($_SESSION['no_quiz_message']);
+  }
+
   // If no class_id in session, map from department
   if (!isset($_SESSION['class_id']) && isset($_SESSION['department'])) {
     $department_to_class = array(
@@ -101,6 +108,9 @@
   <div class="main">
     <?php include './includes/header.php'; ?>
     <main class="content">
+      <?php if ($message): ?>
+        <div class="alert alert-warning"><?php echo htmlspecialchars($message); ?></div>
+      <?php endif; ?>
       <h1>Welcome to the Student Portal</h1>
       <?php if ($upcoming_quiz): ?>
         <p>Upcoming quiz: <strong><?php echo htmlspecialchars($upcoming_quiz['quizname']); ?></strong> on <?php echo htmlspecialchars($upcoming_quiz['starttime']); ?></p>
