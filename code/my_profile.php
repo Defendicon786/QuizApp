@@ -91,86 +91,9 @@ $conn->close();
     <link href="./assets/css/modern.css" rel="stylesheet" />
     <link href="./assets/css/navbar.css" rel="stylesheet" />
     <link href="./assets/css/portal.css" rel="stylesheet" />
+    <link href="./assets/css/manage.css" rel="stylesheet" />
     <link href="./assets/css/sidebar.css" rel="stylesheet" />
-    <style>
-        .navbar {
-            transition: all 0.3s ease;
-            padding-top: 20px !important;
-            background-color: #fff !important;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            height: 60px;
-        }
-        
-        .navbar-brand {
-            color: #333 !important;
-            font-weight: 600;
-            font-size: 1.3rem;
-            padding: 0 15px;
-        }
-        
-        .nav-link {
-        white-space: nowrap;
-            color: #333 !important;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-weight: 500;
-            padding: 8px 15px !important;
-        }
-        
-        .nav-link i {
-            font-size: 18px;
-            color: #333;
-        }
-        
-        .main-raised {
-            margin-top: 80px !important;
-        }
-        
-        .profile-card {
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        
-        .footer {
-            padding: 30px 0;
-            margin-top: 50px;
-            background: #f8f9fa;
-            border-top: 1px solid #eee;
-        }
-        
-        .footer .copyright {
-            color: #555;
-            font-size: 14px;
-            line-height: 1.8;
-        }
-        
-        .footer .copyright strong {
-            font-weight: 600;
-            color: #333;
-        }
-        
-        .footer .copyright .department {
-            color: #1a73e8;
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-        
-        .footer .copyright .designer {
-            font-style: italic;
-            margin: 5px 0;
-        }
-        
-        .footer .copyright .year {
-            background: #1a73e8;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            display: inline-block;
-            margin-top: 5px;
-        }
-    </style>
-<link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
+    <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
 <body class="dark-mode">
 <div class="layout">

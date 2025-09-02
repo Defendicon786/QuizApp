@@ -190,3 +190,59 @@
 /* Form group spacing */
 .form-group { margin-bottom: 20px; }
 
+/* Notification management styles */
+.notification-form {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.notification-table {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.status-toggle { cursor: pointer; }
+
+.active-badge {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.inactive-badge {
+    background-color: #F44336;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.notification-message {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+}
+
+.tooltip-content {
+    display: none;
+    position: absolute;
+    background: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 3px;
+    z-index: 100;
+    max-width: 300px;
+    white-space: normal;
+    font-size: 12px;
+}
+
+.notification-message:hover .tooltip-content {
+    display: block;
+}
+
