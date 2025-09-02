@@ -101,64 +101,9 @@
   <link href="./assets/css/modern.css" rel="stylesheet" />
   <link href="./assets/css/navbar.css" rel="stylesheet" />
   <link href="./assets/css/portal.css" rel="stylesheet" />
+  <link href="./assets/css/manage.css" rel="stylesheet" />
   <link href="./assets/css/sidebar.css" rel="stylesheet" />
   <link href="./assets/demo/demo.css" rel="stylesheet" />
-  <style>
-    .notification-form {
-      background-color: #f8f9fa;
-      padding: 20px;
-      border-radius: 5px;
-      margin-bottom: 30px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    
-    .notification-table {
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    
-    .status-toggle {
-      cursor: pointer;
-    }
-    
-    .active-badge {
-      background-color: #4CAF50;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 3px;
-      font-size: 12px;
-    }
-    
-    .inactive-badge {
-      background-color: #F44336;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 3px;
-      font-size: 12px;
-    }
-    
-    .notification-message {
-      max-width: 300px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    
-    .tooltip-content {
-      display: none;
-      position: absolute;
-      background: #333;
-      color: #fff;
-      padding: 5px 10px;
-      border-radius: 3px;
-      z-index: 100;
-      max-width: 300px;
-      white-space: normal;
-    }
-    
-    .notification-message:hover .tooltip-content {
-      display: block;
-    }
-  </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
 
