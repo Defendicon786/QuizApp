@@ -142,7 +142,7 @@ if ($selected_quiz_number > 0) {
                 // Add export links with student-specific parameter
                 $student_pdf_link = 'direct_export.php?quiz_id=' . $selected_quiz_number . '&student=' . $row['rollnumber'] . '&attempt=' . $row['attempt'] . '&student_specific=1';
 
-                $quiz_results_html .= '<tr class="' . $row_class . '">
+                $quiz_results_html .= '<tr class="' . $row_class . ' text-dark">
                     <td>' . $serial_number++ . '</td>
                     <td>' . htmlspecialchars($row['class_name'] ?? 'N/A') . '</td>
                     <td>' . htmlspecialchars($row['section_name'] ?? 'N/A') . '</td>
