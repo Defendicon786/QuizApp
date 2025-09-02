@@ -730,69 +730,25 @@ $stmt->close();
             }
         }
 
-        /* Footer Styles */
-        .footer {
-            padding: 30px 0;
-            margin-top: 50px;
-            background: #f8f9fa;
-            border-top: 1px solid #eee;
-            position: relative;
-            width: 100%;
-            bottom: 0;
-        }
-        
-        .footer .copyright {
-            color: #555;
-            font-size: 14px;
-            line-height: 1.8;
-        }
-        
-        .footer .copyright strong {
-            font-weight: 600;
-            color: #333;
-        }
-        
-        .footer .copyright .department {
-            color: #1a73e8;
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-        
-        .footer .copyright .designer {
-            font-style: italic;
-            margin: 5px 0;
-        }
-        
-        .footer .copyright .year {
-            background: #1a73e8;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            display: inline-block;
-            margin-top: 5px;
-        }
-        
-        @media (max-width: 768px) {
-            .footer {
-                padding: 20px 0;
-                margin-top: 30px;
-            }
-            
-            .footer .copyright {
-                font-size: 12px;
-            }
-        }
-
         /* Additional Styles */
-        .main-raised { 
+        .main-raised {
             margin-top: 80px;
             min-height: calc(100vh - 200px);
         }
-        .card { margin-bottom: 30px; }
-        .add-form { margin-bottom: 20px; }
-        .list-group-item { display: flex; justify-content: space-between; align-items: center; }
+        .card { margin-bottom: 15px; }
+        .add-form { margin-bottom: 10px; }
+        .list-group-item { display: flex; justify-content: space-between; align-items: center; padding: 4px 10px; }
         .delete-btn { color: #dc3545; cursor: pointer; }
         .delete-btn:hover { color: #c82333; }
+        .accordion .card-header a {
+            display: block;
+            font-size: 0.9rem;
+            padding: 8px 15px;
+        }
+        .accordion .card-body {
+            font-size: 0.85rem;
+            padding: 10px 15px;
+        }
     </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
@@ -804,19 +760,20 @@ $stmt->close();
     <main class="content">
     <div class="wrapper">
         <div class="main main-raised">
-            <div class="container">
-                <div class="section text-center">
-                    <h2 class="title">Manage Classes & Subjects</h2>
-                    <?php if (!empty($feedback_message)) echo $feedback_message; ?>
-                </div>
+            <div class="container-fluid">
+                <?php if (!empty($feedback_message)) echo $feedback_message; ?>
+                <div class="accordion" id="manageAccordion">
                 <div class="section">
                     <div class="row">
                         <!-- Classes Management -->
-                        <div class="col-md-6">
+                        <div class="col-12">
                             <div class="card">
-                                <div class="card-header card-header-primary">
-                                    <h4 class="card-title">Classes</h4>
+                                <div class="card-header card-header-primary" id="headingClasses">
+                                    <h4 class="card-title mb-0">
+                                        <a class="d-block text-left" data-toggle="collapse" href="#collapseClasses" aria-expanded="false" aria-controls="collapseClasses">Classes</a>
+                                    </h4>
                                 </div>
+                                <div id="collapseClasses" class="collapse" data-parent="#manageAccordion">
                                 <div class="card-body">
                                     <form class="add-form" method="post">
                                         <input type="hidden" name="action" value="add_class">
@@ -889,15 +846,19 @@ $stmt->close();
                                     </nav>
                                     <?php endif; ?>
                                 </div>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Subjects Management -->
-                        <div class="col-md-6">
+                        <div class="col-12">
                             <div class="card">
-                                <div class="card-header card-header-primary">
-                                    <h4 class="card-title">Subjects</h4>
+                                <div class="card-header card-header-primary" id="headingSubjects">
+                                    <h4 class="card-title mb-0">
+                                        <a class="d-block text-left" data-toggle="collapse" href="#collapseSubjects" aria-expanded="false" aria-controls="collapseSubjects">Subjects</a>
+                                    </h4>
                                 </div>
+                                <div id="collapseSubjects" class="collapse" data-parent="#manageAccordion">
                                 <div class="card-body">
                                     <form class="add-form" method="post">
                                         <input type="hidden" name="action" value="add_subject">
@@ -949,7 +910,7 @@ $stmt->close();
                                                 </a>
                                             </li>
                                             <?php endif; ?>
-                                            
+
                                             <?php for ($i = 1; $i <= $total_pages_subjects; $i++): ?>
                                             <li class="page-item <?php echo ($i == $current_page) ? 'active' : ''; ?>">
                                                 <a class="page-link" href="?<?php echo http_build_query(array_merge($_GET, ['page' => $i])); ?>">
@@ -957,7 +918,7 @@ $stmt->close();
                                                 </a>
                                             </li>
                                             <?php endfor; ?>
-                                            
+
                                             <?php if ($current_page < $total_pages_subjects): ?>
                                             <li class="page-item">
                                                 <a class="page-link" href="?<?php echo http_build_query(array_merge($_GET, ['page' => ($current_page + 1)])); ?>">
@@ -970,19 +931,23 @@ $stmt->close();
                                     </nav>
                                     <?php endif; ?>
                                 </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Sections Management -->
                 <div class="section">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-12">
                             <div class="card">
-                                <div class="card-header card-header-primary">
-                                    <h4 class="card-title">Class Sections</h4>
+                                <div class="card-header card-header-primary" id="headingSections">
+                                    <h4 class="card-title mb-0">
+                                        <a class="d-block text-left" data-toggle="collapse" href="#collapseSections" aria-expanded="false" aria-controls="collapseSections">Class Sections</a>
+                                    </h4>
                                 </div>
+                                <div id="collapseSections" class="collapse" data-parent="#manageAccordion">
                                 <div class="card-body">
                                     <form class="add-form" method="post">
                                         <input type="hidden" name="action" value="add_section">
@@ -1094,6 +1059,7 @@ $stmt->close();
                                         </div>
                                     </div>
                                 </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1102,11 +1068,14 @@ $stmt->close();
                 <!-- Add Chapter -->
                 <div class="section">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-12">
                             <div class="card">
-                                <div class="card-header card-header-primary">
-                                    <h4 class="card-title">Add New Chapter</h4>
+                                <div class="card-header card-header-primary" id="headingAddChapter">
+                                    <h4 class="card-title mb-0">
+                                        <a class="d-block text-left" data-toggle="collapse" href="#collapseAddChapter" aria-expanded="false" aria-controls="collapseAddChapter">Add New Chapter</a>
+                                    </h4>
                                 </div>
+                                <div id="collapseAddChapter" class="collapse" data-parent="#manageAccordion">
                                 <div class="card-body">
                                     <form class="add-form" method="post">
                                         <input type="hidden" name="action" value="add_chapter">
@@ -1138,6 +1107,7 @@ $stmt->close();
                                         </div>
                                     </form>
                                 </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1146,11 +1116,14 @@ $stmt->close();
                 <!-- Add Topic -->
                 <div class="section">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-12">
                             <div class="card">
-                                <div class="card-header card-header-primary">
-                                    <h4 class="card-title">Add New Topic</h4>
+                                <div class="card-header card-header-primary" id="headingAddTopic">
+                                    <h4 class="card-title mb-0">
+                                        <a class="d-block text-left" data-toggle="collapse" href="#collapseAddTopic" aria-expanded="false" aria-controls="collapseAddTopic">Add New Topic</a>
+                                    </h4>
                                 </div>
+                                <div id="collapseAddTopic" class="collapse" data-parent="#manageAccordion">
                                 <div class="card-body">
                                     <form class="add-form" method="post">
                                         <input type="hidden" name="action" value="add_topic">
@@ -1182,17 +1155,21 @@ $stmt->close();
                                         </div>
                                     </form>
                                 </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Chapters Management -->
-                <div class="col-md-12">
+                <div class="col-12">
                     <div class="card">
-                        <div class="card-header card-header-primary">
-                            <h4 class="card-title">Manage Chapters</h4>
+                        <div class="card-header card-header-primary" id="headingChapters">
+                            <h4 class="card-title mb-0">
+                                <a class="d-block text-left" data-toggle="collapse" href="#collapseChapters" aria-expanded="false" aria-controls="collapseChapters">Manage Chapters</a>
+                            </h4>
                         </div>
+                        <div id="collapseChapters" class="collapse" data-parent="#manageAccordion">
                         <div class="card-body">
                             <!-- Filter for Chapters -->
                             <div class="row mt-4 mb-3">
@@ -1285,15 +1262,19 @@ $stmt->close();
                                 <?php endif; ?>
                             </div>
                         </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Topics Management -->
-                <div class="col-md-12">
+                <div class="col-12">
                     <div class="card">
-                        <div class="card-header card-header-primary">
-                            <h4 class="card-title">Manage Topics</h4>
+                        <div class="card-header card-header-primary" id="headingTopics">
+                            <h4 class="card-title mb-0">
+                                <a class="d-block text-left" data-toggle="collapse" href="#collapseTopics" aria-expanded="false" aria-controls="collapseTopics">Manage Topics</a>
+                            </h4>
                         </div>
+                        <div id="collapseTopics" class="collapse" data-parent="#manageAccordion">
                         <div class="card-body">
                             <!-- Filter for Topics -->
                             <form method="get" class="mb-3">
@@ -1362,22 +1343,11 @@ $stmt->close();
                                 </table>
                             </div>
                         </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <footer class="footer footer-default">
-            <div class="container">
-                <div class="copyright text-center">
-                    <div class="department">A Project of StudyHT.com</div>
-                    <div class="designer">Designed and Developed by Sir Hassan Tariq</div>
-                    <div class="year">
-                        &copy; <script>document.write(new Date().getFullYear())</script>
-                    </div>
-                </div>
-            </div>
-        </footer>
     </div>
     </main>
   </div>
