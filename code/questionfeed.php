@@ -613,7 +613,7 @@ function getChapters($conn, $class_id, $subject_id) {
       .page-header {
         background-color: #11111a !important;
         margin-top: 0;
-        padding-top: 0;
+        padding-top: 60px;
         min-height: calc(100vh - 60px);
       }
       .tab-structure-row .nav-link {
