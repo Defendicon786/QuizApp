@@ -613,8 +613,24 @@ function getChapters($conn, $class_id, $subject_id) {
       .page-header {
         background-color: #11111a !important;
         margin-top: 0;
-        padding-top: 60px;
-        min-height: calc(100vh - 60px);
+        padding-top: 80px;
+        min-height: calc(100vh - 80px);
+      }
+
+      /* Ensure header spacing on tablets */
+      @media (max-width: 992px) {
+        .page-header {
+          padding-top: 100px;
+          min-height: calc(100vh - 100px);
+        }
+      }
+
+      /* Extra spacing on smaller mobile screens */
+      @media (max-width: 576px) {
+        .page-header {
+          padding-top: 120px;
+          min-height: calc(100vh - 120px);
+        }
       }
       .tab-structure-row .nav-link {
         color: #fff !important;
