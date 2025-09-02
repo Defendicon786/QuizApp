@@ -6,8 +6,10 @@ function initSidebar() {
   toggles.forEach(function (toggle) {
     toggle.addEventListener('click', function (e) {
       e.preventDefault();
-      if (window.innerWidth <= 768) {
+      var isMobile = window.matchMedia('(max-width: 768px)').matches;
+      if (isMobile) {
         sidebar.classList.toggle('open');
+        sidebar.classList.remove('collapsed');
       } else {
         sidebar.classList.toggle('collapsed');
       }
