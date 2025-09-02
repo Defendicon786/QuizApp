@@ -839,9 +839,16 @@ function saveSelectedQuestions() {
       opacity: 1;
       -webkit-appearance: checkbox;
       appearance: checkbox;
+    }
+    #questionSelectorModal .question-checkbox {
       accent-color: #0d6efd;
-      background-color: transparent;
-      border: 2px solid #fff;
+      background-color: #fff;
+      border: 2px solid #0d6efd;
+    }
+    #questionSelectorModal .select-all-checkbox {
+      accent-color: #ffc107;
+      background-color: #fff;
+      border: 2px solid #ffc107;
     }
     #questionSelectorModal .form-check-label {
       display: flex;
