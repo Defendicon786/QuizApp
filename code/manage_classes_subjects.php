@@ -757,7 +757,7 @@ $stmt->close();
         }
         .card {
             margin-bottom: 1px;
-            background-color: #1e1e1e;
+            background-color: #1e1e2f;
             color: #fff;
         }
         .add-form { margin-bottom: 10px; }
@@ -770,9 +770,9 @@ $stmt->close();
             color: #fff;
         }
         .section .form-control {
-            background-color: #2d2d2d;
+            background-color: #1e1e2f;
             color: #fff;
-            border-color: #444;
+            border-color: #27293d;
         }
         .section .form-control::placeholder {
             color: #bbb;
@@ -782,8 +782,8 @@ $stmt->close();
         .card-header.card-header-primary {
             padding: 4px 8px;
             color: #fff;
-            background: #2d2d2d;
-            border-bottom: 1px solid #444;
+            background: #1e1e2f;
+            border-bottom: 1px solid #11111a;
         }
         .card-header.card-header-primary a {
             display: flex;
