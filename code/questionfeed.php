@@ -619,7 +619,7 @@ function getChapters($conn, $class_id, $subject_id) {
         background: none !important;
       }
       .card.card-login {
-        background: transparent !important;
+        background: #1e1e2f !important;
         box-shadow: none;
       }
       /* Dark dropdowns for class/subject/chapter/topic selection */
@@ -627,6 +627,13 @@ function getChapters($conn, $class_id, $subject_id) {
       select[id^="subject_id_"],
       select[id^="chapter_id_"],
       select[id^="topic_id_"] {
+        background-color: #1e1e2f;
+        color: #fff;
+      }
+      select[id^="class_id_"] option,
+      select[id^="subject_id_"] option,
+      select[id^="chapter_id_"] option,
+      select[id^="topic_id_"] option {
         background-color: #1e1e2f;
         color: #fff;
       }
@@ -642,7 +649,7 @@ function getChapters($conn, $class_id, $subject_id) {
       <div class="container" style="padding-top: 20px;">
       <div class="row" style="margin-bottom: 50px; position: relative; z-index: 2;">
         <div class="col-lg-10 col-md-10 ml-auto mr-auto">
-          <div class="card card-login">
+          <div class="card card-login" style="background-color:#1e1e2f;">
               <div class="card-header card-header-primary text-center">
                 <h4 class="card-title"><?php echo htmlspecialchars($page_title); ?></h4>
               </div>
