@@ -1,9 +1,9 @@
-document.addEventListener('DOMContentLoaded', function () {
+(function () {
   var toggles = document.querySelectorAll('.toggle-sidebar');
   var sidebar = document.querySelector('.sidebar');
   if (!toggles.length || !sidebar) return;
 
-  Array.prototype.forEach.call(toggles, function (toggle) {
+  toggles.forEach(function (toggle) {
     toggle.addEventListener('click', function () {
       if (window.innerWidth <= 768) {
         sidebar.classList.toggle('open');
@@ -12,4 +12,4 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   });
-});
+})();
