@@ -163,315 +163,37 @@ $conn->close();
     <link href="./assets/css/modern.css" rel="stylesheet" />
     <link href="./assets/css/navbar.css" rel="stylesheet" />
     <link href="./assets/css/portal.css" rel="stylesheet" />
+    <link href="./assets/css/manage.css" rel="stylesheet" />
+    <link href="./assets/css/sidebar.css" rel="stylesheet" />
+    <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
     <style>
-        /* Fixed Navbar Styles */
-        .navbar {
-            transition: all 0.3s ease;
-            padding-top: 20px !important;
-            background-color: #fff !important;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            height: 60px;
-        }
-        
-        .navbar-brand {
-            color: #333 !important;
-            font-weight: 600;
-            font-size: 1.3rem;
-            padding: 0 15px;
-        }
-        
-        .nav-link {
-        white-space: nowrap;
-            color: #333 !important;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-weight: 500;
-            padding: 8px 15px !important;
-        }
-        
-        .nav-link i {
-            font-size: 18px;
-            color: #333;
-        }
-        
-        .navbar-toggler {
-            border: none;
-            padding: 0;
-        }
-        
-        .navbar-toggler-icon {
-            background-color: #333;
-            height: 2px;
-            margin: 4px 0;
-            display: block;
-            transition: all 0.3s ease;
-        }
-        
-        @media (max-width: 991px) {
-            .navbar .navbar-nav {
-                margin-top: 10px;
-                background: #fff;
-                border-radius: 4px;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-                padding: 10px;
-                max-height: calc(100vh - 120px);
-                overflow-y: auto;
-            }
-            
-            .navbar .nav-item {
-                margin: 5px 0;
-            }
-            
-            .nav-link {
-        white-space: nowrap;
-                color: #333 !important;
-                padding: 8px 15px !important;
-            }
-        }
-
-        /* Footer Styles */
-        .footer {
-            padding: 30px 0;
-            margin-top: 50px;
-            background: #f8f9fa;
-            border-top: 1px solid #eee;
-        }
-        
-        .footer .copyright {
-            color: #555;
-            font-size: 14px;
-            line-height: 1.8;
-        }
-        
-        .footer .copyright strong {
-            font-weight: 600;
-            color: #333;
-        }
-        
-        .footer .copyright .department {
-            color: #1a73e8;
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-        
-        .footer .copyright .designer {
-            font-style: italic;
-            margin: 5px 0;
-        }
-        
-        .footer .copyright .year {
-            background: #1a73e8;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            display: inline-block;
-            margin-top: 5px;
-        }
-        
-        /* Additional Styles */
-        .main-raised {
-            margin-top: 80px !important;
-        }
-        .section {
-            padding: 40px 0;
-        }
-        .title {
-            margin-bottom: 30px;
-        }
-        
-        .question-card {
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .question-card .card-header {
-            padding: 15px 20px;
-            border-radius: 8px 8px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .question-card .card-header-info {
-            background: linear-gradient(60deg, #26c6da, #00acc1);
-            color: white;
-        }
-        
-        .question-card .card-header-success {
-            background: linear-gradient(60deg, #66bb6a, #43a047);
-            color: white;
-        }
-        
-        .question-card .card-header-danger {
-            background: linear-gradient(60deg, #ef5350, #e53935);
-            color: white;
-        }
-        
-        .question-card .card-header-warning {
-            background: linear-gradient(60deg, #ffa726, #fb8c00);
-            color: white;
-        }
-        
-        .question-card .question-text {
-            font-size: 1.1rem;
-            font-weight: 500;
-            margin-bottom: 20px;
-        }
-        
-        .option-label {
-            display: block;
-            padding: 10px 15px;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            background-color: #f8f9fa;
-        }
-        
-        .selected-option {
-            background-color: #e3f2fd;
-            border-left: 3px solid #2196f3;
-        }
-        
-        .correct-option {
-            background-color: #e8f5e9;
-            border-left: 3px solid #4caf50;
-        }
-        
-        .incorrect-option {
-            background-color: #ffebee;
-            border-left: 3px solid #f44336;
-        }
-        
-        .answer-info {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 4px;
-            background-color: #f5f5f5;
-        }
-        
-        .student-info-card {
-            margin-bottom: 30px;
-        }
-        
-        .summary-box {
-            padding: 15px;
-            border-radius: 4px;
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-        
-        .summary-box.correct {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-        }
-        
-        .summary-box.incorrect {
-            background-color: #ffebee;
-            color: #c62828;
-        }
-        
-        .summary-box.manual {
-            background-color: #e3f2fd;
-            color: #1565c0;
-        }
-        
-        .back-button {
-            margin-bottom: 20px;
-        }
-
-        @media print {
-            .no-print {
-                display: none !important;
-            }
-        }
+        .main-raised { margin-top: 0; box-shadow: none; }
+        .section { padding: 20px 0; }
+        .title { margin-bottom: 20px; }
+        .question-card { margin-bottom: 20px; border-radius: 8px; }
+        .question-card .card-header { background: #1e1e2f; color: #fff; padding: 15px 20px; border-radius: 8px 8px 0 0; display:flex; justify-content:space-between; align-items:center; }
+        .question-text { font-size: 1.1rem; font-weight: 500; margin-bottom: 20px; }
+        .option-label { display:block; padding:10px 15px; border-radius:4px; margin-bottom:10px; background-color:#2a2a3c; color:#fff; }
+        .selected-option { border-left:3px solid #90caf9; }
+        .correct-option { background-color:#2e7d32; border-left:3px solid #43a047; color:#fff; }
+        .incorrect-option { background-color:#c62828; border-left:3px solid #e53935; color:#fff; }
+        .answer-info { margin-top:20px; padding:15px; border-radius:4px; background-color:#2a2a3c; color:#fff; }
+        .student-info-card { margin-bottom:30px; }
+        .summary-box { padding:15px; border-radius:4px; margin-bottom:15px; font-weight:500; background-color:#2a2a3c; color:#fff; }
+        .summary-box.correct { background-color:#2e7d32; }
+        .summary-box.incorrect { background-color:#c62828; }
+        .summary-box.manual { background-color:#1565c0; }
+        .back-button { margin-bottom:20px; }
+        @media print { .no-print { display:none !important; } }
     </style>
-<link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
-<body class="landing-page sidebar-collapse">
-    <nav class="navbar main-navbar fixed-top navbar-expand-lg">
-        <div class="container">
-            <div class="navbar-translate">
-                <a class="navbar-brand" href="instructorhome.php">Quiz Portal</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a href="manage_classes_subjects.php" class="nav-link">
-                            <i class="material-icons">school</i> Manage Classes & Subjects
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="questionfeed.php" class="nav-link">
-                            <i class="material-icons">input</i> Feed Questions
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="view_questions.php" class="nav-link">
-                            <i class="material-icons">list_alt</i> Questions Bank
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="quizconfig.php" class="nav-link">
-                            <i class="material-icons">layers</i> Set Quiz
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="manage_quizzes.php" class="nav-link">
-                            <i class="material-icons">settings</i> Manage Quizzes
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="view_quiz_results.php" class="nav-link">
-                            <i class="material-icons">assessment</i> View Results
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="manage_instructors.php" class="nav-link">
-                            <i class="material-icons">people</i> Manage Instructors
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="manage_students.php" class="nav-link">
-                            <i class="material-icons">group</i> Manage Students
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="manage_notifications.php" class="nav-link">
-                            <i class="material-icons">notifications</i> Manage Notifications
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="my_profile.php" class="nav-link">
-                            <i class="material-icons">person</i> My Profile
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="instructorlogout.php" data-original-title="Get back to Login Page">
-                            <i class="material-icons">power_settings_new</i> Log Out
-                        </a>
-                    </li>
-          <li class="nav-item d-flex align-items-center">
-            <div class="togglebutton mb-0">
-                <label class="m-0">
-                  <input type="checkbox" id="darkModeToggle">
-                  <span class="toggle"></span>
-                </label>
-              </div>
-          </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <div class="wrapper">
+<body class="dark-mode">
+<div class="layout">
+  <?php include './includes/sidebar.php'; ?>
+  <div class="main">
+    <?php include './includes/header.php'; ?>
+    <main class="content">
+      <div class="wrapper">
         <div class="main main-raised">
             <div class="container">
                 <div class="section text-center">
@@ -682,27 +404,20 @@ $conn->close();
                 </div>
             </div>
         </div>
-        <footer class="footer footer-default">
-            <div class="container">
-                <div class="copyright text-center">
-                    <div class="department">A Project of StudyHT.com</div>
-                    <div class="designer">Designed and Developed by Sir Hassan Tariq</div>
-                    <div class="year">
-                        &copy; <script>document.write(new Date().getFullYear())</script>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
+      </div>
+    </main>
+  </div>
+</div>
 
-    <!--   Core JS Files   -->
-    <script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>
-    <script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
-    <script src="./assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
-    <script src="./assets/js/plugins/moment.min.js"></script>
-    <script src="./assets/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
-    <script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
-    <script src="./assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
+<!--   Core JS Files   -->
+<script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>
+<script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
+<script src="./assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+<script src="./assets/js/plugins/moment.min.js"></script>
+<script src="./assets/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+<script src="./assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
 <script src="./assets/js/dark-mode.js"></script>
+<script src="./assets/js/sidebar.js"></script>
 </body>
-</html> 
+</html>
