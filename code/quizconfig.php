@@ -832,11 +832,14 @@ function saveSelectedQuestions() {
 
     /* Ensure checkboxes in manual selection modal are visible */
     #questionSelectorModal .form-check-input {
-      position: static;
+      position: relative;
       margin: 0 0.5rem 0 0;
       width: 1rem;
       height: 1rem;
       opacity: 1;
+      pointer-events: auto;
+      z-index: 1;
+      overflow: visible;
       -webkit-appearance: checkbox;
       appearance: checkbox;
     }
