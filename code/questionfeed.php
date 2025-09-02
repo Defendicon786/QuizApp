@@ -620,16 +620,16 @@ function getChapters($conn, $class_id, $subject_id) {
       /* Ensure header spacing on tablets */
       @media (max-width: 992px) {
         .page-header {
-          padding-top: 100px;
-          min-height: calc(100vh - 100px);
+          padding-top: 120px;
+          min-height: calc(100vh - 120px);
         }
       }
 
       /* Extra spacing on smaller mobile screens */
       @media (max-width: 576px) {
         .page-header {
-          padding-top: 120px;
-          min-height: calc(100vh - 120px);
+          padding-top: 160px;
+          min-height: calc(100vh - 160px);
         }
       }
       .tab-structure-row .nav-link {
