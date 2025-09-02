@@ -213,7 +213,8 @@ $conn->close();
             position: relative;
         }
         .quiz-card {
-            background: linear-gradient(to right, #f8f9fa, #ffffff);
+            background: linear-gradient(to right, #1e1e2f, #27293d);
+            color: #fff;
             border-radius: 4px;
             padding: 15px;
             margin-bottom: 10px;
@@ -222,7 +223,7 @@ $conn->close();
             align-items: center;
         }
         .quiz-card:nth-child(even) {
-            background: linear-gradient(to right, #ffffff, #f8f9fa);
+            background: linear-gradient(to right, #27293d, #1e1e2f);
         }
     </style>
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
