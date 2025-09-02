@@ -788,7 +788,7 @@ $stmt->close();
             color: #fff;
         }
         .card-header.card-header-primary .card-title {
-            font-size: 0.9rem;
+            font-size: 1.1rem;
             line-height: 1.2;
             margin: 0;
         }
@@ -819,7 +819,7 @@ $stmt->close();
                                         <a class="d-block text-left" data-toggle="collapse" href="#collapseClasses" aria-expanded="false" aria-controls="collapseClasses">Classes</a>
                                     </h4>
                                 </div>
-                                <div id="collapseClasses" class="collapse" data-parent="#manageAccordion">
+                                <div id="collapseClasses" class="collapse">
                                 <div class="card-body">
                                     <form class="add-form" method="post">
                                         <input type="hidden" name="action" value="add_class">
@@ -904,7 +904,7 @@ $stmt->close();
                                         <a class="d-block text-left" data-toggle="collapse" href="#collapseSubjects" aria-expanded="false" aria-controls="collapseSubjects">Subjects</a>
                                     </h4>
                                 </div>
-                                <div id="collapseSubjects" class="collapse" data-parent="#manageAccordion">
+                                <div id="collapseSubjects" class="collapse">
                                 <div class="card-body">
                                     <form class="add-form" method="post">
                                         <input type="hidden" name="action" value="add_subject">
@@ -989,7 +989,7 @@ $stmt->close();
                                         <a class="d-block text-left" data-toggle="collapse" href="#collapseSections" aria-expanded="false" aria-controls="collapseSections">Class Sections</a>
                                     </h4>
                                 </div>
-                                <div id="collapseSections" class="collapse" data-parent="#manageAccordion">
+                                <div id="collapseSections" class="collapse">
                                 <div class="card-body">
                                     <form class="add-form" method="post">
                                         <input type="hidden" name="action" value="add_section">
@@ -1113,7 +1113,7 @@ $stmt->close();
                                         <a class="d-block text-left" data-toggle="collapse" href="#collapseAddChapter" aria-expanded="false" aria-controls="collapseAddChapter">Add New Chapter</a>
                                     </h4>
                                 </div>
-                                <div id="collapseAddChapter" class="collapse" data-parent="#manageAccordion">
+                                <div id="collapseAddChapter" class="collapse">
                                 <div class="card-body">
                                     <form class="add-form" method="post">
                                         <input type="hidden" name="action" value="add_chapter">
@@ -1157,7 +1157,7 @@ $stmt->close();
                                         <a class="d-block text-left" data-toggle="collapse" href="#collapseAddTopic" aria-expanded="false" aria-controls="collapseAddTopic">Add New Topic</a>
                                     </h4>
                                 </div>
-                                <div id="collapseAddTopic" class="collapse" data-parent="#manageAccordion">
+                                <div id="collapseAddTopic" class="collapse">
                                 <div class="card-body">
                                     <form class="add-form" method="post">
                                         <input type="hidden" name="action" value="add_topic">
@@ -1201,7 +1201,7 @@ $stmt->close();
                                 <a class="d-block text-left" data-toggle="collapse" href="#collapseChapters" aria-expanded="false" aria-controls="collapseChapters">Manage Chapters</a>
                             </h4>
                         </div>
-                        <div id="collapseChapters" class="collapse" data-parent="#manageAccordion">
+                        <div id="collapseChapters" class="collapse">
                         <div class="card-body">
                             <!-- Filter for Chapters -->
                             <div class="row mt-4 mb-3">
@@ -1306,7 +1306,7 @@ $stmt->close();
                                 <a class="d-block text-left" data-toggle="collapse" href="#collapseTopics" aria-expanded="false" aria-controls="collapseTopics">Manage Topics</a>
                             </h4>
                         </div>
-                        <div id="collapseTopics" class="collapse" data-parent="#manageAccordion">
+                        <div id="collapseTopics" class="collapse">
                         <div class="card-body">
                             <!-- Filter for Topics -->
                             <form method="get" class="mb-3">
@@ -1468,7 +1468,25 @@ $stmt->close();
                     });
             }
         });
+
+        // Persist accordion open state
+        const stateKey = 'manageAccordionState';
+        let accState = JSON.parse(localStorage.getItem(stateKey) || '{}');
+        const $collapses = $('#manageAccordion .collapse');
+        $collapses.each(function(){
+            if(accState[this.id]){
+                $(this).collapse('show');
+            }
+        });
+        $collapses.on('shown.bs.collapse', function(){
+            accState[this.id] = true;
+            localStorage.setItem(stateKey, JSON.stringify(accState));
+        });
+        $collapses.on('hidden.bs.collapse', function(){
+            accState[this.id] = false;
+            localStorage.setItem(stateKey, JSON.stringify(accState));
+        });
     });
     </script>
 </body>
-</html> 
+</html>
