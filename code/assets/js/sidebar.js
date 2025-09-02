@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var sidebar = document.querySelector('.sidebar');
   if (!toggles.length || !sidebar) return;
 
-  toggles.forEach(function (toggle) {
+  Array.prototype.forEach.call(toggles, function (toggle) {
     toggle.addEventListener('click', function () {
       if (window.innerWidth <= 768) {
         sidebar.classList.toggle('open');
