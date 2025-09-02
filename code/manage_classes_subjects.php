@@ -996,7 +996,7 @@ $stmt->close();
                                     <form class="add-form" method="post">
                                         <input type="hidden" name="action" value="add_chapter">
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <select class="form-control" name="class_id" required aria-label="Select class" title="Select class">
                                                     <option value="">Select Class</option>
                                                     <?php foreach ($classes as $class): ?>
@@ -1004,7 +1004,7 @@ $stmt->close();
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <select class="form-control" name="subject_id" required aria-label="Select subject" title="Select subject">
                                                     <option value="">Select Subject</option>
                                                     <?php foreach ($subjects as $subject): ?>
@@ -1012,7 +1012,8 @@ $stmt->close();
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
-                                            <div class="col-md-4">
+        
+                                            <div class="col-md-6">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" name="chapter_name" placeholder="Enter chapter name" required>
                                                     <div class="input-group-append">
@@ -1043,7 +1044,7 @@ $stmt->close();
                                     <form class="add-form" method="post">
                                         <input type="hidden" name="action" value="add_topic">
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <select class="form-control" name="class_id" id="add-topic-class" required aria-label="Select class" title="Select class">
                                                     <option value="">Select Class</option>
                                                     <?php foreach ($classes as $class): ?>
@@ -1051,17 +1052,19 @@ $stmt->close();
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <select class="form-control" name="subject_id" id="add-topic-subject" required aria-label="Select subject" title="Select subject">
                                                     <option value="">Select Subject</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
+                                                <select class="form-control" name="chapter_id" id="add-topic-chapter" required aria-label="Select chapter" title="Select chapter">
+                                                    <option value="">Select Chapter</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
                                                 <div class="input-group">
-                                                    <select class="form-control" name="chapter_id" id="add-topic-chapter" required aria-label="Select chapter" title="Select chapter">
-                                                        <option value="">Select Chapter</option>
-                                                    </select>
-                                                    <input type="text" class="form-control ml-2" name="topic_name" placeholder="Enter topic name" required>
+                                                    <input type="text" class="form-control" name="topic_name" placeholder="Enter topic name" required>
                                                     <div class="input-group-append">
                                                         <button type="submit" class="btn btn-primary">Add Topic</button>
                                                     </div>
