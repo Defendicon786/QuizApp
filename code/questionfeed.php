@@ -603,8 +603,13 @@ function getChapters($conn, $class_id, $subject_id) {
     <link href="./assets/css/manage.css" rel="stylesheet" />
     <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
     <style>
-      main.content {
-        background: transparent !important;
+      /* Ensure page background is solid black like other manage pages */
+      body.dark-mode,
+      .layout,
+      .main,
+      main.content,
+      .page-header {
+        background-color: #000 !important;
       }
       .tab-structure-row .nav-link {
         color: #fff !important;
@@ -617,6 +622,14 @@ function getChapters($conn, $class_id, $subject_id) {
         background: transparent !important;
         box-shadow: none;
       }
+      /* Dark dropdowns for class/subject/chapter/topic selection */
+      select[id^="class_id_"],
+      select[id^="subject_id_"],
+      select[id^="chapter_id_"],
+      select[id^="topic_id_"] {
+        background-color: #1e1e2f;
+        color: #fff;
+      }
     </style>
   </head>
   <body class="dark-mode">
@@ -625,7 +638,7 @@ function getChapters($conn, $class_id, $subject_id) {
       <div class="main">
         <?php include './includes/header.php'; ?>
         <main class="content">
-          <div class="page-header header-filter clear-filter" style="background-image: url('./assets/img/bg2.jpg'); background-size: cover; background-position: top center;">
+          <div class="page-header header-filter clear-filter" style="background-color: #000;">
       <div class="container" style="padding-top: 20px;">
       <div class="row" style="margin-bottom: 50px; position: relative; z-index: 2;">
         <div class="col-lg-10 col-md-10 ml-auto mr-auto">
