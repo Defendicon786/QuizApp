@@ -22,10 +22,15 @@
       text-align: center;
       margin-top: 2rem;
       margin-bottom: 3rem;
+      padding: 0 1rem;
     }
-    .intro-text h1,
+    .intro-text h1 {
+      margin-bottom: 0.5rem;
+      font-size: clamp(1rem, 5vw, 2.5rem);
+    }
     .intro-text p {
       margin-bottom: 0.5rem;
+      font-size: clamp(0.9rem, 4.5vw, 1.5rem);
     }
     .credits {
       text-align: center;
@@ -37,18 +42,8 @@
       margin: 0;
     }
     @media (max-width: 600px) {
-      .intro-text h1 {
-        font-size: 5vw;
-      }
-      .intro-text p {
-        font-size: 4vw;
-      }
       .credits p {
         font-size: 4vw;
-        white-space: nowrap;
-      }
-      .intro-text h1,
-      .intro-text p {
         white-space: nowrap;
       }
     }
