@@ -226,6 +226,14 @@ $conn->close();
             width: 100%;
             margin-top: auto;
         }
+
+        /* Override Material Kit's absolute positioned footer on login pages */
+        .login-page .footer {
+            position: relative;
+            background: #ffffff;
+            color: #555;
+            z-index: auto;
+        }
         
         .footer .copyright {
             color: #555;
