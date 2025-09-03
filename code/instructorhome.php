@@ -20,7 +20,8 @@
   <style>
     .footer-text {
       text-align: center;
-      margin-top: 40px;
+      margin-top: auto;
+      padding: 20px 0;
     }
   </style>
 </head>
@@ -32,11 +33,11 @@
     <main class="content">
       <h1>Welcome to the Instructor Portal</h1>
       <p>Use the menu to manage classes, questions, and quizzes.</p>
-      <div class="footer-text">
-        <p>Narowal Public School and College</p>
-        <p>Developed and Maintained by Sir Hassan Tariq</p>
-      </div>
     </main>
+    <footer class="footer-text">
+      <p>Narowal Public School and College</p>
+      <p>Developed and Maintained by Sir Hassan Tariq</p>
+    </footer>
   </div>
 </div>
 <script src="./assets/js/sidebar.js"></script>
