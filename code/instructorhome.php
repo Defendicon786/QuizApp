@@ -26,12 +26,25 @@
     .intro-text p {
       margin-bottom: 0.5rem;
     }
+    .credits {
+      text-align: center;
+      position: fixed;
+      bottom: 1rem;
+      width: 100%;
+    }
+    .credits p {
+      margin: 0;
+    }
     @media (max-width: 600px) {
       .intro-text h1 {
         font-size: 5vw;
       }
       .intro-text p {
         font-size: 4vw;
+      }
+      .credits p {
+        font-size: 4vw;
+        white-space: nowrap;
       }
       .intro-text h1,
       .intro-text p {
@@ -48,11 +61,13 @@
     <main class="content intro-text">
       <h1>Welcome to the Instructor Portal</h1>
       <p>Use the menu to manage classes, questions, and quizzes.</p>
-      <p>Narowal Public School and College</p>
-      <p>Developed and Maintained by Sir Hassan Tariq</p>
     </main>
   </div>
 </div>
+<footer class="credits">
+  <p>Narowal Public School and College</p>
+  <p>Developed and Maintained by Sir Hassan Tariq</p>
+</footer>
 <script src="./assets/js/sidebar.js"></script>
 </body>
 </html>
