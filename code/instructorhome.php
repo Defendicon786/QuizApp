@@ -17,6 +17,12 @@
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,700|Material+Icons" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="./assets/css/sidebar.css" rel="stylesheet" />
+  <style>
+    .footer-text {
+      text-align: center;
+      margin-top: 40px;
+    }
+  </style>
 </head>
 <body>
 <div class="layout">
@@ -26,6 +32,10 @@
     <main class="content">
       <h1>Welcome to the Instructor Portal</h1>
       <p>Use the menu to manage classes, questions, and quizzes.</p>
+      <div class="footer-text">
+        <p>Narowal Public School and College</p>
+        <p>Developed and Maintained by Sir Hassan Tariq</p>
+      </div>
     </main>
   </div>
 </div>
