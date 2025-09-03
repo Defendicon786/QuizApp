@@ -58,6 +58,7 @@ $results = $stmt->get_result();
         .result-row { transition: all 0.3s ease; }
         .result-row:hover { background-color: #f8f9fa; transform: translateY(-2px); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .score-badge { font-size: 1em; padding: 5px 10px; }
+        .footer-text { text-align: center; margin-top: 40px; }
     </style>
 </head>
 <body class="dark-mode">
@@ -136,6 +137,10 @@ $results = $stmt->get_result();
             </div>
           </div>
         </div>
+      </div>
+      <div class="footer-text">
+        <p>Narowal Public School and College</p>
+        <p>Developed and Maintained by Sir Hassan Tariq</p>
       </div>
     </main>
   </div>

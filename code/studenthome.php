@@ -133,6 +133,10 @@
     .upcoming-quiz {
       color: #1a73e8;
     }
+    .footer-text {
+      text-align: center;
+      margin-top: 40px;
+    }
   </style>
 </head>
 <body>
@@ -164,6 +168,10 @@
             <a href="my_results.php" class="btn">View Results</a>
           </div>
         </div>
+      </div>
+      <div class="footer-text">
+        <p>Narowal Public School and College</p>
+        <p>Developed and Maintained by Sir Hassan Tariq</p>
       </div>
     </main>
   </div>

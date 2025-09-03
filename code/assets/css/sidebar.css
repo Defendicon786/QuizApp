@@ -141,6 +141,12 @@ html, body {
     color: #e0e0e0;
 }
 
+.footer-text {
+    text-align: center;
+    margin-top: auto;
+    padding: 20px 0;
+}
+
 @media (max-width: 768px) {
     .sidebar {
         position: fixed;
