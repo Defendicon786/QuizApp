@@ -17,13 +17,6 @@
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,700|Material+Icons" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="./assets/css/sidebar.css" rel="stylesheet" />
-  <style>
-    .footer-text {
-      text-align: center;
-      margin-top: auto;
-      padding: 20px 0;
-    }
-  </style>
 </head>
 <body>
 <div class="layout">
