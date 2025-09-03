@@ -21,6 +21,7 @@
     .intro-text {
       text-align: center;
       margin-top: 2rem;
+      margin-bottom: 3rem;
     }
     .intro-text h1,
     .intro-text p {
