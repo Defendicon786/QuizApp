@@ -1584,16 +1584,19 @@ function saveSelectedQuestions() {
                   // Determine if random selection was requested
                   $is_random = isset($_POST["random_quiz"]) ? 1 : 0;
 
-                  // If random selection and counts are zero, default to at least one question where available
-                  if ($is_random) {
-                      $available = getAvailableQuestionsCount($conn, explode(',', $chapter_ids));
-                      if ($typea == 0) $typea = min(1, $available['mcq']);
-                      if ($typeb == 0) $typeb = min(1, $available['numerical']);
-                      if ($typec == 0) $typec = min(1, $available['dropdown']);
-                      if ($typed == 0) $typed = min(1, $available['fillblanks']);
-                      if ($typee == 0) $typee = min(1, $available['short']);
-                      if ($typef == 0) $typef = min(1, $available['essay']);
-                  }
+                    // If random selection was requested, limit requested counts
+                    // to the number of available questions.  This ensures that a
+                    // question type with a configured count of zero remains
+                    // unused instead of defaulting to one question.
+                    if ($is_random) {
+                        $available = getAvailableQuestionsCount($conn, explode(',', $chapter_ids));
+                        $typea = min($typea, $available['mcq']);
+                        $typeb = min($typeb, $available['numerical']);
+                        $typec = min($typec, $available['dropdown']);
+                        $typed = min($typed, $available['fillblanks']);
+                        $typee = min($typee, $available['short']);
+                        $typef = min($typef, $available['essay']);
+                    }
                   $maxmarks = $typeamarks*$typea+$typebmarks*$typeb+$typecmarks*$typec+$typedmarks*$typed+$typeemarks*$typee+$typefmarks*$typef;
                   
                   $duration = isset($_POST["duration"]) ? $_POST["duration"] : 0;
