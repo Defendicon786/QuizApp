@@ -242,6 +242,7 @@ $conn->close();
         .footer .copyright .designer {
             font-style: italic;
             margin: 5px 0;
+            color: white;
         }
         
         .footer .copyright .year {
