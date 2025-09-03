@@ -197,14 +197,15 @@
         .footer {
             padding: 30px 0;
             margin: 50px auto 0;
-            background: #ffffff;
-            border-top: none;
+            background: #121212;
+            border-top: 1px solid #333;
             position: relative;
             width: 95%;
+            color: #e0e0e0;
         }
-        
+
         .footer .copyright {
-            color: #333;
+            color: #e0e0e0;
             font-size: 14px;
             line-height: 1.8;
         }
@@ -218,7 +219,6 @@
         .footer .copyright .designer {
             font-style: italic;
             margin: 5px 0;
-            color: white; /* keep designer text visible on this page */
         }
         
         .footer .copyright .year {
@@ -267,7 +267,7 @@
 <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
 
-<body class="login-page">
+<body class="login-page dark-mode">
     <div class="back-to-home">
         <a href="index.php" class="btn">
             <i class="material-icons">arrow_back</i> Back to Home
@@ -308,8 +308,8 @@
     <footer class="footer footer-default">
         <div class="container">
             <div class="copyright text-center">
-                <div class="department">A Project of StudyHT.com</div>
-                <div class="designer">Designed and Developed by Sir Hassan Tariq</div>
+                <div class="department">Narowal Public School and College</div>
+                <div class="designer">Developed and Maintained by Sir Hassan Tariq</div>
                 <div class="year">
                     &copy; <script>document.write(new Date().getFullYear())</script>
                 </div>
@@ -323,6 +323,5 @@
     <script src="./assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
     <script src="./assets/js/plugins/moment.min.js"></script>
     <script src="./assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
-<script src="./assets/js/dark-mode.js"></script>
 </body>
 </html>
