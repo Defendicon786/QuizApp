@@ -222,7 +222,7 @@ $conn->close();
         .footer {
             padding: 30px 0;
             background: #ffffff;
-            border-top: 1px solid #eee;
+            border-top: none;
             width: 100%;
             margin-top: auto;
         }
