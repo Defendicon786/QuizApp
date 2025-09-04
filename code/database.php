@@ -7,10 +7,16 @@ if (session_status() === PHP_SESSION_NONE) {
 // Set PHP default timezone to match your country's timezone
 date_default_timezone_set('Asia/Karachi'); // Replace with your timezone
 
-require_once __DIR__ . '/vendor/autoload.php';
+// Load Composer dependencies and environment variables if available.
+$autoload = __DIR__ . '/vendor/autoload.php';
+if (file_exists($autoload)) {
+    require_once $autoload;
 
-$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
-$dotenv->safeLoad();
+    if (class_exists('Dotenv\\Dotenv')) {
+        $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+        $dotenv->safeLoad();
+    }
+}
 
 $db_host = $_ENV['DB_HOST'] ?? 'localhost';
 $db_name = $_ENV['DB_NAME'] ?? 'database';

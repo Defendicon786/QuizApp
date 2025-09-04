@@ -21,7 +21,9 @@
   // Handle POST request for login
   if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($login_error_message)){
     include "database.php"; // Ensure $conn is available
-    if (isset($_POST["email"]) && isset($_POST["password"])) {
+    if (!$conn) {
+        $login_error_message = '<div class="alert alert-danger">Database connection failed.</div>';
+    } elseif (isset($_POST["email"]) && isset($_POST["password"])) {
         $email_unsafe = $_POST["email"];
         $password_unsafe = $_POST["password"];
 
@@ -59,7 +61,9 @@
         } else {
             $login_error_message = '<div class="alert alert-danger">Email and password cannot be empty.</div>';
         }
-        $conn->close();
+        if ($conn) {
+            $conn->close();
+        }
     } else {
         $login_error_message = '<div class="alert alert-danger">Please provide email and password.</div>';
     }
