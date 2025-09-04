@@ -119,7 +119,16 @@ git clone https://github.com/ft-abhishekgupta/php-mysql-onlinequizportal
     1. Create Database **quiz**
     1. Import ```sql/database_quiz.sql``` in the database
 
-* Modify ```database.php``` file with MySQL Credentials
+* Create a `.env` file in the project root (or export the variables) with your MySQL credentials:
+
+```
+DB_HOST=localhost
+DB_NAME=quiz
+DB_USER=root
+DB_PASS=secret
+```
+
+The application reads these values using [vlucas/phpdotenv](https://github.com/vlucas/phpdotenv).
 * Open Browser :
     * Open **localhost/instructorlogin.php** : For Admin Panel
         * Username : instructor@gmail.com
