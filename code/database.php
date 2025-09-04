@@ -18,6 +18,8 @@ if (file_exists($autoload)) {
     }
 }
 
+require_once __DIR__ . '/logger.php';
+
 $db_host = $_ENV['DB_HOST'] ?? 'localhost';
 $db_name = $_ENV['DB_NAME'] ?? 'database';
 $db_user = $_ENV['DB_USER'] ?? 'username';
@@ -31,27 +33,27 @@ $conn = null;
 try {
     $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 } catch (mysqli_sql_exception $e) {
-    error_log('Database Connection Failed: ' . $e->getMessage(), 3, 'quiz_errors.log');
+    $logger->error('Database Connection Failed: ' . $e->getMessage());
     $conn = null;
 }
 
 // If the connection object exists but has an error, log it without producing
 // any output that could corrupt API responses.
 if ($conn && $conn->connect_error) {
-    error_log('Database Connection Failed: ' . $conn->connect_error, 3, 'quiz_errors.log');
+    $logger->error('Database Connection Failed: ' . $conn->connect_error);
 }
 
 if ($conn) {
     // Ensure the connection uses UTF-8 so JSON encoding doesn't fail on
     // characters stored with a different encoding in the database.
     if (!$conn->set_charset('utf8mb4')) {
-        error_log('Failed to set database connection charset: ' . $conn->error, 3, 'quiz_errors.log');
+        $logger->warning('Failed to set database connection charset: ' . $conn->error);
     }
 
     // Set session timezone to match PHP timezone
     if (!$conn->query("SET time_zone = '+05:00'")) { // Replace +05:00 with your timezone offset
         // Failed to set timezone, log error.
-        error_log('Failed to set database session timezone: ' . $conn->error, 3, 'quiz_errors.log');
+        $logger->warning('Failed to set database session timezone: ' . $conn->error);
     }
 
     // Set session variables for timezone

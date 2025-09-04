@@ -5,4 +5,6 @@ request_audit.log
 /android/app/build/
 /android/build/
 code/node_modules/
+code/vendor/
+code/logs/
 .env
