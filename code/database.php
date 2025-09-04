@@ -7,10 +7,15 @@ if (session_status() === PHP_SESSION_NONE) {
 // Set PHP default timezone to match your country's timezone
 date_default_timezone_set('Asia/Karachi'); // Replace with your timezone
 
-$db_host = 'localhost';
-$db_name = 'database';
-$db_user = 'username';
-$db_pass = 'password';
+require_once __DIR__ . '/vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->safeLoad();
+
+$db_host = $_ENV['DB_HOST'] ?? 'localhost';
+$db_name = $_ENV['DB_NAME'] ?? 'database';
+$db_user = $_ENV['DB_USER'] ?? 'username';
+$db_pass = $_ENV['DB_PASS'] ?? 'password';
 
 $conn = null;
 

@@ -4,7 +4,8 @@
     "type": "project",
     "require": {
         "php": ">=7.2",
-        "mpdf/mpdf": "^8.1"
+        "mpdf/mpdf": "^8.1",
+        "vlucas/phpdotenv": "^5.5"
     },
     "autoload": {
         "psr-4": {
