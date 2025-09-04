@@ -3,6 +3,9 @@ session_start();
 include "database.php";
 
 $message = "";
+if (!$conn) {
+    $message = "<div class='alert alert-danger'>Database connection failed.</div>";
+}
 
 // Initialize attempt tracking
 if (!isset($_SESSION['student_attempts'])) {
@@ -20,7 +23,7 @@ if (isset($_SESSION['student_lock_time'])) {
     }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($message)) {
+if ($conn && $_SERVER["REQUEST_METHOD"] == "POST" && empty($message)) {
     $rollnumber = trim($_POST["rollnumber"]);
     $password = trim($_POST["password"]);
 
@@ -84,7 +87,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($message)) {
         }
     }
 }
-$conn->close();
+if ($conn) {
+    $conn->close();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
