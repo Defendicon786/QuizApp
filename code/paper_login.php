@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['paper_user_id'] = $user['id'];
                     $_SESSION['paper_logo'] = $user['logo'];
                     $_SESSION['paper_header'] = $user['header'];
+                    $_SESSION['paper_user_name'] = $user['name'];
                     header('Location: paper_home.php');
                     exit;
                 }

@@ -1,5 +1,11 @@
 <?php
-$logout = isset($_SESSION['studentloggedin']) ? 'studentlogout.php' : 'instructorlogout.php';
+if (isset($_SESSION['studentloggedin'])) {
+    $logout = 'studentlogout.php';
+} elseif (isset($_SESSION['paperloggedin'])) {
+    $logout = 'paper_logout.php';
+} else {
+    $logout = 'instructorlogout.php';
+}
 
 // Determine where the "Take Quiz" link should point for students
 $quiz_link = 'quizhome.php';
@@ -45,6 +51,8 @@ if (isset($_SESSION['studentloggedin']) && $_SESSION['studentloggedin'] === true
         <?php if(isset($_SESSION['studentloggedin']) && $_SESSION['studentloggedin'] === true): ?>
             <li><a href="<?php echo $quiz_link; ?>"><i class="fas fa-pencil-alt"></i><span>Take Quiz</span></a></li>
             <li><a href="my_results.php"><i class="fas fa-chart-line"></i><span>My Result</span></a></li>
+        <?php elseif(isset($_SESSION['paperloggedin']) && $_SESSION['paperloggedin'] === true): ?>
+            <li><a href="paper_home.php"><i class="fas fa-file-alt"></i><span>Generate Paper</span></a></li>
         <?php else: ?>
             <li><a href="manage_classes_subjects.php"><i class="fas fa-book"></i><span>Manage Classes &amp; Subjects</span></a></li>
             <li><a href="questionfeed.php"><i class="fas fa-upload"></i><span>Feed Questions</span></a></li>
