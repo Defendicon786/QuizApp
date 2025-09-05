@@ -23,16 +23,14 @@ $header = $_SESSION['paper_header'];
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="./assets/css/material-kit.css?v=2.0.4" rel="stylesheet" />
     <link href="./assets/css/sidebar.css" rel="stylesheet" />
-    <link href="./assets/css/modern.css" rel="stylesheet" />
-    <link href="./assets/css/portal.css" rel="stylesheet" />
     <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
     <style>
-        .wrapper { padding-top: 20px; }
         .footer-text { text-align: center; margin-top: 20px; padding: 20px 0; }
-        body.dark-mode .main,
-        body.dark-mode .main-raised {
-            background: transparent;
-        }
+        body.dark-mode .main { background: transparent; }
+        .card { background: #1e1e2f; color: #fff; }
+        .card-header.card-header-primary { background: #1e1e2f; color: #fff; border-bottom: 1px solid #11111a; }
+        .form-control { background-color: #424242; color: #fff; border-color: #666; }
+        .form-control::placeholder { color: #bbb; }
         #question-modal {
             position: fixed;
             top: 0;
@@ -62,20 +60,17 @@ $header = $_SESSION['paper_header'];
 <div class="layout">
   <div class="main">
     <main class="content">
-      <div class="wrapper">
-        <div class="main main-raised">
-          <div class="container">
-            <div class="section">
-              <?php if ($logo) { echo '<div class="text-center mb-4"><img src="' . htmlspecialchars($logo) . '" height="80"></div>'; } ?>
-              <h2 class="text-center mb-4"><?php echo htmlspecialchars($header); ?></h2>
-              <div class="row">
-                <div class="col-md-6 ml-auto mr-auto">
-                  <div class="card">
-                    <form method="post" action="generate_paper.php">
-                      <div class="card-header card-header-primary text-center">
-                        <h4 class="card-title">Generate Paper</h4>
-                      </div>
-                      <div class="card-body">
+      <?php if ($logo) { echo '<div class="text-center mb-4"><img src="' . htmlspecialchars($logo) . '" height="80"></div>'; } ?>
+      <h2 class="text-center mb-4"><?php echo htmlspecialchars($header); ?></h2>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <div class="card">
+              <form method="post" action="generate_paper.php">
+                <div class="card-header card-header-primary text-center">
+                  <h4 class="card-title">Generate Paper</h4>
+                </div>
+                <div class="card-body">
                         <div class="form-group">
                           <label class="bmd-label-floating">Paper Name</label>
                           <input type="text" name="paper_name" class="form-control" required>
@@ -160,17 +155,14 @@ $header = $_SESSION['paper_header'];
                       </div>
                       <div class="footer text-center">
                         <button type="submit" class="btn btn-primary btn-lg">Generate Paper</button>
-                        <a href="paper_logout.php" class="btn btn-default btn-lg">Logout</a>
+                        <a href="paper_logout.php" class="btn btn-secondary btn-lg">Logout</a>
                       </div>
                     </form>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </main>
+        </main>
     <footer class="footer-text">
       <p>Narowal Public School and College</p>
       <p>Developed and Maintained by Sir Hassan Tariq</p>
@@ -192,7 +184,6 @@ $header = $_SESSION['paper_header'];
 <script src="./assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
 <script src="./assets/js/plugins/moment.min.js"></script>
 <script src="./assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
-<script src="./assets/js/dark-mode.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const classSelect = document.getElementById('class_id');
