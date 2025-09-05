@@ -90,23 +90,32 @@ if ($conn) {
     $conn->close();
 }
 
-$html = '<div style="text-align:center;">';
-if ($logo) $html .= '<img src="'.htmlspecialchars($logo).'" height="80"><br>';
-$html .= '<h2>'.htmlspecialchars($header).'</h2>';
-$html .= '<h3>'.htmlspecialchars($paperName).'</h3>';
-if ($paperDate) $html .= '<div>Date: '.htmlspecialchars($paperDate).'</div>';
-$html .= '</div>';
+$html = '';
+// Build a header with logo on the left and text centered
+$html .= '<table style="width:100%; border-bottom:1px solid #000; margin-bottom:20px;"><tr>';
+if ($logo) {
+    $html .= '<td style="width:80px;"><img src="'.htmlspecialchars($logo).'" style="height:80px;"></td>';
+} else {
+    $html .= '<td style="width:80px;"></td>';
+}
+$html .= '<td style="text-align:center;">';
+$html .= '<h1 style="margin:0;">'.htmlspecialchars($header).'</h1>';
+$html .= '<h2 style="margin:0;">'.htmlspecialchars($paperName).'</h2>';
+if ($paperDate) {
+    $html .= '<div>Date: '.htmlspecialchars($paperDate).'</div>';
+}
+$html .= '</td></tr></table>';
 
 foreach ($sections as $title => $questions) {
     if (count($questions) === 0) continue;
-    $html .= '<h4>'.htmlspecialchars($title).'</h4><ol>';
+    $html .= '<h3 style="margin-bottom:5px;">'.htmlspecialchars($title).'</h3><ol>';
     foreach ($questions as $q) {
         if ($title === 'MCQs') {
-            $html .= '<li>'.htmlspecialchars($q['question']).'<br>';
-            $html .= 'A. '.htmlspecialchars($q['optiona']).'<br>';
-            $html .= 'B. '.htmlspecialchars($q['optionb']).'<br>';
-            $html .= 'C. '.htmlspecialchars($q['optionc']).'<br>';
-            $html .= 'D. '.htmlspecialchars($q['optiond']).'</li>';
+            $html .= '<li>'.htmlspecialchars($q['question']).'<ul style="list-style-type:upper-alpha;">';
+            $html .= '<li>'.htmlspecialchars($q['optiona']).'</li>';
+            $html .= '<li>'.htmlspecialchars($q['optionb']).'</li>';
+            $html .= '<li>'.htmlspecialchars($q['optionc']).'</li>';
+            $html .= '<li>'.htmlspecialchars($q['optiond']).'</li></ul></li>';
         } else {
             $html .= '<li>'.htmlspecialchars($q['question']).'</li>';
         }
@@ -123,19 +132,22 @@ if ($useMpdf) {
 } else {
     $pdf = new FPDF();
     $pdf->AddPage();
-    $pdf->SetFont('Helvetica', '', 12);
     if ($logo) {
-        @ $pdf->Image($logo, 10, 10, 30);
-        $pdf->Ln(20);
+        @ $pdf->Image($logo, 10, 10, 25);
     }
-    $pdf->SetFont('Helvetica', 'B', 14);
-    $pdf->Cell(0, 10, $header, 0, 1, 'C');
-    $pdf->Cell(0, 10, $paperName, 0, 1, 'C');
+    // Position text to the right of the logo
+    $pdf->SetXY(40, 10);
+    $pdf->SetFont('Helvetica', 'B', 16);
+    $pdf->Cell(0, 8, $header, 0, 1, 'L');
+    $pdf->SetX(40);
+    $pdf->SetFont('Helvetica', '', 14);
+    $pdf->Cell(0, 8, $paperName, 0, 1, 'L');
     if ($paperDate) {
+        $pdf->SetX(40);
         $pdf->SetFont('Helvetica', '', 12);
-        $pdf->Cell(0, 8, 'Date: ' . $paperDate, 0, 1, 'C');
+        $pdf->Cell(0, 6, 'Date: ' . $paperDate, 0, 1, 'L');
     }
-    $pdf->Ln(5);
+    $pdf->Ln(10);
     foreach ($sections as $title => $questions) {
         if (count($questions) === 0) continue;
         $pdf->SetFont('Helvetica', 'B', 12);
@@ -148,10 +160,10 @@ if ($useMpdf) {
                 $text .= "\nA. " . $q['optiona'] . "\nB. " . $q['optionb'] . "\nC. " . $q['optionc'] . "\nD. " . $q['optiond'];
             }
             $pdf->MultiCell(0, 6, $text);
-            $pdf->Ln(1);
+            $pdf->Ln(2);
             $i++;
         }
-        $pdf->Ln(2);
+        $pdf->Ln(4);
     }
     header('Content-Type: application/pdf');
     $pdf->Output('paper.pdf', 'I');
