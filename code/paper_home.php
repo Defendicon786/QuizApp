@@ -5,9 +5,7 @@ if (!isset($_SESSION['paperloggedin']) || $_SESSION['paperloggedin'] !== true) {
     exit;
 }
 include 'database.php';
-$subjects = $conn->query("SELECT subject_id, subject_name FROM subjects ORDER BY subject_name");
-$chapters = $conn->query("SELECT chapter_id, chapter_name FROM chapters ORDER BY chapter_name");
-$topics   = $conn->query("SELECT topic_id, topic_name FROM topics ORDER BY topic_name");
+$classes = $conn->query("SELECT class_id, class_name FROM classes ORDER BY class_name");
 $conn->close();
 $logo = $_SESSION['paper_logo'];
 $header = $_SESSION['paper_header'];
@@ -71,43 +69,57 @@ $header = $_SESSION['paper_header'];
                                     <input type="text" name="paper_name" class="form-control" required>
                                 </div>
                                 <div class="form-group">
+                                    <label class="bmd-label-floating">Select Class</label>
+                                    <select name="class_id" id="class_id" class="form-control" required>
+                                        <option value="">Select Class</option>
+                                        <?php while($row = $classes->fetch_assoc()) { echo '<option value="'.$row['class_id'].'">'.htmlspecialchars($row['class_name']).'</option>'; } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label class="bmd-label-floating">Select Subject</label>
-                                    <select name="subject_id" class="form-control">
-                                        <?php while($row = $subjects->fetch_assoc()) { echo '<option value="'.$row['subject_id'].'">'.htmlspecialchars($row['subject_name']).'</option>'; } ?>
+                                    <select name="subject_id" id="subject_id" class="form-control" required>
+                                        <option value="">Select Subject</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label class="bmd-label-floating">Select Chapter</label>
-                                    <select name="chapter_id" class="form-control">
-                                        <?php while($row = $chapters->fetch_assoc()) { echo '<option value="'.$row['chapter_id'].'">'.htmlspecialchars($row['chapter_name']).'</option>'; } ?>
+                                    <select name="chapter_id" id="chapter_id" class="form-control" required>
+                                        <option value="">Select Chapter</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label class="bmd-label-floating">Select Topic</label>
-                                    <select name="topic_id" class="form-control">
-                                        <option value="">Any</option>
-                                        <?php while($row = $topics->fetch_assoc()) { echo '<option value="'.$row['topic_id'].'">'.htmlspecialchars($row['topic_name']).'</option>'; } ?>
+                                    <select name="topic_id" id="topic_id" class="form-control">
+                                        <option value="">Select Topic</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label class="bmd-label-floating">MCQs</label>
                                     <input type="number" name="mcq" value="0" min="0" class="form-control">
+                                    <small class="form-text text-muted">Available: <span id="mcq-count">0</span></small>
                                 </div>
                                 <div class="form-group">
                                     <label class="bmd-label-floating">Short Questions</label>
                                     <input type="number" name="short" value="0" min="0" class="form-control">
+                                    <small class="form-text text-muted">Available: <span id="short-count">0</span></small>
                                 </div>
                                 <div class="form-group">
                                     <label class="bmd-label-floating">Long Questions</label>
                                     <input type="number" name="essay" value="0" min="0" class="form-control">
+                                    <small class="form-text text-muted">Available: <span id="essay-count">0</span></small>
                                 </div>
                                 <div class="form-group">
                                     <label class="bmd-label-floating">Fill in the Blanks</label>
                                     <input type="number" name="fill" value="0" min="0" class="form-control">
+                                    <small class="form-text text-muted">Available: <span id="fill-count">0</span></small>
                                 </div>
                                 <div class="form-group">
                                     <label class="bmd-label-floating">Numerical</label>
                                     <input type="number" name="numerical" value="0" min="0" class="form-control">
+                                    <small class="form-text text-muted">Available: <span id="numerical-count">0</span></small>
+                                </div>
+                                <div class="form-group" id="manual-select-wrapper" style="display:none;">
+                                    <button type="button" id="manual-select" class="btn btn-secondary">Manual Selection</button>
                                 </div>
                                 <div class="form-group">
                                     <label class="bmd-label-floating">Date (optional)</label>
@@ -139,5 +151,98 @@ $header = $_SESSION['paper_header'];
             </div>
         </div>
     </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const classSelect = document.getElementById('class_id');
+    const subjectSelect = document.getElementById('subject_id');
+    const chapterSelect = document.getElementById('chapter_id');
+    const topicSelect = document.getElementById('topic_id');
+    const manualBtn = document.getElementById('manual-select');
+    const manualWrapper = document.getElementById('manual-select-wrapper');
+    const counts = {
+        mcq: document.getElementById('mcq-count'),
+        short: document.getElementById('short-count'),
+        essay: document.getElementById('essay-count'),
+        fill: document.getElementById('fill-count'),
+        numerical: document.getElementById('numerical-count')
+    };
+
+    classSelect.addEventListener('change', function() {
+        const classId = this.value;
+        subjectSelect.innerHTML = '<option value="">Select Subject</option>';
+        chapterSelect.innerHTML = '<option value="">Select Chapter</option>';
+        topicSelect.innerHTML = '<option value="">Select Topic</option>';
+        if (!classId) return;
+        fetch('get_subjects.php?class_id=' + classId)
+            .then(r => r.json())
+            .then(data => {
+                data.forEach(s => {
+                    subjectSelect.insertAdjacentHTML('beforeend', `<option value="${s.subject_id}">${s.subject_name}</option>`);
+                });
+            });
+    });
+
+    subjectSelect.addEventListener('change', function() {
+        const classId = classSelect.value;
+        const subjectId = this.value;
+        chapterSelect.innerHTML = '<option value="">Select Chapter</option>';
+        topicSelect.innerHTML = '<option value="">Select Topic</option>';
+        if (!classId || !subjectId) return;
+        fetch(`get_chapters.php?class_id=${classId}&subject_id=${subjectId}`)
+            .then(r => r.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    data.forEach(c => {
+                        chapterSelect.insertAdjacentHTML('beforeend', `<option value="${c.chapter_id}">${c.chapter_name}</option>`);
+                    });
+                }
+            });
+    });
+
+    chapterSelect.addEventListener('change', function() {
+        const chapterId = this.value;
+        topicSelect.innerHTML = '<option value="">Select Topic</option>';
+        if (!chapterId) return;
+        fetch('get_topics.php?chapter_id=' + chapterId)
+            .then(r => r.json())
+            .then(data => {
+                data.forEach(t => {
+                    topicSelect.insertAdjacentHTML('beforeend', `<option value="${t.topic_id}">${t.topic_name}</option>`);
+                });
+            });
+    });
+
+    function updateCounts() {
+        const chapterId = chapterSelect.value;
+        const topicId = topicSelect.value;
+        manualWrapper.style.display = topicId ? 'block' : 'none';
+        if (!chapterId) return;
+        let url = `get_question_counts.php?chapter_ids=${chapterId}`;
+        if (topicId) url += `&topic_ids=${topicId}`;
+        fetch(url)
+            .then(r => r.json())
+            .then(data => {
+                counts.mcq.textContent = data.mcq || 0;
+                counts.short.textContent = data.short || 0;
+                counts.essay.textContent = data.essay || 0;
+                counts.fill.textContent = data.fillblanks || 0;
+                counts.numerical.textContent = data.numerical || 0;
+            });
+    }
+
+    topicSelect.addEventListener('change', updateCounts);
+    chapterSelect.addEventListener('change', updateCounts);
+
+    manualBtn.addEventListener('click', function() {
+        const params = new URLSearchParams({
+            filter_class: classSelect.value,
+            filter_subject: subjectSelect.value,
+            filter_chapter: chapterSelect.value,
+            filter_topic: topicSelect.value
+        });
+        window.location.href = 'view_questions.php?' + params.toString();
+    });
+});
+</script>
 </body>
 </html>
