@@ -6,7 +6,7 @@ if (!isset($_SESSION['paperloggedin']) || $_SESSION['paperloggedin'] !== true) {
     exit;
 }
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/lib/mpdf/vendor/autoload.php';
 
 include 'database.php';
 
