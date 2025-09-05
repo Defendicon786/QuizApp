@@ -5,6 +5,7 @@ request_audit.log
 /android/app/build/
 /android/build/
 code/node_modules/
-code/vendor/
+code/vendor/*
+!code/vendor/autoload.php
 code/logs/
 .env
