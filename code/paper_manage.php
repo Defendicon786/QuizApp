@@ -149,10 +149,7 @@ $conn->close();
                         <div class="form-group">
                           <label class="bmd-label-floating">Freeze Date</label>
                           <input type="date" name="expires_on" class="form-control">
-                        </div>
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Logo</label>
-                          <input type="file" name="logo" id="logoInput" class="form-control" accept="image/*">
+                          <input type="file" name="logo" id="logoInput" class="form-control" accept="image/*" style="margin-top:10px;">
                           <img id="logoPreview" alt="Logo Preview" style="max-height:100px; display:none; margin-top:10px;" />
                         </div>
                         <button type="submit" class="btn btn-primary pull-right">Add User</button>
