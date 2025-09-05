@@ -8,6 +8,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 include 'database.php';
 
 $paperName = trim($_POST['paper_name'] ?? 'Question Paper');
+$classId = intval($_POST['class_id'] ?? 0);
 $subjectId = intval($_POST['subject_id'] ?? 0);
 $chapterId = intval($_POST['chapter_id'] ?? 0);
 $topicId = isset($_POST['topic_id']) && $_POST['topic_id'] !== '' ? intval($_POST['topic_id']) : null;
@@ -70,6 +71,8 @@ foreach ($sections as $title => $questions) {
 }
 
 $mpdf = new \Mpdf\Mpdf();
+header('Content-Type: application/pdf');
 $mpdf->WriteHTML($html);
 $mpdf->Output('paper.pdf', 'I');
+exit;
 ?>

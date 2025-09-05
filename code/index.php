@@ -248,6 +248,9 @@ if (isset($_SESSION['error'])) {
                             <a href="studentlogin.php" class="btn btn-primary btn-lg">
                                 <i class="material-icons">school</i> Student Login
                             </a>
+                            <a href="paper_login.php" class="btn btn-primary btn-lg">
+                                <i class="material-icons">description</i> Paper Generator
+                            </a>
                         </div>
                     </div>
                 </div>
