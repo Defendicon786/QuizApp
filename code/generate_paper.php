@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 if (!isset($_SESSION['paperloggedin']) || $_SESSION['paperloggedin'] !== true) {
     header('Location: paper_login.php');
     exit;
@@ -105,7 +106,9 @@ foreach ($sections as $title => $questions) {
 }
 
 $mpdf = new \Mpdf\Mpdf();
-header('Content-Type: application/pdf');
+if (ob_get_length()) {
+    ob_end_clean();
+}
 $mpdf->WriteHTML($html);
 $mpdf->Output('paper.pdf', 'I');
 exit;
