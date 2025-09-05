@@ -126,7 +126,7 @@ $header = $_SESSION['paper_header'];
                           <small class="form-text text-muted">Available: <span id="numerical-count">0</span></small>
                         </div>
                         <div class="form-group" id="manual-select-wrapper" style="display:none;">
-                          <button type="button" id="manual-select" class="btn btn-secondary">Manual Selection</button>
+                          <button type="button" id="manual-select" class="btn btn-secondary" style="color:#000;">Manual Selection</button>
                         </div>
                         <input type="hidden" name="selected_mcq" id="selected_mcq">
                         <input type="hidden" name="selected_short" id="selected_short">
@@ -155,7 +155,7 @@ $header = $_SESSION['paper_header'];
                       </div>
                       <div class="footer text-center">
                         <button type="submit" class="btn btn-primary btn-lg">Generate Paper</button>
-                        <a href="paper_logout.php" class="btn btn-secondary btn-lg">Logout</a>
+                        <a href="paper_logout.php" class="btn btn-secondary btn-lg" style="color:#000;">Logout</a>
                       </div>
                     </form>
                   </div>
