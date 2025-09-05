@@ -123,24 +123,24 @@ if ($useMpdf) {
 } else {
     $pdf = new FPDF();
     $pdf->AddPage();
-    $pdf->SetFont('Arial', '', 12);
+    $pdf->SetFont('Helvetica', '', 12);
     if ($logo) {
         @ $pdf->Image($logo, 10, 10, 30);
         $pdf->Ln(20);
     }
-    $pdf->SetFont('Arial', 'B', 14);
+    $pdf->SetFont('Helvetica', 'B', 14);
     $pdf->Cell(0, 10, $header, 0, 1, 'C');
     $pdf->Cell(0, 10, $paperName, 0, 1, 'C');
     if ($paperDate) {
-        $pdf->SetFont('Arial', '', 12);
+        $pdf->SetFont('Helvetica', '', 12);
         $pdf->Cell(0, 8, 'Date: ' . $paperDate, 0, 1, 'C');
     }
     $pdf->Ln(5);
     foreach ($sections as $title => $questions) {
         if (count($questions) === 0) continue;
-        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->SetFont('Helvetica', 'B', 12);
         $pdf->Cell(0, 8, $title, 0, 1);
-        $pdf->SetFont('Arial', '', 11);
+        $pdf->SetFont('Helvetica', '', 11);
         $i = 1;
         foreach ($questions as $q) {
             $text = $i . '. ' . $q['question'];
