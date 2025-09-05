@@ -18,6 +18,7 @@ $essay = intval($_POST['essay'] ?? 0);
 $fill = intval($_POST['fill'] ?? 0);
 $numerical = intval($_POST['numerical'] ?? 0);
 $paperDate = trim($_POST['paper_date'] ?? '');
+$mode = $_POST['mode'] ?? 'random';
 $logo = $_SESSION['paper_logo'];
 $header = $_SESSION['paper_header'];
 
@@ -39,11 +40,39 @@ function fetch_questions($conn, $table, $fields, $chapterId, $topicId, $limit) {
 }
 
 $sections = [];
-$sections['MCQs'] = fetch_questions($conn, 'mcqdb', 'question, optiona, optionb, optionc, optiond', $chapterId, $topicId, $mcq);
-$sections['Short Questions'] = fetch_questions($conn, 'shortanswer', 'question', $chapterId, $topicId, $short);
-$sections['Long Questions'] = fetch_questions($conn, 'essay', 'question', $chapterId, $topicId, $essay);
-$sections['Fill in the Blanks'] = fetch_questions($conn, 'fillintheblanks', 'question', $chapterId, $topicId, $fill);
-$sections['Numerical'] = fetch_questions($conn, 'numericaldb', 'question', $chapterId, $topicId, $numerical);
+
+if ($mode === 'manual') {
+    $selected = [
+        'MCQs' => ['ids' => $_POST['selected_mcq'] ?? '', 'table' => 'mcqdb', 'fields' => 'question, optiona, optionb, optionc, optiond'],
+        'Short Questions' => ['ids' => $_POST['selected_short'] ?? '', 'table' => 'shortanswer', 'fields' => 'question'],
+        'Long Questions' => ['ids' => $_POST['selected_essay'] ?? '', 'table' => 'essay', 'fields' => 'question'],
+        'Fill in the Blanks' => ['ids' => $_POST['selected_fill'] ?? '', 'table' => 'fillintheblanks', 'fields' => 'question'],
+        'Numerical' => ['ids' => $_POST['selected_numerical'] ?? '', 'table' => 'numericaldb', 'fields' => 'question']
+    ];
+    foreach ($selected as $title => $info) {
+        $ids = array_filter(array_map('intval', array_filter(explode(',', $info['ids']))));
+        $sections[$title] = [];
+        if (!empty($ids)) {
+            $placeholders = implode(',', array_fill(0, count($ids), '?'));
+            $sql = "SELECT {$info['fields']} FROM {$info['table']} WHERE id IN ($placeholders)";
+            $stmt = $conn->prepare($sql);
+            if ($stmt) {
+                $types = str_repeat('i', count($ids));
+                $stmt->bind_param($types, ...$ids);
+                $stmt->execute();
+                $res = $stmt->get_result();
+                while ($row = $res->fetch_assoc()) { $sections[$title][] = $row; }
+                $stmt->close();
+            }
+        }
+    }
+} else {
+    $sections['MCQs'] = fetch_questions($conn, 'mcqdb', 'question, optiona, optionb, optionc, optiond', $chapterId, $topicId, $mcq);
+    $sections['Short Questions'] = fetch_questions($conn, 'shortanswer', 'question', $chapterId, $topicId, $short);
+    $sections['Long Questions'] = fetch_questions($conn, 'essay', 'question', $chapterId, $topicId, $essay);
+    $sections['Fill in the Blanks'] = fetch_questions($conn, 'fillintheblanks', 'question', $chapterId, $topicId, $fill);
+    $sections['Numerical'] = fetch_questions($conn, 'numericaldb', 'question', $chapterId, $topicId, $numerical);
+}
 $conn->close();
 
 $html = '<div style="text-align:center;">';
