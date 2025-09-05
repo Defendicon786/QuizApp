@@ -80,6 +80,9 @@ if ($mode === 'manual') {
             if ($stmt) {
                 $types = str_repeat('i', count($ids));
                 $bindIds = [$types];
+                // mysqli_stmt::bind_param requires references; build an array of
+                // references instead of values so each placeholder is properly
+                // bound to the corresponding ID value.
                 foreach ($ids as $k => $v) {
                     $bindIds[] = &$ids[$k];
                 }
