@@ -19,17 +19,18 @@ $fill = intval($_POST['fill'] ?? 0);
 $numerical = intval($_POST['numerical'] ?? 0);
 $paperDate = trim($_POST['paper_date'] ?? '');
 $mode = $_POST['mode'] ?? 'random';
-$logo = $_SESSION['paper_logo'];
-$header = $_SESSION['paper_header'];
+$logo = $_SESSION['paper_logo'] ?? '';
+$header = $_SESSION['paper_header'] ?? '';
 
 function fetch_questions($conn, $table, $fields, $chapterId, $topicId, $limit) {
-    if ($limit <= 0) return [];
+    if ($limit <= 0 || !$conn) return [];
     $sql = "SELECT $fields FROM $table WHERE chapter_id=?";
     $types = 'i';
     $params = [$chapterId];
     if ($topicId) { $sql .= " AND topic_id=?"; $types .= 'i'; $params[] = $topicId; }
     $sql .= " ORDER BY RAND() LIMIT ?"; $types .= 'i'; $params[] = $limit;
     $stmt = $conn->prepare($sql);
+    if (!$stmt) return [];
     $stmt->bind_param($types, ...$params);
     $stmt->execute();
     $res = $stmt->get_result();
@@ -52,7 +53,7 @@ if ($mode === 'manual') {
     foreach ($selected as $title => $info) {
         $ids = array_filter(array_map('intval', array_filter(explode(',', $info['ids']))));
         $sections[$title] = [];
-        if (!empty($ids)) {
+        if (!empty($ids) && $conn) {
             $placeholders = implode(',', array_fill(0, count($ids), '?'));
             $sql = "SELECT {$info['fields']} FROM {$info['table']} WHERE id IN ($placeholders)";
             $stmt = $conn->prepare($sql);
@@ -73,7 +74,9 @@ if ($mode === 'manual') {
     $sections['Fill in the Blanks'] = fetch_questions($conn, 'fillintheblanks', 'question', $chapterId, $topicId, $fill);
     $sections['Numerical'] = fetch_questions($conn, 'numericaldb', 'question', $chapterId, $topicId, $numerical);
 }
-$conn->close();
+if ($conn) {
+    $conn->close();
+}
 
 $html = '<div style="text-align:center;">';
 if ($logo) $html .= '<img src="'.htmlspecialchars($logo).'" height="80"><br>';
