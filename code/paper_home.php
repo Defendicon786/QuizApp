@@ -64,7 +64,7 @@ $header = $_SESSION['paper_header'];
       <h2 class="text-center mb-4"><?php echo htmlspecialchars($header); ?></h2>
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-md-6">
+          <div class="col-12 col-md-10 col-lg-8 col-xl-6">
             <div class="card">
               <form method="post" action="generate_paper.php">
                 <div class="card-header card-header-primary text-center">
