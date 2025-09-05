@@ -17,31 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $message = '<p class="text-success">User reactivated successfully!</p>';
         }
         $stmt->close();
-    } elseif (isset($_POST['upload_logo_id'])) {
-        $id = (int)($_POST['upload_logo_id']);
-        $logoPath = null;
-        if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = 'assets/paper_logos/';
-            if (!is_dir($uploadDir)) {
-                mkdir($uploadDir, 0777, true);
-            }
-            $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
-            $filename = uniqid('logo_', true) . '.' . $ext;
-            $logoPath = $uploadDir . $filename;
-            move_uploaded_file($_FILES['logo']['tmp_name'], $logoPath);
-        }
-        if ($logoPath) {
-            $stmt = $conn->prepare('UPDATE paper_users SET logo = ? WHERE id = ?');
-            $stmt->bind_param('si', $logoPath, $id);
-            if ($stmt->execute()) {
-                $message = '<p class="text-success">Logo updated successfully!</p>';
-            } else {
-                $message = '<p class="text-danger">Error updating logo.</p>';
-            }
-            $stmt->close();
-        } else {
-            $message = '<p class="text-danger">Please select a logo to upload.</p>';
-        }
     } else {
         $name = trim($_POST['name'] ?? '');
         $email = trim($_POST['email'] ?? '');
@@ -149,11 +124,11 @@ $conn->close();
                         <div class="form-group">
                           <label class="bmd-label-floating">Freeze Date</label>
                           <input type="date" name="expires_on" class="form-control">
-                          <div class="form-group mb-0">
-                            <label class="bmd-label-floating">Logo</label>
-                            <input type="file" name="logo" id="logoInput" class="form-control" accept="image/*">
-                            <img id="logoPreview" alt="Logo Preview" style="max-height:100px; display:none; margin-top:10px;" />
-                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Upload Logo</label>
+                          <input type="file" name="logo" id="logoInput" class="form-control" accept="image/*">
+                          <img id="logoPreview" alt="Logo Preview" style="max-height:100px; display:none; margin-top:10px;" />
                         </div>
                         <button type="submit" class="btn btn-primary pull-right">Add User</button>
                         <div class="clearfix"></div>
@@ -170,11 +145,6 @@ $conn->close();
                         echo '<img src="'.htmlspecialchars($row['logo']).'" alt="Logo" height="40" style="margin-right:10px;">';
                     }
                     echo htmlspecialchars($row['name']).' ('.htmlspecialchars($row['email']).')';
-                    echo ' <form method="post" enctype="multipart/form-data" style="display:inline-block;margin-left:10px;">';
-                    echo '<input type="hidden" name="upload_logo_id" value="'.intval($row['id']).'">';
-                    echo '<input type="file" name="logo" accept="image/*" required>';
-                    echo '<button type="submit" class="btn btn-link btn-sm">Upload Logo</button>';
-                    echo '</form>';
                     if (!$row['is_active']) {
                         echo ' - Inactive';
                         echo '<form method="post" style="display:inline"><input type="hidden" name="reactivate_id" value="'.intval($row['id']).'"><button type="submit" class="btn btn-link btn-sm">Reactivate</button></form>';
