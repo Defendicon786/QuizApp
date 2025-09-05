@@ -49,6 +49,28 @@ $header = $_SESSION['paper_header'];
         }
         .card-header-primary .card-title { color: #fff; margin: 0; }
         .btn { width: 100%; }
+        #question-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1050;
+        }
+        #question-modal .modal-content {
+            background: #fff;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+        }
+        #question-lists .type-block { margin-bottom: 15px; }
+        #question-lists .type-block h5 { margin-top: 0; }
     </style>
 </head>
 <body>
@@ -121,6 +143,11 @@ $header = $_SESSION['paper_header'];
                                 <div class="form-group" id="manual-select-wrapper" style="display:none;">
                                     <button type="button" id="manual-select" class="btn btn-secondary">Manual Selection</button>
                                 </div>
+                                <input type="hidden" name="selected_mcq" id="selected_mcq">
+                                <input type="hidden" name="selected_short" id="selected_short">
+                                <input type="hidden" name="selected_essay" id="selected_essay">
+                                <input type="hidden" name="selected_fill" id="selected_fill">
+                                <input type="hidden" name="selected_numerical" id="selected_numerical">
                                 <div class="form-group">
                                     <label class="bmd-label-floating">Date (optional)</label>
                                     <input type="date" name="paper_date" class="form-control">
@@ -151,6 +178,16 @@ $header = $_SESSION['paper_header'];
             </div>
         </div>
     </div>
+    <div id="question-modal">
+        <div class="modal-content">
+            <h4>Select Questions</h4>
+            <div id="question-lists"></div>
+            <div class="text-right">
+                <button type="button" id="save-selection" class="btn btn-primary btn-sm">Save</button>
+                <button type="button" id="cancel-selection" class="btn btn-secondary btn-sm">Cancel</button>
+            </div>
+        </div>
+    </div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const classSelect = document.getElementById('class_id');
@@ -159,6 +196,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const topicSelect = document.getElementById('topic_id');
     const manualBtn = document.getElementById('manual-select');
     const manualWrapper = document.getElementById('manual-select-wrapper');
+    const questionModal = document.getElementById('question-modal');
+    const questionLists = document.getElementById('question-lists');
+    const saveSelection = document.getElementById('save-selection');
+    const cancelSelection = document.getElementById('cancel-selection');
+    const typeMap = [
+        {key:'mcq', label:'MCQs', input:'mcq', hidden:'selected_mcq'},
+        {key:'short', label:'Short Questions', input:'short', hidden:'selected_short'},
+        {key:'essay', label:'Long Questions', input:'essay', hidden:'selected_essay'},
+        {key:'fillblanks', label:'Fill in the Blanks', input:'fill', hidden:'selected_fill'},
+        {key:'numerical', label:'Numerical', input:'numerical', hidden:'selected_numerical'}
+    ];
     const counts = {
         mcq: document.getElementById('mcq-count'),
         short: document.getElementById('short-count'),
@@ -234,13 +282,51 @@ document.addEventListener('DOMContentLoaded', function() {
     chapterSelect.addEventListener('change', updateCounts);
 
     manualBtn.addEventListener('click', function() {
-        const params = new URLSearchParams({
-            filter_class: classSelect.value,
-            filter_subject: subjectSelect.value,
-            filter_chapter: chapterSelect.value,
-            filter_topic: topicSelect.value
+        questionLists.innerHTML = '';
+        const chapterId = chapterSelect.value;
+        const topicId = topicSelect.value;
+        typeMap.forEach(t => {
+            const block = document.createElement('div');
+            block.className = 'type-block';
+            block.innerHTML = `<h5>${t.label}</h5><div class="questions">Loading...</div>`;
+            questionLists.appendChild(block);
+            const params = new URLSearchParams();
+            params.append('type', t.key);
+            params.append('chapter_ids', chapterId);
+            if (topicId) params.append('topic_ids', topicId);
+            fetch('get_questions.php', {method:'POST', body: params})
+                .then(r => r.json())
+                .then(data => {
+                    const qDiv = block.querySelector('.questions');
+                    qDiv.innerHTML = '';
+                    if (Array.isArray(data) && data.length) {
+                        const selected = document.getElementById(t.hidden).value.split(',');
+                        data.forEach(q => {
+                            const id = q.id;
+                            const numeric = id.split('_')[1];
+                            const checked = selected.includes(numeric) ? 'checked' : '';
+                            qDiv.insertAdjacentHTML('beforeend', `<div><label><input type="checkbox" data-type="${t.key}" value="${id}" ${checked}> ${q.question}</label></div>`);
+                        });
+                    } else {
+                        qDiv.textContent = 'No questions available.';
+                    }
+                });
         });
-        window.location.href = 'view_questions.php?' + params.toString();
+        questionModal.style.display = 'flex';
+    });
+
+    cancelSelection.addEventListener('click', function() {
+        questionModal.style.display = 'none';
+    });
+
+    saveSelection.addEventListener('click', function() {
+        typeMap.forEach(t => {
+            const selected = Array.from(questionLists.querySelectorAll(`input[data-type="${t.key}"]:checked`)).map(cb => cb.value.split('_')[1]);
+            document.getElementById(t.hidden).value = selected.join(',');
+            const inputField = document.querySelector(`input[name="${t.input}"]`);
+            if (inputField) inputField.value = selected.length;
+        });
+        questionModal.style.display = 'none';
     });
 });
 </script>
