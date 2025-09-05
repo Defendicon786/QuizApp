@@ -127,7 +127,8 @@ $conn->close();
                         </div>
                         <div class="form-group">
                           <label class="bmd-label-floating">Logo</label>
-                          <input type="file" name="logo" class="form-control" accept="image/*">
+                          <input type="file" name="logo" id="logoInput" class="form-control" accept="image/*">
+                          <img id="logoPreview" alt="Logo Preview" style="max-height:100px; display:none; margin-top:10px;" />
                         </div>
                         <button type="submit" class="btn btn-primary pull-right">Add User</button>
                         <div class="clearfix"></div>
@@ -170,5 +171,20 @@ $conn->close();
 <script src="./assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
 <script src="./assets/js/dark-mode.js"></script>
 <script src="./assets/js/sidebar.js"></script>
+<script>
+const logoInput = document.getElementById('logoInput');
+if (logoInput) {
+    logoInput.addEventListener('change', function () {
+        const preview = document.getElementById('logoPreview');
+        const [file] = this.files;
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = 'block';
+        } else {
+            preview.style.display = 'none';
+        }
+    });
+}
+</script>
 </body>
 </html>
