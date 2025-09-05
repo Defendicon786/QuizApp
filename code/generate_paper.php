@@ -53,7 +53,7 @@ if ($mode === 'manual') {
     foreach ($selected as $title => $info) {
         $ids = array_filter(array_map('intval', array_filter(explode(',', $info['ids']))));
         $sections[$title] = [];
-        if (!empty($ids)) {
+        if (!empty($ids) && $conn) {
             $placeholders = implode(',', array_fill(0, count($ids), '?'));
             $sql = "SELECT {$info['fields']} FROM {$info['table']} WHERE id IN ($placeholders)";
             $stmt = $conn->prepare($sql);
