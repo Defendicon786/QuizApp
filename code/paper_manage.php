@@ -9,39 +9,51 @@ include 'database.php';
 $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = trim($_POST['name'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $password = $_POST['password'] ?? '';
-    $headerText = trim($_POST['header'] ?? '');
-    $logoPath = null;
-
-    if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = 'assets/paper_logos/';
-        if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0777, true);
-        }
-        $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
-        $filename = uniqid('logo_', true) . '.' . $ext;
-        $logoPath = $uploadDir . $filename;
-        move_uploaded_file($_FILES['logo']['tmp_name'], $logoPath);
-    }
-
-    if ($name && $email && $password) {
-        $stmt = $conn->prepare('INSERT INTO paper_users (name, email, password, logo, header) VALUES (?, ?, ?, ?, ?)');
-        $stmt->bind_param('sssss', $name, $email, $password, $logoPath, $headerText);
+    if (isset($_POST['reactivate_id'])) {
+        $id = (int)($_POST['reactivate_id']);
+        $stmt = $conn->prepare('UPDATE paper_users SET is_active = 1 WHERE id = ?');
+        $stmt->bind_param('i', $id);
         if ($stmt->execute()) {
-            $message = '<p class="text-success">User added successfully!</p>';
-        } else {
-            $message = '<p class="text-danger">Error adding user.</p>';
+            $message = '<p class="text-success">User reactivated successfully!</p>';
         }
         $stmt->close();
     } else {
-        $message = '<p class="text-danger">Please fill in all required fields.</p>';
+        $name = trim($_POST['name'] ?? '');
+        $email = trim($_POST['email'] ?? '');
+        $password = $_POST['password'] ?? '';
+        $headerText = trim($_POST['header'] ?? '');
+        $activatedOn = $_POST['activated_on'] !== '' ? $_POST['activated_on'] : null;
+        $expiresOn = $_POST['expires_on'] !== '' ? $_POST['expires_on'] : null;
+        $logoPath = null;
+
+        if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = 'assets/paper_logos/';
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+            $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
+            $filename = uniqid('logo_', true) . '.' . $ext;
+            $logoPath = $uploadDir . $filename;
+            move_uploaded_file($_FILES['logo']['tmp_name'], $logoPath);
+        }
+
+        if ($name && $email && $password) {
+            $stmt = $conn->prepare('INSERT INTO paper_users (name, email, password, logo, header, activated_on, expires_on) VALUES (?, ?, ?, ?, ?, ?, ?)');
+            $stmt->bind_param('sssssss', $name, $email, $password, $logoPath, $headerText, $activatedOn, $expiresOn);
+            if ($stmt->execute()) {
+                $message = '<p class="text-success">User added successfully!</p>';
+            } else {
+                $message = '<p class="text-danger">Error adding user.</p>';
+            }
+            $stmt->close();
+        } else {
+            $message = '<p class="text-danger">Please fill in all required fields.</p>';
+        }
     }
 }
 
 $users = [];
-$res = $conn->query('SELECT name, email FROM paper_users ORDER BY name');
+$res = $conn->query('SELECT id, name, email, activated_on, expires_on, is_active FROM paper_users ORDER BY name');
 if ($res) {
     while ($row = $res->fetch_assoc()) {
         $users[] = $row;
@@ -106,8 +118,16 @@ $conn->close();
                           <input type="text" name="header" class="form-control">
                         </div>
                         <div class="form-group">
+                          <label class="bmd-label-floating">Activation Date</label>
+                          <input type="date" name="activated_on" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Freeze Date</label>
+                          <input type="date" name="expires_on" class="form-control">
+                        </div>
+                        <div class="form-group">
                           <label class="bmd-label-floating">Logo</label>
-                          <input type="file" name="logo" class="form-control">
+                          <input type="file" name="logo" class="form-control" accept="image/*">
                         </div>
                         <button type="submit" class="btn btn-primary pull-right">Add User</button>
                         <div class="clearfix"></div>
@@ -118,7 +138,19 @@ $conn->close();
               </div>
               <h4 class="mt-5">Current Paper Users</h4>
               <ul class="list-group">
-                <?php foreach ($users as $row) { echo '<li class="list-group-item">'.htmlspecialchars($row['name']).' ('.htmlspecialchars($row['email']).')</li>'; } ?>
+                <?php foreach ($users as $row) {
+                    echo '<li class="list-group-item">'.htmlspecialchars($row['name']).' ('.htmlspecialchars($row['email']).')';
+                    if (!$row['is_active']) {
+                        echo ' - Inactive';
+                        echo '<form method="post" style="display:inline"><input type="hidden" name="reactivate_id" value="'.intval($row['id']).'"><button type="submit" class="btn btn-link btn-sm">Reactivate</button></form>';
+                    } else {
+                        echo ' - Active';
+                    }
+                    if (!empty($row['expires_on'])) {
+                        echo ' - Freeze Date: '.htmlspecialchars($row['expires_on']);
+                    }
+                    echo '</li>';
+                } ?>
               </ul>
             </div>
           </div>
