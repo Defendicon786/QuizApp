@@ -45,16 +45,75 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>Paper Generator Login</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="./assets/css/material-kit.css?v=2.0.4" rel="stylesheet" />
+    <link href="./assets/css/modern.css" rel="stylesheet" />
+    <style>
+        html, body { height: 100%; }
+        body { display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        .page-header {
+            background: linear-gradient(45deg, rgba(0,0,0,0.7), rgba(72,72,176,0.7)),
+                        url('./assets/img/bg.jpg') center center;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            display: flex;
+            align-items: center;
+            flex: 1 0 auto;
+        }
+        .card-login { max-width: 400px; margin: 0 auto; }
+        .card .card-header-primary {
+            background: linear-gradient(60deg, #ab47bc, #8e24aa);
+            box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.2),
+                       0 13px 24px -11px rgba(156, 39, 176, 0.6);
+            margin: -20px 20px 15px;
+            border-radius: 3px;
+            padding: 15px;
+        }
+        .card-header-primary .card-title { color: #fff; margin: 0; }
+        .btn { width: 100%; }
+    </style>
 </head>
 <body>
-    <h2>Paper Generator Login</h2>
-    <?php if ($login_error) echo '<p style="color:red;">' . htmlspecialchars($login_error) . '</p>'; ?>
-    <form method="post">
-        <label>Email: <input type="email" name="email" required></label><br>
-        <label>Password: <input type="password" name="password" required></label><br>
-        <button type="submit">Login</button>
-    </form>
+    <div class="page-header header-filter">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 ml-auto mr-auto">
+                    <div class="card card-login">
+                        <form class="form" method="post">
+                            <div class="card-header card-header-primary text-center">
+                                <h4 class="card-title">Paper Generator Login</h4>
+                            </div>
+                            <p class="description text-center">Enter your credentials</p>
+                            <div class="card-body">
+                                <?php if ($login_error): ?>
+                                    <div class="alert alert-danger text-center"><?php echo htmlspecialchars($login_error); ?></div>
+                                <?php endif; ?>
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Email</label>
+                                    <input type="email" name="email" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Password</label>
+                                    <input type="password" name="password" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="footer text-center">
+                                <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

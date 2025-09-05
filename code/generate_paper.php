@@ -70,6 +70,8 @@ foreach ($sections as $title => $questions) {
 }
 
 $mpdf = new \Mpdf\Mpdf();
+header('Content-Type: application/pdf');
 $mpdf->WriteHTML($html);
 $mpdf->Output('paper.pdf', 'I');
+exit;
 ?>
