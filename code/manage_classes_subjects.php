@@ -1063,12 +1063,8 @@ $stmt->close();
                                                 </select>
                                             </div>
                                             <div class="col-md-3 col-lg-4">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" name="topic_name" placeholder="Enter topic name" required>
-                                                    <div class="input-group-append">
-                                                        <button type="submit" class="btn btn-primary">Add Topic</button>
-                                                    </div>
-                                                </div>
+                                                <input type="text" class="form-control" name="topic_name" placeholder="Enter topic name" required>
+                                                <button type="submit" class="btn btn-primary mt-2">Add Topic</button>
                                             </div>
                                         </div>
                                     </form>
