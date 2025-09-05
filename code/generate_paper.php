@@ -1,21 +1,12 @@
 <?php
 session_start();
+ob_start();
 if (!isset($_SESSION['paperloggedin']) || $_SESSION['paperloggedin'] !== true) {
     header('Location: paper_login.php');
     exit;
 }
 
-$useMpdf = false;
-$vendorAutoload = __DIR__ . '/vendor/autoload.php';
-if (file_exists($vendorAutoload)) {
-    require_once $vendorAutoload;
-    if (class_exists('\\Mpdf\\Mpdf')) {
-        $useMpdf = true;
-    }
-}
-if (!$useMpdf) {
-    require_once __DIR__ . '/lib/fpdf.php';
-}
+require_once __DIR__ . '/lib/mpdf/vendor/autoload.php';
 
 include 'database.php';
 
@@ -114,47 +105,11 @@ foreach ($sections as $title => $questions) {
     $html .= '</ol>';
 }
 
-$mpdf = null;
-if ($useMpdf) {
-    $mpdf = new \Mpdf\Mpdf();
-    header('Content-Type: application/pdf');
-    $mpdf->WriteHTML($html);
-    $mpdf->Output('paper.pdf', 'I');
-} else {
-    $pdf = new FPDF();
-    $pdf->AddPage();
-    $pdf->SetFont('Helvetica', '', 12);
-    if ($logo) {
-        @ $pdf->Image($logo, 10, 10, 30);
-        $pdf->Ln(20);
-    }
-    $pdf->SetFont('Helvetica', 'B', 14);
-    $pdf->Cell(0, 10, $header, 0, 1, 'C');
-    $pdf->Cell(0, 10, $paperName, 0, 1, 'C');
-    if ($paperDate) {
-        $pdf->SetFont('Helvetica', '', 12);
-        $pdf->Cell(0, 8, 'Date: ' . $paperDate, 0, 1, 'C');
-    }
-    $pdf->Ln(5);
-    foreach ($sections as $title => $questions) {
-        if (count($questions) === 0) continue;
-        $pdf->SetFont('Helvetica', 'B', 12);
-        $pdf->Cell(0, 8, $title, 0, 1);
-        $pdf->SetFont('Helvetica', '', 11);
-        $i = 1;
-        foreach ($questions as $q) {
-            $text = $i . '. ' . $q['question'];
-            if ($title === 'MCQs') {
-                $text .= "\nA. " . $q['optiona'] . "\nB. " . $q['optionb'] . "\nC. " . $q['optionc'] . "\nD. " . $q['optiond'];
-            }
-            $pdf->MultiCell(0, 6, $text);
-            $pdf->Ln(1);
-            $i++;
-        }
-        $pdf->Ln(2);
-    }
-    header('Content-Type: application/pdf');
-    $pdf->Output('paper.pdf', 'I');
+$mpdf = new \Mpdf\Mpdf();
+if (ob_get_length()) {
+    ob_end_clean();
 }
+$mpdf->WriteHTML($html);
+$mpdf->Output('paper.pdf', 'I');
 exit;
 ?>
