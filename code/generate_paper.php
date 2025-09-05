@@ -43,7 +43,15 @@ function fetch_questions($conn, $table, $fields, $chapterId, $topicId, $limit) {
     $sql .= " ORDER BY RAND() LIMIT ?"; $types .= 'i'; $params[] = $limit;
     $stmt = $conn->prepare($sql);
     if (!$stmt) return [];
-    $stmt->bind_param($types, ...$params);
+    // mysqli_stmt::bind_param requires parameters to be passed by reference.
+    // Using the spread operator on the parameter array passes values by copy,
+    // resulting in the statement executing with unbound placeholders and
+    // returning no rows. Build an array of references for bind_param instead.
+    $bindParams = [$types];
+    foreach ($params as $key => $value) {
+        $bindParams[] = &$params[$key];
+    }
+    call_user_func_array([$stmt, 'bind_param'], $bindParams);
     $stmt->execute();
     $res = $stmt->get_result();
     $qs = [];
@@ -71,7 +79,11 @@ if ($mode === 'manual') {
             $stmt = $conn->prepare($sql);
             if ($stmt) {
                 $types = str_repeat('i', count($ids));
-                $stmt->bind_param($types, ...$ids);
+                $bindIds = [$types];
+                foreach ($ids as $k => $v) {
+                    $bindIds[] = &$ids[$k];
+                }
+                call_user_func_array([$stmt, 'bind_param'], $bindIds);
                 $stmt->execute();
                 $res = $stmt->get_result();
                 while ($row = $res->fetch_assoc()) { $sections[$title][] = $row; }
