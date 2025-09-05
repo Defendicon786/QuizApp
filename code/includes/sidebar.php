@@ -56,6 +56,7 @@ if (isset($_SESSION['studentloggedin']) && $_SESSION['studentloggedin'] === true
             <li><a href="manage_students.php"><i class="fas fa-user-graduate"></i><span>Manage Students</span></a></li>
             <li><a href="manage_notifications.php"><i class="fas fa-bell"></i><span>Manage Notifications</span></a></li>
             <li><a href="paper_home.php"><i class="fas fa-file-alt"></i><span>Generate Paper</span></a></li>
+            <li><a href="paper_manage.php"><i class="fas fa-users-cog"></i><span>Manage Paper Generator App</span></a></li>
             <li><a href="my_profile.php"><i class="fas fa-user"></i><span>My Profile</span></a></li>
         <?php endif; ?>
         <li><a href="<?php echo $logout; ?>"><i class="fas fa-sign-out-alt"></i><span>Log Out</span></a></li>
