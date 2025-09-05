@@ -126,7 +126,10 @@ $conn->close();
                           <input type="date" name="expires_on" class="form-control">
                           <div class="mt-3">
                             <label class="bmd-label-floating">Upload Logo</label>
-                            <input type="file" name="logo" id="logoInput" class="form-control" accept="image/*">
+                            <div class="input-group">
+                              <input type="file" name="logo" id="logoInput" accept="image/*" style="display:none;">
+                              <button type="button" id="uploadLogoButton" class="btn btn-secondary">Choose Logo</button>
+                            </div>
                             <img id="logoPreview" alt="Logo Preview" style="max-height:100px; display:none; margin-top:10px;" />
                           </div>
                         </div>
@@ -176,8 +179,10 @@ $conn->close();
 <script src="./assets/js/dark-mode.js"></script>
 <script src="./assets/js/sidebar.js"></script>
 <script>
+const uploadBtn = document.getElementById('uploadLogoButton');
 const logoInput = document.getElementById('logoInput');
-if (logoInput) {
+if (uploadBtn && logoInput) {
+    uploadBtn.addEventListener('click', () => logoInput.click());
     logoInput.addEventListener('change', function () {
         const preview = document.getElementById('logoPreview');
         const [file] = this.files;
