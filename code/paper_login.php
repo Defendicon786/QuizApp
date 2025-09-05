@@ -19,9 +19,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $result = $stmt->get_result();
             if ($user = $result->fetch_assoc()) {
                 $today = date('Y-m-d');
-                if ((!empty($user['activated_on']) && $today < $user['activated_on']) ||
-                    (!empty($user['expires_on']) && $today > $user['expires_on']) ||
-                    !$user['is_active']) {
+                if (!empty($user['expires_on']) && $today > $user['expires_on'] && $user['is_active']) {
+                    $upd = $conn->prepare('UPDATE paper_users SET is_active = 0 WHERE id = ?');
+                    $upd->bind_param('i', $user['id']);
+                    $upd->execute();
+                    $upd->close();
+                    $user['is_active'] = 0;
+                }
+                if ((!empty($user['activated_on']) && $today < $user['activated_on']) || !$user['is_active']) {
                     $login_error = 'Account inactive. Please contact administrator.';
                 } else {
                     $_SESSION['paperloggedin'] = true;
