@@ -59,45 +59,84 @@ $conn->close();
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>Manage Paper Users</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,700|Material+Icons" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="./assets/css/material-kit.css?v=2.0.4" rel="stylesheet" />
+    <link href="./assets/css/sidebar.css" rel="stylesheet" />
     <link href="./assets/css/modern.css" rel="stylesheet" />
+    <link href="./assets/css/navbar.css" rel="stylesheet" />
+    <link href="./assets/css/portal.css" rel="stylesheet" />
+    <link href="./assets/css/manage.css" rel="stylesheet" />
+    <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
 </head>
-<body>
-    <?php include './includes/sidebar.php'; ?>
-    <div class="main-content">
-        <div class="container mt-5">
-            <h2>Manage Paper Generator Users</h2>
-            <?php echo $message; ?>
-            <form method="post" enctype="multipart/form-data" class="mt-4">
-                <div class="form-group">
-                    <label class="bmd-label-floating">Name</label>
-                    <input type="text" name="name" class="form-control" required>
+<body class="dark-mode">
+<div class="layout">
+  <?php include './includes/sidebar.php'; ?>
+  <div class="main">
+    <?php include './includes/header.php'; ?>
+    <main class="content">
+      <div class="wrapper">
+        <div class="main main-raised">
+          <div class="container">
+            <div class="section">
+              <h2 class="text-center">Manage Paper Generator Users</h2>
+              <?php echo $message; ?>
+              <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                  <div class="card">
+                    <div class="card-header card-header-primary">
+                      <h4 class="card-title">Add Paper Generator User</h4>
+                    </div>
+                    <div class="card-body">
+                      <form method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Name</label>
+                          <input type="text" name="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Email</label>
+                          <input type="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Password</label>
+                          <input type="password" name="password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Header Text</label>
+                          <input type="text" name="header" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Logo</label>
+                          <input type="file" name="logo" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-right">Add User</button>
+                        <div class="clearfix"></div>
+                      </form>
+                    </div>
+                  </div>
                 </div>
-                <div class="form-group">
-                    <label class="bmd-label-floating">Email</label>
-                    <input type="email" name="email" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label class="bmd-label-floating">Password</label>
-                    <input type="password" name="password" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label class="bmd-label-floating">Header Text</label>
-                    <input type="text" name="header" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label class="bmd-label-floating">Logo</label>
-                    <input type="file" name="logo" class="form-control">
-                </div>
-                <button type="submit" class="btn btn-primary btn-lg">Add User</button>
-            </form>
-            <h4 class="mt-5">Current Paper Users</h4>
-            <ul class="list-group">
+              </div>
+              <h4 class="mt-5">Current Paper Users</h4>
+              <ul class="list-group">
                 <?php foreach ($users as $row) { echo '<li class="list-group-item">'.htmlspecialchars($row['name']).' ('.htmlspecialchars($row['email']).')</li>'; } ?>
-            </ul>
+              </ul>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
+    </main>
+    <footer class="footer-text">
+      <p>Narowal Public School and College</p>
+      <p>Developed and Maintained by Sir Hassan Tariq</p>
+    </footer>
+  </div>
+</div>
+<script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>
+<script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
+<script src="./assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+<script src="./assets/js/plugins/moment.min.js"></script>
+<script src="./assets/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
+<script src="./assets/js/dark-mode.js"></script>
+<script src="./assets/js/sidebar.js"></script>
 </body>
 </html>
