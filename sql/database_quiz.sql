@@ -66,6 +66,16 @@ CREATE TABLE `paper_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `paper_users`
+--
+LOCK TABLES `paper_users` WRITE;
+/*!40000 ALTER TABLE `paper_users` DISABLE KEYS */;
+INSERT INTO `paper_users` (`id`, `name`, `email`, `password`, `logo`, `header`, `activated_on`, `expires_on`, `is_active`) VALUES
+(1,'Paper Admin','paperadmin@example.com','securepass','assets/img/logo.png','Paper Generator',NULL,NULL,1);
+/*!40000 ALTER TABLE `paper_users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `chapters`
 --
 
