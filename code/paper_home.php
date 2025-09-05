@@ -22,12 +22,17 @@ $header = $_SESSION['paper_header'];
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,700|Material+Icons" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="./assets/css/material-kit.css?v=2.0.4" rel="stylesheet" />
+    <link href="./assets/css/sidebar.css" rel="stylesheet" />
     <link href="./assets/css/modern.css" rel="stylesheet" />
     <link href="./assets/css/portal.css" rel="stylesheet" />
     <link id="dark-mode-style" rel="stylesheet" href="./assets/css/dark-mode.css" />
     <style>
         .wrapper { padding-top: 20px; }
         .footer-text { text-align: center; margin-top: 20px; padding: 20px 0; }
+        body.dark-mode .main,
+        body.dark-mode .main-raised {
+            background: transparent;
+        }
         #question-modal {
             position: fixed;
             top: 0;
