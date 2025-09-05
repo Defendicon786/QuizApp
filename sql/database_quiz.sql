@@ -48,6 +48,24 @@ CREATE TABLE `chapters` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `paper_users`
+--
+
+DROP TABLE IF EXISTS `paper_users`;
+CREATE TABLE `paper_users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL UNIQUE,
+  `password` varchar(255) NOT NULL,
+  `logo` varchar(255) DEFAULT NULL,
+  `header` varchar(255) DEFAULT NULL,
+  `activated_on` date DEFAULT NULL,
+  `expires_on` date DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
 -- Dumping data for table `chapters`
 --
 
