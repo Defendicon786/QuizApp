@@ -102,23 +102,29 @@ if ($conn) {
     $conn->close();
 }
 
-$html = '<div style="text-align:center;">';
-if ($logo) $html .= '<img src="'.htmlspecialchars($logo).'" height="80"><br>';
+$html = '<table width="100%"><tr>';
+if ($logo) {
+    $html .= '<td style="width:80px"><img src="'.htmlspecialchars($logo).'" height="60"></td>';
+} else {
+    $html .= '<td></td>';
+}
+$html .= '<td style="text-align:center;">';
 $html .= '<h2>'.htmlspecialchars($header).'</h2>';
 $html .= '<h3>'.htmlspecialchars($paperName).'</h3>';
 if ($paperDate) $html .= '<div>Date: '.htmlspecialchars($paperDate).'</div>';
-$html .= '</div>';
+$html .= '</td></tr></table>';
 
 foreach ($sections as $title => $questions) {
     if (count($questions) === 0) continue;
     $html .= '<h4>'.htmlspecialchars($title).'</h4><ol>';
     foreach ($questions as $q) {
         if ($title === 'MCQs') {
-            $html .= '<li>'.htmlspecialchars($q['question']).'<br>';
-            $html .= 'A. '.htmlspecialchars($q['optiona']).'<br>';
-            $html .= 'B. '.htmlspecialchars($q['optionb']).'<br>';
-            $html .= 'C. '.htmlspecialchars($q['optionc']).'<br>';
-            $html .= 'D. '.htmlspecialchars($q['optiond']).'</li>';
+            $html .= '<li>'.htmlspecialchars($q['question']).'<ol type="A">';
+            $html .= '<li>'.htmlspecialchars($q['optiona']).'</li>';
+            $html .= '<li>'.htmlspecialchars($q['optionb']).'</li>';
+            $html .= '<li>'.htmlspecialchars($q['optionc']).'</li>';
+            $html .= '<li>'.htmlspecialchars($q['optiond']).'</li>';
+            $html .= '</ol></li>';
         } else {
             $html .= '<li>'.htmlspecialchars($q['question']).'</li>';
         }
@@ -138,13 +144,12 @@ if ($useMpdf) {
     $pdf->SetFont('Helvetica', '', 12);
     if ($logo) {
         @ $pdf->Image($logo, 10, 10, 30);
-        $pdf->Ln(20);
     }
     $pdf->SetFont('Helvetica', 'B', 14);
     $pdf->Cell(0, 10, $header, 0, 1, 'C');
-    $pdf->Cell(0, 10, $paperName, 0, 1, 'C');
+    $pdf->SetFont('Helvetica', '', 12);
+    $pdf->Cell(0, 8, $paperName, 0, 1, 'C');
     if ($paperDate) {
-        $pdf->SetFont('Helvetica', '', 12);
         $pdf->Cell(0, 8, 'Date: ' . $paperDate, 0, 1, 'C');
     }
     $pdf->Ln(5);
@@ -155,11 +160,19 @@ if ($useMpdf) {
         $pdf->SetFont('Helvetica', '', 11);
         $i = 1;
         foreach ($questions as $q) {
-            $text = $i . '. ' . $q['question'];
             if ($title === 'MCQs') {
-                $text .= "\nA. " . $q['optiona'] . "\nB. " . $q['optionb'] . "\nC. " . $q['optionc'] . "\nD. " . $q['optiond'];
+                $pdf->MultiCell(0, 6, $i . '. ' . $q['question']);
+                $pdf->Cell(5);
+                $pdf->MultiCell(0, 6, 'A. ' . $q['optiona']);
+                $pdf->Cell(5);
+                $pdf->MultiCell(0, 6, 'B. ' . $q['optionb']);
+                $pdf->Cell(5);
+                $pdf->MultiCell(0, 6, 'C. ' . $q['optionc']);
+                $pdf->Cell(5);
+                $pdf->MultiCell(0, 6, 'D. ' . $q['optiond']);
+            } else {
+                $pdf->MultiCell(0, 6, $i . '. ' . $q['question']);
             }
-            $pdf->MultiCell(0, 6, $text);
             $pdf->Ln(1);
             $i++;
         }
