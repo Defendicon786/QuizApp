@@ -102,13 +102,26 @@ if ($conn) {
     $conn->close();
 }
 
-$html = '<table width="100%"><tr>';
+$styles = '<style>
+    body { font-family: sans-serif; font-size: 12pt; }
+    table.header { width:100%; margin-bottom: 10px; }
+    table.header td { text-align:center; }
+    table.header td.logo-cell { width:80px; text-align:left; }
+    .section-title { font-weight:bold; margin-top:15px; }
+    ol.questions { margin:0 0 10px 0; padding-left:20px; }
+    ol.mcq-options { list-style-type: upper-alpha; margin-top:5px; padding-left:15px; }
+    ol.mcq-options li { margin-bottom:4px; }
+    ol.questions > li { margin-bottom:8px; }
+</style>';
+
+$html = $styles;
+$html .= '<table class="header"><tr>';
 if ($logo) {
-    $html .= '<td style="width:80px"><img src="'.htmlspecialchars($logo).'" height="60"></td>';
+    $html .= '<td class="logo-cell"><img src="'.htmlspecialchars($logo).'" height="60"></td>';
 } else {
-    $html .= '<td></td>';
+    $html .= '<td class="logo-cell"></td>';
 }
-$html .= '<td style="text-align:center;">';
+$html .= '<td>'; // center cell
 $html .= '<h2>'.htmlspecialchars($header).'</h2>';
 $html .= '<h3>'.htmlspecialchars($paperName).'</h3>';
 if ($paperDate) $html .= '<div>Date: '.htmlspecialchars($paperDate).'</div>';
@@ -116,10 +129,10 @@ $html .= '</td></tr></table>';
 
 foreach ($sections as $title => $questions) {
     if (count($questions) === 0) continue;
-    $html .= '<h4>'.htmlspecialchars($title).'</h4><ol>';
+    $html .= '<div class="section-title">'.htmlspecialchars($title).'</div><ol class="questions">';
     foreach ($questions as $q) {
         if ($title === 'MCQs') {
-            $html .= '<li>'.htmlspecialchars($q['question']).'<ol type="A">';
+            $html .= '<li>'.htmlspecialchars($q['question']).'<ol class="mcq-options">';
             $html .= '<li>'.htmlspecialchars($q['optiona']).'</li>';
             $html .= '<li>'.htmlspecialchars($q['optionb']).'</li>';
             $html .= '<li>'.htmlspecialchars($q['optionc']).'</li>';
