@@ -9,8 +9,11 @@ $useMpdf = false;
 $vendorAutoload = __DIR__ . '/vendor/autoload.php';
 if (file_exists($vendorAutoload)) {
     require_once $vendorAutoload;
-    $useMpdf = true;
-} else {
+    if (class_exists('\\Mpdf\\Mpdf')) {
+        $useMpdf = true;
+    }
+}
+if (!$useMpdf) {
     require_once __DIR__ . '/lib/fpdf.php';
 }
 
