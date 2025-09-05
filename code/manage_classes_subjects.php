@@ -1057,12 +1057,12 @@ $stmt->close();
                                                     <option value="">Select Subject</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3 col-lg-2">
                                                 <select class="form-control" name="chapter_id" id="add-topic-chapter" required aria-label="Select chapter" title="Select chapter">
                                                     <option value="">Select Chapter</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3 col-lg-4">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" name="topic_name" placeholder="Enter topic name" required>
                                                     <div class="input-group-append">
