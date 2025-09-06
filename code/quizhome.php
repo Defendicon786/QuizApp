@@ -35,7 +35,7 @@ if (isset($_SESSION['studentloggedin']) && $_SESSION['studentloggedin'] === true
 
     if ($class_id && $rollnumber) {
         $quiz_sql = "SELECT quizid FROM quizconfig
-                     WHERE endtime >= NOW()
+                     WHERE starttime <= NOW() AND endtime >= NOW()
                        AND class_id = ?
                        AND (section IS NULL OR LOWER(section) = LOWER(?))
                        AND (
@@ -43,7 +43,7 @@ if (isset($_SESSION['studentloggedin']) && $_SESSION['studentloggedin'] === true
                            WHERE qr.quizid = quizconfig.quizid
                              AND qr.rollnumber = ?
                        ) < attempts
-                     LIMIT 1";
+                    LIMIT 1";
         $stmt_quiz = $conn->prepare($quiz_sql);
         $section_param = $section ? $section : '';
         $stmt_quiz->bind_param('isi', $class_id, $section_param, $rollnumber);
