@@ -2,7 +2,8 @@
 $logout = isset($_SESSION['studentloggedin']) ? 'studentlogout.php' : 'instructorlogout.php';
 
 // Determine where the "Take Quiz" link should point for students
-$quiz_link = 'quizhome.php';
+// Default to student home so users stay on the same page when no quiz is active
+$quiz_link = 'studenthome.php';
 if (isset($_SESSION['studentloggedin']) && $_SESSION['studentloggedin'] === true) {
     // Check if an active quiz is available for the logged-in student
     include_once __DIR__ . '/../database.php';

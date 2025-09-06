@@ -146,6 +146,10 @@
     <?php include './includes/header.php'; ?>
     <main class="content">
       <h1>Welcome to the Student Portal</h1>
+      <?php if (isset($_SESSION['no_quiz_message'])): ?>
+        <p class="upcoming-quiz"><?php echo htmlspecialchars($_SESSION['no_quiz_message']); ?></p>
+        <?php unset($_SESSION['no_quiz_message']); ?>
+      <?php endif; ?>
       <?php if ($upcoming_quiz): ?>
         <p class="upcoming-quiz">Upcoming quiz: <strong><?php echo htmlspecialchars($upcoming_quiz['quizname']); ?></strong> on <?php echo htmlspecialchars($upcoming_quiz['starttime']); ?></p>
       <?php else: ?>
